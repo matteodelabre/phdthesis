@@ -27,7 +27,7 @@
 \hypersetup{colorlinks=true,allcolors=black}
 \RequirePackage{hypcap}
 
-\renewcommand{\figureautorefname}{fig.}
+\renewcommand{\figureautorefname}{figure}
 
 % Typographie
 

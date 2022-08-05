@@ -39,7 +39,8 @@ Pour simplifier, lorsque \(v\) doit s’associer à une branche de \(S\), il est
 \end{definition}
 
 \begin{figure}[htb]
-     \centering
+    \capstart
+    \centering
     \input{fig/01-invalid-reconciliation}
     \caption{
         Deux réconciliations, \(\rec_1\) (valide) et \(\rec_2\) (invalide), entre deux phylogénies \(T\) et \(S\).
@@ -49,27 +50,12 @@ Pour simplifier, lorsque \(v\) doit s’associer à une branche de \(S\), il est
     \label{figure:invalid-rec}
 \end{figure}
 
-\section{Modèles d’évolution}
+Dans certaines hiérarchies évolutives, les unités dépendantes sont capables de migrer de leur hôte vers un autre hôte coexistant mais séparé.
+Par exemple, en particulier chez les procaryotes, les gènes peuvent subir un transfert horizontal d’une espèce à une autre.
+Lorsqu’un changement d’hôte se produit le long d’une branche \((v, w) \in \tedges(T)\), l’espèce \(\rec(w)\) à laquelle se rapporte la terminaison de la branche est \emph{séparée} de l’espèce \(\rec(v)\) associée à l’origine.
+Une réconciliation qui ne contient pas de tel changement d’hôte est dite \emph{stricte}, car alors l’évolution de l’unité dépendante suit strictement celle de son hôte.
 
-Pour mesurer la plausibilité d’une réconciliation, il est nécessaire de poser un modèle d’évolution qui permette de l’interpréter d’un point de vue biologique.
-Un tel modèle spécifie l’ensemble des événements qui peuvent affecter, conjointement ou séparément, l’évolution des unités dépendantes et de leurs hôtes.
-Sous l’hypothèse d’un certain modèle, deux méthodes coexistent pour évaluer la plausibilité d’une réconciliation.
-
-Dans la méthode du \emph{maximum de parcimonie}, chaque réconciliation est associée à une valeur reflétant le minimum d’événements nécessaires pour l’interpréter dans le modèle choisi.
-L’objectif est alors de rechercher les réconciliations minimisant cette valeur, c’est-à-dire les plus parcimonieuses.
-Ces réconciliations ne reflètent pas l’histoire complète des unités étudiées, puisque l’évolution emprunte rarement le chemin le plus court.
-En revanche, la méthode de parcimonie a l’avantage de sélectionner des réconciliations permettant d’expliquer les données observées sans ajouter d’hypothèses supplémentaires.
-
-Dans la méthode du \emph{maximum de vraisemblance}, une probabilité est attribuée à chaque événement du modèle.
-\tk{Préciser et sourcer}
-
-\subsection{Dépendance stricte}
-
-Les premiers modèles de réconciliation à avoir été développés~\cite{Goodman1979FittingGeneLineage,Page1994MapsTreesCladistic} supposent que les unités dépendantes ne migrent pas d’hôte en hôte (excluant en particulier la possibilité de transferts horizontaux de gènes), et qu’elles suivent donc \emph{strictement} l’évolution de leur hôte.
-Cette contrainte permet de réduire l’espace des réconciliations envisageables.
-En effet, dans une réconciliation \(\rec\) qui respecte cette hypothèse, tous les descendants d’un embranchement \(v\) de \(T\) doivent être associés à des descendants de \(\rec(v)\).
-
-\begin{definition}[Réconciliation stricte, réconciliation libre]\label{definition:rec-strict}
+\begin{definition}[Réconciliation stricte ou libre]\label{definition:rec-strict}
     Une réconciliation \(\rec\) de \(T\) avec \(S\) est dite \emph{stricte} si toutes les paires
     \((v, w) \in \tnodes(T)^2\) sont telles que si \(v \tancs w\) alors \(\rec(v) \tancs \rec(w)\).
     Sinon, \(\rec\) est dite \emph{libre}.
@@ -77,6 +63,22 @@ En effet, dans une réconciliation \(\rec\) qui respecte cette hypothèse, tous 
 \begin{remark}
     Toutes les réconciliations strictes sont valides.
 \end{remark}
+
+Dans la \autoref{figure:invalid-rec}, la réconciliation \(\rec_1\) est une réconciliation stricte tandis que \(\rec_2\) est une réconciliation libre mais invalide.
+La réconciliation \(\rec_3\) de la \autoref{figure:free-rec} est libre et valide.
+
+\begin{figure}[htb]
+    \capstart
+    \centering
+    \input{fig/01-free-reconciliation}
+    \caption{
+        Une réconciliation libre et valide entre deux phylogénies \(T\) et \(S\).
+        Un changement d’hôte a lieu entre l’embranchement qui précède la feuille \emph{3} et la feuille \emph{3} dans \(T\).
+    }
+    \label{figure:free-rec}
+\end{figure}
+
+Comme le suggère le lemme suivant, l’espace des réconciliations strictes est considérablement plus restreint que l’espace général des réconciliations.
 
 \begin{lemma}
     Si \(\rec\) est une réconciliation stricte de \(T\) avec \(S\) alors, pour tout embranchement \(v \in \tinner(T)\),
@@ -91,9 +93,25 @@ En effet, dans une réconciliation \(\rec\) qui respecte cette hypothèse, tous 
     Donc \(\rec\) n’est pas stricte.
 \end{proof}
 
+\section{Modèles d’évolution gène--espèce}
+
+Pour mesurer la plausibilité d’une réconciliation, il est nécessaire de poser un modèle d’évolution qui permette de l’interpréter d’un point de vue biologique.
+Un tel modèle spécifie l’ensemble des événements qui peuvent affecter, conjointement ou séparément, l’évolution des unités dépendantes et de leurs hôtes.
+Sous l’hypothèse d’un certain modèle, deux catégories de méthodes coexistent pour évaluer la plausibilité d’une réconciliation.
+
+Dans les méthodes de \emph{parcimonie}, chaque réconciliation est associée à une valeur reflétant le minimum d’événements nécessaires pour l’interpréter dans le modèle choisi.
+L’objectif est alors de rechercher les réconciliations minimisant cette valeur, c’est-à-dire les plus parcimonieuses.
+Ces réconciliations ne reflètent pas l’histoire complète des unités étudiées, puisque l’évolution emprunte rarement le chemin le plus court.
+En revanche, la méthode de parcimonie a l’avantage de sélectionner des réconciliations permettant d’expliquer les données observées sans ajouter d’hypothèses supplémentaires.
+
+Dans les méthodes \emph{probabilistes}, une probabilité est attribuée à chaque événement du modèle.
+\tk{Préciser et sourcer}
+
 Dans la suite nous présentons les principaux modèles d’évolution stricte gènes--espèces.
 
-\paragraph{Modèle duplication--perte (DL)~\cite{Goodman1979FittingGeneLineage,Page1994MapsTreesCladistic}}
+\paragraph{Modèle duplication--perte (DL)}
+
+\cite{Goodman1979FittingGeneLineage,Page1994MapsTreesCladistic}
 Dans le modèle DL, les espèces n’évoluent que par des spéciations, et les gènes peuvent également diverger par duplication à l’intérieur de leur espèce, ou encore être perdus.
 Une réconciliation stricte \(\rec\) s’interprète sous le modèle~DL comme suit.
 Pour un embranchement \(v \in \tinner(T)\):
@@ -115,20 +133,21 @@ Pour un embranchement \(v \in \tinner(T)\):
 
 
 \paragraph{Modèle duplication--perte--coalescence (DLC)}
+
 Tri incomplet de lignées (ILS)
 \cite[p. 71]{Page1994MapsTreesCladistic}
 \cite{Rasmussen2012UnifiedModelingGene}
 \cite{Wu2013MostParsimoniousReconciliation}
 
-\subsection{Changement d’hôte}
-
-\textbf{Transferts (DTL)}
+\paragraph{Modèle duplication--transfert--perte (DTL)}
 
 \cite[pp. 68--70]{Page1994MapsTreesCladistic}
 \cite{Hallett2001EfficientAlgorithmsLateral}
 \cite{Hallett2004SimultaneousIdentificationDuplications}
 \cite{Tofigh2011SimultaneousIdentificationDuplications}
 \cite{Bansal2012EfficientAlgorithmsReconciliation}
+
+\paragraph{Modèle duplication--transfert--perte généralisé (DTLx)}
 
 \textbf{Espèces non-échantillonnées (DTLx)}
 \cite{Weiner2021ImprovedDuplicationTransfer}

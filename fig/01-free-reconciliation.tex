@@ -1,0 +1,17 @@
+\begin{tikzpicture}
+    \input{fig/01-shared-defs}
+
+    \coordinate (l0) at (0, -.6);
+    \coordinate (l1) at (0, 0);
+    \coordinate (l2) at (0, .9);
+    \coordinate (l3) at (0, 1.5);
+
+    \makeTtree{t3}{0,0}
+    \makeStree{s}{4.5,0}
+
+    \colorlet{s3}{green!60!black}
+
+    \path[associate=s3] (t3-l3-1) edge[bend left=10] node[above, midway] {\(\rec_3\)} (s-l2-1);
+    \path[associate=s3] (t3-l2-1) edge[bend left=10] (s-l2-1);
+    \path[associate=s3] (t3-l2-2) edge[bend right=5] (s-l2-1);
+\end{tikzpicture}

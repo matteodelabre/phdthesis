@@ -1,65 +1,10 @@
-\begin{tikzpicture}[
-    node distance=.35cm,
-    font={\small},
-    dependent unit/.style={
-        font={\small\itshape},
-    },
-    host unit/.style={
-        font={\small\bfseries},
-    },
-    associate edge/.style={
-        draw, thick, #1,
-        shorten <=4pt, shorten >=3pt,
-        ->, >=Latex,
-    },
-    overlaid associate edge/.style={
-        draw, line width=4pt, white,
-        shorten <=8pt, shorten >=16pt,
-        postaction={associate edge=#1},
-    },
-    associate/.style={every edge/.style={associate edge=#1}},
-    overlaid associate/.style={every edge/.style={overlaid associate edge=#1}},
-]
+\begin{tikzpicture}
+    \input{fig/01-shared-defs}
+
     \coordinate (l0) at (0, -.6);
     \coordinate (l1) at (0, 0);
     \coordinate (l2) at (0, .9);
     \coordinate (l3) at (0, 1.5);
-
-    \newcommand{\makeTtree}[2]{
-        \node[dependent unit] (#1-l1-1) at ($(l1)+(#2)$) {\!1};
-        \node[dependent unit, right=of #1-l1-1] (#1-l1-2) {2};
-        \node[dependent unit, right=of #1-l1-2] (#1-l1-3) {\!1};
-        \node[dependent unit, right=of #1-l1-3] (#1-l1-4) {3};
-    
-        \coordinate (#1-l1-m12) at ($(#1-l1-1)!.5!(#1-l1-2)$);
-        \coordinate (#1-l1-m23) at ($(#1-l1-2)!.5!(#1-l1-3)$);
-        \coordinate (#1-l1-m34) at ($(#1-l1-3)!.5!(#1-l1-4)$);
-        \coordinate (#1-l2-1) at (l2-|#1-l1-m12);
-        \coordinate (#1-l2-2) at (l2-|#1-l1-m34);
-        \draw (#1-l1-1.north) -- (#1-l2-1) -- (#1-l1-2.north);
-        \draw (#1-l1-3.north) -- (#1-l2-2) -- (#1-l1-4.north);
-    
-        \coordinate (#1-l2-m12) at ($(#1-l2-1)!.5!(#1-l2-2)$);
-        \coordinate (#1-l3-1) at (l3-|#1-l2-m12);
-        \draw (#1-l2-1) -- (#1-l3-1) -- (#1-l2-2);
-
-        \node (#1-label) at (l0-|#1-l1-m23) {\(T\)};
-    }
-
-    \newcommand{\makeStree}[2]{
-        \node[host unit] (#1-l1-1) at ($(l1)+(#2)$) {1};
-        \node[host unit, right=of #1-l1-1] (#1-l1-2) {2};
-        \node[host unit, right=of #1-l1-2] (#1-l1-3) {3};
-
-        \coordinate (#1-l1-m12) at ($(#1-l1-1)!.5!(#1-l1-2)$);
-        \coordinate (#1-l2-1) at (l2-|#1-l1-m12);
-        \draw (#1-l1-1.north) -- (#1-l2-1) -- (#1-l1-2.north);
-
-        \coordinate (#1-l3-1) at (l3-|#1-l1-2);
-        \draw (#1-l2-1) -- (#1-l3-1) -- (#1-l1-3.north);
-
-        \node (#1-label) at (l0-|#1-l1-2) {\(S\)};
-    }
 
     \makeTtree{t1}{0,0}
     \makeTtree{t2}{8,0}
