@@ -1,0 +1,66 @@
+\chapter*{Introduction}
+
+% Phylogénétique, introduite par l’exemple de l’évolution des gènes
+% Exemples de motivations
+Les gènes sont les véhicules de l’hérédité chez les êtres vivants.
+Ils contribuent à définir leurs caractères et peuvent être transmis d’une génération à la suivante.
+Au fil du temps et au gré de divers événements, ils peuvent évoluer en différents allèles et être disséminés à travers plusieurs espèces.
+La phylogénétique vise à retracer l’histoire de l’évolution d’unités telles que les gènes, les cellules ou les espèces.
+Ces histoires sont des sources précieuses d’information pouvant permettre d’élucider les fonctions de gènes~\cite{Lynch2001ProbabilityPreservationNewly}, de caractériser l’évolution de tumeurs~\cite{Quinn2021SingleCellLineages} ou celle de pathogènes~\cite{Morel2020PhylogeneticAnalysisSars}.
+
+% Arbres phylogénétiques et événements
+Un \emph{arbre phylogénétique} représente une hypothèse d’histoire évolutive.
+Comme un arbre généalogique, un arbre phylogénétique est composé d’une suite d’embranchements et de branches le long desquelles s’écoule le temps jusqu’à rejoindre les représentants contemporains.
+Chaque embranchement de l’arbre correspond à la divergence putative d’un ancêtre en plusieurs descendants libres d’évoluer indépendamment.
+Les causes possibles de telles divergences diffèrent selon les types d’unités étudiés; par exemple, les gènes se dupliquent, les cellules se divisent et les espèces subissent des spéciations.
+
+% Problème d’évolution hiérarchique
+L’évolution d’un gène ne dépend pas seulement des événements qui l’affectent directement, mais également de l’évolution de son espèce hôte.
+La spéciation d’une espèce cause en effet l’émergence d’exemplaires indépendants de tous ses gènes, un dans chaque nouvelle espèce.
+Cette relation est asymétrique --- la duplication d’un gène ne pouvant pas causer une spéciation --- et forme ainsi une hiérarchie évolutive.
+Des relations similaires se retrouvent à d’autres échelles, par exemple entre les domaines protéiques et leur protéine ou entre les espèces et leur habitat\footnote{Ou bien, plus loin de la biologie, entre les fragments de code et leur programme. Un tel fragment peut être copié-collé à l’intérieur d’un programme, et une fourche (\emph{fork}) peut avoir lieu dans le programme hôte. Dans les deux cas, des copies indépendantes de fragments apparaissent et continuent d’évoluer indépendamment par la suite.}.
+
+% Réconciliation
+Pour étudier ces hiérarchies évolutives, \citeauthor{Goodman1979FittingGeneLineage} ont introduit en~\citeyear{Goodman1979FittingGeneLineage} la méthode dite de \emph{réconciliation}~\cite{Goodman1979FittingGeneLineage}.
+En s’appuyant sur les différences et similarités topologiques entre la phylogénie d’une famille de gènes et celle de ses espèces hôtes, la réconciliation permet d’établir à laquelle des deux se rapporte chaque divergence.
+Le résultat est un arbre réconcilié, synthèse des deux arbres, dans lequel chaque embranchement de l’arbre de gènes est annoté par le type d’événement, duplication ou spéciation, l’ayant engendré.
+
+---\!---\!---\!---\!---
+
+% Problème d’évolution segmentale
+(à récrire) Bien qu’elles soient en mesure de capturer la dépendance évolutive entre les gènes et les espèces, ces méthodes supposent que les familles de gènes évoluent indépendamment les unes des autres.
+Cette hypothèse est invalidée en présence de phénomène de \emph{synténie}, pendant lesquels des blocs de gènes évoluent conjointement.
+Ce phénomène introduit un troisième niveau intermédiaire, formant une hiérarchie évolutive gène--synténie--espèce.
+La question principale de mon projet de recherche consiste à évaluer la possibilité d’étendre la réconciliation à des contextes d’évolution à trois niveaux.
+Il s’agit notamment de développer des modèles à l’équilibre entre puissance de modélisation et complexité algorithmique.
+En parallèle, nous nous demanderons dans quelle mesure cette généralisation peut permettre de tirer de nouvelles conclusions sur l’évolution de certains systèmes biologiques, en particulier les systèmes \mbox{\textsc{Crispr}-Cas}.
+
+---\!---\!---\!---\!---
+
+% Plan du rapport
+Les deux premières sections de ce rapport sont consacrées à une revue de la littérature pertinente.
+Dans la première section, une synthèse de l’état de l’art des méthodes de réconciliation est présentée.
+La deuxième section expose les généralisations existantes de la réconciliation pour y intégrer un troisième niveau, ainsi que leurs principales limites.
+Enfin, la troisième section expose les axes principaux du projet de recherche, fait état du travail déjà accompli, et dresse un échéancier prévisionnel.
+
+%%%%%%%%%%
+
+%Le concept de gène a été postulé dès~1865 par Mendel~\cite{Bateson1902MendelsPrinciplesHeredity}, mais sa compréhension s’est considérablement développée au cours du siècle suivant, notamment grâce aux découvertes en biologie moléculaire.
+%La seconde moitié du XX\textsuperscript{e} siècle a en effet vu l’élucidation de la structure et des fonctions de l’acide désoxyribonucléique (ADN).
+%Cette longue molécule, présente dans le noyau de chaque cellule, est porteuse de l’information du génome, qui se manifeste dans la séquence de nucléotides qui la composent.
+%Ces nucléotides se déclinent en quatre variétés qui diffèrent par leur base azotée : l’adénine~(A), la cytosine~(C), la guanine~(G) et la thymine~(T).
+%Chaque gène est caractérisé par un fragment unique de cette séquence, qui peut être vue comme une chaîne de caractères choisis parmi quatre lettres : A, C, G et T.
+%Avec le temps, cette séquence est soumise à des mutations à différentes échelles, qui sont filtrées par la sélection naturelle, et contribuent à l’évolution des gènes en plusieurs versions.
+
+%Pour ce faire, il peut être pertinent d’observer les similitudes et différences dans les caractères des espèces, dans les séquences d’ADN associées
+%Pour reconstruire ces histoires, nous nous appuyons sur diverses sources de données telles que les caractères des espèces ou les séquences ADN associées à des objets présents ou fossiles.
+%Le résultat est présenté sous la forme d’\emph{arbres phylogénétiques}, qui peuvent être comparés à des arbres généalogiques pour les objets étudiés.
+%Les feuilles de ces arbres correspondent aux objets observés, et les autres nœuds à des ancêtres.
+
+%Toutefois, contrairement aux études généalogiques, bien souvent en phylogénétique seules des informations sur des contemporains peuvent être obtenues.
+%Pour reconstruire des arbres, la technique consiste à fixer une façon d’évaluer la distance qui sépare deux éléments.
+%Une hypothèse de \emph{parcimonie} est ensuite faite, selon laquelle les éléments les moins distants sont supposés partager un ancêtre plus récent.
+%Le défi restant consiste alors à trouver un arbre qui reflète cette hypothèse, citons à cet effet les algorithmes de \emph{neighbor joining}, UPGMA, …~\cite{Semple2003Phylogenetics}.
+
+%Pour établir les liens entre les espèces, la phylogénétique s’est initialement fondée sur l’observation manuelle de leurs différences et similitudes morphologiques.
+%Depuis la seconde moitié du XX\textsuperscript{e}~siècle, elle bénéficie de l’apport de nouvelles sources de données — les séquences protéiques et géniques — et de la contribution des sciences mathématiques, statistiques et informatiques pour le traiter ces données.
