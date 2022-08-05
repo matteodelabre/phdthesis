@@ -41,6 +41,10 @@
 %% Sectionnage
 \renewcommand{\paragraph}[1]{\noindent\textit{#1.}\enspace}
 
+% Révision
+
+\newcommand{\tk}[1]{\textcolor{red}{\textsc{tk:}\enspace#1}}
+
 % Mathématiques
 
 \RequirePackage{amsmath}

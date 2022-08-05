@@ -1,6 +1,6 @@
 %! TeX root = ./main.tex
 % vim: set spelllang=fr:
-\chapter{Réconciliation}
+\chapter{Réconciliation bilatérale}
 
 L’évolution de certaines unités, que nous appellerons \emph{dépendantes}, peut être liée à celle d’un hôte auquel elles sont attachées, formant une hiérarchie évolutive.
 Pour étudier l’histoire de telles hiérarchies, l’arbre phylogénétique de l’unité dépendante peut être complété en déterminant, pour chacun de ses embranchements, s’il a pour origine un événement affectant l’unité dépendante ou l’hôte.
@@ -42,26 +42,26 @@ Pour simplifier, lorsque \(v\) doit s’associer à une branche de \(S\), il est
      \centering
     \input{fig/01-invalid-reconciliation}
     \caption{
-        Deux réconciliations, \(\rec_1\) (valide) et \(\rec_2\) (invalide), entre les phylogénies \(T\) et \(S\).
+        Deux réconciliations, \(\rec_1\) (valide) et \(\rec_2\) (invalide), entre deux phylogénies \(T\) et \(S\).
         Les associations entre embranchements sont représentées par des flèches.
         Pour alléger la figure, les associations entre feuilles sont implicites entre les feuilles portant le même nom.
     }
     \label{figure:invalid-rec}
 \end{figure}
 
-Pour évaluer la plausibilité d’une réconciliation, il est nécessaire de poser un modèle d’évolution qui permette de l’interpréter d’un point de vue biologique.
-
 \section{Modèles d’évolution}
 
-Un modèle d’évolution pour la réconciliation est un ensemble d’hypothèses sur la manière dont les unités dépendantes et les hôtes interagissent durant l’évolution.
-Un modèle spécifie en particulier l’ensemble des événements qui peuvent affecter l’évolution de l’une ou l’autre, ou des deux, unités.
-Une fois un modèle choisi, la plausibilité d’une réconciliation peut être évaluée par deux méthodes principales :
-\begin{itemize}
-    \item la méthode du maximum de parcimonie
-    \item le maximum de vraisemblance
-\end{itemize}
+Pour mesurer la plausibilité d’une réconciliation, il est nécessaire de poser un modèle d’évolution qui permette de l’interpréter d’un point de vue biologique.
+Un tel modèle spécifie l’ensemble des événements qui peuvent affecter, conjointement ou séparément, l’évolution des unités dépendantes et de leurs hôtes.
+Sous l’hypothèse d’un certain modèle, deux méthodes coexistent pour évaluer la plausibilité d’une réconciliation.
 
-L’hypothèse principale, partagée par la majorité des modèles, est celle du \emph{maximum de codivergence}.
+Dans la méthode du \emph{maximum de parcimonie}, chaque réconciliation est associée à une valeur reflétant le minimum d’événements nécessaires pour l’interpréter dans le modèle choisi.
+L’objectif est alors de rechercher les réconciliations minimisant cette valeur, c’est-à-dire les plus parcimonieuses.
+Ces réconciliations ne reflètent pas l’histoire complète des unités étudiées, puisque l’évolution emprunte rarement le chemin le plus court.
+En revanche, la méthode de parcimonie a l’avantage de sélectionner des réconciliations permettant d’expliquer les données observées sans ajouter d’hypothèses supplémentaires.
+
+Dans la méthode du \emph{maximum de vraisemblance}, une probabilité est attribuée à chaque événement du modèle.
+\tk{Préciser et sourcer}
 
 \subsection{Dépendance stricte}
 
@@ -70,9 +70,9 @@ Cette contrainte permet de réduire l’espace des réconciliations envisageable
 En effet, dans une réconciliation \(\rec\) qui respecte cette hypothèse, tous les descendants d’un embranchement \(v\) de \(T\) doivent être associés à des descendants de \(\rec(v)\).
 
 \begin{definition}[Réconciliation stricte, réconciliation libre]\label{definition:rec-strict}
-    Une réconciliation \(\rec\) de \(T\) avec \(S\) est dite \emph{stricte} si, pour toute paire
-    \((v, w) \in \tnodes(T)^2\) avec \(v \tancs w\), on a \(\rec(v) \tancs \rec(w)\).
-    Elle est dite \emph{libre} sinon.
+    Une réconciliation \(\rec\) de \(T\) avec \(S\) est dite \emph{stricte} si toutes les paires
+    \((v, w) \in \tnodes(T)^2\) sont telles que si \(v \tancs w\) alors \(\rec(v) \tancs \rec(w)\).
+    Sinon, \(\rec\) est dite \emph{libre}.
 \end{definition}
 \begin{remark}
     Toutes les réconciliations strictes sont valides.
@@ -86,7 +86,7 @@ En effet, dans une réconciliation \(\rec\) qui respecte cette hypothèse, tous 
 \begin{proof}
     Soit \(\rec\) une réconciliation de \(T\) avec \(S\) et supposons qu’un embranchement \(v \in \tinner(T)\) soit tel que
     \(\rec(v) \nottancs \lca\left\{ \llmap(l) \suchthat l \in \tleavs(\subtree{T}{v}) \right\}\).
-    Il existe donc un \(w \in \tleavs(\subtree{T}{v})\) tel que \(\rec(v) \nottancs \llmap(w)\)
+    Il existe donc \(w \in \tleavs(\subtree{T}{v})\) tel que \(\rec(v) \nottancs \llmap(w)\)
     et donc tel que \(\rec(v) \not\tancs \rec(w)\).
     Donc \(\rec\) n’est pas stricte.
 \end{proof}
@@ -98,14 +98,13 @@ Dans le modèle DL, les espèces n’évoluent que par des spéciations, et les 
 Une réconciliation stricte \(\rec\) s’interprète sous le modèle~DL comme suit.
 Pour un embranchement \(v \in \tinner(T)\):
 \begin{itemize}
-    \item \(v\) correspond à un événement de spéciation seulement lorsque \(\rec(v)\) est un embranchement et si \(\rec(v\lchild) \tdesc \rec(v)\lchild\) et \(\rec(v\rchild) \tdesc \rec(v)\rchild\) ou si \(\rec(v\lchild) \tdesc \rec(v)\rchild\) et \(\rec(v\rchild) \tdesc \rec(v)\lchild\);
-    \item si \(v\) correspond à un événement de spéciation, alors chaque embranchement intermédiaire sur les chemins \(\rec(v) \tpath \rec(v\lchild)\) et \(\rec(v) \tpath \rec(v\rchild)\) implique un événement de perte;
-    \item si \(v\) correspond à un événement de duplication, alors chaque embranchement sur les chemins \(\rec(v) \tpath \rec(v\lchild)\) et \(\rec(v) \tpath \rec(v\rchild)\), incluant l’embranchement initial, implique un événement de perte.
+    \item \(v\) correspond à un événement de spéciation seulement lorsque \(\rec(v)\) est un embranchement de \(S\) et si \(\rec(v\lchild) \tdesc \rec(v)\lchild\) et \(\rec(v\rchild) \tdesc \rec(v)\rchild\) ou si \(\rec(v\lchild) \tdesc \rec(v)\rchild\) et \(\rec(v\rchild) \tdesc \rec(v)\lchild\);
+    \item si \(v\) correspond à un événement de spéciation, alors chaque embranchement sur les chemins \(\rec(v) \tpath \rec(v\lchild)\) et \(\rec(v) \tpath \rec(v\rchild)\), excluant \(\rec(v)\), \(\rec(v\lchild)\) et \(\rec(v\rchild)\), implique un événement de spéciation suivi d’une perte;
+    \item si \(v\) correspond à un événement de duplication, alors chaque embranchement sur les chemins \(\rec(v) \tpath \rec(v\lchild)\) et \(\rec(v) \tpath \rec(v\rchild)\), incluant \(\rec(v)\) mais excluant \(\rec(v\lchild)\) et \(\rec(v\rchild)\), implique un événement de perte.
 \end{itemize}
 
 \cite{Chauve2009NewPerspectivesGene}
 \cite{Gorecki2006DlsTreesModel}
-\cite{Ma2000GeneTreesSpecies}
 
 % figure : un arbre de gènes, un arbre d’espèces, réconciliations
 
@@ -114,8 +113,12 @@ Pour un embranchement \(v \in \tinner(T)\):
 
 \paragraph{Modèle duplication--régulation (DR)}
 
-\textbf{Tri incomplet de lignées (ILS)}
+
+\paragraph{Modèle duplication--perte--coalescence (DLC)}
+Tri incomplet de lignées (ILS)
 \cite[p. 71]{Page1994MapsTreesCladistic}
+\cite{Rasmussen2012UnifiedModelingGene}
+\cite{Wu2013MostParsimoniousReconciliation}
 
 \subsection{Changement d’hôte}
 
@@ -138,6 +141,13 @@ Pour un embranchement \(v \in \tinner(T)\):
 
 La hiérarchie évolutive entre gènes et espèces rend difficile l’utilisation de l’arbre de gène pour estimer l’arbre d’espèces. La réconciliation peut cependant être utilisée pour remédier à ce problème.
 
+\cite{Ma2000GeneTreesSpecies}
+
 \paragraph{Correction de l’arbre de gènes}
 
 Phénomène de convergence évolutive peut brouiller l’inférence de l’arbre de gènes à partir de séquences nucléotidiques.
+
+probabiliste : \cite{Arvestad2004GeneTreeReconstruction}
+
+
+\tk{autres techniques/modèles non mentionnés, autres reviews}
