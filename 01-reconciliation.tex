@@ -13,21 +13,21 @@ La fonction d’un gène a en effet tendance à être mieux conservée parmi les
 Par ailleurs, les gènes orthologues renseignent directement sur l’arbre phylogénétique des espèces hôtes.
 Ainsi, l’arbre phylogénétique d’une famille de gènes tous orthologues donne une estimation de l’arbre des espèces hôtes.
 
-La méthode de \emph{réconciliation}, proposée par \citeauthor{Goodman1979FittingGeneLineage} en~\citeyear{Goodman1979FittingGeneLineage}~\cite{Goodman1979FittingGeneLineage}, puis formalisée par~\citeauthor{Page1994MapsTreesCladistic} en~\citeyear{Page1994MapsTreesCladistic}~\cite{Page1994MapsTreesCladistic}, offre un cadre permettant d’inférer le statut de chaque divergence dans l’arbre phylogénétique d’une unité dépendante.
+La méthode de \emph{réconciliation}, proposée par \citeauthor{Goodman1979FittingGeneLineage} en~\citeyear{Goodman1979FittingGeneLineage}~\cite{Goodman1979FittingGeneLineage}, puis formalisée par~\citeauthor{Page1994MapsTreesCladistic} en~\citeyear{Page1994MapsTreesCladistic}~\cite{Page1994MapsTreesCladistic}, fournit un cadre permettant d’inférer le statut de chaque divergence dans l’arbre phylogénétique d’une unité dépendante.
 Ce chapitre est consacré à la présentation de cette méthode.
 
 \section{Plongement d’arbres phylogénétiques}
 
 Chaque embranchement de l’arbre phylogénétique d’une unité dépendante est dû soit à sa divergence directe, soit à la divergence de son hôte.
 Dans une phylogénie à \(n\) embranchements, il peut ainsi exister jusqu’à \(2^n\) possibilités pour affecter chaque embranchement à son type.
-La topologie de la phylogénie des hôtes peut être utilisée comme un guide pour évaluer ces affectations et sélectionner les plus plausibles.
+La topologie de la phylogénie des hôtes peut toutefois constituer un guide pour limiter le nombre d’affectations à considérer et sélectionner efficacement les plus plausibles.
 
 Supposons que la phylogénie \(T\) d’une famille dépendante et celle de ses hôtes \(S\) soient connues.
 Chaque feuille de \(T\), correspondant à une unité dépendante actuelle, est associé à une feuille de \(S\), son hôte.
 Lorsque la divergence d’un hôte cause un embranchement \(v\) dans \(T\), ce dernier se rapporte à un embranchement correspondant dans~\(S\).
 Au contraire, si \(v\) se produit indépendamment de l’évolution de l’hôte, donc entre deux embranchements de \(S\), il se rapporte à une branche de~\(S\).
 Cette association de \(T\) avec \(S\) est appelée \emph{réconciliation}.
-Pour être valide, une réconciliation ne doit pas \enquote{remonter dans le temps}, c’est-à-dire qu’un descendant de \(v\) ne doit pas être associé à un ancêtre de l’associé de \(v\)~(voir~\autoref{figure:invalid-rec}).
+Pour être valide, une réconciliation ne doit pas \enquote{remonter dans le temps}, c’est-à-dire qu’un descendant de \(v\) ne doit pas être associé à un ancêtre de l’associé de \(v\)~(voir~\autoref{figure:valid-invalid-rec}).
 
 Formellement, une réconciliation est un plongement de \(T\) dans \(S\), au sens défini ci-après.
 Pour simplifier, lorsque \(v\) doit s’associer à une branche de \(S\), il est associé à sa terminaison.
@@ -47,11 +47,11 @@ Pour simplifier, lorsque \(v\) doit s’associer à une branche de \(S\), il est
         Les associations entre embranchements sont représentées par des flèches.
         Pour alléger la figure, les associations entre feuilles sont implicites entre les feuilles portant le même nom.
     }
-    \label{figure:invalid-rec}
+    \label{figure:valid-invalid-rec}
 \end{figure}
 
 Dans certaines hiérarchies évolutives, les unités dépendantes sont capables de migrer de leur hôte vers un autre hôte coexistant mais séparé.
-Par exemple, en particulier chez les procaryotes, les gènes peuvent subir un transfert horizontal d’une espèce à une autre.
+Par exemple, en particulier chez les procaryotes, les gènes peuvent subir des transferts horizontaux d’une espèce à une autre.
 Lorsqu’un changement d’hôte se produit le long d’une branche \((v, w) \in \tedges(T)\), l’espèce \(\rec(w)\) à laquelle se rapporte la terminaison de la branche est \emph{séparée} de l’espèce \(\rec(v)\) associée à l’origine.
 Une réconciliation qui ne contient pas de tel changement d’hôte est dite \emph{stricte}, car alors l’évolution de l’unité dépendante suit strictement celle de son hôte.
 
@@ -64,8 +64,8 @@ Une réconciliation qui ne contient pas de tel changement d’hôte est dite \em
     Toutes les réconciliations strictes sont valides.
 \end{remark}
 
-Dans la \autoref{figure:invalid-rec}, la réconciliation \(\rec_1\) est une réconciliation stricte tandis que \(\rec_2\) est une réconciliation libre mais invalide.
-La réconciliation \(\rec_3\) de la \autoref{figure:free-rec} est libre et valide.
+Dans la \autoref{figure:valid-invalid-rec}, la réconciliation \(\rec_1\) est une réconciliation stricte tandis que \(\rec_2\) est une réconciliation libre mais invalide.
+La réconciliation libre \(\rec_3\) de la \autoref{figure:free-rec} est valide.
 
 \begin{figure}[htb]
     \capstart
@@ -93,6 +93,11 @@ Comme le suggère le lemme suivant, l’espace des réconciliations strictes est
     Donc \(\rec\) n’est pas stricte.
 \end{proof}
 
+\begin{definition}
+    Soient \(T\) et \(S\) deux arbres phylogénétiques et \(\leq_S\) une datation de \(\tnodes(S)\).
+    \tk{À terminer}
+\end{definition}
+
 \section{Modèles d’évolution gène--espèce}
 
 Pour mesurer la plausibilité d’une réconciliation, il est nécessaire de poser un modèle d’évolution qui permette de l’interpréter d’un point de vue biologique.
@@ -110,9 +115,7 @@ Dans les méthodes \emph{probabilistes}, une probabilité est attribuée à chaq
 Dans la suite nous présentons les principaux modèles d’évolution stricte gènes--espèces.
 
 \paragraph{Modèle duplication--perte (DL)}
-
-\cite{Goodman1979FittingGeneLineage,Page1994MapsTreesCladistic}
-Dans le modèle DL, les espèces n’évoluent que par des spéciations, et les gènes peuvent également diverger par duplication à l’intérieur de leur espèce, ou encore être perdus.
+Dans le modèle DL, les espèces n’évoluent que par des spéciations, et les gènes peuvent également diverger par duplication à l’intérieur de leur espèce, ou encore être perdus~\cite{Goodman1979FittingGeneLineage,Page1994MapsTreesCladistic}.
 Une réconciliation stricte \(\rec\) s’interprète sous le modèle~DL comme suit.
 Pour un embranchement \(v \in \tinner(T)\):
 \begin{itemize}
@@ -120,6 +123,8 @@ Pour un embranchement \(v \in \tinner(T)\):
     \item si \(v\) correspond à un événement de spéciation, alors chaque embranchement sur les chemins \(\rec(v) \tpath \rec(v\lchild)\) et \(\rec(v) \tpath \rec(v\rchild)\), excluant \(\rec(v)\), \(\rec(v\lchild)\) et \(\rec(v\rchild)\), implique un événement de spéciation suivi d’une perte;
     \item si \(v\) correspond à un événement de duplication, alors chaque embranchement sur les chemins \(\rec(v) \tpath \rec(v\lchild)\) et \(\rec(v) \tpath \rec(v\rchild)\), incluant \(\rec(v)\) mais excluant \(\rec(v\lchild)\) et \(\rec(v\rchild)\), implique un événement de perte.
 \end{itemize}
+
+Ainsi, la réconciliation \(\rec_1\) de la \autoref{figure:valid-invalid-rec} peut s’interpréter sous le modèle DL comme suit.
 
 \cite{Chauve2009NewPerspectivesGene}
 \cite{Gorecki2006DlsTreesModel}

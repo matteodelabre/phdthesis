@@ -77,16 +77,25 @@
 \newcommand{\tleavs}{L}
 \newcommand{\tinner}{I}
 \newcommand{\tedges}{E}
+\newcommand{\lchild}{_\mathit{\ell}}
+\newcommand{\rchild}{_r}
+
 \newcommand{\tdesc}{\preceq}
 \newcommand{\nottdesc}{\mathrel{/\preceq}}
 \newcommand{\tdescneq}{\prec}
 \newcommand{\tancs}{\succeq}
 \newcommand{\nottancs}{\mathrel{\makebox[0pt]{\(\:\:\succeq\)}/}}
 \newcommand{\tancsneq}{\succ}
-\newcommand{\lchild}{_\mathit{\ell}}
-\newcommand{\rchild}{_r}
-\newcommand{\lca}{\mathrm{lca}}
+
+\newcommand{\tbefor}{\leq}
+\newcommand{\nottbefor}{\notleq}
+\newcommand{\tbeforneq}{<}
+\newcommand{\tafter}{\geq}
+\newcommand{\nottafter}{\notgeq}
+\newcommand{\tafterneq}{>}
+
 \newcommand{\subtree}[2]{#1\!\left[#2\right]}
+\newcommand{\lca}{\mathrm{lca}}
 \newcommand{\tpath}{\mathbin{\leadsto}}
 
 %%% Réconciliations

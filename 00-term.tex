@@ -3,28 +3,31 @@
 \chapter*{Notations}
 \addcontentsline{toc}{chapter}{Notations}
 
-(à faire)
+\tk{à faire}
 
 application étendant une autre
 
-arbres : nœuds, feuilles, ancêtre, descendant, enfant
-
-sauf mention contraire, arbres binaires et enracinés
-
-branches, embranchements, feuilles, origines, terminaisons
-
-chemins
-
-lca d’un ensemble
-
-\(\tnodes(T)\)
-
-\(\tleavs(T)\)
-
-\(v \tdesc w\), \(w \tancs v\)
-
-\(v, v\lchild, v\rchild\)
+arbres (binaires et enracinés)
 
 arbres phylogénétiques
-
 \(\llmap\)
+
+feuilles, embranchements, nœuds, branches, origine, terminaison
+\(\tnodes(T)\)
+\(\tleavs(T)\)
+\(v, v\lchild, v\rchild\)
+
+ancêtre, descendant (ordre partiel), nœuds séparés
+\(v \tdesc w\), \(w \tancs v\)
+
+sous-arbre
+\(\subtree{T}{v}\)
+
+datation (ordre total compatible avec l’ordre de la descendance)
+\(v \tbefor w\), \(w \tafter v\)
+
+chemins
+\(v \tpath w\)
+
+lca d’un ensemble de nœuds
+\(\lca\{v_1, v_2, ..., v_n\}\)
