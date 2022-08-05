@@ -1,7 +1,8 @@
+% vim: set ft=tex:
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{manuscrit}[2022-07-19 Manuscrit de thèse]
 
-\LoadClass[letterpaper, 11pt]{book}
+\LoadClass[letterpaper, oneside, 11pt]{book}
 
 % Format
 \RequirePackage{geometry}
