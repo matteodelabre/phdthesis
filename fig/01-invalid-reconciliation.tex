@@ -1,23 +1,35 @@
+%! TeX root = ../main.tex
+% vim: set spelllang=fr:
 \begin{tikzpicture}
     \input{fig/01-shared-defs}
 
-    \coordinate (l0) at (0, -.6);
-    \coordinate (l1) at (0, 0);
-    \coordinate (l2) at (0, .9);
-    \coordinate (l3) at (0, 1.5);
+    \graph[phylogenetic tree layout, nodes={font=\small\itshape}]{
+        ttree[name=lt]
+    };
+    \node at (0, -2.15) {\(T\)};
 
-    \makeTtree{t1}{0,0}
-    \makeTtree{t2}{8,0}
-    \makeStree{s}{4.5,0}
+    \begin{scope}[shift={(4,0)}]
+        \graph[phylogenetic tree layout, nodes={font=\small\bfseries}]{
+            stree[name=s]
+        };
+        \coordinate (labels) at (0, -2.15);
+        \node at (labels-|s l1s2) {\(S\)};
+    \end{scope}
 
-    \colorlet{s1}{blue!60!white}
-    \colorlet{s2}{red!80!white}
+    \begin{scope}[shift={(8,0)}]
+        \graph[phylogenetic tree layout, nodes={font=\small\itshape}]{
+            ttree[name=rt]
+        };
+        \node at (0, -2.15) {\(T\)};
+    \end{scope}
 
-    \path[associate=s1] (t1-l3-1) edge[bend left=10] node[above, midway] {\(\rec_1\)} (s-l3-1);
-    \path[associate=s1] (t1-l2-1) edge[bend left=15] (s-l2-1);
-    \path[overlaid associate=s1] (t1-l2-2) edge[out=0, in=180] (s-l3-1);
+    \path[associate=reccolor1] (lt l3s1) edge[bend left=10]
+        node[above, midway] {\(\rec_1\)} (s l3s1);
+    \path[associate=reccolor1] (lt l2s1) edge[bend left=15] (s l2s1);
+    \path[overlaid associate=reccolor1] (lt l2s2) edge[out=0, in=180] (s l3s1);
 
-    \path[overlaid associate=s2] (t2-l3-1) edge[bend left=10] (s-l2-1);
-    \path[overlaid associate=s2] (t2-l2-1) edge[bend left=10] (s-l2-1);
-    \path[overlaid associate=s2] (t2-l2-2) edge[out=170, in=0] node[above, midway, s2] {\(\rec_2\)} (s-l3-1);
+    \path[overlaid associate=reccolor2] (rt l3s1) edge[bend left=10] (s l2s1);
+    \path[overlaid associate=reccolor2] (rt l2s1) edge[bend left=10] (s l2s1);
+    \path[overlaid associate=reccolor2] (rt l2s2) edge[out=170, in=0]
+        node[above, midway, reccolor2] {\(\rec_2\)} (s l3s1);
 \end{tikzpicture}

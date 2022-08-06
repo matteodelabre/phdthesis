@@ -1,17 +1,23 @@
+%! TeX root = ../main.tex
+% vim: set spelllang=fr:
 \begin{tikzpicture}
     \input{fig/01-shared-defs}
 
-    \coordinate (l0) at (0, -.6);
-    \coordinate (l1) at (0, 0);
-    \coordinate (l2) at (0, .9);
-    \coordinate (l3) at (0, 1.5);
+    \graph[phylogenetic tree layout, nodes={font=\small\itshape}]{
+        ttree[name=t]
+    };
+    \node at (0, -2.15) {\(T\)};
 
-    \makeTtree{t3}{0,0}
-    \makeStree{s}{4.5,0}
+    \begin{scope}[shift={(4,0)}]
+        \graph[phylogenetic tree layout, nodes={font=\small\bfseries}]{
+            stree[name=s]
+        };
+        \coordinate (labels) at (0, -2.15);
+        \node at (labels-|s l1s2) {\(S\)};
+    \end{scope}
 
-    \colorlet{s3}{green!60!black}
-
-    \path[associate=s3] (t3-l3-1) edge[bend left=10] node[above, midway] {\(\rec_3\)} (s-l2-1);
-    \path[associate=s3] (t3-l2-1) edge[bend left=10] (s-l2-1);
-    \path[associate=s3] (t3-l2-2) edge[bend right=5] (s-l2-1);
+    \path[associate=reccolor3] (t l3s1) edge[bend left=10]
+        node[above, midway] {\(\rec_3\)} (s l2s1);
+    \path[associate=reccolor3] (t l2s1) edge[bend left=10] (s l2s1);
+    \path[associate=reccolor3] (t l2s2) edge[bend right=5] (s l2s1);
 \end{tikzpicture}

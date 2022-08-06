@@ -108,6 +108,15 @@
 \usetikzlibrary{positioning}
 \usetikzlibrary{calc}
 \usetikzlibrary{arrows.meta}
+\usetikzlibrary{graphs,graphdrawing}
+\usegdlibrary{trees,phylogenetics}
+
+\RequirePackage{luacode}
+% Disable edge bending in rectangular phylogenetic layout
+\begin{luacode*}
+    local maeusle = require 'pgf.gd.phylogenetics.Maeusle2012'
+    maeusle.bendEdge90Degree = function () end
+\end{luacode*}
 
 % Métadonnées
 
@@ -119,6 +128,7 @@
 % Page de titre
 
 \renewcommand{\maketitle}{{
+    \newgeometry{textwidth=8in}
     \clearpage
     \thispagestyle{empty}
     \centering
@@ -149,4 +159,5 @@
     © \@author, \the\year
 
     \clearpage
+    \restoregeometry
 }}
