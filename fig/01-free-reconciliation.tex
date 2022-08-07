@@ -3,16 +3,17 @@
 \begin{tikzpicture}
     \input{fig/01-shared-defs}
 
-    \graph[phylogenetic tree layout, nodes={font=\small\itshape}]{
-        ttree[name=t]
+    \graph[phylogenetic tree layout, simple, nodes={font=\small\itshape}]{
+        ttree[name=t];
+        t l2s2 --[transfer edge] t l1s4;
     };
-    \node at (0, -2.15) {\(T\)};
+    \node at (0, -2.3) {\(T\)};
 
     \begin{scope}[shift={(4,0)}]
         \graph[phylogenetic tree layout, nodes={font=\small\bfseries}]{
             stree[name=s]
         };
-        \coordinate (labels) at (0, -2.15);
+        \coordinate (labels) at (0, -2.3);
         \node at (labels-|s l1s2) {\(S\)};
     \end{scope}
 

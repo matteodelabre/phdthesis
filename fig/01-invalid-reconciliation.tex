@@ -6,13 +6,13 @@
     \graph[phylogenetic tree layout, nodes={font=\small\itshape}]{
         ttree[name=lt]
     };
-    \node at (0, -2.15) {\(T\)};
+    \node at (0, -2.3) {\(T\)};
 
     \begin{scope}[shift={(4,0)}]
         \graph[phylogenetic tree layout, nodes={font=\small\bfseries}]{
             stree[name=s]
         };
-        \coordinate (labels) at (0, -2.15);
+        \coordinate (labels) at (0, -2.3);
         \node at (labels-|s l1s2) {\(S\)};
     \end{scope}
 
@@ -20,7 +20,7 @@
         \graph[phylogenetic tree layout, nodes={font=\small\itshape}]{
             ttree[name=rt]
         };
-        \node at (0, -2.15) {\(T\)};
+        \node at (0, -2.3) {\(T\)};
     \end{scope}
 
     \path[associate=reccolor1] (lt l3s1) edge[bend left=10]

@@ -94,13 +94,29 @@
 \newcommand{\nottafter}{\notgeq}
 \newcommand{\tafterneq}{>}
 
-\newcommand{\subtree}[2]{#1\!\left[#2\right]}
+\newcommand{\subtree}[2]{#1\left[#2\right]}
 \newcommand{\lca}{\mathrm{lca}}
 \newcommand{\tpath}{\mathbin{\leadsto}}
 
 %%% Réconciliations
 \newcommand{\llmap}{s}
 \newcommand{\rec}{\tilde\llmap}
+\newcommand{\reclca}{\rec_{\,\lca}}
+\newcommand{\exrec}{\hat\llmap}
+\newcommand{\rectree}{\mathcal{R}}
+\newcommand{\rectreeDL}{\rectree_{\mathrm{DL}}}
+
+%%% Modèles de réconciliation
+\newcommand{\recmodel}{\mathcal{M}}
+\newcommand{\cost}[1]{\delta_{\,#1}}
+\newcommand{\evt}{\mathcal{E}}
+
+\newcommand{\evtNone}{\lambda}
+\newcommand{\evtS}{\mathrm{S}}
+\newcommand{\evtD}{\mathrm{D}}
+\newcommand{\evtL}{\mathrm{L}}
+\newcommand{\evtR}{\mathrm{R}}
+\newcommand{\evtT}{\mathrm{T}}
 
 % Figures
 
@@ -108,8 +124,11 @@
 \usetikzlibrary{positioning}
 \usetikzlibrary{calc}
 \usetikzlibrary{arrows.meta}
-\usetikzlibrary{graphs,graphdrawing}
-\usegdlibrary{trees,phylogenetics}
+\usetikzlibrary{shapes.misc}
+\usetikzlibrary{graphs}
+\usetikzlibrary{graphdrawing}
+\usegdlibrary{trees}
+\usegdlibrary{phylogenetics}
 
 \RequirePackage{luacode}
 % Disable edge bending in rectangular phylogenetic layout
@@ -117,6 +136,58 @@
     local maeusle = require 'pgf.gd.phylogenetics.Maeusle2012'
     maeusle.bendEdge90Degree = function () end
 \end{luacode*}
+
+\tikzset{
+    % Reconciliation edges
+    associate edge/.style={
+        draw, thick, #1,
+        shorten <=4pt, shorten >=3pt,
+        ->, >=Latex,
+    },
+    overlaid associate edge/.style={
+        draw, line width=4pt, white,
+        shorten <=8pt, shorten >=16pt,
+        postaction={associate edge=#1},
+    },
+    associate/.style={every edge/.style={associate edge=#1}},
+    overlaid associate/.style={every edge/.style={overlaid associate edge=#1}},
+    % Tree layout
+    /graph drawing/evolutionary unit length=.66cm,
+    /graph drawing/sibling distance=.4cm,
+    % Event shapes
+    speciation/.style={
+        circle, draw,
+        inner sep=3pt,
+    },
+    duplication/.style={
+        rectangle, draw,
+        inner sep=4pt,
+    },
+    transfer/.style={
+        chamfered rectangle, draw,
+        inner sep=2.5pt,
+    },
+    transfer edge/.style={dashed},
+    loss/.style={
+        inner sep=2pt,
+        execute at end node={\textup{×}},
+    },
+    dependent/.style={
+        font=\small\itshape,
+    },
+    host/.style={
+        font=\small\bfseries,
+    },
+}
+
+\DeclareRobustCommand{\showspeciation}{\tikz[baseline=-.75ex] \node[speciation] {};}
+\DeclareRobustCommand{\showduplication}{\tikz[baseline=-.75ex] \node[duplication] {};}
+\DeclareRobustCommand{\showtransfer}{\tikz[baseline=-.75ex] \node[transfer] {};}
+\DeclareRobustCommand{\showloss}{\,×\,}
+
+\colorlet{reccolor1}{blue!60!white}
+\colorlet{reccolor2}{red!80!white}
+\colorlet{reccolor3}{green!60!black}
 
 % Métadonnées
 

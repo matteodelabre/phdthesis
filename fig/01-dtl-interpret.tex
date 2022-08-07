@@ -1,0 +1,39 @@
+%! TeX root = ../main.tex
+% vim: set spelllang=fr:
+\begin{tikzpicture}
+    \input{fig/01-shared-defs}
+
+    \graph[phylogenetic tree layout, simple, nodes={font=\small\itshape}]{
+        ttree[name=t];
+        t l3s1 [label={[host]left:β}];
+        t l2s1 [label={[host]left:β}];
+        t l2s2 [label={[host, xshift=-2pt]left:β}];
+    };
+    \node at (0, -2.3) {\(T\)};
+
+    \begin{scope}[shift={(4.7, 0)}]
+        \graph[phylogenetic tree layout, nodes={dependent}]{
+            / [duplication, label={[host]left:β}] -- {
+                / [transfer, label={[host]left:β}] -- {
+                    / 3 [> transfer edge],
+                    / 1,
+                },
+                / [speciation, label={[host]left:β}] -- {
+                    / 2,
+                    / 1,
+                },
+            },
+        };
+        \node at (0, -2.3) {\(\rectree\)};
+    \end{scope}
+
+    \begin{scope}[shift={(9, 0)}]
+        \graph[phylogenetic tree layout, nodes={host}]{
+            stree[name=s];
+            s l3s1 [label={[host]left:α}];
+            s l2s1 [label={[host]left:β}];
+        };
+        \coordinate (labels) at (0, -2.3);
+        \node at (labels-|s l1s2) {\(S\)};
+    \end{scope}
+\end{tikzpicture}

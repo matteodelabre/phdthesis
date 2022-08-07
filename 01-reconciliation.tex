@@ -45,7 +45,7 @@ Pour simplifier, lorsque \(v\) doit s’associer à une branche de \(S\), il est
     \caption{
         Deux réconciliations, \(\rec_1\) (valide) et \(\rec_2\) (invalide), entre deux phylogénies \(T\) et \(S\).
         Les associations entre embranchements sont représentées par des flèches.
-        Pour alléger la figure, les associations entre feuilles sont implicites entre les feuilles portant le même nom.
+        Pour la lisibilité, les associations entre deux feuilles sont indiquées implicitement en leur attribuant la même étiquette.
     }
     \label{figure:valid-invalid-rec}
 \end{figure}
@@ -72,8 +72,8 @@ La réconciliation libre \(\rec_3\) de la \autoref{figure:free-rec} est valide.
     \centering
     \input{fig/01-free-reconciliation}
     \caption{
-        Une réconciliation libre et valide entre deux phylogénies \(T\) et \(S\).
-        Un changement d’hôte a lieu entre l’embranchement qui précède la feuille \emph{3} et la feuille \emph{3} dans \(T\).
+        Réconciliation libre et valide entre deux phylogénies \(T\) et \(S\).
+        Un changement d’hôte a lieu le long de la branche marquée de pointillés.
     }
     \label{figure:free-rec}
 \end{figure}
@@ -93,41 +93,84 @@ Comme le suggère le lemme suivant, l’espace des réconciliations strictes est
     Donc \(\rec\) n’est pas stricte.
 \end{proof}
 
-\begin{definition}
-    Soient \(T\) et \(S\) deux arbres phylogénétiques et \(\leq_S\) une datation de \(\tnodes(S)\).
-    \tk{À terminer}
+La réconciliation stricte qui associe chaque embranchement de \(T\) au plus récent hôte possible dans~\(S\) est notée \(\reclca\) et définie par \(
+    \reclca(v) = \lca\left\{ \llmap(l) \suchthat l \in \tleavs(\subtree{T}{v}) \right\}
+\).
+
+%\tk{Réconciliation chronologiquement valide (time-consistent)?}
+%\begin{definition}
+    %Soient \(T\) et \(S\) deux arbres phylogénétiques et \(\leq_S\) une datation de \(\tnodes(S)\)…
+%\end{definition}
+
+\section{Modèles de réconciliation gène--espèce}
+
+Un modèle de réconciliation spécifie les types d’événements qui peuvent affecter, conjointement ou séparément, l’évolution des unités dépendantes et de leurs hôtes.
+Une interprétation d’une réconciliation sous un certain modèle consiste en une sélection d’événements permettant d’expliquer comment l’évolution a pu donner lieu aux associations dépendant--hôte décrites par le plongement.
+Ces interprétations sont représentées sous la forme d’arbres réconciliés qui étendent l’arbre dépendant pour rendre explicites les événements.
+
+\begin{definition}[Arbre réconcilié]\label{definition:rectree}
+    Soient \(T\) et \(S\) deux arbres, \(\rec\) une réconciliation de \(T\) avec \(S\), et \(\recmodel\) un modèle de réconciliation (un ensemble de types d’événements).
+    Un \emph{arbre réconcilié} est une extension \(\rectree\) de \(T\) munie d’une application \(\exrec : \tnodes(\rectree) \onto \tnodes(S)\) qui étend \(\rec\) et d’une application \(\evt : \tnodes(\rectree) \onto \recmodel \cup \{\evtNone\}\)
+    telle que \(\{ v \in \tleavs(\rectree) \suchthat \evt(v) = \evtNone \} = \tleavs(T)\).
 \end{definition}
 
-\section{Modèles d’évolution gène--espèce}
+La plausibilité d’une réconciliation s’évalue sous l’hypothèse d’un modèle choisi.
+Deux catégories principales de méthodes existent pour ce faire~\cite{Doyon2011ModelsAlgorithmsPrograms}.
 
-Pour mesurer la plausibilité d’une réconciliation, il est nécessaire de poser un modèle d’évolution qui permette de l’interpréter d’un point de vue biologique.
-Un tel modèle spécifie l’ensemble des événements qui peuvent affecter, conjointement ou séparément, l’évolution des unités dépendantes et de leurs hôtes.
-Sous l’hypothèse d’un certain modèle, deux catégories de méthodes coexistent pour évaluer la plausibilité d’une réconciliation.
+L’objectif des méthodes de \emph{parcimonie} est de favoriser les réconciliations les plus économes, c’est-à-dire celles dont l’interprétation dans un modèle demande le moins d’hypothèses.
+Un coût \(\cost{e} \in \mathbb{N}\) est attribué à chaque type d’événement \(e\), et chaque interprétation possible est associée à la somme des coûts des événements qu’elle invoque.
+Le coût d’une réconciliation est défini comme celui de son interprétation la plus économique, et les réconciliations les plus plausibles sont celles de coût minimal.
+Ces réconciliations ne reflètent pas nécessairement l’histoire complète des unités étudiées, puisque l’évolution emprunte rarement le chemin le plus court.
+En revanche, cette méthode a l’avantage de sélectionner des réconciliations permettant d’expliquer les données observées sans faire plus d’hypothèses que nécessaire.
 
-Dans les méthodes de \emph{parcimonie}, chaque réconciliation est associée à une valeur reflétant le minimum d’événements nécessaires pour l’interpréter dans le modèle choisi.
-L’objectif est alors de rechercher les réconciliations minimisant cette valeur, c’est-à-dire les plus parcimonieuses.
-Ces réconciliations ne reflètent pas l’histoire complète des unités étudiées, puisque l’évolution emprunte rarement le chemin le plus court.
-En revanche, la méthode de parcimonie a l’avantage de sélectionner des réconciliations permettant d’expliquer les données observées sans ajouter d’hypothèses supplémentaires.
+Dans les méthodes \emph{probabilistes}, la longueur des branches de \(T\) est prise en compte et une probabilité est attribuée à chaque événement du modèle.
+\tk{Préciser}
 
-Dans les méthodes \emph{probabilistes}, une probabilité est attribuée à chaque événement du modèle.
-\tk{Préciser et sourcer}
-
-Dans la suite nous présentons les principaux modèles d’évolution stricte gènes--espèces.
+Dans la suite, nous présentons les principaux modèles d’évolution gènes--espèces.
+\newpage
 
 \paragraph{Modèle duplication--perte (DL)}
-Dans le modèle DL, les espèces n’évoluent que par des spéciations, et les gènes peuvent également diverger par duplication à l’intérieur de leur espèce, ou encore être perdus~\cite{Goodman1979FittingGeneLineage,Page1994MapsTreesCladistic}.
-Une réconciliation stricte \(\rec\) s’interprète sous le modèle~DL comme suit.
-Pour un embranchement \(v \in \tinner(T)\):
+Le modèle duplication--perte est le premier modèle proposé pour la réconciliation~\cite{Goodman1979FittingGeneLineage,Page1994MapsTreesCladistic}.
+Ce modèle ne permet d’interpréter que des réconciliations strictes.
+Sous ce modèle \(\recmodel_{\mathrm{DL}} = \{\evtD, \evtL, \evtS\}\),
+une codivergence entre un gène et son hôte s’explique par une spéciation (\(\evtS\)),
+une divergence d’un gène par une duplication (\(\evtD\)),
+et une extinction d’un gène dans un sous-arbre par une perte (\(\evtL\)).
+Chaque embranchement \(v \in \tinner(\rectree)\) d’un arbre réconcilié sous ce modèle est tel que:
 \begin{itemize}
-    \item \(v\) correspond à un événement de spéciation seulement lorsque \(\rec(v)\) est un embranchement de \(S\) et si \(\rec(v\lchild) \tdesc \rec(v)\lchild\) et \(\rec(v\rchild) \tdesc \rec(v)\rchild\) ou si \(\rec(v\lchild) \tdesc \rec(v)\rchild\) et \(\rec(v\rchild) \tdesc \rec(v)\lchild\);
-    \item si \(v\) correspond à un événement de spéciation, alors chaque embranchement sur les chemins \(\rec(v) \tpath \rec(v\lchild)\) et \(\rec(v) \tpath \rec(v\rchild)\), excluant \(\rec(v)\), \(\rec(v\lchild)\) et \(\rec(v\rchild)\), implique un événement de spéciation suivi d’une perte;
-    \item si \(v\) correspond à un événement de duplication, alors chaque embranchement sur les chemins \(\rec(v) \tpath \rec(v\lchild)\) et \(\rec(v) \tpath \rec(v\rchild)\), incluant \(\rec(v)\) mais excluant \(\rec(v\lchild)\) et \(\rec(v\rchild)\), implique un événement de perte.
+    \item si \(\evt(v) = \evtS\), alors \(\exrec(v)\) est un embranchement de \(S\) et \(\{\exrec(v\lchild), \exrec(v\rchild)\} = \{\exrec(v)\lchild, \exrec(v)\rchild\}\);
+    \item si \(\evt(v) = \evtD\), alors \(\exrec(v) = \exrec(v\lchild) = \exrec(v\rchild)\);
+    \item si \(\evt(v) = \evtL\), alors \(v\) est une feuille.
 \end{itemize}
 
-Ainsi, la réconciliation \(\rec_1\) de la \autoref{figure:valid-invalid-rec} peut s’interpréter sous le modèle DL comme suit.
+La \autoref{figure:dl-interpret} donne une interprétation de la réconciliation de la \autoref{figure:valid-invalid-rec} sous le modèle DL.
 
-\cite{Chauve2009NewPerspectivesGene}
-\cite{Gorecki2006DlsTreesModel}
+\begin{figure}[htb]
+    \capstart
+    \centering
+    \input{fig/01-dl-interpret}
+    \caption{
+        Interprétation de la réconciliation \(\rec_1\) entre \(T\) et \(S\) sous le modèle duplication--perte~(DL), représentée sous la forme d’un arbre réconcilié \(\rectree\).
+        Chaque cercle {\showspeciation} représente un événement de spéciation (\(\evtS\)),
+        chaque carré {\showduplication} une duplication (\(\evtD\)),
+        et chaque croix {\showloss} une perte (\(\evtL\)).
+        Pour la lisibilité, les associations entre nœuds sont indiquées par des étiquettes au lieu de flèches.
+    }
+    \label{figure:dl-interpret}
+\end{figure}
+
+% \begin{itemize}
+%     \item \(v\) correspond à un événement de spéciation seulement lorsque \(\rec(v)\) est un embranchement de \(S\) et si \(\rec(v\lchild) \tdesc \rec(v)\lchild\) et \(\rec(v\rchild) \tdesc \rec(v)\rchild\) ou si \(\rec(v\lchild) \tdesc \rec(v)\rchild\) et \(\rec(v\rchild) \tdesc \rec(v)\lchild\);
+%     \item si \(v\) correspond à un événement de spéciation, alors chaque embranchement sur les chemins \(\rec(v) \tpath \rec(v\lchild)\) et \(\rec(v) \tpath \rec(v\rchild)\), excluant \(\rec(v)\), \(\rec(v\lchild)\) et \(\rec(v\rchild)\), implique un événement de spéciation suivi d’une perte;
+%     \item si \(v\) correspond à un événement de duplication, alors chaque embranchement sur les chemins \(\rec(v) \tpath \rec(v\lchild)\) et \(\rec(v) \tpath \rec(v\rchild)\), incluant \(\rec(v)\) mais excluant \(\rec(v\lchild)\) et \(\rec(v\rchild)\), implique un événement de perte.
+% \end{itemize}
+
+La réconciliation \(\reclca\) est toujours une solution optimale pour ce modèle.
+À condition que \(\cost\evtL > 0\), il s’agit de surcroît de l’unique solution~\cite{Chauve2009NewPerspectivesGene}.
+La réconciliation \(\reclca\) peut être calculée en un temps linéaire en fonction de la taille de l’arbre \(T\)~\cite{Zhang1997MirkinMuchnikSmith}.
+
+% \cite{Gorecki2006DlsTreesModel}
+
 
 % figure : un arbre de gènes, un arbre d’espèces, réconciliations
 
@@ -137,14 +180,19 @@ Ainsi, la réconciliation \(\rec_1\) de la \autoref{figure:valid-invalid-rec} pe
 \paragraph{Modèle duplication--régulation (DR)}
 
 
-\paragraph{Modèle duplication--perte--coalescence (DLC)}
-
-Tri incomplet de lignées (ILS)
-\cite[p. 71]{Page1994MapsTreesCladistic}
-\cite{Rasmussen2012UnifiedModelingGene}
-\cite{Wu2013MostParsimoniousReconciliation}
-
 \paragraph{Modèle duplication--transfert--perte (DTL)}
+
+\begin{figure}[htb]
+    \capstart
+    \centering
+    \input{fig/01-dtl-interpret}
+    \caption{
+        \sloppy
+        Interprétation de la réconciliation \(\rec_3\) entre \(T\) et \(S\) sous le modèle duplication--transfert--perte~(DTL), représentée sous la forme d’un arbre réconcilié \(\rectree\).
+        Chaque losange {\showtransfer} représente un événement de transfert (\(\evtT\)).
+    }
+    \label{figure:dtl-interpret}
+\end{figure}
 
 \cite[pp. 68--70]{Page1994MapsTreesCladistic}
 \cite{Hallett2001EfficientAlgorithmsLateral}
@@ -154,10 +202,25 @@ Tri incomplet de lignées (ILS)
 
 \paragraph{Modèle duplication--transfert--perte généralisé (DTLx)}
 
-\textbf{Espèces non-échantillonnées (DTLx)}
+transfert-perte, espèces non-échantillonné
+
 \cite{Weiner2021ImprovedDuplicationTransfer}
 
-\section{Calcul de réconciliations}
+\paragraph{Modèle duplication--perte--coalescence (DLC)}
+
+Tri incomplet de lignées (ILS)
+\cite[p. 71]{Page1994MapsTreesCladistic}
+\cite{Rasmussen2012UnifiedModelingGene}
+\cite{Wu2013MostParsimoniousReconciliation}
+
+
+\section{Utilisation de réconciliations}
+
+\paragraph{Scénarios d’évolution}
+
+\paragraph{Dénombrement, échantillonnage}
+
+\cite{Doyon2009SpaceGeneSpeciesTrees}
 
 \paragraph{Inférence de l’arbre d’espèces}
 \cite[pp. 72--73]{Page1994MapsTreesCladistic}

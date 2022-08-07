@@ -2,23 +2,7 @@
 % vim: set spelllang=fr:
 
 \tikzset{
-    % Reconciliation edges
-    associate edge/.style={
-        draw, thick, #1,
-        shorten <=4pt, shorten >=3pt,
-        ->, >=Latex,
-    },
-    overlaid associate edge/.style={
-        draw, line width=4pt, white,
-        shorten <=8pt, shorten >=16pt,
-        postaction={associate edge=#1},
-    },
-    associate/.style={every edge/.style={associate edge=#1}},
-    overlaid associate/.style={every edge/.style={overlaid associate edge=#1}},
-    % Tree layout
-    /graph drawing/evolutionary unit length=.66cm,
-    /graph drawing/sibling distance=.4cm,
-    % Predefined associate tree
+    % Predefined dependent tree
     graphs/declare={ttree}{
         l3s1 / [coordinate] -- {
             l2s2 / [coordinate] -- {
@@ -42,7 +26,3 @@
         },
     },
 }
-
-\colorlet{reccolor1}{blue!60!white}
-\colorlet{reccolor2}{red!80!white}
-\colorlet{reccolor3}{green!60!black}
