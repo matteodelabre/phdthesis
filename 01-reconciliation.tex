@@ -102,7 +102,7 @@ La réconciliation stricte qui associe chaque embranchement de \(T\) au plus ré
     %Soient \(T\) et \(S\) deux arbres phylogénétiques et \(\leq_S\) une datation de \(\tnodes(S)\)…
 %\end{definition}
 
-\section{Modèles de réconciliation gène--espèce}
+\section{Arbres réconciliés et modèles de réconciliation}
 
 Un modèle de réconciliation spécifie les types d’événements qui peuvent affecter, conjointement ou séparément, l’évolution des unités dépendantes et de leurs hôtes.
 Une interprétation d’une réconciliation sous un certain modèle consiste en une sélection d’événements permettant d’expliquer comment l’évolution a pu donner lieu aux associations dépendant--hôte décrites par le plongement.
@@ -126,22 +126,19 @@ En revanche, cette méthode a l’avantage de sélectionner des réconciliations
 Dans les méthodes \emph{probabilistes}, la longueur des branches de \(T\) est prise en compte et une probabilité est attribuée à chaque événement du modèle.
 \tk{Préciser}
 
-Dans la suite, nous présentons les principaux modèles d’évolution gènes--espèces.
-\newpage
+\section{Modèles de réconciliation gènes--espèces}
+
+Dans la suite, nous présentons les principaux modèles de réconciliation gènes--espèces.
 
 \paragraph{Modèle duplication--perte (DL)}
-Le modèle duplication--perte est le premier modèle proposé pour la réconciliation~\cite{Goodman1979FittingGeneLineage,Page1994MapsTreesCladistic}.
-Ce modèle ne permet d’interpréter que des réconciliations strictes.
-Sous ce modèle \(\recmodel_{\mathrm{DL}} = \{\evtD, \evtL, \evtS\}\),
-une codivergence entre un gène et son hôte s’explique par une spéciation (\(\evtS\)),
-une divergence d’un gène par une duplication (\(\evtD\)),
-et une extinction d’un gène dans un sous-arbre par une perte (\(\evtL\)).
+Ce modèle, le premier modèle a avoir été proposé~\cite{Goodman1979FittingGeneLineage,Page1994MapsTreesCladistic}, définit trois types d’événements \(\recmodel_{\mathrm{DL}} = \{\evtD, \evtL, \evtS\}\).
+La divergence d’un gène s’explique par une duplication~(\(\evtD\)) ou par une spéciation de son hôte~(\(\evtS\)), et l’absence d’un gène dans une espèce descendante s’explique par une perte~(\(\evtL\)).
 Chaque embranchement \(v \in \tinner(\rectree)\) d’un arbre réconcilié sous ce modèle est tel que:
-\begin{itemize}
+\begin{compactitemize}
     \item si \(\evt(v) = \evtS\), alors \(\exrec(v)\) est un embranchement de \(S\) et \(\{\exrec(v\lchild), \exrec(v\rchild)\} = \{\exrec(v)\lchild, \exrec(v)\rchild\}\);
     \item si \(\evt(v) = \evtD\), alors \(\exrec(v) = \exrec(v\lchild) = \exrec(v\rchild)\);
     \item si \(\evt(v) = \evtL\), alors \(v\) est une feuille.
-\end{itemize}
+\end{compactitemize}
 
 La \autoref{figure:dl-interpret} donne une interprétation de la réconciliation de la \autoref{figure:valid-invalid-rec} sous le modèle DL.
 
@@ -159,35 +156,35 @@ La \autoref{figure:dl-interpret} donne une interprétation de la réconciliation
     \label{figure:dl-interpret}
 \end{figure}
 
+Cet ensemble d’événements ne permet d’interpréter que des réconciliations strictes, excluant toute possibilité de changement d’hôte.
+Sa simplicité fait cependant qu’une réconciliation optimale peut être calculée efficacement.
+La réconciliation \(\reclca\) est en effet toujours une solution optimale pour ce modèle.
+À condition que \(\cost\evtL > 0\), il s’agit de surcroît de l’unique solution~\cite{Chauve2009NewPerspectivesGene}.
+La réconciliation \(\reclca\) peut être calculée en un temps et espace linéaires en fonction de la taille de l’arbre \(T\)~\cite{Zhang1997MirkinMuchnikSmith}.
+
+
 % \begin{itemize}
 %     \item \(v\) correspond à un événement de spéciation seulement lorsque \(\rec(v)\) est un embranchement de \(S\) et si \(\rec(v\lchild) \tdesc \rec(v)\lchild\) et \(\rec(v\rchild) \tdesc \rec(v)\rchild\) ou si \(\rec(v\lchild) \tdesc \rec(v)\rchild\) et \(\rec(v\rchild) \tdesc \rec(v)\lchild\);
 %     \item si \(v\) correspond à un événement de spéciation, alors chaque embranchement sur les chemins \(\rec(v) \tpath \rec(v\lchild)\) et \(\rec(v) \tpath \rec(v\rchild)\), excluant \(\rec(v)\), \(\rec(v\lchild)\) et \(\rec(v\rchild)\), implique un événement de spéciation suivi d’une perte;
 %     \item si \(v\) correspond à un événement de duplication, alors chaque embranchement sur les chemins \(\rec(v) \tpath \rec(v\lchild)\) et \(\rec(v) \tpath \rec(v\rchild)\), incluant \(\rec(v)\) mais excluant \(\rec(v\lchild)\) et \(\rec(v\rchild)\), implique un événement de perte.
 % \end{itemize}
 
-La réconciliation \(\reclca\) est toujours une solution optimale pour ce modèle.
-À condition que \(\cost\evtL > 0\), il s’agit de surcroît de l’unique solution~\cite{Chauve2009NewPerspectivesGene}.
-La réconciliation \(\reclca\) peut être calculée en un temps linéaire en fonction de la taille de l’arbre \(T\)~\cite{Zhang1997MirkinMuchnikSmith}.
-
-% \cite{Gorecki2006DlsTreesModel}
-
-
-% figure : un arbre de gènes, un arbre d’espèces, réconciliations
-
-% figure : un arbre de gènes, voisinage de l’arbre par branch swap, minimum de réconciliation
 
 
 \paragraph{Modèle duplication--régulation (DR)}
-
+Ce modèle est une alternative au modèle DR dans lequel l’absence d’un gène dans une espèce descendante est expliquée par sa \enquote{désactivation} temporaire par un mécanisme de régulation.
 
 \paragraph{Modèle duplication--transfert--perte (DTL)}
+
+\begin{compactitemize}
+    \item si \(\evt(v) = \evtT\), alors \(\exrec(v) = \exrec(v\lchild)\) et \(\exrec(v) \nottcomp \exrec(v\rchild)\), ou bien \(\exrec(v) = \exrec(v\rchild)\) et \(\exrec(v) \nottcomp \exrec(v\lchild)\);
+\end{compactitemize}
 
 \begin{figure}[htb]
     \capstart
     \centering
     \input{fig/01-dtl-interpret}
     \caption{
-        \sloppy
         Interprétation de la réconciliation \(\rec_3\) entre \(T\) et \(S\) sous le modèle duplication--transfert--perte~(DTL), représentée sous la forme d’un arbre réconcilié \(\rectree\).
         Chaque losange {\showtransfer} représente un événement de transfert (\(\evtT\)).
     }
@@ -202,8 +199,11 @@ La réconciliation \(\reclca\) peut être calculée en un temps linéaire en fon
 
 \paragraph{Modèle duplication--transfert--perte généralisé (DTLx)}
 
-transfert-perte, espèces non-échantillonné
+\begin{compactitemize}
+    \item si \(\evt(v) = \evtTL\), alors \(v\) est unaire et \(\exrec(v) \nottcomp \exrec(v\child)\).
+\end{compactitemize}
 
+transfert-perte, espèces non-échantillonné
 \cite{Weiner2021ImprovedDuplicationTransfer}
 
 \paragraph{Modèle duplication--perte--coalescence (DLC)}
@@ -229,6 +229,8 @@ Tri incomplet de lignées (ILS)
 La hiérarchie évolutive entre gènes et espèces rend difficile l’utilisation de l’arbre de gène pour estimer l’arbre d’espèces. La réconciliation peut cependant être utilisée pour remédier à ce problème.
 
 \cite{Ma2000GeneTreesSpecies}
+
+% figure : un arbre de gènes, voisinage de l’arbre par branch swap, minimum de réconciliation
 
 \paragraph{Correction de l’arbre de gènes}
 

@@ -34,11 +34,16 @@
 %% Police
 \RequirePackage{fontspec}
 \setmainfont{Libertinus Serif}
+\RequirePackage{microtype}
 
 %% Décorations
 \RequirePackage{adforn}
 
-%% Sectionnage
+%% Structure
+\RequirePackage{enumitem}
+\newlist{compactitemize}{itemize}{1}
+\setlist[compactitemize]{label=\textbullet, itemsep=0pt, parsep=0.5ex}
+
 \renewcommand{\paragraph}[1]{\noindent\textit{#1.}\enspace}
 
 % Révision
@@ -79,6 +84,7 @@
 \newcommand{\tedges}{E}
 \newcommand{\lchild}{_\mathit{\ell}}
 \newcommand{\rchild}{_r}
+\newcommand{\child}{_c}
 
 \newcommand{\tdesc}{\preceq}
 \newcommand{\nottdesc}{\mathrel{/\preceq}}
@@ -86,6 +92,9 @@
 \newcommand{\tancs}{\succeq}
 \newcommand{\nottancs}{\mathrel{\makebox[0pt]{\(\:\:\succeq\)}/}}
 \newcommand{\tancsneq}{\succ}
+\newcommand{\tcomp@base}{\makebox[0pt]{\raisebox{-2pt}{\(\mspace{12mu}\prec\)}}\raisebox{2pt}{\(\succ\)}}
+\newcommand{\tcomp}{\mathrel{\tcomp@base}}
+\newcommand{\nottcomp}{\mathrel{\makebox[0pt]{\(\:\:\:/\)}\tcomp@base}}
 
 \newcommand{\tbefor}{\leq}
 \newcommand{\nottbefor}{\notleq}
@@ -117,6 +126,7 @@
 \newcommand{\evtL}{\mathrm{L}}
 \newcommand{\evtR}{\mathrm{R}}
 \newcommand{\evtT}{\mathrm{T}}
+\newcommand{\evtTL}{\mathrm{TL}}
 
 % Figures
 
