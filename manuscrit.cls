@@ -208,6 +208,15 @@
 
 % Page de titre
 
+\RequirePackage{catchfile}
+\RequirePackage{xstring}
+
+\CatchFileDef{\@headfull}{.git/HEAD}{}
+\StrGobbleRight{\@headfull}{1}[\@head]
+\StrBehind[2]{\@head}{/}[\@branch]
+\CatchFileDef{\@commit}{.git/refs/heads/\@branch}{}
+\StrLeft{\@commit}{7}[\@shortcommit]
+
 \renewcommand{\maketitle}{{
     \newgeometry{textwidth=8in}
     \clearpage
@@ -234,7 +243,11 @@
     \@documentkind
 
     \vfill
-    \@date
+    % \@date
+    \textcolor{red}{%
+        Brouillon compilé le \today\\
+        Révision n°~\@shortcommit
+    }
 
     \vfill
     © \@author, \the\year
