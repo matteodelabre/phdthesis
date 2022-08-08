@@ -71,11 +71,20 @@
 \newtheorem{definition}{Définition}[chapter]
 \newtheorem{remark}[definition]{Remarque}
 
+\newcommand{\problem}[3]{
+    \par\textbf{Problème} \textsc{#1}\textbf{.}\\[1ex]
+    \begin{tabular}{@{}l|l@{}}
+        \textbf{Entrée} & #2\\
+        \textbf{Sortie} & #3
+    \end{tabular}\par
+}
+
 %% Notations
 
 %%% Général
 \newcommand{\onto}{\rightarrow}
 \newcommand{\suchthat}{\mathrel{:}}
+\newcommand{\nat}{\mathbb{N}}
 
 %%% Arbres
 \newcommand{\tnodes}{V}
@@ -117,7 +126,8 @@
 
 %%% Modèles de réconciliation
 \newcommand{\recmodel}{\mathcal{M}}
-\newcommand{\cost}[1]{\delta_{\,#1}}
+\newcommand{\cost}{\delta}
+\newcommand{\treecost}{\Delta}
 \newcommand{\evt}{\mathcal{E}}
 
 \newcommand{\evtNone}{\lambda}

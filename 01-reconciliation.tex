@@ -118,9 +118,18 @@ La plausibilité d’une réconciliation s’évalue sous l’hypothèse d’un 
 Deux catégories principales de méthodes existent pour ce faire~\cite{Doyon2011ModelsAlgorithmsPrograms}.
 
 L’objectif des méthodes de \emph{parcimonie} est de favoriser les réconciliations les plus économes, c’est-à-dire celles dont l’interprétation dans un modèle demande le moins d’hypothèses.
-Un coût \(\cost{e} \in \mathbb{N}\) est attribué à chaque type d’événement \(e\), et chaque interprétation possible est associée à la somme des coûts des événements qu’elle invoque.
-Le coût d’une réconciliation est défini comme celui de son interprétation la plus économique, et les réconciliations les plus plausibles sont celles de coût minimal.
-Ces réconciliations ne reflètent pas nécessairement l’histoire complète des unités étudiées, puisque l’évolution emprunte rarement le chemin le plus court.
+Une fonction \(\cost : \recmodel \onto \nat\) attribue un coût à chaque type d’événement, et le coût d’un arbre réconcilié est la somme des coûts des événements qu’il comporte.
+Le coût d’une réconciliation est défini comme celui de son interprétation la plus économique, et les réconciliations les plus plausibles sont celles de coût minimum.
+Cette définition engendre une famille de problèmes d’optimisation.
+
+\problem{\(\recmodel\)-Parcimonie}
+    {Deux arbres \(T\) et \(S\),
+     une application \(\llmap : \tleavs(T) \onto \tleavs(S)\),
+     une fonction \(\cost : \recmodel \onto \nat\).}
+    {Coût minimum d’un arbre réconcilié de \(T\) avec \(S\)
+     sous le modèle \(\recmodel\) et les coûts \(\cost\).}
+
+Les réconciliations les plus parcimonieuses ne reflètent pas nécessairement l’histoire complète des unités étudiées, puisque l’évolution emprunte rarement le chemin le plus court.
 En revanche, cette méthode a l’avantage de sélectionner des réconciliations permettant d’expliquer les données observées sans faire plus d’hypothèses que nécessaire.
 
 Dans les méthodes \emph{probabilistes}, la longueur des branches de \(T\) est prise en compte et une probabilité est attribuée à chaque événement du modèle.
@@ -130,8 +139,8 @@ Dans les méthodes \emph{probabilistes}, la longueur des branches de \(T\) est p
 
 Dans la suite, nous présentons les principaux modèles de réconciliation gènes--espèces.
 
-\paragraph{Modèle duplication--perte (DL)}
-Ce modèle, le premier modèle a avoir été proposé~\cite{Goodman1979FittingGeneLineage,Page1994MapsTreesCladistic}, définit trois types d’événements \(\recmodel_{\mathrm{DL}} = \{\evtD, \evtL, \evtS\}\).
+\paragraph{Modèle duplication--perte (DL)~\cite{Goodman1979FittingGeneLineage,Page1994MapsTreesCladistic}}
+Ce modèle définit trois types d’événements \(\recmodel_{\mathrm{DL}} = \{\evtD, \evtL, \evtS\}\).
 La divergence d’un gène s’explique par une duplication~(\(\evtD\)) ou par une spéciation de son hôte~(\(\evtS\)), et l’absence d’un gène dans une espèce descendante s’explique par une perte~(\(\evtL\)).
 Chaque embranchement \(v \in \tinner(\rectree)\) d’un arbre réconcilié sous ce modèle est tel que:
 \begin{compactitemize}
