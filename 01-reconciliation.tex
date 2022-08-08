@@ -27,7 +27,7 @@ Chaque feuille de \(T\), correspondant à une unité dépendante actuelle, est a
 Lorsque la divergence d’un hôte cause un embranchement \(v\) dans \(T\), ce dernier correspond à un embranchement dans~\(S\).
 Au contraire, si \(v\) est indépendant de l’évolution de l’hôte, il se rapporte à une branche de~\(S\).
 Cette association de \(T\) avec \(S\) est appelée \emph{réconciliation}.
-Pour être valide, une réconciliation ne doit pas \enquote{remonter dans le temps}, c’est-à-dire qu’un strict descendant de \(v\) ne doit pas être associé à un strict ancêtre de l’associé de \(v\)~(voir~\autoref{figure:valid-invalid-rec}).
+Pour être valide, une réconciliation ne doit pas \enquote{remonter dans le temps}, c’est-à-dire qu’un strict descendant de \(v\) ne doit pas être associé à un strict ancêtre de l’associé de \(v\)~(voir~\cref{figure:valid-invalid-rec}).
 
 Formellement, une réconciliation est un plongement de \(T\) dans \(S\), au sens défini ci-après.
 Pour simplifier, lorsque \(v\) correspond à une branche de \(S\), il est associé à sa terminaison.
@@ -64,8 +64,8 @@ Une réconciliation qui ne contient pas de tel changement d’hôte est dite \em
     Toutes les réconciliations strictes sont valides.
 \end{remark}
 
-Dans la \autoref{figure:valid-invalid-rec}, la réconciliation \(\rec_1\) est une réconciliation stricte tandis que \(\rec_2\) est une réconciliation libre mais invalide.
-La réconciliation libre \(\rec_3\) de la \autoref{figure:free-rec} ci-dessous est valide.
+Dans la \cref{figure:valid-invalid-rec}, la réconciliation \(\rec_1\) est une réconciliation stricte tandis que \(\rec_2\) est une réconciliation libre mais invalide.
+La réconciliation libre \(\rec_3\) de la \cref{figure:free-rec} ci-dessous est valide.
 
 \begin{figure}[htb]
     \capstart
@@ -80,7 +80,7 @@ La réconciliation libre \(\rec_3\) de la \autoref{figure:free-rec} ci-dessous e
 
 Comme le suggère le lemme suivant, l’espace des réconciliations strictes est considérablement plus restreint que l’espace général des réconciliations.
 
-\begin{lemma}
+\begin{lemma}\label{lemma:strict-rec-space}
     Si \(\rec\) est une réconciliation stricte de \(T\) avec \(S\) alors, pour tout embranchement \(v \in \tinner(T)\),
     \(\rec(v) \tancs \lca\left\{ \llmap(l) \suchthat l \in \tleavs(\subtree{T}{v}) \right\}\).
 \end{lemma}
@@ -105,42 +105,44 @@ La réconciliation stricte qui associe chaque embranchement de \(T\) au plus ré
 \section{Arbres réconciliés et modèles de réconciliation}
 
 Un modèle de réconciliation spécifie les types d’événements qui peuvent affecter, conjointement ou séparément, l’évolution des unités dépendantes et de leurs hôtes.
-Une interprétation d’une réconciliation sous un certain modèle consiste en une sélection d’événements permettant d’expliquer comment l’évolution a pu donner lieu aux associations dépendant--hôte décrites par le plongement.
-Ces interprétations sont représentées sous la forme d’arbres réconciliés qui étendent l’arbre dépendant pour rendre explicites les événements.
+Une réconciliation peut s’interpréter sous un certain modèle en formant une combinaison d’événements permettant d’expliquer ses associations dépendant--hôte.
+Ces interprétations sont modélisées par des arbres réconciliés qui étendent l’arbre dépendant pour y placer les événements choisis.
 
 \begin{definition}[Arbre réconcilié]\label{definition:rectree}
-    Soient \(T\) et \(S\) deux arbres, \(\rec\) une réconciliation de \(T\) avec \(S\), et \(\recmodel\) un modèle de réconciliation (un ensemble de types d’événements).
+    Soient \(T\) et \(S\) deux arbres, \(\rec\) une réconciliation de \(T\) avec \(S\), et \(\recmodel\) un ensemble de types d’événements.
     Un \emph{arbre réconcilié} est une extension \(\rectree\) de \(T\) munie d’une application \(\exrec : \tnodes(\rectree) \onto \tnodes(S)\) qui étend \(\rec\) et d’une application \(\evt : \tnodes(\rectree) \onto \recmodel \cup \{\evtNone\}\)
     telle que \(\{ v \in \tleavs(\rectree) \suchthat \evt(v) = \evtNone \} = \tleavs(T)\).
 \end{definition}
 
-La plausibilité d’une réconciliation s’évalue sous l’hypothèse d’un modèle choisi.
-Deux catégories principales de méthodes existent pour ce faire~\cite{Doyon2011ModelsAlgorithmsPrograms}.
+Le choix d’un modèle permet d’évaluer la plausibilité d’une réconciliation.
+Dans les méthodes de \emph{parcimonie}, les réconciliations considérées comme les plus plausibles sont celles dont l’interprétation invoque le moins d’événements du modèle.
+Dans le cadre \emph{probabiliste}, ce sont les réconciliations dont la meilleure interprétation maximise la vraisemblance qui sont favorisées~\cite{Doyon2011ModelsAlgorithmsPrograms}.
 
-L’objectif des méthodes de \emph{parcimonie} est de favoriser les réconciliations les plus économes, c’est-à-dire celles dont l’interprétation dans un modèle demande le moins d’hypothèses.
-Une fonction \(\cost : \recmodel \onto \nat\) attribue un coût à chaque type d’événement, et le coût d’un arbre réconcilié est la somme des coûts des événements qu’il comporte.
-Le coût d’une réconciliation est défini comme celui de son interprétation la plus économique, et les réconciliations les plus plausibles sont celles de coût minimum.
-Cette définition engendre une famille de problèmes d’optimisation.
+En parcimonie, une fonction \(\cost : \recmodel \onto \nat\) attribuant un coût à chaque type d’événement est fixée en avance.
+Le coût d’une interprétation est défini comme la somme des coûts des événements qu’elle utilise.
+Enfin, le coût d’une réconciliation est défini comme celui de son interprétation la plus économique.
+Cette définition engendre une famille de problèmes d’optimisation combinatoire qui consistent à rechercher les réconciliations de coût minimum (c’est-à-dire les plus parcimonieuses).
 
 \problem{\(\recmodel\)-Parcimonie}
     {Deux arbres \(T\) et \(S\),
      une application \(\llmap : \tleavs(T) \onto \tleavs(S)\),
      une fonction \(\cost : \recmodel \onto \nat\).}
-    {Coût minimum d’un arbre réconcilié de \(T\) avec \(S\)
+    {Coût minimum d’une réconciliation de \(T\) avec \(S\)
      sous le modèle \(\recmodel\) et les coûts \(\cost\).}
 
-Les réconciliations les plus parcimonieuses ne reflètent pas nécessairement l’histoire complète des unités étudiées, puisque l’évolution emprunte rarement le chemin le plus court.
-En revanche, cette méthode a l’avantage de sélectionner des réconciliations permettant d’expliquer les données observées sans faire plus d’hypothèses que nécessaire.
+Les réconciliations les plus parcimonieuses ne constituent pas nécessairement une histoire complète ou exacte des unités étudiées, puisque l’évolution emprunte rarement le chemin le plus court.
+En revanche, cette méthode a l’avantage de sélectionner des réconciliations permettant d’expliquer les données observées en faisant le moins d’hypothèses possible.
 
+Les limitations principales de la parcimonie sont …
 Dans les méthodes \emph{probabilistes}, la longueur des branches de \(T\) est prise en compte et une probabilité est attribuée à chaque événement du modèle.
 \tk{Préciser}
 
 \section{Modèles de réconciliation gènes--espèces}
 
-Dans la suite, nous présentons les principaux modèles de réconciliation gènes--espèces.
+Dans la suite, nous présentons les principaux modèles de réconciliation gènes--espèces et les résultats connus en complexité du calcul pour les problèmes de \refproblem{\(\recmodel\)-Parcimonie} associés.
 
-\paragraph{Modèle duplication--perte (DL)~\cite{Goodman1979FittingGeneLineage,Page1994MapsTreesCladistic}}
-Ce modèle définit trois types d’événements \(\recmodel_{\mathrm{DL}} = \{\evtD, \evtL, \evtS\}\).
+\paragraph{Modèle duplication--perte~\cite{Goodman1979FittingGeneLineage,Page1994MapsTreesCladistic}}
+Ce modèle définit trois types d’événements \(\recmodelDL = \{\evtD, \evtL, \evtS\}\).
 La divergence d’un gène s’explique par une duplication~(\(\evtD\)) ou par une spéciation de son hôte~(\(\evtS\)), et l’absence d’un gène dans une espèce descendante s’explique par une perte~(\(\evtL\)).
 Chaque embranchement \(v \in \tinner(\rectree)\) d’un arbre réconcilié sous ce modèle est tel que:
 \begin{compactitemize}
@@ -149,39 +151,35 @@ Chaque embranchement \(v \in \tinner(\rectree)\) d’un arbre réconcilié sous 
     \item si \(\evt(v) = \evtL\), alors \(v\) est une feuille.
 \end{compactitemize}
 
-La \autoref{figure:dl-interpret} donne une interprétation de la réconciliation de la \autoref{figure:valid-invalid-rec} sous le modèle DL.
+La \cref{figure:dl-interpret} donne une interprétation de la réconciliation de la \cref{figure:valid-invalid-rec} sous le modèle DL.
 
 \begin{figure}[htb]
     \capstart
     \centering
     \input{fig/01-dl-interpret}
     \caption{
-        Interprétation de la réconciliation \(\rec_1\) entre \(T\) et \(S\) sous le modèle duplication--perte~(DL), représentée sous la forme d’un arbre réconcilié \(\rectree\).
-        Chaque cercle {\showspeciation} représente un événement de spéciation (\(\evtS\)),
-        chaque carré {\showduplication} une duplication (\(\evtD\)),
-        et chaque croix {\showloss} une perte (\(\evtL\)).
+        Arbre réconcilié \(\rectree\) interprétant la réconciliation \(\rec_1\) entre \(T\) et \(S\) sous le modèle duplication--perte~(\(\recmodelDL\)).
+        Chaque carré {\showduplication} représente un événement de duplication (\(\evtD\)),
+        chaque croix {\showloss} une perte (\(\evtL\)),
+        et chaque cercle {\showspeciation} une codivergence (\(\evtS\)).
         Pour la lisibilité, les associations entre nœuds sont indiquées par des étiquettes au lieu de flèches.
     }
     \label{figure:dl-interpret}
 \end{figure}
 
-Cet ensemble d’événements ne permet d’interpréter que des réconciliations strictes, excluant toute possibilité de changement d’hôte.
-Sa simplicité fait cependant qu’une réconciliation optimale peut être calculée efficacement.
-La réconciliation \(\reclca\) est en effet toujours une solution optimale pour ce modèle.
-À condition que \(\cost\evtL > 0\), il s’agit de surcroît de l’unique solution~\cite{Chauve2009NewPerspectivesGene}.
+Les fonctions de coût considérées pour ce modèle fixent toujours \(\cost(\evtS) = 0\).
+En effet, un événement~\(\evtS\) s’appuie sur une spéciation de l’hôte et ne constitue pas une hypothèse évolutive supplémentaire.
+Par conséquent, rechercher les réconciliations de coût minimal implique de maximiser le nombre de codivergences entre \(T\) et \(S\).
+
+Le modèle \(\recmodelDL\) exclut toute possibilité de changement d’hôte, donc les réconciliations optimales se trouvent dans l’espace restreint des réconciliations strictes (voir lemme~\labelcref{lemma:strict-rec-space}).
+La réconciliation \(\reclca\) est toujours une solution optimale sous ce modèle.
+De surcroît, à condition que \(\cost(\evtL) > 0\), il s’agit de l’unique telle solution~\cite{Chauve2009NewPerspectivesGene}.
 La réconciliation \(\reclca\) peut être calculée en un temps et espace linéaires en fonction de la taille de l’arbre \(T\)~\cite{Zhang1997MirkinMuchnikSmith}.
+Le problème \refproblem{\(\recmodelDL\)-Parcimonie} est donc polynomial.
 
-
-% \begin{itemize}
-%     \item \(v\) correspond à un événement de spéciation seulement lorsque \(\rec(v)\) est un embranchement de \(S\) et si \(\rec(v\lchild) \tdesc \rec(v)\lchild\) et \(\rec(v\rchild) \tdesc \rec(v)\rchild\) ou si \(\rec(v\lchild) \tdesc \rec(v)\rchild\) et \(\rec(v\rchild) \tdesc \rec(v)\lchild\);
-%     \item si \(v\) correspond à un événement de spéciation, alors chaque embranchement sur les chemins \(\rec(v) \tpath \rec(v\lchild)\) et \(\rec(v) \tpath \rec(v\rchild)\), excluant \(\rec(v)\), \(\rec(v\lchild)\) et \(\rec(v\rchild)\), implique un événement de spéciation suivi d’une perte;
-%     \item si \(v\) correspond à un événement de duplication, alors chaque embranchement sur les chemins \(\rec(v) \tpath \rec(v\lchild)\) et \(\rec(v) \tpath \rec(v\rchild)\), incluant \(\rec(v)\) mais excluant \(\rec(v\lchild)\) et \(\rec(v\rchild)\), implique un événement de perte.
-% \end{itemize}
-
-
-
-\paragraph{Modèle duplication--régulation (DR)}
-Ce modèle est une alternative au modèle DR dans lequel l’absence d’un gène dans une espèce descendante est expliquée par sa \enquote{désactivation} temporaire par un mécanisme de régulation.
+\paragraph{Modèle duplication--perte--régulation~\cite{Goodman1979FittingGeneLineage}}
+Ce modèle introduit un événement \(\evtR\) qui offre une interprétation alternative à l’absence d’un gène dans un descendant.
+est une alternative au modèle DR dans lequel l’absence d’un gène dans une espèce descendante est expliquée par sa \enquote{désactivation} temporaire par un mécanisme de régulation.
 
 \paragraph{Modèle duplication--transfert--perte (DTL)}
 

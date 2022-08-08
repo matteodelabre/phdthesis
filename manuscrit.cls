@@ -21,14 +21,6 @@
 \RequirePackage[style=ieee, citestyle=numeric-comp]{biblatex}
 \addbibresource{references.bib}
 
-% Liens et hyperliens
-
-\RequirePackage{hyperref}
-\hypersetup{colorlinks=true,allcolors=black}
-\RequirePackage{hypcap}
-
-\renewcommand{\figureautorefname}{figure}
-
 % Typographie
 
 %% Police
@@ -78,6 +70,7 @@
         \textbf{Sortie} & #3
     \end{tabular}\par
 }
+\newcommand{\refproblem}[1]{\textsc{#1}}
 
 %% Notations
 
@@ -137,6 +130,8 @@
 \newcommand{\evtR}{\mathrm{R}}
 \newcommand{\evtT}{\mathrm{T}}
 \newcommand{\evtTL}{\mathrm{TL}}
+
+\newcommand{\recmodelDL}{\evtD\evtL}
 
 % Figures
 
@@ -208,6 +203,17 @@
 \colorlet{reccolor1}{blue!60!white}
 \colorlet{reccolor2}{red!80!white}
 \colorlet{reccolor3}{green!60!black}
+
+% Liens et hyperliens
+
+\RequirePackage{hyperref}
+\hypersetup{colorlinks=true,allcolors=black}
+\RequirePackage{hypcap}
+\RequirePackage[nameinlink,noabbrev]{cleveref}
+
+% \renewcommand{\figureautorefname}{figure}
+% \renewcommand{\theoremautorefname}{théorème}
+% \newcommand{\lemmaautorefname}{lemme}
 
 % Métadonnées
 
