@@ -103,7 +103,7 @@
 \newcommand{\nottafter}{\notgeq}
 \newcommand{\tafterneq}{>}
 
-\newcommand{\subtree}[2]{#1\left[#2\right]}
+\newcommand{\subtree}[2]{#1[#2]}
 \newcommand{\lca}{\mathrm{lca}}
 \newcommand{\tpath}{\mathbin{\leadsto}}
 

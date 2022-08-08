@@ -18,24 +18,24 @@ Ce chapitre est consacré à la présentation de cette méthode.
 
 \section{Plongement d’arbres phylogénétiques}
 
-Chaque embranchement de l’arbre phylogénétique d’une unité dépendante est dû soit à sa divergence directe, soit à la divergence de son hôte.
-Dans une phylogénie à \(n\) embranchements, il peut ainsi exister jusqu’à \(2^n\) possibilités pour affecter chaque embranchement à son type.
-La topologie de la phylogénie des hôtes peut toutefois constituer un guide pour limiter le nombre d’affectations à considérer et sélectionner efficacement les plus plausibles.
+Un embranchement de l’arbre phylogénétique d’une unité dépendante peut être causé soit par sa divergence directe, soit par une codivergence avec son hôte.
+Il existe ainsi jusqu’à \(2^n\) possibilités pour affecter chaque embranchement à son origine, si l’arbre comporte \(n\) embranchements.
+La topologie de la phylogénie des hôtes peut servir de guide pour limiter le nombre d’affectations à considérer et sélectionner efficacement les plus plausibles.
 
-Supposons que la phylogénie \(T\) d’une famille dépendante et celle de ses hôtes \(S\) soient connues.
-Chaque feuille de \(T\), correspondant à une unité dépendante actuelle, est associé à une feuille de \(S\), son hôte.
-Lorsque la divergence d’un hôte cause un embranchement \(v\) dans \(T\), ce dernier se rapporte à un embranchement correspondant dans~\(S\).
-Au contraire, si \(v\) se produit indépendamment de l’évolution de l’hôte, donc entre deux embranchements de \(S\), il se rapporte à une branche de~\(S\).
+Supposons que la phylogénie \(T\) d’unités dépendantes et celle \(S\) de leurs hôtes soient connues.
+Chaque feuille de \(T\), correspondant à une unité dépendante actuelle, est associée à une feuille de~\(S\), son hôte.
+Lorsque la divergence d’un hôte cause un embranchement \(v\) dans \(T\), ce dernier correspond à un embranchement dans~\(S\).
+Au contraire, si \(v\) est indépendant de l’évolution de l’hôte, il se rapporte à une branche de~\(S\).
 Cette association de \(T\) avec \(S\) est appelée \emph{réconciliation}.
-Pour être valide, une réconciliation ne doit pas \enquote{remonter dans le temps}, c’est-à-dire qu’un descendant de \(v\) ne doit pas être associé à un ancêtre de l’associé de \(v\)~(voir~\autoref{figure:valid-invalid-rec}).
+Pour être valide, une réconciliation ne doit pas \enquote{remonter dans le temps}, c’est-à-dire qu’un strict descendant de \(v\) ne doit pas être associé à un strict ancêtre de l’associé de \(v\)~(voir~\autoref{figure:valid-invalid-rec}).
 
 Formellement, une réconciliation est un plongement de \(T\) dans \(S\), au sens défini ci-après.
-Pour simplifier, lorsque \(v\) doit s’associer à une branche de \(S\), il est associé à sa terminaison.
+Pour simplifier, lorsque \(v\) correspond à une branche de \(S\), il est associé à sa terminaison.
 
 \begin{definition}[Réconciliation]\label{definition:rec}
     Soient \(T\) et \(S\) deux arbres phylogénétiques et \(\llmap : \tleavs(T) \onto \tleavs(S)\) une application qui associe chaque feuille de \(T\) à son hôte dans \(S\).
     Une \emph{réconciliation} de \(T\) avec \(S\) est une application \(\rec : \tnodes(T) \onto \tnodes(S)\) qui étend \(\llmap\).
-    Une réconciliation est \emph{valide} si aucune paire \((v, w) \in \tnodes(T)^2\) avec \(v \tancs w\) n’est telle que \(\rec(v) \tdesc \rec(w)\).
+    Une réconciliation est \emph{valide} si aucune paire \((v, w) \in \tnodes(T)^2\) avec \(v \tancsneq w\) n’est telle que \(\rec(v) \tdescneq \rec(w)\).
 \end{definition}
 
 \begin{figure}[htb]
@@ -50,14 +50,14 @@ Pour simplifier, lorsque \(v\) doit s’associer à une branche de \(S\), il est
     \label{figure:valid-invalid-rec}
 \end{figure}
 
-Dans certaines hiérarchies évolutives, les unités dépendantes sont capables de migrer de leur hôte vers un autre hôte coexistant mais séparé.
-Par exemple, en particulier chez les procaryotes, les gènes peuvent subir des transferts horizontaux d’une espèce à une autre.
-Lorsqu’un changement d’hôte se produit le long d’une branche \((v, w) \in \tedges(T)\), l’espèce \(\rec(w)\) à laquelle se rapporte la terminaison de la branche est \emph{séparée} de l’espèce \(\rec(v)\) associée à l’origine.
-Une réconciliation qui ne contient pas de tel changement d’hôte est dite \emph{stricte}, car alors l’évolution de l’unité dépendante suit strictement celle de son hôte.
+Dans certaines hiérarchies évolutives, les unités dépendantes sont capables de migrer de leur hôte vers un autre hôte coexistant.
+Par exemple, en particulier chez les procaryotes, des transferts horizontaux peuvent déplacer des gènes d’une espèce à une autre.
+Lorsqu’un changement d’hôte se produit le long d’une branche \((v, w) \in \tedges(T)\), l’espèce \(\rec(w)\) à laquelle se rapporte la terminaison de la branche est \emph{séparée} de l’espèce \(\rec(v)\) associée à son origine.
+Une réconciliation qui ne contient pas de tel changement d’hôte est dite \emph{stricte}, car l’évolution de l’unité dépendante suit alors strictement celle de son hôte.
 
-\begin{definition}[Réconciliation stricte ou libre]\label{definition:rec-strict}
+\begin{definition}\label{definition:rec-strict}
     Une réconciliation \(\rec\) de \(T\) avec \(S\) est dite \emph{stricte} si toutes les paires
-    \((v, w) \in \tnodes(T)^2\) sont telles que si \(v \tancs w\) alors \(\rec(v) \tancs \rec(w)\).
+    \((v, w) \in \tnodes(T)^2\) sont telles que si \(v \tancsneq w\) alors \(\rec(v) \tancsneq \rec(w)\).
     Sinon, \(\rec\) est dite \emph{libre}.
 \end{definition}
 \begin{remark}
@@ -65,7 +65,7 @@ Une réconciliation qui ne contient pas de tel changement d’hôte est dite \em
 \end{remark}
 
 Dans la \autoref{figure:valid-invalid-rec}, la réconciliation \(\rec_1\) est une réconciliation stricte tandis que \(\rec_2\) est une réconciliation libre mais invalide.
-La réconciliation libre \(\rec_3\) de la \autoref{figure:free-rec} est valide.
+La réconciliation libre \(\rec_3\) de la \autoref{figure:free-rec} ci-dessous est valide.
 
 \begin{figure}[htb]
     \capstart
