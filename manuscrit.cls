@@ -130,8 +130,11 @@
 \newcommand{\evtR}{\mathrm{R}}
 \newcommand{\evtT}{\mathrm{T}}
 \newcommand{\evtTL}{\mathrm{TL}}
+\newcommand{\evtTX}{\mathrm{TX}}
 
 \newcommand{\recmodelDL}{\evtD\evtL}
+\newcommand{\recmodelDTL}{\evtD\evtT\evtL}
+\newcommand{\recmodelDTLx}{\evtD\evtT\evtL{}x}
 
 % Figures
 
