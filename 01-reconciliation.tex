@@ -14,7 +14,10 @@ Par ailleurs, les gènes orthologues renseignent directement sur l’arbre phylo
 Ainsi, l’arbre phylogénétique d’une famille de gènes tous orthologues donne une estimation de l’arbre des espèces hôtes.
 
 La méthode de \emph{réconciliation}, proposée par \citeauthor{Goodman1979FittingGeneLineage} en~\citeyear{Goodman1979FittingGeneLineage}~\cite{Goodman1979FittingGeneLineage}, puis formalisée par~\citeauthor{Page1994MapsTreesCladistic} en~\citeyear{Page1994MapsTreesCladistic}~\cite{Page1994MapsTreesCladistic}, fournit un cadre permettant d’inférer le statut de chaque divergence dans l’arbre phylogénétique d’une unité dépendante.
+
 Ce chapitre est consacré à la présentation de cette méthode.
+Les deux premières sections…
+Puis, …
 
 \section{Plongement d’arbres phylogénétiques}
 
@@ -30,14 +33,14 @@ Cette association de \(T\) avec \(S\) est appelée \emph{réconciliation}.
 
 Formellement, une réconciliation est un plongement de \(T\) dans \(S\), au sens défini ci-après.
 Pour simplifier, lorsque \(v\) correspond à une branche de \(S\), il est associé à sa terminaison.
+Des exemples de réconciliations sont donnés dans les \cref{figure:valid-invalid-rec,figure:free-rec}.
 
 \begin{definition}[Réconciliation]\label{definition:rec}
     Soient \(T\) et \(S\) deux arbres phylogénétiques et \(\llmap : \tleavs(T) \onto \tleavs(S)\) une application qui associe chaque feuille de \(T\) à son hôte dans \(S\).
     Une \emph{réconciliation} de \(T\) avec \(S\) est une application \(\rec : \tnodes(T) \onto \tnodes(S)\) qui étend \(\llmap\).
 \end{definition}
 
-Des exemples de réconciliations sont donnés dans les \cref{figure:valid-invalid-rec,figure:free-rec}.
-Si les associations d’une réconciliation découlent d’une réalité évolutive, celles-ci ne peuvent pas \enquote{remonter dans le temps}: un strict descendant de~\(v\) ne peut pas être associé à un strict ancêtre de l’associé de~\(v\).
+Si le plongement décrit par une réconciliation découle d’une réalité évolutive, celui-ci ne peut pas \enquote{remonter dans le temps}: un strict descendant de~\(v\) ne peut pas être associé à un strict ancêtre de l’associé de~\(v\).
 Une réconciliation qui respecte ce critère est dite \emph{valide}.
 
 \begin{figure}[htb]
@@ -60,7 +63,7 @@ Une réconciliation qui respecte ce critère est dite \emph{valide}.
 
 Dans certaines hiérarchies évolutives, les unités dépendantes sont capables de migrer de leur hôte vers un autre hôte coexistant.
 Par exemple, en particulier chez les procaryotes, des transferts horizontaux peuvent déplacer des gènes d’une espèce à une autre.
-Lorsqu’un changement d’hôte se produit le long d’une branche \((v, w) \in \tedges(T)\), l’espèce \(\rec(w)\) à laquelle se rapporte la terminaison de la branche est \emph{séparée} de l’espèce \(\rec(v)\) associée à son origine.
+Lorsqu’un changement d’hôte se produit le long d’une branche \((v, w) \in \tedges(T)\), l’espèce \(\rec(w)\) à laquelle se rapporte la terminaison de la branche est séparée de l’espèce \(\rec(v)\) associée à son origine.
 Une réconciliation qui ne contient pas de tel changement d’hôte est dite \emph{stricte}, car l’évolution de l’unité dépendante suit alors strictement celle de son hôte.
 
 \begin{definition}\label{definition:rec-strict}
@@ -83,7 +86,7 @@ La \cref{figure:free-rec} donne deux exemples de réconciliations libres et vali
         Deux réconciliations libres des phylogénies \(T\) et \(T'\) avec \(S\).
         Les branches marquées de pointillés correspondent à des changements d’hôtes.
         La réconciliation \(\rec_3\) est valide tandis que
-        \(\rec_4\) est invalide mais localement valide.
+        \(\rec_4\) est seulement localement valide.
     }
     \label{figure:free-rec}
 \end{figure}
@@ -129,7 +132,7 @@ Dans les méthodes de \emph{parcimonie}, les réconciliations considérées comm
 Dans le cadre \emph{probabiliste}, ce sont les réconciliations dont la meilleure interprétation maximise la vraisemblance qui sont favorisées~\cite{Doyon2011ModelsAlgorithmsPrograms}.
 
 En parcimonie, une fonction \(\cost : \recmodel \onto \nat\) attribuant un coût à chaque type d’événement est fixée en avance.
-Le coût d’une interprétation est défini comme la somme des coûts des événements qu’elle utilise.
+Le coût d’un arbre réconcilié est la somme des coûts de ses événements.
 Enfin, le coût d’une réconciliation est défini comme celui de son interprétation la plus économique.
 Cette définition engendre une famille de problèmes d’optimisation combinatoire qui consistent à rechercher les réconciliations de coût minimum (c’est-à-dire les plus parcimonieuses).
 
@@ -140,7 +143,7 @@ Cette définition engendre une famille de problèmes d’optimisation combinatoi
     {Coût minimum d’une réconciliation valide de \(T\) et \(S\)
      sous le modèle \(\recmodel\) et les coûts \(\cost\).}
 
-Les réconciliations les plus parcimonieuses ne constituent pas nécessairement une histoire complète ou exacte des unités étudiées, puisque l’évolution emprunte rarement le chemin le plus court.
+Les réconciliations les plus parcimonieuses ne restituent pas nécessairement une histoire complète ou exacte des unités étudiées, puisque l’évolution emprunte rarement le chemin le plus court.
 En revanche, cette méthode a l’avantage de sélectionner des réconciliations permettant d’expliquer les données observées en faisant le moins d’hypothèses possible.
 
 Les limitations principales de la parcimonie sont …
@@ -177,8 +180,8 @@ La \cref{figure:dl-interpret} donne une interprétation de la réconciliation de
 \end{figure}
 
 Les fonctions de coût considérées pour ce modèle fixent toujours \(\cost(\evtS) = 0\).
-En effet, un événement~\(\evtS\) s’appuie sur une spéciation de l’hôte et ne constitue pas une hypothèse évolutive supplémentaire.
 Par conséquent, rechercher les réconciliations de coût minimal implique de maximiser le nombre de codivergences entre \(T\) et \(S\).
+Ce choix est motivé par le fait qu’un événement~\(\evtS\) s’appuie sur une spéciation de l’hôte et ne constitue pas une hypothèse évolutive supplémentaire.
 
 Le modèle \(\recmodelDL\) exclut toute possibilité de changement d’hôte, donc les réconciliations optimales se trouvent dans l’espace restreint des réconciliations strictes (voir lemme~\labelcref{lemma:strict-rec-space}).
 La réconciliation~\(\reclca\) est toujours une solution optimale sous ce modèle.
@@ -193,7 +196,7 @@ est une alternative au modèle DR dans lequel l’absence d’un gène dans une 
 \paragraph{Duplication--transfert--perte~\cite{Tofigh2011SimultaneousIdentificationDuplications}}
 Le modèle \(\recmodelDTL = \{\evtD, \evtT, \evtL, \evtS\}\) étend le modèle \(\recmodelDL\) pour y intégrer la possibilité de changements d’hôte.
 En plus des trois types d’événements définis précédemment, pour un embranchement \(v \in \tinner(\rectree)\) sous ce modèle, si \(\evt(v) = \evtT\), alors \(\exrec(v) = \exrec(v\lchild)\) et \(\exrec(v) \nottcomp \exrec(v\rchild)\), ou bien \(\exrec(v) = \exrec(v\rchild)\) et \(\exrec(v) \nottcomp \exrec(v\lchild)\).
-La \cref{figure:dtl-interpret} donne une interprétation de la réconciliation de la \cref{figure:free-rec} sous le modèle \(\recmodelDTL\).
+La \cref{figure:dtl-interpret} donne une interprétation de la réconciliation \(\rec_3\) de la \cref{figure:free-rec} sous le modèle \(\recmodelDTL\).
 
 \begin{figure}[htb]
     \capstart
@@ -207,18 +210,72 @@ La \cref{figure:dtl-interpret} donne une interprétation de la réconciliation d
 \end{figure}
 
 Le modèle \(\recmodelDTL\) permet d’interpréter une partie des réconciliations libres.
-Puisque la définition de l’événement \(\evtT\) ne permet que des transferts binaires qui transfèrent un seul de leurs enfants, il ne permet pas d’interpréter une réconciliation telle qu’un embranchement \(v\) aient ses deux enfants associés à des espèces séparées de \(\rec(v)\).
+Puisque la définition de l’événement \(\evtT\) ne permet que des transferts binaires qui transfèrent un seul de leurs enfants, il ne permet pas d’interpréter une réconciliation contenant un embranchement \(v\) dont les deux enfants sont associés à des espèces séparées de \(\rec(v)\).
 
-Contrairement au modèle \(\recmodelDL\), la réconciliation \(\reclca\) n’est pas nécessairement optimale, et il peut exister plusieurs telles solutions.
-L’une des principales difficultés avec ce modèle est d’assurer que les réconciliations calculées soient valides.
-Le problème de décision associé à \refproblem{\(\recmodelDTL\)-Parcimonie} est NP-difficile, comme montré en~\cite{Tofigh2011SimultaneousIdentificationDuplications} par réduction du problème du sous-graphe acyclique maximal.
+Contrairement au modèle \(\recmodelDL\), la réconciliation \(\reclca\) n’est pas nécessairement optimale pour \(\recmodelDTL\), et il peut exister plusieurs telles solutions.
+L’une des difficultés avec ce modèle est d’assurer que les réconciliations calculées soient valides.
+En raison de cette contrainte, le problème de décision associé à \refproblem{\(\recmodelDTL\)-Parcimonie} est NP-complet, comme montré en~\cite{Tofigh2011SimultaneousIdentificationDuplications} par réduction du problème du sous-graphe acyclique maximal.
 
-Une version relâchée du problème est définie \refproblem{\(\recmodelDTL\)-Parcimonie\(\star\)} dans laquelle toutes les réconciliations localement valides, pas seulement valides, sont autorisées.
+Pour pallier cette limite, une version relâchée du problème est définie, \refproblem{\(\recmodelDTL\)-Parcimonie\(\star\)}, dans laquelle toutes les réconciliations localement valides peuvent être considérées.
+Par exemple, la réconciliation \(\rec_4\) de la \cref{figure:free-rec} est acceptable bien qu’elle soit invalide.
+Ce problème possède une sous-structure optimale : une réconciliation localement valide parcimonieuse du sous-arbre \(\subtree{T}{v}\) avec \(S\) est un assemblage de deux réconciliations localement valides parcimonieuses de \(\subtree{T}{v\lchild}\) et \(\subtree{T}{v\rchild}\) avec \(S\).
+Cette propriété permet de concevoir l’\cref{algo:dtl-parcimonie-star} pour résoudre le problème~\cite{Tofigh2011SimultaneousIdentificationDuplications}.
+À condition d’utiliser une technique de programmation dynamique évitant de recalculer plusieurs fois les mêmes valeurs, cet algorithme procède en temps \(O(\left|\tnodes(T)\right|\times\left|\tnodes(S)\right|^2)\).
+Une optimisation supplémentaire permet de réduire ce temps à \(O(\left|\tnodes(T)\right|\times\left|\tnodes(S)\right|)\)~\cite{Bansal2012EfficientAlgorithmsReconciliation}.
 
-\cite[pp. 68--70]{Page1994MapsTreesCladistic}
-\cite{Hallett2001EfficientAlgorithmsLateral}
-\cite{Hallett2004SimultaneousIdentificationDuplications}
-\cite{Bansal2012EfficientAlgorithmsReconciliation}
+\begin{algorithm}
+    \newcommand{\fndtl}{\mathrm{DTL}}
+    \newcommand{\fndtlmain}{\mathrm{DTL{-}Main}}
+    \newcommand{\varspe}{\mathrm{Spe_{LR}}}
+    \newcommand{\varsperl}{\mathrm{Spe_{RL}}}
+    \newcommand{\vardup}{\mathrm{Dup}}
+    \newcommand{\varhgt}{\mathrm{HGT_L}}
+    \newcommand{\varhgtr}{\mathrm{HGT_R}}
+    \Fn{\(\fndtlmain\)}{
+        \Return \(\displaystyle\min_{\sigma \in \tnodes(S)}\fndtl(\troot(T), \sigma)\)
+    }
+    \medskip
+    \Fn{\(\fndtl(v, \sigma)\)}{
+        \If{\(v \in \tleavs(T)\)}{
+            \Return \(0\) \textbf{si} \(\sigma = \llmap(v)\)\textbf{, sinon} \(\infty\) \;
+        }
+        \smallskip
+        \(\displaystyle\varspe \gets \min_{\sigma' \tdesc \sigma\lchild} \{
+            \fndtl(v\lchild, \sigma') + \cost(\evtL) \cdot \tdist(\sigma\lchild, \sigma')
+        \} + \min_{\sigma'' \tdesc \sigma\rchild} \{
+            \fndtl(v\rchild\kern1pt, \sigma'') + \cost(\evtL) \cdot \tdist(\sigma\rchild\kern1pt, \sigma'')
+        \}\)\;
+        \smallskip
+        \(\displaystyle\varsperl \gets \min_{\sigma' \tdesc \sigma\rchild} \{
+            \fndtl(v\lchild, \sigma') + \cost(\evtL) \cdot \tdist(\sigma\rchild\kern1pt, \sigma')
+        \} + \min_{\sigma'' \tdesc \sigma\lchild} \{
+            \fndtl(v\rchild\kern1pt, \sigma'') + \cost(\evtL) \cdot \tdist(\sigma\lchild, \sigma'')
+        \}\)\;
+        \smallskip
+        \(\displaystyle\vardup \gets \cost(\evtD) + \min_{\sigma' \tdesc \sigma} \{
+            \fndtl(v\lchild, \sigma') + \cost(\evtL) \cdot \tdist(\sigma, \sigma')
+        \} + \min_{\sigma'' \tdesc \sigma} \{
+            \fndtl(v\rchild\kern1pt, \sigma'') + \cost(\evtL) \cdot \tdist(\sigma, \sigma'')
+        \}\)\;
+        \smallskip
+        \(\displaystyle\varhgt \gets \cost(\evtT) + \min_{\sigma' \nottcomp \sigma} \{
+            \fndtl(v\lchild, \sigma')
+        \} + \min_{\sigma'' \tdesc \sigma} \{
+            \fndtl(v\rchild\kern1pt, \sigma'') + \cost(\evtL) \cdot \tdist(\sigma, \sigma'')
+        \}\)\;
+        \smallskip
+        \(\displaystyle\varhgtr \gets \cost(\evtT) + \min_{\sigma' \tdesc \sigma} \{
+            \fndtl(v\lchild, \sigma') + \cost(\evtL) \cdot \tdist(\sigma, \sigma')
+        \} + \min_{\sigma'' \nottcomp \sigma} \{
+            \fndtl(v\rchild\kern1pt, \sigma'')
+        \}\)\;
+        \smallskip
+        \Return \(\min(\varspe, \varsperl, \vardup, \varhgt, \varhgtr)\)\;
+    }
+    \caption{Algorithme récursif pour le problème \refproblem{\(\recmodelDTL\)-Parcimonie\(\star\)}}
+    \label{algo:dtl-parcimonie-star}
+\end{algorithm}
+
 
 \paragraph{Duplication--transfert--perte généralisé~\cite{Weiner2021ImprovedDuplicationTransfer}}
 Le modèle \(\recmodelDTLx = \{\evtD, \evtT, \evtTL, \evtTX, \evtL, \evtS\}\)…
@@ -243,6 +300,9 @@ Tri incomplet de lignées (ILS)
 \paragraph{Dénombrement, échantillonnage}
 
 \cite{Doyon2009SpaceGeneSpeciesTrees}
+
+
+\paragraph{Arbres non-binaires}
 
 \paragraph{Inférence de l’arbre d’espèces}
 \cite[pp. 72--73]{Page1994MapsTreesCladistic}

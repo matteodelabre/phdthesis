@@ -63,15 +63,6 @@
 \newtheorem{definition}{Définition}[chapter]
 \newtheorem{remark}[definition]{Remarque}
 
-\newcommand{\problem}[3]{
-    \par\textbf{Problème} \textsc{#1}\textbf{.}\\[1ex]
-    \begin{tabular}{@{}l|l@{}}
-        \textbf{Entrée} & #2\\
-        \textbf{Sortie} & #3
-    \end{tabular}\par
-}
-\newcommand{\refproblem}[1]{\textsc{#1}}
-
 %% Notations
 
 %%% Général
@@ -84,6 +75,7 @@
 \newcommand{\tleavs}{L}
 \newcommand{\tinner}{I}
 \newcommand{\tedges}{E}
+\newcommand{\troot}{r}
 \newcommand{\lchild}{_\mathit{\ell}}
 \newcommand{\rchild}{_r}
 \newcommand{\child}{_c}
@@ -136,6 +128,21 @@
 \newcommand{\recmodelDL}{\evtD\evtL}
 \newcommand{\recmodelDTL}{\evtD\evtT\evtL}
 \newcommand{\recmodelDTLx}{\evtD\evtT\evtL\mathrm{x}}
+
+%% Algorithmes et complexité
+
+\newcommand{\problem}[3]{
+    \par\textbf{Problème} \textsc{#1}\textbf{.}\\[1ex]
+    \begin{tabular}{@{}p{3em}@{\hskip .7em}|@{\hskip .7em}p{\dimexpr\linewidth-4.4em-1pt}@{}}
+        \textbf{Entrée} & #2\\
+        \textbf{Sortie} & #3
+    \end{tabular}\par
+}
+\newcommand{\refproblem}[1]{\textsc{#1}}
+
+\RequirePackage[ruled,vlined,french,onelanguage]{algorithm2e}
+\DontPrintSemicolon
+\SetKwProg{Fn}{fonction}{}{}
 
 % Figures
 
