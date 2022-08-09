@@ -171,9 +171,9 @@ La \cref{figure:dl-interpret} donne une interprétation de la réconciliation de
     \input{fig/01-dl-interpret}
     \caption{
         Arbre réconcilié \(\rectree\) interprétant la réconciliation \(\rec_1\) entre \(T\) et \(S\) sous le modèle duplication--perte~(\(\recmodelDL\)).
-        Chaque carré {\showduplication} représente un événement de duplication (\(\evtD\)),
-        chaque croix {\showloss} une perte (\(\evtL\)),
-        et chaque cercle {\showspeciation} une codivergence (\(\evtS\)).
+        Chaque carré~{\showduplication} représente un événement de duplication (\(\evtD\)),
+        chaque croix~{\showloss} une perte (\(\evtL\))
+        et chaque cercle~{\showspeciation} une codivergence (\(\evtS\)).
         Pour la lisibilité, les associations entre nœuds sont indiquées par des étiquettes au lieu de flèches.
     }
     \label{figure:dl-interpret}
@@ -190,8 +190,7 @@ Le calcul de~\(\reclca\) demande seulement un temps et espace linéaires en fonc
 Le problème \refproblem{\(\recmodelDL\)-Parcimonie} est donc polynomial.
 
 \paragraph{Duplication--perte--régulation~\cite{Goodman1979FittingGeneLineage}}
-Ce modèle introduit un événement \(\evtR\) qui offre une interprétation alternative à l’absence d’un gène dans un descendant.
-est une alternative au modèle DR dans lequel l’absence d’un gène dans une espèce descendante est expliquée par sa \enquote{désactivation} temporaire par un mécanisme de régulation.
+Ce modèle introduit un événement \(\evtR\) qui offre une interprétation alternative à l’absence d’un gène dans un descendant, pouvant être expliquée par sa \enquote{désactivation} temporaire par un mécanisme de régulation.
 
 \paragraph{Duplication--transfert--perte~\cite{Tofigh2011SimultaneousIdentificationDuplications}}
 Le modèle \(\recmodelDTL = \{\evtD, \evtT, \evtL, \evtS\}\) étend le modèle \(\recmodelDL\) pour y intégrer la possibilité de changements d’hôte et ainsi permettre d’interpréter les réconciliations libres.
@@ -216,24 +215,33 @@ En raison de cette contrainte, le problème de décision associé à \refproblem
 Pour contourner cette difficulté, une version relâchée du problème est définie, \refproblem{\(\recmodelDTL\)-Parcimonie\(\star\)}, dans laquelle toutes les réconciliations \emph{localement valides} peuvent être considérées.
 Par exemple, la réconciliation \(\rec_4\) de la \cref{figure:free-rec} est acceptable bien qu’elle soit invalide.
 Cette modification confère au problème une sous-structure optimale : une solution pour le sous-arbre \(\subtree{T}{v}\) est un assemblage de deux solutions pour \(\subtree{T}{v\lchild}\) et \(\subtree{T}{v\rchild}\).
-En exploitant cette propriété, il est possible de concevoir un algorithme polynomial résolvant \refproblem{\(\recmodelDTL\)-Parcimonie\(\star\)}.
-Cette propriété permet de concevoir l’\cref{algo:dtl-parcimonie-star} pour résoudre le problème~\cite{Tofigh2011SimultaneousIdentificationDuplications}.
-À condition d’utiliser une technique de programmation dynamique évitant de recalculer plusieurs fois les mêmes valeurs, cet algorithme procède en temps \(O(\left|\tnodes(T)\right|\times\left|\tnodes(S)\right|^2)\).
-Une optimisation supplémentaire permet de réduire ce temps à \(O(\left|\tnodes(T)\right|\times\left|\tnodes(S)\right|)\)~\cite{Bansal2012EfficientAlgorithmsReconciliation}.
+
+{
+\newcommand{\fndtl}{\mathrm{cost}}
+\newcommand{\varspe}{\mathrm{Spe_{LR}}}
+\newcommand{\varsperl}{\mathrm{Spe_{RL}}}
+\newcommand{\vardup}{\mathrm{Dup}}
+\newcommand{\varhgt}{\mathrm{HGT_L}}
+\newcommand{\varhgtr}{\mathrm{HGT_R}}
+
+L’\cref{algo:dtl-parcimonie-star} exploite cette propriété pour résoudre efficacement le problème.
+La fonction \(\fndtl(v, \sigma)\) (\crefrange{algo:dtl-parcimonie-star:fndtl:start}{algo:dtl-parcimonie-star:fndtl:end}) calcule le coût minimum d’une réconciliation de \(\subtree{T}{v}\) avec \(S\) de sorte que \(v\) soit associé à un hôte \(\sigma\) donné.
+Pour ce faire, elle utilise des appels récursifs pour obtenir le coût minimum de réconciliations des sous-arbres \(\subtree{T}{v\lchild}\) et \(\subtree{T}{v\rchild}\) lorsque leurs racines \(v\lchild\) et \(v\rchild\) sont associées à différents hôtes \(\sigma'\) et \(\sigma''\) dans \(S\).
+Ces sous-réconciliations sont assemblées en utilisant les observations suivantes:
+\begin{compactitemize}
+    \item \(\evt(v) = \evtS\) seulement si \(\sigma\) est un embranchement et \(\sigma'\) et \(\sigma''\) sont chacun dans un des deux sous-arbres \(\subtree{S}{\sigma\lchild}\) et \(\subtree{S}{\sigma\rchild}\) (variables \(\varspe\) et \(\varsperl\), \cref{algo:dtl-parcimonie-star:varspe,algo:dtl-parcimonie-star:varsperl});
+    \item \(\evt(v) = \evtD\) seulement si \(\sigma'\) et \(\sigma''\) descendent de \(\sigma\) (variable \(\vardup\), \cref{algo:dtl-parcimonie-star:vardup});
+    \item \(\evt(v) = \evtT\) seulement si \(\sigma'\) ou \(\sigma''\) sont séparés de \(\sigma\) (variables \(\varhgt\) et \(\varhgtr\), \cref{algo:dtl-parcimonie-star:varhgt,algo:dtl-parcimonie-star:varhgtr});
+    \item à l’exception des branches de transfert, des événements de perte doivent être insérés pour chaque espèce traversée entre \(\sigma\), \(\sigma'\) et \(\sigma''\) afin de respecter le modèle (\crefrange{algo:dtl-parcimonie-star:varspe}{algo:dtl-parcimonie-star:varhgtr}).
+\end{compactitemize}
 
 \begin{algorithm}
-    \newcommand{\fndtl}{\mathrm{cost}}
-    \newcommand{\varspe}{\mathrm{Spe_{LR}}}
-    \newcommand{\varsperl}{\mathrm{Spe_{RL}}}
-    \newcommand{\vardup}{\mathrm{Dup}}
-    \newcommand{\varhgt}{\mathrm{HGT_L}}
-    \newcommand{\varhgtr}{\mathrm{HGT_R}}
     \KwIn{Phylogénies \(T\) et \(S\);
         association des feuilles \(\llmap : \tleavs(T) \onto \tleavs(S)\);
         coûts \(\cost : \recmodelDTL \onto \nat\).}
     \KwOut{Coût minimum d’une réconciliation localement valide de \(T\) avec \(S\) sous le modèle \(\recmodelDTL\).}
     \medskip
-    \Fn{\(\fndtl(v, \sigma)\)}{
+    \Fn{\(\fndtl(v, \sigma)\)}{\label{algo:dtl-parcimonie-star:fndtl:start}
         \If{\(v \in \tleavs(T)\)}{
             \Return \(0\) \textbf{si} \(\sigma = \llmap(v)\)\textbf{, sinon} \(\infty\) \;
         }
@@ -242,39 +250,43 @@ Une optimisation supplémentaire permet de réduire ce temps à \(O(\left|\tnode
             \fndtl(v\lchild, \sigma') + \cost(\evtL) \cdot \tdist(\sigma\lchild, \sigma')
         \} + \min_{\sigma'' \tdesc \sigma\rchild} \{
             \fndtl(v\rchild\kern1pt, \sigma'') + \cost(\evtL) \cdot \tdist(\sigma\rchild\kern1pt, \sigma'')
-        \}\)\;
+        \}\)\;\label{algo:dtl-parcimonie-star:varspe}
         \smallskip
         \(\displaystyle\varsperl \gets \min_{\sigma' \tdesc \sigma\rchild} \{
             \fndtl(v\lchild, \sigma') + \cost(\evtL) \cdot \tdist(\sigma\rchild\kern1pt, \sigma')
         \} + \min_{\sigma'' \tdesc \sigma\lchild} \{
             \fndtl(v\rchild\kern1pt, \sigma'') + \cost(\evtL) \cdot \tdist(\sigma\lchild, \sigma'')
-        \}\)\;
+        \}\)\;\label{algo:dtl-parcimonie-star:varsperl}
         \smallskip
         \(\displaystyle\vardup \gets \cost(\evtD) + \min_{\sigma' \tdesc \sigma} \{
             \fndtl(v\lchild, \sigma') + \cost(\evtL) \cdot \tdist(\sigma, \sigma')
         \} + \min_{\sigma'' \tdesc \sigma} \{
             \fndtl(v\rchild\kern1pt, \sigma'') + \cost(\evtL) \cdot \tdist(\sigma, \sigma'')
-        \}\)\;
+        \}\)\;\label{algo:dtl-parcimonie-star:vardup}
         \smallskip
         \(\displaystyle\varhgt \gets \cost(\evtT) + \min_{\sigma' \nottcomp \sigma} \{
             \fndtl(v\lchild, \sigma')
         \} + \min_{\sigma'' \tdesc \sigma} \{
             \fndtl(v\rchild\kern1pt, \sigma'') + \cost(\evtL) \cdot \tdist(\sigma, \sigma'')
-        \}\)\;
+        \}\)\;\label{algo:dtl-parcimonie-star:varhgt}
         \smallskip
         \(\displaystyle\varhgtr \gets \cost(\evtT) + \min_{\sigma' \tdesc \sigma} \{
             \fndtl(v\lchild, \sigma') + \cost(\evtL) \cdot \tdist(\sigma, \sigma')
         \} + \min_{\sigma'' \nottcomp \sigma} \{
             \fndtl(v\rchild\kern1pt, \sigma'')
-        \}\)\;
+        \}\)\;\label{algo:dtl-parcimonie-star:varhgtr}
         \Return \(\min(\varspe, \varsperl, \vardup, \varhgt, \varhgtr)\)\;
-    }
+    }\label{algo:dtl-parcimonie-star:fndtl:end}
     \medskip
     \Return \(\min_{\sigma \in \tnodes(S)}\fndtl(\troot(T), \sigma)\)
-    \caption{Algorithme récursif pour le problème \refproblem{\(\recmodelDTL\)-Parcimonie\(\star\)}}
+    \caption{Algorithme récursif pour le problème \refproblem{\(\recmodelDTL\)-Parcimonie\(\star\)}.}
     \label{algo:dtl-parcimonie-star}
 \end{algorithm}
 
+L’\cref{algo:dtl-parcimonie-star} peut être transformé pour utiliser une table de programmation dynamique conservant les valeurs de \(\fndtl(v, \sigma)\), évitant ainsi de répéter plusieurs fois le même calcul.
+En posant \(n = \lvert\tnodes(T)\rvert\) et \(m = \lvert\tnodes(S)\rvert\), l’algorithme ainsi transformé a une complexité en temps de \(\bigo(nm^2)\) et en espace de \(\bigo(nm)\)~\cite{Tofigh2011SimultaneousIdentificationDuplications}.
+La complexité en temps peut être réduite à \(\bigo(nm)\) sans modifier la complexité en espace~\cite{Bansal2012EfficientAlgorithmsReconciliation}.
+Le problème \refproblem{\(\recmodelDTL\)-Parcimonie\(\star\)} est donc polynomial.
 
 \paragraph{Duplication--transfert--perte généralisé~\cite{Weiner2021ImprovedDuplicationTransfer}}
 Le modèle \(\recmodelDTLx = \{\evtD, \evtT, \evtTL, \evtTX, \evtL, \evtS\}\)…

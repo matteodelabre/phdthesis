@@ -139,6 +139,7 @@
     \end{tabular}\par
 }
 \newcommand{\refproblem}[1]{\textsc{#1}}
+\newcommand{\bigo}{\mathcal{O}}
 
 % Figures
 
