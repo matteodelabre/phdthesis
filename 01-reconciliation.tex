@@ -137,9 +137,9 @@ Enfin, le coût d’une réconciliation est défini comme celui de son interpré
 Cette définition engendre une famille de problèmes d’optimisation combinatoire qui consistent à rechercher les réconciliations de coût minimum (c’est-à-dire les plus parcimonieuses).
 
 \problem{\(\recmodel\)-Parcimonie}
-    {Deux arbres \(T\) et \(S\),
-     une application \(\llmap : \tleavs(T) \onto \tleavs(S)\),
-     une fonction \(\cost : \recmodel \onto \nat\).}
+    {Phylogénies \(T\) et \(S\);
+     association des feuilles \(\llmap : \tleavs(T) \onto \tleavs(S)\);
+     coûts \(\cost : \recmodel \onto \nat\).}
     {Coût minimum d’une réconciliation valide de \(T\) et \(S\)
      sous le modèle \(\recmodel\) et les coûts \(\cost\).}
 
@@ -184,8 +184,8 @@ Par conséquent, rechercher les réconciliations de coût minimal implique de ma
 Ce choix est motivé par le fait qu’un événement~\(\evtS\) s’appuie sur une spéciation de l’hôte et ne constitue pas une hypothèse évolutive supplémentaire.
 
 Le modèle \(\recmodelDL\) exclut toute possibilité de changement d’hôte, donc les réconciliations optimales se trouvent dans l’espace restreint des réconciliations strictes (voir lemme~\labelcref{lemma:strict-rec-space}).
-La réconciliation~\(\reclca\) est toujours une solution optimale sous ce modèle.
-De surcroît, à condition que \(\cost(\evtL) > 0\), il s’agit de l’unique telle solution~\cite{Chauve2009NewPerspectivesGene}.
+La réconciliation~\(\reclca\) est toujours une solution sous ce modèle.
+De surcroît, à condition que \(\cost(\evtL) > 0\), il s’agit de l’unique solution~\cite{Chauve2009NewPerspectivesGene}.
 Le calcul de~\(\reclca\) demande seulement un temps et espace linéaires en fonction de la taille de l’arbre \(T\)~\cite{Zhang1997MirkinMuchnikSmith}.
 Le problème \refproblem{\(\recmodelDL\)-Parcimonie} est donc polynomial.
 
@@ -194,7 +194,7 @@ Ce modèle introduit un événement \(\evtR\) qui offre une interprétation alte
 est une alternative au modèle DR dans lequel l’absence d’un gène dans une espèce descendante est expliquée par sa \enquote{désactivation} temporaire par un mécanisme de régulation.
 
 \paragraph{Duplication--transfert--perte~\cite{Tofigh2011SimultaneousIdentificationDuplications}}
-Le modèle \(\recmodelDTL = \{\evtD, \evtT, \evtL, \evtS\}\) étend le modèle \(\recmodelDL\) pour y intégrer la possibilité de changements d’hôte.
+Le modèle \(\recmodelDTL = \{\evtD, \evtT, \evtL, \evtS\}\) étend le modèle \(\recmodelDL\) pour y intégrer la possibilité de changements d’hôte et ainsi permettre d’interpréter les réconciliations libres.
 En plus des trois types d’événements définis précédemment, pour un embranchement \(v \in \tinner(\rectree)\) sous ce modèle, si \(\evt(v) = \evtT\), alors \(\exrec(v) = \exrec(v\lchild)\) et \(\exrec(v) \nottcomp \exrec(v\rchild)\), ou bien \(\exrec(v) = \exrec(v\rchild)\) et \(\exrec(v) \nottcomp \exrec(v\lchild)\).
 La \cref{figure:dtl-interpret} donne une interprétation de la réconciliation \(\rec_3\) de la \cref{figure:free-rec} sous le modèle \(\recmodelDTL\).
 
@@ -209,31 +209,29 @@ La \cref{figure:dtl-interpret} donne une interprétation de la réconciliation \
     \label{figure:dtl-interpret}
 \end{figure}
 
-Le modèle \(\recmodelDTL\) permet d’interpréter une partie des réconciliations libres.
-Puisque la définition de l’événement \(\evtT\) ne permet que des transferts binaires qui transfèrent un seul de leurs enfants, il ne permet pas d’interpréter une réconciliation contenant un embranchement \(v\) dont les deux enfants sont associés à des espèces séparées de \(\rec(v)\).
-
-Contrairement au modèle \(\recmodelDL\), la réconciliation \(\reclca\) n’est pas nécessairement optimale pour \(\recmodelDTL\), et il peut exister plusieurs telles solutions.
+Contrairement au modèle \(\recmodelDL\), il peut exister plusieurs réconciliations optimales pour \(\recmodelDTL\) et la réconciliation \(\reclca\) n’en fait pas nécessairement partie.
 L’une des difficultés avec ce modèle est d’assurer que les réconciliations calculées soient valides.
 En raison de cette contrainte, le problème de décision associé à \refproblem{\(\recmodelDTL\)-Parcimonie} est NP-complet, comme montré en~\cite{Tofigh2011SimultaneousIdentificationDuplications} par réduction du problème du sous-graphe acyclique maximal.
 
-Pour pallier cette limite, une version relâchée du problème est définie, \refproblem{\(\recmodelDTL\)-Parcimonie\(\star\)}, dans laquelle toutes les réconciliations localement valides peuvent être considérées.
+Pour contourner cette difficulté, une version relâchée du problème est définie, \refproblem{\(\recmodelDTL\)-Parcimonie\(\star\)}, dans laquelle toutes les réconciliations \emph{localement valides} peuvent être considérées.
 Par exemple, la réconciliation \(\rec_4\) de la \cref{figure:free-rec} est acceptable bien qu’elle soit invalide.
-Ce problème possède une sous-structure optimale : une réconciliation localement valide parcimonieuse du sous-arbre \(\subtree{T}{v}\) avec \(S\) est un assemblage de deux réconciliations localement valides parcimonieuses de \(\subtree{T}{v\lchild}\) et \(\subtree{T}{v\rchild}\) avec \(S\).
+Cette modification confère au problème une sous-structure optimale : une solution pour le sous-arbre \(\subtree{T}{v}\) est un assemblage de deux solutions pour \(\subtree{T}{v\lchild}\) et \(\subtree{T}{v\rchild}\).
+En exploitant cette propriété, il est possible de concevoir un algorithme polynomial résolvant \refproblem{\(\recmodelDTL\)-Parcimonie\(\star\)}.
 Cette propriété permet de concevoir l’\cref{algo:dtl-parcimonie-star} pour résoudre le problème~\cite{Tofigh2011SimultaneousIdentificationDuplications}.
 À condition d’utiliser une technique de programmation dynamique évitant de recalculer plusieurs fois les mêmes valeurs, cet algorithme procède en temps \(O(\left|\tnodes(T)\right|\times\left|\tnodes(S)\right|^2)\).
 Une optimisation supplémentaire permet de réduire ce temps à \(O(\left|\tnodes(T)\right|\times\left|\tnodes(S)\right|)\)~\cite{Bansal2012EfficientAlgorithmsReconciliation}.
 
 \begin{algorithm}
-    \newcommand{\fndtl}{\mathrm{DTL}}
-    \newcommand{\fndtlmain}{\mathrm{DTL{-}Main}}
+    \newcommand{\fndtl}{\mathrm{cost}}
     \newcommand{\varspe}{\mathrm{Spe_{LR}}}
     \newcommand{\varsperl}{\mathrm{Spe_{RL}}}
     \newcommand{\vardup}{\mathrm{Dup}}
     \newcommand{\varhgt}{\mathrm{HGT_L}}
     \newcommand{\varhgtr}{\mathrm{HGT_R}}
-    \Fn{\(\fndtlmain\)}{
-        \Return \(\displaystyle\min_{\sigma \in \tnodes(S)}\fndtl(\troot(T), \sigma)\)
-    }
+    \KwIn{Phylogénies \(T\) et \(S\);
+        association des feuilles \(\llmap : \tleavs(T) \onto \tleavs(S)\);
+        coûts \(\cost : \recmodelDTL \onto \nat\).}
+    \KwOut{Coût minimum d’une réconciliation localement valide de \(T\) avec \(S\) sous le modèle \(\recmodelDTL\).}
     \medskip
     \Fn{\(\fndtl(v, \sigma)\)}{
         \If{\(v \in \tleavs(T)\)}{
@@ -269,9 +267,10 @@ Une optimisation supplémentaire permet de réduire ce temps à \(O(\left|\tnode
         \} + \min_{\sigma'' \nottcomp \sigma} \{
             \fndtl(v\rchild\kern1pt, \sigma'')
         \}\)\;
-        \smallskip
         \Return \(\min(\varspe, \varsperl, \vardup, \varhgt, \varhgtr)\)\;
     }
+    \medskip
+    \Return \(\min_{\sigma \in \tnodes(S)}\fndtl(\troot(T), \sigma)\)
     \caption{Algorithme récursif pour le problème \refproblem{\(\recmodelDTL\)-Parcimonie\(\star\)}}
     \label{algo:dtl-parcimonie-star}
 \end{algorithm}
@@ -279,6 +278,7 @@ Une optimisation supplémentaire permet de réduire ce temps à \(O(\left|\tnode
 
 \paragraph{Duplication--transfert--perte généralisé~\cite{Weiner2021ImprovedDuplicationTransfer}}
 Le modèle \(\recmodelDTLx = \{\evtD, \evtT, \evtTL, \evtTX, \evtL, \evtS\}\)…
+Dans le modèle \(\recmodelDL\), les espèces non-échantillonnées n’ont pas d’impact sur les réconciliations, puisque seules les réconciliations strictes sont considérées, ce qui implique que les espèces non-échantillonnées évoluent indépendamment de celles qui sont échantillonnées.
 
 \begin{compactitemize}
     \item si \(\evt(v) = \evtTL\), alors \(v\) est unaire et \(\exrec(v) \nottcomp \exrec(v\child)\).

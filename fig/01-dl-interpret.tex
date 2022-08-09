@@ -11,8 +11,12 @@
     };
     \node at (0, -2.3) {\(T\)};
 
-    \begin{scope}[shift={(4.7, .66)}]
-        \graph[phylogenetic tree layout, nodes={dependent}]{
+    \begin{scope}[shift={(4.7, 0)}]
+        \graph[
+            phylogenetic tree layout,
+            evolutionary unit length=0.44cm,
+            nodes={dependent},
+        ]{
             / [duplication, label={[host]left:α}] -- {
                 / [speciation, label={[host]left:α}] -- {
                     / 3 [> length=2],
@@ -30,7 +34,7 @@
                 },
             },
         };
-        \node at (0, -2.96) {\(\rectree\)};
+        \node at (0, -2.3) {\(\rectree\)};
     \end{scope}
 
     \begin{scope}[shift={(9, 0)}]

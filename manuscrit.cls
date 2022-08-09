@@ -140,11 +140,26 @@
 }
 \newcommand{\refproblem}[1]{\textsc{#1}}
 
-\RequirePackage[ruled,vlined,french,onelanguage]{algorithm2e}
-\DontPrintSemicolon
-\SetKwProg{Fn}{fonction}{}{}
-
 % Figures
+
+%% Algorithmes
+
+\RequirePackage[algochapter, plainruled, vlined, linesnumbered, french, onelanguage]{algorithm2e}
+
+\SetKwInput{KwIn}{Entrée}
+\SetKwInput{KwOut}{Sortie}
+\SetKwProg{Fn}{Fonction}{}{}
+
+\DontPrintSemicolon
+\SetNlSty{normalfont}{}{\enspace}
+
+%%% Style des noms d’algos
+\SetAlgoCaptionLayout{centerline}
+\setlength{\interspacetitleruled}{1ex}
+\setlength{\interspacealgoruled}{1ex}
+\renewcommand\AlCapFnt{\normalfont\scshape}
+
+%% Dessin
 
 \RequirePackage{tikz}
 \usetikzlibrary{positioning}
@@ -215,6 +230,10 @@
 \definecolor{reccolor2}{HTML}{E84D48}
 \definecolor{reccolor3}{HTML}{4DB028}
 \definecolor{reccolor4}{HTML}{EB8A2F}
+
+%% Flottants
+
+\addto\captionsfrench{\renewcommand{\figurename}{\textsc{Figure}}}
 
 % Liens et hyperliens
 
