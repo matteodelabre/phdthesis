@@ -90,13 +90,6 @@
 \newcommand{\tcomp}{\mathrel{\tcomp@base}}
 \newcommand{\nottcomp}{\mathrel{\makebox[0pt]{\(\:\:\:/\)}\tcomp@base}}
 
-\newcommand{\tbefor}{\leq}
-\newcommand{\nottbefor}{\notleq}
-\newcommand{\tbeforneq}{<}
-\newcommand{\tafter}{\geq}
-\newcommand{\nottafter}{\notgeq}
-\newcommand{\tafterneq}{>}
-
 \newcommand{\subtree}[2]{#1[#2]}
 \newcommand{\lca}{\mathrm{lca}}
 \newcommand{\tpath}{\mathbin{\leadsto}}
