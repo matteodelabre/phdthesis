@@ -120,7 +120,7 @@ Ces interprétations sont modélisées par des arbres réconciliés qui étenden
 
 \begin{definition}[Arbre réconcilié]\label{definition:rectree}
     Soient \(T\) et \(S\) deux arbres, \(\rec\) une réconciliation de \(T\) avec \(S\), et \(\recmodel\) un ensemble de types d’événements.
-    Un \emph{arbre réconcilié} est une extension \(\rectree\) de \(T\) munie d’une application \(\exrec : \tnodes(\rectree) \onto \tnodes(S)\) qui étend \(\rec\) et d’une application \(\evt : \tnodes(\rectree) \onto \recmodel \cup \{\evtNone\}\)
+    Un \emph{arbre réconcilié} est une extension partiellement binaire \(\rectree\) de~\(T\) munie d’une application \(\exrec : \tnodes(\rectree) \onto \tnodes(S)\) qui étend \(\rec\) et d’une application \(\evt : \tnodes(\rectree) \onto \recmodel \cup \{\evtNone\}\)
     telle que \(\{ v \in \tleavs(\rectree) \suchthat \evt(v) = \evtNone \} = \tleavs(T)\).
 \end{definition}
 
