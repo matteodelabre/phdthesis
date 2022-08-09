@@ -4,12 +4,12 @@
     \input{fig/01-shared-defs}
 
     \graph[phylogenetic tree layout, simple, nodes={font=\small\itshape}]{
-        ttree[name=t];
-        t l2s2 --[transfer edge] t l1s4;
+        ttree[name=t1];
+        t1 l2s2 --[transfer edge] t1 l1s4;
     };
     \node at (0, -2.3) {\(T\)};
 
-    \begin{scope}[shift={(4,0)}]
+    \begin{scope}[shift={(4.3,0)}]
         \graph[phylogenetic tree layout, nodes={font=\small\bfseries}]{
             stree[name=s]
         };
@@ -17,8 +17,33 @@
         \node at (labels-|s l1s2) {\(S\)};
     \end{scope}
 
-    \path[associate=reccolor3] (t l3s1) edge[bend left=10]
+    \begin{scope}[shift={(8,0)}]
+        \graph[
+            phylogenetic tree layout,
+            evolutionary unit length=0.44cm,
+            nodes={font=\small\itshape},
+        ]{
+            t2 l4s1 / [coordinate] -- {
+                t2 l3s1 / [coordinate, > transfer edge] -- {
+                    t2 l2s1 / [coordinate, > transfer edge] -- {
+                        t2 l1s4 / 2,
+                        t2 l1s3 / 1,
+                    },
+                    t2 l1s2 / 3 [> length=2],
+                },
+                t2 l1s1 / 2 [> length=3],
+            },
+        };
+        \node at (0, -2.3) {\(T'\)};
+    \end{scope}
+
+    \path[associate=reccolor3] (t1 l3s1) edge[bend left=10]
         node[above, midway] {\(\rec_3\)} (s l2s1);
-    \path[associate=reccolor3] (t l2s1) edge[bend left=10] (s l2s1);
-    \path[associate=reccolor3] (t l2s2) edge[bend left=10, shorten >=0pt] (s l1s1);
+    \path[associate=reccolor3] (t1 l2s1) edge[bend left=10] (s l2s1);
+    \path[associate=reccolor3] (t1 l2s2) edge[bend left=10, shorten >=0pt] (s l1s1);
+
+    \path[associate=reccolor4] (t2 l4s1) edge[bend right=15, shorten >=0pt]
+        node[above, midway] {\(\rec_4\)} (s l1s2);
+    \path[associate=reccolor4] (t2 l3s1) edge[bend right=10, shorten >=0pt] (s l1s3);
+    \path[overlaid associate=reccolor4] (t2 l2s1) edge[out=180, in=0] (s l2s1);
 \end{tikzpicture}

@@ -27,7 +27,6 @@ Chaque feuille de \(T\), correspondant à une unité dépendante actuelle, est a
 Lorsque la divergence d’un hôte cause un embranchement \(v\) dans \(T\), ce dernier correspond à un embranchement dans~\(S\).
 Au contraire, si \(v\) est indépendant de l’évolution de l’hôte, il se rapporte à une branche de~\(S\).
 Cette association de \(T\) avec \(S\) est appelée \emph{réconciliation}.
-Pour être valide, une réconciliation ne doit pas \enquote{remonter dans le temps}, c’est-à-dire qu’un strict descendant de \(v\) ne doit pas être associé à un strict ancêtre de l’associé de \(v\)~(voir~\cref{figure:valid-invalid-rec}).
 
 Formellement, une réconciliation est un plongement de \(T\) dans \(S\), au sens défini ci-après.
 Pour simplifier, lorsque \(v\) correspond à une branche de \(S\), il est associé à sa terminaison.
@@ -35,20 +34,29 @@ Pour simplifier, lorsque \(v\) correspond à une branche de \(S\), il est associ
 \begin{definition}[Réconciliation]\label{definition:rec}
     Soient \(T\) et \(S\) deux arbres phylogénétiques et \(\llmap : \tleavs(T) \onto \tleavs(S)\) une application qui associe chaque feuille de \(T\) à son hôte dans \(S\).
     Une \emph{réconciliation} de \(T\) avec \(S\) est une application \(\rec : \tnodes(T) \onto \tnodes(S)\) qui étend \(\llmap\).
-    Une réconciliation est \emph{valide} si aucune paire \((v, w) \in \tnodes(T)^2\) avec \(v \tancsneq w\) n’est telle que \(\rec(v) \tdescneq \rec(w)\).
 \end{definition}
+
+Des exemples de réconciliations sont donnés dans les \cref{figure:valid-invalid-rec,figure:free-rec}.
+Si les associations d’une réconciliation découlent d’une réalité évolutive, celles-ci ne peuvent pas \enquote{remonter dans le temps}: un strict descendant de~\(v\) ne peut pas être associé à un strict ancêtre de l’associé de~\(v\).
+Une réconciliation qui respecte ce critère est dite \emph{valide}.
 
 \begin{figure}[htb]
     \capstart
     \centering
     \input{fig/01-invalid-reconciliation}
     \caption{
-        Deux réconciliations, \(\rec_1\) (valide) et \(\rec_2\) (invalide), entre deux phylogénies \(T\) et \(S\).
-        Les associations entre embranchements sont représentées par des flèches.
-        Pour la lisibilité, les associations entre deux feuilles sont indiquées implicitement en leur attribuant la même étiquette.
+        Deux réconciliations de la phylogénie \(T\) avec \(S\).
+        Les associations entre embranchements sont représentées par des flèches et les associations entre feuilles sont indiquées implicitement en leur attribuant la même étiquette.
+        La réconciliation \(\rec_1\) est valide tandis que \(\rec_2\) est invalide.
     }
     \label{figure:valid-invalid-rec}
 \end{figure}
+
+\begin{definition}[Validité d’une réconciliation]\label{definition:rec-valid}
+    Une réconciliation \(\rec\) est \emph{\(k\)-valide} (\(k \in \nat\)) si aucune paire \((v, w) \in \tnodes(T)^2\) avec \(v \tancsneq w\) et \(\tdist(v, w) \leq k\) n’est telle que \(\rec(v) \tdescneq \rec(w)\).
+    Pour \(k = 1\), elle est dite \emph{localement valide}.
+    Si \(\rec\) est \emph{\(k\)-valide} pour tout \(k \in \nat\), alors elle est \emph{valide}.
+\end{definition}
 
 Dans certaines hiérarchies évolutives, les unités dépendantes sont capables de migrer de leur hôte vers un autre hôte coexistant.
 Par exemple, en particulier chez les procaryotes, des transferts horizontaux peuvent déplacer des gènes d’une espèce à une autre.
@@ -65,15 +73,17 @@ Une réconciliation qui ne contient pas de tel changement d’hôte est dite \em
 \end{remark}
 
 Dans la \cref{figure:valid-invalid-rec}, la réconciliation \(\rec_1\) est une réconciliation stricte tandis que \(\rec_2\) est une réconciliation libre mais invalide.
-La réconciliation libre \(\rec_3\) de la \cref{figure:free-rec} ci-dessous est valide.
+La \cref{figure:free-rec} donne deux exemples de réconciliations libres et valides ou localement valides.
 
 \begin{figure}[htb]
     \capstart
     \centering
     \input{fig/01-free-reconciliation}
     \caption{
-        Réconciliation libre et valide entre deux phylogénies \(T\) et \(S\).
-        Un changement d’hôte a lieu le long de la branche marquée de pointillés.
+        Deux réconciliations libres des phylogénies \(T\) et \(T'\) avec \(S\).
+        Les branches marquées de pointillés correspondent à des changements d’hôtes.
+        La réconciliation \(\rec_3\) est valide tandis que
+        \(\rec_4\) est invalide mais localement valide.
     }
     \label{figure:free-rec}
 \end{figure}
@@ -171,9 +181,9 @@ En effet, un événement~\(\evtS\) s’appuie sur une spéciation de l’hôte e
 Par conséquent, rechercher les réconciliations de coût minimal implique de maximiser le nombre de codivergences entre \(T\) et \(S\).
 
 Le modèle \(\recmodelDL\) exclut toute possibilité de changement d’hôte, donc les réconciliations optimales se trouvent dans l’espace restreint des réconciliations strictes (voir lemme~\labelcref{lemma:strict-rec-space}).
-La réconciliation \(\reclca\) est toujours une solution optimale sous ce modèle.
+La réconciliation~\(\reclca\) est toujours une solution optimale sous ce modèle.
 De surcroît, à condition que \(\cost(\evtL) > 0\), il s’agit de l’unique telle solution~\cite{Chauve2009NewPerspectivesGene}.
-La réconciliation \(\reclca\) peut être calculée en un temps et espace linéaires en fonction de la taille de l’arbre \(T\)~\cite{Zhang1997MirkinMuchnikSmith}.
+Le calcul de~\(\reclca\) demande seulement un temps et espace linéaires en fonction de la taille de l’arbre \(T\)~\cite{Zhang1997MirkinMuchnikSmith}.
 Le problème \refproblem{\(\recmodelDL\)-Parcimonie} est donc polynomial.
 
 \paragraph{Duplication--perte--régulation~\cite{Goodman1979FittingGeneLineage}}
@@ -197,11 +207,13 @@ La \cref{figure:dtl-interpret} donne une interprétation de la réconciliation d
 \end{figure}
 
 Le modèle \(\recmodelDTL\) permet d’interpréter une partie des réconciliations libres.
+Puisque la définition de l’événement \(\evtT\) ne permet que des transferts binaires qui transfèrent un seul de leurs enfants, il ne permet pas d’interpréter une réconciliation telle qu’un embranchement \(v\) aient ses deux enfants associés à des espèces séparées de \(\rec(v)\).
+
 Contrairement au modèle \(\recmodelDL\), la réconciliation \(\reclca\) n’est pas nécessairement optimale, et il peut exister plusieurs telles solutions.
 L’une des principales difficultés avec ce modèle est d’assurer que les réconciliations calculées soient valides.
 Le problème de décision associé à \refproblem{\(\recmodelDTL\)-Parcimonie} est NP-difficile, comme montré en~\cite{Tofigh2011SimultaneousIdentificationDuplications} par réduction du problème du sous-graphe acyclique maximal.
 
-Une version relâchée du problème est définie \refproblem{\(\recmodelDTL\)-Parcimonie\(\star\)} dans laquelle il est autorisé de considérer des réconciliations invalides/cycliques.
+Une version relâchée du problème est définie \refproblem{\(\recmodelDTL\)-Parcimonie\(\star\)} dans laquelle toutes les réconciliations localement valides, pas seulement valides, sont autorisées.
 
 \cite[pp. 68--70]{Page1994MapsTreesCladistic}
 \cite{Hallett2001EfficientAlgorithmsLateral}

@@ -108,6 +108,7 @@
 \newcommand{\subtree}[2]{#1[#2]}
 \newcommand{\lca}{\mathrm{lca}}
 \newcommand{\tpath}{\mathbin{\leadsto}}
+\newcommand{\tdist}{\mathrm{dist}}
 
 %%% Réconciliations
 \newcommand{\llmap}{s}
@@ -134,7 +135,7 @@
 
 \newcommand{\recmodelDL}{\evtD\evtL}
 \newcommand{\recmodelDTL}{\evtD\evtT\evtL}
-\newcommand{\recmodelDTLx}{\evtD\evtT\evtL{}x}
+\newcommand{\recmodelDTLx}{\evtD\evtT\evtL\mathrm{x}}
 
 % Figures
 
@@ -203,9 +204,10 @@
 \DeclareRobustCommand{\showtransfer}{\tikz[baseline=-.75ex] \node[transfer] {};}
 \DeclareRobustCommand{\showloss}{\,×\,}
 
-\colorlet{reccolor1}{blue!60!white}
-\colorlet{reccolor2}{red!80!white}
-\colorlet{reccolor3}{green!60!black}
+\definecolor{reccolor1}{HTML}{5960F5}
+\definecolor{reccolor2}{HTML}{E84D48}
+\definecolor{reccolor3}{HTML}{4DB028}
+\definecolor{reccolor4}{HTML}{EB8A2F}
 
 % Liens et hyperliens
 
@@ -213,10 +215,6 @@
 \hypersetup{colorlinks=true,allcolors=black}
 \RequirePackage{hypcap}
 \RequirePackage[nameinlink,noabbrev]{cleveref}
-
-% \renewcommand{\figureautorefname}{figure}
-% \renewcommand{\theoremautorefname}{théorème}
-% \newcommand{\lemmaautorefname}{lemme}
 
 % Métadonnées
 
