@@ -2,22 +2,18 @@
 % vim: set spelllang=fr:
 \chapter{Réconciliation bilatérale}
 
-L’évolution de certaines unités, que nous appellerons \emph{dépendantes}, peut être liée à celle d’un hôte auquel elles sont attachées, formant une hiérarchie évolutive.
-Pour étudier l’histoire de telles hiérarchies, l’arbre phylogénétique de l’unité dépendante peut être complété en déterminant, pour chacun de ses embranchements, s’il a pour origine un événement affectant l’unité dépendante ou l’hôte.
+La phylogénie d’une famille de gènes est riche d’information.
+Elle renseigne non seulement sur l’évolution des gènes mais aussi sur celle de leurs espèces hôtes.
+Pour en extraire une phylogénie des espèces, il est nécessaire de distinguer entre les paires de gènes ayant codivergé avec leur hôte (appelées \emph{orthologues}) et celles ayant divergé indépendamment~\cite{Fitch1970DistinguishingHomologousAnalogous}.
+L’identification des relations d’orthologie est également utile pour étudier la fonction des gènes, puisque les gènes orthologues partagent généralement la même fonction~\cite{Lynch2001ProbabilityPreservationNewly}.
 
-Les gènes sont un exemple d’unités dépendantes de l’évolution de leurs espèces hôtes.
-Lorsqu’un gène se sépare en deux copies à la suite d’une duplication --- un événement l’affectant directement --- ces copies sont dites \emph{paralogues}.
-Lorsque cette séparation est due à une spéciation de son hôte, les copies sont dites \emph{orthologues}~\cite{Fitch1970DistinguishingHomologousAnalogous}.
-Savoir si deux gènes sont orthologues ou paralogues peut contribuer à déterminer leur fonction.
-La fonction d’un gène a en effet tendance à être mieux conservée parmi les copies orthologues que parmi les copies paralogues~\cite{Lynch2001ProbabilityPreservationNewly}.
-Par ailleurs, les gènes orthologues renseignent directement sur l’arbre phylogénétique des espèces hôtes.
-Ainsi, l’arbre phylogénétique d’une famille de gènes tous orthologues donne une estimation de l’arbre des espèces hôtes.
-
-La méthode de \emph{réconciliation}, proposée par \citeauthor{Goodman1979FittingGeneLineage} en~\citeyear{Goodman1979FittingGeneLineage}~\cite{Goodman1979FittingGeneLineage}, puis formalisée par~\citeauthor{Page1994MapsTreesCladistic} en~\citeyear{Page1994MapsTreesCladistic}~\cite{Page1994MapsTreesCladistic}, fournit un cadre permettant d’inférer le statut de chaque divergence dans l’arbre phylogénétique d’une unité dépendante.
+Les gènes et leurs espèces hôtes sont un exemple d’une hiérarchie évolutive, puisque l’évolution des gènes dépend de celle de leur hôte.
+La méthode de \emph{réconciliation}, proposée par \citeauthor{Goodman1979FittingGeneLineage} en~\citeyear{Goodman1979FittingGeneLineage}~\cite{Goodman1979FittingGeneLineage}, formalisée par~\citeauthor{Page1994MapsTreesCladistic} en~\citeyear{Page1994MapsTreesCladistic}~\cite{Page1994MapsTreesCladistic}, et depuis l’objet d’un large corpus, permettant de modéliser et de reconstituer l’évolution conjointe d’une unité dépendante et de son hôte.
 
 Ce chapitre est consacré à la présentation de cette méthode.
-Les deux premières sections…
-Puis, …
+Les deux premières sections constituent une tentative par l’auteur de poser un cadre théorique permettant de comparer les méthodes de réconciliation.
+La section suivante fait état des principaux modèles développés pour la réconciliation gènes--espèces.
+Pour conclure le chapitre, la dernière section passe en revue différentes applications possibles des méthodes de réconciliation.
 
 \section{Plongement d’arbres phylogénétiques}
 
@@ -329,6 +325,8 @@ La hiérarchie évolutive entre gènes et espèces rend difficile l’utilisatio
 Phénomène de convergence évolutive peut brouiller l’inférence de l’arbre de gènes à partir de séquences nucléotidiques.
 
 probabiliste : \cite{Arvestad2004GeneTreeReconstruction}
+
+\paragraph{Identification des paralogues}
 
 
 \tk{autres techniques/modèles non mentionnés, autres reviews}
