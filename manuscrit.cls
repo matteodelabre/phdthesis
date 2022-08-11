@@ -151,7 +151,6 @@
 \SetAlgoCaptionLayout{centerline}
 \setlength{\interspacetitleruled}{1ex}
 \setlength{\interspacealgoruled}{1ex}
-\renewcommand\AlCapFnt{\normalfont\scshape}
 
 %% Dessin
 
@@ -225,9 +224,15 @@
 \definecolor{reccolor3}{HTML}{4DB028}
 \definecolor{reccolor4}{HTML}{EB8A2F}
 
-%% Flottants
+%% Légendes
 
-\addto\captionsfrench{\renewcommand{\figurename}{\textsc{Figure}}}
+\RequirePackage{caption}
+\DeclareCaptionLabelFormat{oldstyle}{\textsc{\MakeLowercase{#1}} \oldstylenums{#2}}
+\captionsetup{labelformat=oldstyle, labelsep=endash, margin=1em}
+
+\addto\captionsfrench{\renewcommand{\figurename}{Figure}}
+\renewcommand{\AlCapSty}[1]{\textsc{\MakeLowercase{\oldstylenums{#1}}}}
+\SetAlgoCaptionSeparator{--}
 
 % Liens et hyperliens
 
