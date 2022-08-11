@@ -7,33 +7,29 @@ Dans certains cas, comme pour les gènes à l’intérieur de génomes, les hist
 Certains mécanismes à l’échelle des génomes sont en effet capables de dupliquer ou d’inactiver des segments portant plusieurs gènes, ou modifier l’ordre des gènes le long des chromosomes.
 Dans ce contexte, l’information évolutive à l’échelle des gènes et des génomes doit être intégrée pour permettre la reconstruction d’histoires fidèles~\parencite{Sankoff2000DuplicationRearrangementReconciliation,Chauve2013DuplicationRearrangementReconciliation}.
 
-À l’échelle des génomes, la reconstruction d’histoires évolutives parcimonieuses est l’objet d’un large corpus.
-Il s’agit d’identifier la ou les séquences minimales d’événements permettant de relier un ensemble de génomes.
+À l’échelle des génomes, la reconstruction d’histoires évolutives parcimonieuses consiste à identifier la ou les séquences minimales d’événements permettant de relier un ensemble de génomes.
 Comme pour la réconciliation, différents modèles théoriques sont définis, intégrant différents mécanismes évolutifs et donnant lieu à des problèmes d’optimisation combinatoire de complexité variable.
-Pour une paire de génomes, le problème est celui du tri de génome (\emph{genome sorting}) ~\parencite{Hannenhalli1999TransformingCabbageTurnip,Bergeron2009NewLinearTime,Feijao2011ScjBreakpointDistance,Mane2020DistanceMedianProblems}.
+Pour une paire de génomes, le problème est celui du tri de génome \emph{genome sorting} \parencite{Hannenhalli1999TransformingCabbageTurnip,Bergeron2009NewLinearTime,Feijao2011ScjBreakpointDistance,Mane2020DistanceMedianProblems}.
+Lorsque l’ensemble contient trois génomes ou plus, le problème est rendu plus difficile par le fait qu’il soit nécessaire d’inférer le contenu et l’ordre de génomes intermédiaires.
+Pour trois génomes, il s’agit du problème de médiane de génomes.
+Au delà, il s’agit des problèmes de \emph{grande} ou \emph{petite phylogénie}.
 
 
-, polynomial pour le modèle \emph{double cut and join}~(DCJ) qui suppose que les deux génomes comparés contiennent chacun un seul exemplaire de chaque type de gène.
-L’extension du problème pour y intégrer les gènes dupliqués le rend NP-complet.
-Un modèle différent, \emph{simple cut and join}~(SCJ) permet d’obtenir une complexité polynomiale même en présence de duplicats.
+% Reversals : NPC pour tout
+% DCJ : polynomial pour sorting, NPC pour médiane, NPC pour duplications
+% SCJ : polylomial pour sorting, médiane et duplications
 
-Le problème de la reconstruction de l’histoire évolutive des génomes a fait l’objet de nombreuses études.
-L’identification de la séquence minimale d’événements reliant deux génomes est un problème polynomial lorsque les deux génomes considérés ont le même contenu (i.e., seulement des réarrangements), qui devient NP-complet dès que les duplications de gènes sont prises en compte.
-
-small/large phylogeny
 Lorsque un groupe de gènes évoluent systématiquement ensemble, par exemple en raison de leur proximité chromosomique ou de leur dépendance fonctionnelle, ils forment une \emph{synténie}.
 Même en synténie, les gènes restent soumis aux interactions décrites au chapitre précédent.
 Conceptuellement, les synténies occupent alors un niveau intermédiaire entre les gènes et les espèces dans leur hiérarchie évolutive.
 
 Problème de la reconstruction de génome ancestral.
 Version \enquote{locale}.
-Réarrangements/hypothèses d’ordre conservé.
+Réarrangements/hypothèses d’ordre conservé (opérons).
 \cite[en particulier section 5.2]{ElMabrouk2012AnalysisGeneOrder}
 
-Extension de la réconciliation.
-
-Différentes approches ont été développées pour adapter la réconciliation à ce contexte.
-\tk{Lister sections du chapitre en présentant approches}
+Dans ce chapitre, nous présentons les principales approches permettant d’étendre la réconciliation pour prendre en compte les événements évolutifs à l’échelle du génome et des familles de gènes.
+Nous les comparons selon le type d’événements qu’elles sont capables de modéliser et selon leur complexité algorithmique.
 
 %Histoire d’une famille de gène, mais celle-ci évolue conjointement avec d’autres familles.
 
@@ -51,12 +47,6 @@ Différentes approches ont été développées pour adapter la réconciliation �
 \paragraph{Intervals} \cite{Fellows1998MultipleGeneDuplication}
 
 \paragraph{Review} \cite{Paszek2018EfficientAlgorithmsGenomic}
-
-\section{Réconciliation trilatérale}
-
-\paragraph{Transcripts} \cite{Kuitche2017ReconstructingProteinGene}
-
-\paragraph{Domains} \cite{Li2019IntegratedReconciliationFramework}
 
 \section{Évolution d’adjacences}
 
@@ -82,3 +72,12 @@ Question ouverte sur la complexité
 \section{Réconciliation segmentale}
 
 \paragraph{Super-réconciliation}
+
+\cite{Delabre2020EvolutionSegmentalDuplications}
+\cite{Anselmetti2022ReconciliationWithsegmentalDuplication}
+
+% \section{Réconciliation trilatérale}
+
+% \paragraph{Transcripts} \cite{Kuitche2017ReconstructingProteinGene}
+
+% \paragraph{Domains} \cite{Li2019IntegratedReconciliationFramework}
