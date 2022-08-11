@@ -286,8 +286,8 @@ Le modèle \(\recmodelDTLx = \{\evtD, \evtT, \evtTL, \evtTX, \evtL, \evtS\}\)…
 Dans le modèle \(\recmodelDL\), les espèces non-échantillonnées n’ont pas d’impact sur les réconciliations, puisque seules les réconciliations strictes sont considérées, ce qui implique que les espèces non-échantillonnées évoluent indépendamment de celles qui sont échantillonnées.
 
 \begin{compactitemize}
-    \item si \(\evt(v) = \evtTL\), alors \(v\) est unaire et \(\exrec(v) \nottcomp \exrec(v\child)\).
-    \item si \(\evt(v) = \evtTX\), alors …
+    \item si \(\evt(v) = \evtTL\), alors \(v\) est unaire et \(\exrec(v) \nottcomp \exrec(v\child)\);
+    \item si \(\evt(v) = \evtTX\), alors \(\exrec(v) = \exrec(v\lchild)\) et \(\exrec(v) \tancs \exrec(v\rchild)\), ou bien \(\exrec(v) = \exrec(v\rchild)\) et \(\exrec(v) \tancs \exrec(v\lchild)\).
 \end{compactitemize}
 
 \paragraph{Duplication--perte--coalescence~\textup{\parencite{Rasmussen2012UnifiedModelingGene,Wu2013MostParsimoniousReconciliation}}}
