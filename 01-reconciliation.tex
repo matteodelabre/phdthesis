@@ -5,7 +5,7 @@
 La phylogénie d’une famille de gènes est riche d’information.
 Elle renseigne non seulement sur l’évolution des gènes mais aussi sur celle de leurs espèces hôtes.
 Pour en extraire une phylogénie des espèces, il est nécessaire de distinguer entre les paires de gènes ayant codivergé avec leur hôte (appelées \emph{orthologues}) et celles ayant divergé indépendamment~\cite{Fitch1970DistinguishingHomologousAnalogous}.
-L’identification des relations d’orthologie est également utile pour étudier la fonction des gènes, puisque les gènes orthologues partagent généralement la même fonction~\cite{Lynch2001ProbabilityPreservationNewly}.
+L’identification des relations d’orthologie est également utile pour étudier la fonction des gènes, en effet les gènes orthologues partagent généralement la même fonction, contrairement aux gènes dupliqués qui sont soumis à une pression sélective moindre~\cite{Lynch2001ProbabilityPreservationNewly}.
 
 Les gènes et leurs espèces hôtes sont un exemple d’une hiérarchie évolutive, puisque l’évolution des gènes dépend de celle de leur hôte.
 La méthode de \emph{réconciliation}, proposée par \citeauthor{Goodman1979FittingGeneLineage} en~\citeyear{Goodman1979FittingGeneLineage}~\cite{Goodman1979FittingGeneLineage}, formalisée par~\citeauthor{Page1994MapsTreesCladistic} en~\citeyear{Page1994MapsTreesCladistic}~\cite{Page1994MapsTreesCladistic}, et depuis l’objet d’un large corpus, permettant de modéliser et de reconstituer l’évolution conjointe d’une unité dépendante et de son hôte.
@@ -297,36 +297,34 @@ Tri incomplet de lignées (ILS)
 \cite{Rasmussen2012UnifiedModelingGene}
 \cite{Wu2013MostParsimoniousReconciliation}
 
+\section{Applications des méthodes de réconciliation}
 
-\section{Utilisation de réconciliations}
-
-\paragraph{Scénarios d’évolution}
+\paragraph{Scénarios d’évolution/Identification des paralogues}
+L’application la plus directe des méthodes de réconciliation consiste à inférer un scénario évolutif en connaissance de la phylogénie d’une unité dépendante et de ses hôtes.
+Cependant, ces méthodes sont sensibles aux erreurs dans les phylogénies données en entrée, et ces phylogénies peuvent parfois ne pas être connues en avance.
 
 \paragraph{Dénombrement, échantillonnage}
-
+Certains modèles peuvent engendrer plusieurs solutions optimales et/ou demander de régler les coûts relatifs de certains types d’événements.
+Dans ces cas, il peut être utile d’évaluer à quel point un événement est partagé par plusieurs solutions équivalentes, ce qu’on appelle des \emph{supports}.
 \cite{Doyon2009SpaceGeneSpeciesTrees}
+
+\paragraph{Inférence de l’arbre d’espèces}
+La réconciliation peut être utilisée pour inférer l’arbre d’espèces à partir d’un ensemble d’arbres de gènes.
+\cite[pp. 72--73]{Page1994MapsTreesCladistic}
+\cite{Guigo1996ReconstructionAncientMolecular}
+
+\paragraph{Inférence de l’arbre de gènes}
+Inversement, la réconciliation peut aussi être utilisée pour inférer l’arbre de gènes à partir de l’arbre d’espèces.
+\cite{Ma2000GeneTreesSpecies}
+% figure : un arbre de gènes, voisinage de l’arbre par branch swap, minimum de réconciliation
+
+\paragraph{Correction de l’arbre de gènes}
+Phénomène de convergence évolutive peut brouiller l’inférence de l’arbre de gènes à partir de séquences nucléotidiques.
 
 \paragraph{Inférence simultanée arbre de gènes + réconciliation (modèle DTL + substitutions)}
 
 \paragraph{Arbres non-binaires}
 
-\paragraph{Inférence de l’arbre d’espèces}
-\cite[pp. 72--73]{Page1994MapsTreesCladistic}
-\cite{Guigo1996ReconstructionAncientMolecular}
-
-La hiérarchie évolutive entre gènes et espèces rend difficile l’utilisation de l’arbre de gène pour estimer l’arbre d’espèces. La réconciliation peut cependant être utilisée pour remédier à ce problème.
-
-\cite{Ma2000GeneTreesSpecies}
-
-% figure : un arbre de gènes, voisinage de l’arbre par branch swap, minimum de réconciliation
-
-\paragraph{Correction de l’arbre de gènes}
-
-Phénomène de convergence évolutive peut brouiller l’inférence de l’arbre de gènes à partir de séquences nucléotidiques.
-
 probabiliste : \cite{Arvestad2004GeneTreeReconstruction}
-
-\paragraph{Identification des paralogues}
-
 
 \tk{autres techniques/modèles non mentionnés, autres reviews}

@@ -2,44 +2,60 @@
 % vim: set spelllang=fr:
 \chapter{Réconciliation multiple}
 
-\section{Description}
+Certains événements peuvent affecter simultanément l’évolution de plusieurs unités dépendantes.
+En présence de ce type d’événements, les unités concernées n’évoluent pas indépendamment les unes des autres.
+Lorsque des groupes de gènes évoluent systématiquement ensemble, par exemple en raison de leur proximité chromosomique ou de leur dépendance fonctionnelle, ils sont dits en \emph{synténie}.
 
-Histoire d’une famille de gène, mais celle-ci évolue conjointement avec d’autres familles. 
+Même en synténie, les gènes restent soumis aux interactions décrites au chapitre précédent.
+Conceptuellement, les synténies occupent un niveau intermédiaire entre les gènes et les espèces dans leur hiérarchie évolutive.
 
-Histoire d’une famille de gène, mais celle-ci engendre différents ensembles de protéines.
+Différentes approches ont été développées pour adapter la réconciliation à ce contexte.
+\tk{Lister sections du chapitre en présentant approches}
 
-Liens et différences avec small phylogeny, Sankoff algorithm/Fitch algorithm.
+%Histoire d’une famille de gène, mais celle-ci évolue conjointement avec d’autres familles.
 
-Dollo, Wagner parsimony
+%Histoire d’une famille de gène, mais celle-ci engendre différents ensembles de protéines.
 
-\section{Méthodes}
+%Liens et différences avec small phylogeny, Sankoff algorithm/Fitch algorithm.
 
-\subsection{Réconciliation d’adjacences}
-
-\textbf{DeCo} \cite{Berard2012EvolutionGeneNeighborhoods}
-
-\textbf{DeCoLT} \cite{Patterson2013LateralGeneTransfer}
-
-\textbf{DeCoStar} \cite{Duchemin2017DecostarReconstructingAncestral}
+%Dollo, Wagner parsimony
 
 \section{Réconciliation par clustering}
 
-\textbf{Duplication Episodes} \cite{Guigo1996ReconstructionAncientMolecular}
+\paragraph{Duplication Episodes}
+\cite[sect. 7 et annexe 3]{Guigo1996ReconstructionAncientMolecular}
 
-\textbf{Intervals} \cite{Fellows1998MultipleGeneDuplication}
+\paragraph{Intervals} \cite{Fellows1998MultipleGeneDuplication}
 
-\textbf{Review} \cite{Paszek2018EfficientAlgorithmsGenomic}
+\paragraph{Review} \cite{Paszek2018EfficientAlgorithmsGenomic}
 
-\section{Réconciliation imbriquée}
+\section{Réconciliation trilatérale}
 
-\textbf{Transcripts} \cite{Kuitche2017ReconstructingProteinGene}
+\paragraph{Transcripts} \cite{Kuitche2017ReconstructingProteinGene}
 
-\textbf{Domains} \cite{Li2019IntegratedReconciliationFramework}
+\paragraph{Domains} \cite{Li2019IntegratedReconciliationFramework}
+
+\section{Réconciliation d’adjacences}
+
+\paragraph{DeCo} \cite{Berard2012EvolutionGeneNeighborhoods}
+
+\paragraph{DeCoLT} \cite{Patterson2013LateralGeneTransfer}
+
+\paragraph{DeCoStar} \cite{Duchemin2017DecostarReconstructingAncestral}
+
+amélioré dans \cite{Tannier2020AncestralGenomeOrganization}
+% cite §2.2.3:
+% DeCoStar (Duchemin et al., 2017) takes as input extant gene orders, gene trees and a species tree. Gene trees are reconciled with the provided species tree using ecceTERA (Jacox et al., 2016), an exact dynamic programming algorithm computing a parsimonious reconciliation. Then ancestral adjacencies are reconstructed for each ancestral species. The principle for this reconstruction is that first extant adjacencies are clustered into families, according to the homology of the corresponding gene extremities. Then for each family of adjacencies, ancestral adjacencies are constructed also with an exact dynamic programming procedure minimizing the cost of gains and breakages of adjacencies; we used default costs for adjacency gain and break (3~and~1).
+% We added to the program DeCoStar a novel feature, described here for the first time, aimed at handling gene losses without artificially increasing the parsimony cost of an adjacency evolutionary scenario, which is important regarding the linearity score we describe later. This feature consists in iterating the DeCoStar program several times, modifying the costs of creating adjacencies in function of the previous iteration. More precisely, if in the solution computed by the algorithm at iteration i the loss of a gene A, located between two genes B and C, is inferred, then at iteration i + 1 the gain of an adjacency between genes B and C is free, i.e. it does not increase the cost of the evolutionary scenario for the adjacency family containing B and C. This is generalized to any set of consecutive genes located between B and C, being lost concomitantly at iteration i. It can have a significant impact on the linearity score in the case of convergent losses of genes. As we focus on linearity we use this loss aware option with two iterations (i = 2) in all our experiments.
+% For each run of DeCoStar, we recorded the number of gene duplications, gene losses and
+% HGTs, as well as the number of gains and breaks of adjacencies.
+
+\paragraph{AGe} \cite{Tannier2020AncestralGenomeOrganization}
+
+Problème de la structure reconstruite / linéarisation (cycles et chemins)
+
+Question ouverte sur la complexité
 
 \section{Réconciliation segmentale}
 
-Super-réconciliation
-
-\section{Simulations}
-
-\textbf{Domain evolution} \cite{Cui2022SimulatingDomainArchitecture}
+\paragraph{Super-réconciliation}
