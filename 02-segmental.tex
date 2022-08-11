@@ -1,13 +1,36 @@
 %! TeX root = ./main.tex
 % vim: set spelllang=fr:
-\chapter{Réconciliation multiple}
+\chapter{Réconciliation multi-échelles}
 
-Certains événements peuvent affecter simultanément l’évolution de plusieurs unités dépendantes.
-En présence de ce type d’événements, les unités concernées n’évoluent pas indépendamment les unes des autres.
-Lorsque des groupes de gènes évoluent systématiquement ensemble, par exemple en raison de leur proximité chromosomique ou de leur dépendance fonctionnelle, ils sont dits en \emph{synténie}.
+Les méthodes de réconciliation bilatérale permettent d’étudier l’histoire conjointe de l’évolution d’une unité dépendante et de ses hôtes.
+Dans certains cas, comme pour les gènes à l’intérieur de génomes, les histoires de plusieurs unités associées aux mêmes hôtes ne sont pas indépendantes.
+Certains mécanismes à l’échelle des génomes sont en effet capables de dupliquer ou d’inactiver des segments portant plusieurs gènes, ou modifier l’ordre des gènes le long des chromosomes.
+Dans ce contexte, l’information évolutive à l’échelle des gènes et des génomes doit être intégrée pour permettre la reconstruction d’histoires fidèles~\parencite{Sankoff2000DuplicationRearrangementReconciliation,Chauve2013DuplicationRearrangementReconciliation}.
 
+À l’échelle des génomes, la reconstruction d’histoires évolutives parcimonieuses est l’objet d’un large corpus.
+Il s’agit d’identifier la ou les séquences minimales d’événements permettant de relier un ensemble de génomes.
+Comme pour la réconciliation, différents modèles théoriques sont définis, intégrant différents mécanismes évolutifs et donnant lieu à des problèmes d’optimisation combinatoire de complexité variable.
+Pour une paire de génomes, le problème est celui du tri de génome (\emph{genome sorting}) ~\parencite{Hannenhalli1999TransformingCabbageTurnip,Bergeron2009NewLinearTime,Feijao2011ScjBreakpointDistance,Mane2020DistanceMedianProblems}.
+
+
+, polynomial pour le modèle \emph{double cut and join}~(DCJ) qui suppose que les deux génomes comparés contiennent chacun un seul exemplaire de chaque type de gène.
+L’extension du problème pour y intégrer les gènes dupliqués le rend NP-complet.
+Un modèle différent, \emph{simple cut and join}~(SCJ) permet d’obtenir une complexité polynomiale même en présence de duplicats.
+
+Le problème de la reconstruction de l’histoire évolutive des génomes a fait l’objet de nombreuses études.
+L’identification de la séquence minimale d’événements reliant deux génomes est un problème polynomial lorsque les deux génomes considérés ont le même contenu (i.e., seulement des réarrangements), qui devient NP-complet dès que les duplications de gènes sont prises en compte.
+
+small/large phylogeny
+Lorsque un groupe de gènes évoluent systématiquement ensemble, par exemple en raison de leur proximité chromosomique ou de leur dépendance fonctionnelle, ils forment une \emph{synténie}.
 Même en synténie, les gènes restent soumis aux interactions décrites au chapitre précédent.
-Conceptuellement, les synténies occupent un niveau intermédiaire entre les gènes et les espèces dans leur hiérarchie évolutive.
+Conceptuellement, les synténies occupent alors un niveau intermédiaire entre les gènes et les espèces dans leur hiérarchie évolutive.
+
+Problème de la reconstruction de génome ancestral.
+Version \enquote{locale}.
+Réarrangements/hypothèses d’ordre conservé.
+\cite[en particulier section 5.2]{ElMabrouk2012AnalysisGeneOrder}
+
+Extension de la réconciliation.
 
 Différentes approches ont été développées pour adapter la réconciliation à ce contexte.
 \tk{Lister sections du chapitre en présentant approches}
@@ -20,7 +43,7 @@ Différentes approches ont été développées pour adapter la réconciliation �
 
 %Dollo, Wagner parsimony
 
-\section{Réconciliation par clustering}
+\section{Regroupement d’événements}
 
 \paragraph{Duplication Episodes}
 \cite[sect. 7 et annexe 3]{Guigo1996ReconstructionAncientMolecular}
@@ -35,7 +58,7 @@ Différentes approches ont été développées pour adapter la réconciliation �
 
 \paragraph{Domains} \cite{Li2019IntegratedReconciliationFramework}
 
-\section{Réconciliation d’adjacences}
+\section{Évolution d’adjacences}
 
 \paragraph{DeCo} \cite{Berard2012EvolutionGeneNeighborhoods}
 
