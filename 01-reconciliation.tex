@@ -4,14 +4,14 @@
 
 La phylogénie d’une famille de gènes est riche d’information.
 Elle renseigne non seulement sur l’évolution des gènes mais aussi sur celle de leurs espèces hôtes.
-Pour en extraire une phylogénie des espèces, il est nécessaire de distinguer entre les paires de gènes ayant codivergé avec leur hôte (appelées \emph{orthologues}) et celles ayant divergé indépendamment~\cite{Fitch1970DistinguishingHomologousAnalogous}.
-L’identification des relations d’orthologie est également utile pour étudier la fonction des gènes, en effet les gènes orthologues partagent généralement la même fonction, contrairement aux gènes dupliqués qui sont soumis à une pression sélective moindre~\cite{Lynch2001ProbabilityPreservationNewly}.
+Pour en extraire une phylogénie des espèces, il est nécessaire de distinguer entre les paires de gènes ayant codivergé avec leur hôte (appelées \emph{orthologues}) et celles ayant divergé indépendamment~\parencite{Fitch1970DistinguishingHomologousAnalogous}.
+L’identification des relations d’orthologie est également utile pour étudier la fonction des gènes, en effet les gènes orthologues partagent généralement la même fonction, contrairement aux gènes dupliqués qui sont soumis à une pression sélective moindre~\parencite{Lynch2001ProbabilityPreservationNewly}.
 
 Les gènes et leurs espèces hôtes sont un exemple d’une hiérarchie évolutive, puisque l’évolution des gènes dépend de celle de leur hôte.
-La méthode de \emph{réconciliation}, proposée par \citeauthor{Goodman1979FittingGeneLineage} en~\citeyear{Goodman1979FittingGeneLineage}~\cite{Goodman1979FittingGeneLineage}, formalisée par~\citeauthor{Page1994MapsTreesCladistic} en~\citeyear{Page1994MapsTreesCladistic}~\cite{Page1994MapsTreesCladistic}, et depuis l’objet d’un large corpus, permettant de modéliser et de reconstituer l’évolution conjointe d’une unité dépendante et de son hôte.
+La méthode de \emph{réconciliation}, proposée par \textcite{Goodman1979FittingGeneLineage}, formalisée par \textcite{Page1994MapsTreesCladistic}, et depuis l’objet d’un large corpus, permettant de modéliser et de reconstituer l’évolution conjointe d’une unité dépendante et de son hôte.
 
 Ce chapitre est consacré à la présentation de cette méthode.
-Les deux premières sections constituent une tentative par l’auteur de poser un cadre théorique permettant de comparer les méthodes de réconciliation.
+Les deux premières sections constituent une tentative d’établir un cadre théorique permettant de comparer les méthodes de réconciliation.
 La section suivante fait état des principaux modèles développés pour la réconciliation gènes--espèces.
 Pour conclure le chapitre, la dernière section passe en revue différentes applications possibles des méthodes de réconciliation.
 
@@ -120,7 +120,7 @@ Ces interprétations sont modélisées par des arbres réconciliés qui étenden
 
 Le choix d’un modèle permet d’évaluer la plausibilité d’une réconciliation.
 Dans les méthodes de \emph{parcimonie}, les réconciliations considérées comme les plus plausibles sont celles dont l’interprétation invoque le moins d’événements du modèle.
-Dans le cadre \emph{probabiliste}, ce sont les réconciliations dont la meilleure interprétation maximise la vraisemblance qui sont favorisées~\cite{Doyon2011ModelsAlgorithmsPrograms}.
+Dans le cadre \emph{probabiliste}, ce sont les réconciliations dont la meilleure interprétation maximise la vraisemblance qui sont favorisées~\parencite{Doyon2011ModelsAlgorithmsPrograms}.
 
 En parcimonie, une fonction \(\cost : \recmodel \onto \nat\) attribuant un coût à chaque type d’événement est fixée en avance.
 Le coût d’un arbre réconcilié est la somme des coûts de ses événements.
@@ -145,7 +145,7 @@ Dans les méthodes \emph{probabilistes}, la longueur des branches de \(T\) est p
 
 Dans la suite, nous présentons les principaux modèles de réconciliation gènes--espèces et les résultats connus en complexité du calcul pour les problèmes de \refproblem{\(\recmodel\)-Parcimonie} associés.
 
-\paragraph{Duplication--perte~\cite{Goodman1979FittingGeneLineage,Page1994MapsTreesCladistic}}
+\paragraph{Duplication--perte~\textup{\parencite{Goodman1979FittingGeneLineage,Page1994MapsTreesCladistic}}}
 Ce modèle définit trois types d’événements \(\recmodelDL = \{\evtD, \evtL, \evtS\}\).
 La divergence d’un gène s’explique par une duplication~(\(\evtD\)) ou par une spéciation de son hôte~(\(\evtS\)), et l’absence d’un gène dans une espèce descendante s’explique par une perte~(\(\evtL\)).
 Chaque embranchement \(v \in \tinner(\rectree)\) d’un arbre réconcilié sous ce modèle est tel que:
@@ -176,14 +176,14 @@ Ce choix est motivé par le fait qu’un événement~\(\evtS\) s’appuie sur un
 
 Le modèle \(\recmodelDL\) exclut toute possibilité de changement d’hôte, donc les réconciliations optimales se trouvent dans l’espace restreint des réconciliations strictes (voir lemme~\labelcref{lemma:strict-rec-space}).
 La réconciliation~\(\reclca\) est toujours une solution sous ce modèle.
-De surcroît, à condition que \(\cost(\evtL) > 0\), il s’agit de l’unique solution~\cite{Chauve2009NewPerspectivesGene}.
-Le calcul de~\(\reclca\) demande seulement un temps et espace linéaires en fonction de la taille de l’arbre \(T\)~\cite{Zhang1997MirkinMuchnikSmith}.
+De surcroît, à condition que \(\cost(\evtL) > 0\), il s’agit de l’unique solution~\parencite{Chauve2009NewPerspectivesGene}.
+Le calcul de~\(\reclca\) demande seulement un temps et espace linéaires en fonction de la taille de l’arbre \(T\)~\parencite{Zhang1997MirkinMuchnikSmith}.
 Le problème \refproblem{\(\recmodelDL\)-Parcimonie} est donc polynomial.
 
-\paragraph{Duplication--perte--régulation~\cite{Goodman1979FittingGeneLineage}}
+\paragraph{Duplication--perte--régulation~\textup{\parencite{Goodman1979FittingGeneLineage}}}
 Ce modèle introduit un événement \(\evtR\) qui offre une interprétation alternative à l’absence d’un gène dans un descendant, pouvant être expliquée par sa \enquote{désactivation} temporaire par un mécanisme de régulation.
 
-\paragraph{Duplication--transfert--perte~\cite{Tofigh2011SimultaneousIdentificationDuplications}}
+\paragraph{Duplication--transfert--perte~\textup{\parencite{Tofigh2011SimultaneousIdentificationDuplications}}}
 Le modèle \(\recmodelDTL = \{\evtD, \evtT, \evtL, \evtS\}\) étend le modèle \(\recmodelDL\) pour y intégrer la possibilité de changements d’hôte et ainsi permettre d’interpréter les réconciliations libres.
 En plus des trois types d’événements définis précédemment, pour un embranchement \(v \in \tinner(\rectree)\) sous ce modèle, si \(\evt(v) = \evtT\), alors \(\exrec(v) = \exrec(v\lchild)\) et \(\exrec(v) \nottcomp \exrec(v\rchild)\), ou bien \(\exrec(v) = \exrec(v\rchild)\) et \(\exrec(v) \nottcomp \exrec(v\lchild)\).
 La \cref{figure:dtl-interpret} donne une interprétation de la réconciliation \(\rec_3\) de la \cref{figure:free-rec} sous le modèle \(\recmodelDTL\).
@@ -201,7 +201,7 @@ La \cref{figure:dtl-interpret} donne une interprétation de la réconciliation \
 
 Contrairement au modèle \(\recmodelDL\), il peut exister plusieurs réconciliations optimales pour \(\recmodelDTL\) et la réconciliation \(\reclca\) n’en fait pas nécessairement partie.
 L’une des difficultés avec ce modèle est d’assurer que les réconciliations calculées soient valides.
-En raison de cette contrainte, le problème de décision associé à \refproblem{\(\recmodelDTL\)-Parcimonie} est NP-complet, comme montré en~\cite{Tofigh2011SimultaneousIdentificationDuplications} par réduction du problème du sous-graphe acyclique maximal.
+En raison de cette contrainte, le problème de décision associé à \refproblem{\(\recmodelDTL\)-Parcimonie} est NP-complet, comme montré par \textcite{Tofigh2011SimultaneousIdentificationDuplications} par réduction du problème du sous-graphe acyclique maximal.
 
 Pour contourner cette difficulté, une version relâchée du problème est définie, \refproblem{\(\recmodelDTL\)-Parcimonie\(\star\)}, dans laquelle toutes les réconciliations \emph{localement valides} peuvent être considérées.
 Par exemple, la réconciliation \(\rec_4\) de la \cref{figure:free-rec} est acceptable bien qu’elle soit invalide.
@@ -275,13 +275,13 @@ Ces sous-réconciliations sont assemblées en utilisant les observations suivant
 \end{algorithm}
 
 L’\cref{algo:dtl-parcimonie-star} peut être transformé pour utiliser une table de programmation dynamique conservant les valeurs de \(\fndtl(v, \sigma)\), évitant ainsi de répéter plusieurs fois le même calcul.
-En posant \(n = \lvert\tnodes(T)\rvert\) et \(m = \lvert\tnodes(S)\rvert\), l’algorithme ainsi transformé a une complexité en temps de \(\bigo(nm^2)\) et en espace de \(\bigo(nm)\)~\cite{Tofigh2011SimultaneousIdentificationDuplications}.
-La complexité en temps peut être réduite à \(\bigo(nm)\) sans modifier la complexité en espace~\cite{Bansal2012EfficientAlgorithmsReconciliation}.
+En posant \(n = \lvert\tnodes(T)\rvert\) et \(m = \lvert\tnodes(S)\rvert\), l’algorithme ainsi transformé a une complexité en temps de \(\bigo(nm^2)\) et en espace de \(\bigo(nm)\)~\parencite{Tofigh2011SimultaneousIdentificationDuplications}.
+La complexité en temps peut être réduite à \(\bigo(nm)\) sans modifier la complexité en espace~\parencite{Bansal2012EfficientAlgorithmsReconciliation}.
 Le problème \refproblem{\(\recmodelDTL\)-Parcimonie\(\star\)} est donc polynomial.
 
 \tk{Gérer réconciliations dont les deux enfants sont séparés du parent}
 
-\paragraph{Duplication--transfert--perte généralisé~\cite{Weiner2021ImprovedDuplicationTransfer}}
+\paragraph{Duplication--transfert--perte avec espèces non-échantillonnées~\textup{\parencite{Weiner2021ImprovedDuplicationTransfer}}}
 Le modèle \(\recmodelDTLx = \{\evtD, \evtT, \evtTL, \evtTX, \evtL, \evtS\}\)…
 Dans le modèle \(\recmodelDL\), les espèces non-échantillonnées n’ont pas d’impact sur les réconciliations, puisque seules les réconciliations strictes sont considérées, ce qui implique que les espèces non-échantillonnées évoluent indépendamment de celles qui sont échantillonnées.
 
@@ -290,12 +290,8 @@ Dans le modèle \(\recmodelDL\), les espèces non-échantillonnées n’ont pas 
     \item si \(\evt(v) = \evtTX\), alors …
 \end{compactitemize}
 
-\paragraph{Duplication--perte--coalescence (DLC)}
-
-Tri incomplet de lignées (ILS)
-\cite[p. 71]{Page1994MapsTreesCladistic}
-\cite{Rasmussen2012UnifiedModelingGene}
-\cite{Wu2013MostParsimoniousReconciliation}
+\paragraph{Duplication--perte--coalescence~\textup{\parencite{Rasmussen2012UnifiedModelingGene,Wu2013MostParsimoniousReconciliation}}}
+Tri incomplet de lignées (ILS), coalescence profonde.
 
 \section{Applications des méthodes de réconciliation}
 

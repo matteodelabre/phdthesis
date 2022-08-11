@@ -18,7 +18,7 @@
 
 % Bibliographie
 
-\RequirePackage[style=ieee, citestyle=numeric-comp]{biblatex}
+\RequirePackage[style=authoryear]{biblatex}
 \addbibresource{references.bib}
 
 % Typographie
