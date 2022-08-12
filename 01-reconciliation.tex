@@ -8,8 +8,9 @@ Afin d’en extraire une phylogénie pour les espèces, il est nécessaire de di
 L’identification des relations d’orthologie est également utile à l’étude de la fonction des gènes.
 Les gènes orthologues partagent généralement la même fonction, contrairement aux gènes dupliqués qui sont soumis à une pression sélective moindre~\parencite{Lynch2001ProbabilityPreservationNewly}.
 
-Les gènes et leurs espèces hôtes forment une hiérarchie évolutive, puisque l’évolution des gènes dépend de celle de leur hôte.
-La méthode de \emph{réconciliation}, proposée par \textcite{Goodman1979FittingGeneLineage}, formalisée par \textcite{Page1994MapsTreesCladistic}, et ayant depuis fait l’objet de plusieurs développements, permet de modéliser et de reconstituer l’évolution conjointe d’une unité dépendante et de son hôte.
+Les gènes et leurs espèces hôtes forment une hiérarchie évolutive, puisque l’évolution des gènes dépend de celle de leurs hôtes.
+Les relations d’orthologie dans une famille de gènes peuvent être prédites en utilisant la méthode de \emph{réconciliation}.
+Cette méthode, proposée par \textcite{Goodman1979FittingGeneLineage}, formalisée par \textcite{Page1994MapsTreesCladistic}, et ayant depuis fait l’objet de plusieurs développements, permet de modéliser et de reconstituer l’évolution conjointe d’une unité dépendante et de ses hôtes.
 
 Ce chapitre est consacré à la présentation de cette méthode.
 Les deux premières sections constituent une tentative d’établir un cadre théorique permettant de comparer les modèles de réconciliation entre eux.
@@ -115,11 +116,11 @@ Ces interprétations sont modélisées par des arbres réconciliés qui étenden
 
 \begin{definition}[Arbre réconcilié]\label{definition:rectree}
     Soient \(T\) et \(S\) deux arbres, \(\rec\) une réconciliation de \(T\) avec \(S\), et \(\recmodel\) un ensemble de types d’événements.
-    Un \emph{arbre réconcilié} est une extension partiellement binaire \(\rectree\) de~\(T\) munie d’une application \(\exrec : \tnodes(\rectree) \onto \tnodes(S)\) qui étend \(\rec\) et d’une application \(\evt : \tnodes(\rectree) \onto \recmodel \cup \{\evtNone\}\)
-    telle que \(\{ v \in \tleavs(\rectree) \suchthat \evt(v) = \evtNone \} = \tleavs(T)\).
+    Un \emph{arbre réconcilié} est une extension partiellement binaire \(\rectree\) de~\(T\) munie d’une application \(\exrec : \tnodes(\rectree) \onto \tnodes(S)\) qui étend \(\rec\) et d’une application \(\evt : \tnodes(\rectree) \onto \recmodel \cup \{\evtE\}\)
+    telle que \(\{ v \in \tleavs(\rectree) \suchthat \evt(v) = \evtE \} = \tleavs(T)\).
 \end{definition}
 
-Le choix d’un modèle permet d’évaluer la plausibilité d’une réconciliation.
+Deux principales classes de méthodes existent pour évaluer la plausibilité d’une réconciliation sous un modèle donné.
 Dans les méthodes de \emph{parcimonie}, les réconciliations considérées comme les plus plausibles sont celles dont l’interprétation invoque le moins d’événements du modèle.
 Dans le cadre \emph{probabiliste}, ce sont les réconciliations dont la meilleure interprétation maximise la vraisemblance qui sont favorisées~\parencite{Doyon2011ModelsAlgorithmsPrograms}.
 

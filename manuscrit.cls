@@ -109,7 +109,7 @@
 \newcommand{\treecost}{\Delta}
 \newcommand{\evt}{\mathcal{E}}
 
-\newcommand{\evtNone}{\lambda}
+\newcommand{\evtE}{\varepsilon}
 \newcommand{\evtS}{\mathrm{S}}
 \newcommand{\evtD}{\mathrm{D}}
 \newcommand{\evtL}{\mathrm{L}}
@@ -228,7 +228,7 @@
 
 \RequirePackage{caption}
 \DeclareCaptionLabelFormat{oldstyle}{\textsc{\MakeLowercase{#1}} \oldstylenums{#2}}
-\captionsetup{labelformat=oldstyle, labelsep=endash, margin=1em}
+\captionsetup{labelformat=oldstyle, labelsep=endash, margin=2em}
 
 \addto\captionsfrench{\renewcommand{\figurename}{Figure}}
 \renewcommand{\AlCapSty}[1]{\textsc{\MakeLowercase{\oldstylenums{#1}}}}
