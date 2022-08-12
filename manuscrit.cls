@@ -35,8 +35,20 @@
 \RequirePackage{enumitem}
 \newlist{compactitemize}{itemize}{1}
 \setlist[compactitemize]{label=\textbullet, itemsep=0pt, parsep=0.5ex}
-
 \renewcommand{\paragraph}[1]{\noindent\textit{#1.}\enspace}
+
+%% En-têtes
+\RequirePackage{fancyhdr}
+
+\pagestyle{fancy}
+\fancyhead[L]{\leftmark}
+\fancyhead[R]{\oldstylenums{\thepage}}
+\renewcommand{\headrulewidth}{0pt}
+\fancyfoot[L,C,R]{}
+
+\renewcommand{\chaptermark}[1]{\markboth{\textsc{\MakeLowercase{\chaptername}\ \oldstylenums{\thechapter}}\ --\ #1}{}}
+
+\setlength{\headheight}{14pt}
 
 % Révision
 
