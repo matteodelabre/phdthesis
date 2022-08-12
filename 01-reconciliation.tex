@@ -214,8 +214,9 @@ Cette modification confère au problème une sous-structure optimale : une solut
 \newcommand{\varspe}{\mathrm{Spe_{LR}}}
 \newcommand{\varsperl}{\mathrm{Spe_{RL}}}
 \newcommand{\vardup}{\mathrm{Dup}}
-\newcommand{\varhgt}{\mathrm{HGT_L}}
-\newcommand{\varhgtr}{\mathrm{HGT_R}}
+\newcommand{\varhgt}{\mathrm{Tra_L}}
+\newcommand{\varhgtr}{\mathrm{Tra_R}}
+\newcommand{\varhgtlr}{\mathrm{Tra_{LR}}}
 
 L’\cref{algo:dtl-parcimonie-star} exploite cette propriété pour résoudre efficacement le problème.
 La fonction \(\fndtl(v, \sigma)\) (\crefrange{algo:dtl-parcimonie-star:fndtl:start}{algo:dtl-parcimonie-star:fndtl:end}) calcule le coût minimum d’une réconciliation de \(\subtree{T}{v}\) avec \(S\) de sorte que \(v\) soit associé à un hôte \(\sigma\) donné.
@@ -281,7 +282,20 @@ En posant \(n = \lvert\tnodes(T)\rvert\) et \(m = \lvert\tnodes(S)\rvert\), l’
 La complexité en temps peut être réduite à \(\bigo(nm)\) sans modifier la complexité en espace~\parencite{Bansal2012EfficientAlgorithmsReconciliation}.
 Le problème \refproblem{\(\recmodelDTL\)-Parcimonie\(\star\)} est donc polynomial.
 
+Il est important de noter que cet algorithme n’explore pas toutes les possibilités de réconciliations libres localement valides au sens défini dans ce document.
+En effet, il ne prend pas en compte la possibilité pour un embranchement de voir ses deux enfants séparés simultanément.
+Une telle association pourrait s’expliquer dans le modèle \(\recmodelDTL\) par deux événements \(\evtT\) suivis d’un événement \(\evtL\).
+La figure xxx illustre un cas dans lequel une telle association se révèle avantageuse en terme du critère de parcimonie.
+Pour intégrer cette possibilité dans l’algorithme, un troisième cas doit y être ajouté :
+
+\[
+    \varhgtlr \gets 2\cost(\evtT) + \cost(\evtL)
+        + \min_{\sigma' \nottcomp \sigma} \{\fndtl(v\lchild, \sigma')\}
+        + \min_{\sigma'' \nottcomp \sigma} \{\fndtl(v\rchild\kern1pt, \sigma'')\}
+\]
+
 \tk{Gérer réconciliations dont les deux enfants sont séparés du parent}
+}
 
 \paragraph{Duplication--transfert--perte avec espèces non-échantillonnées~\textup{\parencite{Weiner2021ImprovedDuplicationTransfer}}}
 Le modèle \(\recmodelDTLx = \{\evtD, \evtT, \evtTL, \evtTX, \evtL, \evtS\}\)…
