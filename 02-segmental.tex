@@ -1,80 +1,59 @@
 %! TeX root = ./main.tex
 % vim: set spelllang=fr:
-\chapter{Réconciliation multi-échelles}
+\chapter{Réconciliation multiple}
 
-Les méthodes de réconciliation bilatérale permettent d’étudier l’histoire conjointe de l’évolution d’une unité dépendante et de ses hôtes.
-Dans certains cas, comme pour les gènes à l’intérieur de génomes, les histoires de plusieurs unités associées aux mêmes hôtes ne sont pas indépendantes.
-Certains mécanismes à l’échelle des génomes sont en effet capables de dupliquer ou d’inactiver des segments portant plusieurs gènes, ou modifier l’ordre des gènes le long des chromosomes.
-Dans ce contexte, l’information évolutive à l’échelle des gènes et des génomes doit être intégrée pour permettre la reconstruction d’histoires fidèles~\parencite{Sankoff2000DuplicationRearrangementReconciliation,Chauve2013DuplicationRearrangementReconciliation}.
+Certains hôtes sont porteurs de plusieurs familles d’unités dépendantes.
+Pour reconstruire les histoires respectives de ces familles, les méthodes de réconciliation décrites au chapitre précédent peuvent leur être appliquées individuellement.
+Cette approche suppose toutefois que les unités étudiées évoluent indépendamment les unes des autres, ce qui n’est en particulier pas le cas de certains gènes.
+Les gènes sont en effet organisés linéairement le long du génome de leur espèce, et ainsi soumis aux événements à l’échelle du génome.
+Ces événements modifient l’organisation et la composition du génome, en affectant simultanément plusieurs de ses gènes.
 
-À l’échelle des génomes, la reconstruction d’histoires évolutives parcimonieuses consiste à identifier la ou les séquences minimales d’événements permettant de relier un ensemble de génomes.
-Comme pour la réconciliation, différents modèles théoriques sont définis, intégrant différents mécanismes évolutifs et donnant lieu à des problèmes d’optimisation combinatoire de complexité variable.
-Pour une paire de génomes, le problème est celui du tri de génome \emph{genome sorting} \parencite{Hannenhalli1999TransformingCabbageTurnip,Bergeron2009NewLinearTime,Feijao2011ScjBreakpointDistance,Mane2020DistanceMedianProblems}.
-Lorsque l’ensemble contient trois génomes ou plus, le problème est rendu plus difficile par le fait qu’il soit nécessaire d’inférer le contenu et l’ordre de génomes intermédiaires.
-Pour trois génomes, il s’agit du problème de médiane de génomes.
-Au delà, il s’agit des problèmes de \emph{grande} ou \emph{petite phylogénie}.
+L’évolution de structures linéaires, façonnées par des réarrangements et des duplications, est principalement étudiée dans le contexte de la génomique comparative.
+Le problème de la \emph{phylogénie génomique} consiste à reconstruire l’arbre phylogénétique le plus plausible pour un ensemble de génomes, en associant chaque embranchement à un génome ancestral.
+Ce problème se décline en une \emph{\enquote{grande}} version, où la topologie de l’arbre et les génomes ancestraux sont inférés simultanément, et une \emph{\enquote{petite}} version, dans laquelle la topologie est fixée et seuls les génomes ancestraux doivent être déterminés~\parencite[pour une revue de ces problèmes, voir][]{ElMabrouk2012AnalysisGeneOrder}.
 
-
+% Le contenu des génomes étudiés est représenté par des ensembles de chaînes de caractères orientées, formées sur l’alphabet des familles de gènes.
+% La question du \emph{tri de génomes} consiste à identifier la plus courte séquence d’événements permettant de transformer un premier génome en un second, afin d’évaluer la distance évolutive qui les sépare~\parencite[voir][]{Hannenhalli1999TransformingCabbageTurnip,Bergeron2009NewLinearTime,Feijao2011ScjBreakpointDistance}.
+% Le problème du \emph{génome médian} demande de trouver, à partir de trois génomes \(A\), \(B\) et \(C\), un génome \(M\) telle que la somme des distances entre les quatre soit minimale~\parencite[voir][]{Mane2020DistanceMedianProblems}.
 % Reversals : NPC pour tout
 % DCJ : polynomial pour sorting, NPC pour médiane, NPC pour duplications
 % SCJ : polylomial pour sorting, médiane et duplications
 
-Lorsque un groupe de gènes évoluent systématiquement ensemble, par exemple en raison de leur proximité chromosomique ou de leur dépendance fonctionnelle, ils forment une \emph{synténie}.
-Même en synténie, les gènes restent soumis aux interactions décrites au chapitre précédent.
-Conceptuellement, les synténies occupent alors un niveau intermédiaire entre les gènes et les espèces dans leur hiérarchie évolutive.
+L’étude de l’évolution des familles de gènes pourrait bénéficier de l’information à l’échelle génomique afin de prendre en compte la dépendance entre l’évolution des gènes.
+Inversement, l’étude de l’évolution des génomes pourrait bénéficier d’informations sur l’évolution des familles de gènes et notamment sur les relations d’orthologie.
+L’intégration de ces deux échelles d’étude a été proposée par~\textcite{Sankoff2000DuplicationRearrangementReconciliation}, avec pour objectif la mise au point de méthodes capables de reconstruire conjointement l’histoire de multiples familles de gènes évoluant au sein de génomes~\parencite[voir aussi][]{Chauve2013DuplicationRearrangementReconciliation}.
 
-Problème de la reconstruction de génome ancestral.
-Version \enquote{locale}.
-Réarrangements/hypothèses d’ordre conservé (opérons).
-\cite[en particulier section 5.2]{ElMabrouk2012AnalysisGeneOrder}
-
-Dans ce chapitre, nous présentons les principales approches permettant d’étendre la réconciliation pour prendre en compte les événements évolutifs à l’échelle du génome et des familles de gènes.
+Une approche consiste à étendre le modèle de réconciliation bilatéral pour y intégrer un niveau intermédiaire, entre les gènes et les espèces, modélisant les évolution à l’échelle génomique.
+Dans ce chapitre, deux axes de recherche visant cette direction sont décrits.
 Nous les comparons selon le type d’événements qu’elles sont capables de modéliser et selon leur complexité algorithmique.
-
-%Histoire d’une famille de gène, mais celle-ci évolue conjointement avec d’autres familles.
-
-%Histoire d’une famille de gène, mais celle-ci engendre différents ensembles de protéines.
-
-%Liens et différences avec small phylogeny, Sankoff algorithm/Fitch algorithm.
-
-%Dollo, Wagner parsimony
-
-\section{Regroupement d’événements}
-
-\paragraph{Duplication Episodes}
-\cite[sect. 7 et annexe 3]{Guigo1996ReconstructionAncientMolecular}
-
-\paragraph{Intervals} \cite{Fellows1998MultipleGeneDuplication}
-
-\paragraph{Review} \cite{Paszek2018EfficientAlgorithmsGenomic}
 
 \section{Évolution d’adjacences}
 
-\paragraph{DeCo} \cite{Berard2012EvolutionGeneNeighborhoods}
-
-\paragraph{DeCoLT} \cite{Patterson2013LateralGeneTransfer}
-
-\paragraph{DeCoStar} \cite{Duchemin2017DecostarReconstructingAncestral}
-
-amélioré dans \cite{Tannier2020AncestralGenomeOrganization}
-% cite §2.2.3:
-% DeCoStar (Duchemin et al., 2017) takes as input extant gene orders, gene trees and a species tree. Gene trees are reconciled with the provided species tree using ecceTERA (Jacox et al., 2016), an exact dynamic programming algorithm computing a parsimonious reconciliation. Then ancestral adjacencies are reconstructed for each ancestral species. The principle for this reconstruction is that first extant adjacencies are clustered into families, according to the homology of the corresponding gene extremities. Then for each family of adjacencies, ancestral adjacencies are constructed also with an exact dynamic programming procedure minimizing the cost of gains and breakages of adjacencies; we used default costs for adjacency gain and break (3~and~1).
-% We added to the program DeCoStar a novel feature, described here for the first time, aimed at handling gene losses without artificially increasing the parsimony cost of an adjacency evolutionary scenario, which is important regarding the linearity score we describe later. This feature consists in iterating the DeCoStar program several times, modifying the costs of creating adjacencies in function of the previous iteration. More precisely, if in the solution computed by the algorithm at iteration i the loss of a gene A, located between two genes B and C, is inferred, then at iteration i + 1 the gain of an adjacency between genes B and C is free, i.e. it does not increase the cost of the evolutionary scenario for the adjacency family containing B and C. This is generalized to any set of consecutive genes located between B and C, being lost concomitantly at iteration i. It can have a significant impact on the linearity score in the case of convergent losses of genes. As we focus on linearity we use this loss aware option with two iterations (i = 2) in all our experiments.
-% For each run of DeCoStar, we recorded the number of gene duplications, gene losses and
-% HGTs, as well as the number of gains and breaks of adjacencies.
-
-\paragraph{AGe} \cite{Tannier2020AncestralGenomeOrganization}
+Pour réduire la complexité du problème de reconstruction de synténies ancestrales, celles-ci peuvent être modélisées par l’adjacence de leurs gènes.
+Ainsi, la contrainte de linéarité des gènes est relâchée.
+Cette approche a notamment été développée dans la famille d’algorithmes \textsc{DeCo} \parencite{Berard2012EvolutionGeneNeighborhoods,Patterson2013LateralGeneTransfer,Anselmetti2015AncestralGeneSynteny,Chauve2015EvolutionGenesNeighborhood,Duchemin2017DecostarReconstructingAncestral,Tannier2020AncestralGenomeOrganization}.
 
 Problème de la structure reconstruite / linéarisation (cycles et chemins)
+
+Modélisation des duplications segmentales ou pertes segmentales (voir \cite{Tannier2020AncestralGenomeOrganization} / AGe).
 
 Question ouverte sur la complexité
 
 \section{Réconciliation segmentale}
 
-\paragraph{Super-réconciliation}
+Lorsque un groupe de gènes évoluent systématiquement ensemble, par exemple en raison de leur proximité chromosomique ou de leur dépendance fonctionnelle, ils forment une \emph{synténie}.
+Même en synténie, les gènes restent soumis aux interactions décrites au chapitre précédent.
 
-\cite{Delabre2020EvolutionSegmentalDuplications}
-\cite{Anselmetti2022ReconciliationWithsegmentalDuplication}
+Super-réconciliation: Formulation initiale, Formulation non-ordonnée \cite{Delabre2020EvolutionSegmentalDuplications}
+
+% \section{Regroupement d’événements}
+
+% \paragraph{Duplication Episodes}
+% \cite[sect. 7 et annexe 3]{Guigo1996ReconstructionAncientMolecular}
+
+% \paragraph{Intervals} \cite{Fellows1998MultipleGeneDuplication}
+
+% \paragraph{Review} \cite{Paszek2018EfficientAlgorithmsGenomic}
 
 % \section{Réconciliation trilatérale}
 
