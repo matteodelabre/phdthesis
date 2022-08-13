@@ -1,0 +1,11 @@
+{%
+    \setlength{\columnsep}{2em}%
+    \raggedright\twocolumn%
+    \renewcommand*{\bibfont}{\normalfont\footnotesize}%
+    \defbibheading{bibliography}[\bibname]{%
+        \chapter*{#1}%
+        \markboth{\textsc{\MakeLowercase{#1}}}{}%
+    }
+    \printbibliography
+
+}
