@@ -20,9 +20,10 @@ Les causes possibles de telles divergences diffèrent selon les types d’unité
 
 % Problème d’évolution hiérarchique
 L’évolution d’un gène ne dépend pas seulement des événements qui l’affectent directement, mais également de l’évolution de son espèce hôte.
-La spéciation d’une espèce cause en effet l’émergence d’exemplaires indépendants de tous ses gènes, un dans chaque nouvelle espèce.
-Cette relation est asymétrique --- la seule duplication d’un gène ne pouvant pas causer une spéciation --- et forme ainsi une hiérarchie évolutive.
-Des relations similaires se retrouvent à d’autres échelles, par exemple entre les domaines protéiques et leur protéine ou entre les espèces et leur habitat\footnote{Plus éloigné de la biologie, également entre les fragments de code et leur programme. Un tel fragment peut être copié-collé à l’intérieur d’un programme, et une fourche (\emph{fork}) peut avoir lieu dans le programme hôte. Dans les deux cas, des copies indépendantes de fragments apparaissent et continuent d’évoluer indépendamment par la suite.}.
+La spéciation d’une espèce cause en effet l’émergence d’exemplaires indépendants de ses gènes, un dans chaque nouvelle espèce.
+% Cette relation est asymétrique --- la seule duplication d’un gène ne pouvant pas causer une spéciation --- et forme ainsi une hiérarchie évolutive entre un ensemble d’\emph{unités dépendantes} et leurs hôtes.
+Cette relation forme une hiérarchie évolutive entre un ensemble d’\emph{unités dépendantes} et leurs hôtes.
+Des hiérarchies similaires se retrouvent à d’autres échelles, par exemple entre les domaines protéiques et leur protéine, entre certains parasites et leur hôte, ou entre les espèces et leur habitat\footnote{Mais aussi en dehors de la biologie, comme entre les fragments de code et leur programme. Un tel fragment peut être copié-collé à l’intérieur d’un programme, et une fourche (\emph{fork}) peut avoir lieu dans le programme hôte. Dans les deux cas, des copies indépendantes de fragments apparaissent et continuent d’évoluer indépendamment par la suite.}.
 
 % Réconciliation
 Pour étudier ces hiérarchies évolutives, \textcite{Goodman1979FittingGeneLineage} ont introduit la méthode dite de \emph{réconciliation}.
@@ -30,12 +31,14 @@ En s’appuyant sur les différences et similarités topologiques entre la phylo
 Le résultat est un arbre réconcilié, synthèse des deux arbres, dans lequel chaque embranchement de l’arbre de gènes est annoté par le type d’événement évolutif l’ayant engendré.
 
 % Problème d’évolution segmentale
-\tk{(à récrire) Bien qu’elles soient en mesure de capturer la dépendance évolutive entre les gènes et les espèces, ces méthodes supposent que les familles de gènes évoluent indépendamment les unes des autres.
-Cette hypothèse est invalidée en présence de phénomène de \emph{synténie}, pendant lesquels des blocs de gènes évoluent conjointement.
-Ce phénomène introduit un troisième niveau intermédiaire, formant une hiérarchie évolutive gène--synténie--espèce.
-La question principale de mon projet de recherche consiste à évaluer la possibilité d’étendre la réconciliation à des contextes d’évolution à trois niveaux.
-Il s’agit notamment de développer des modèles à l’équilibre entre puissance de modélisation et complexité algorithmique.
-En parallèle, nous nous demanderons dans quelle mesure cette généralisation peut permettre de tirer de nouvelles conclusions sur l’évolution de certains systèmes biologiques, en particulier les systèmes \mbox{\textsc{Crispr}-Cas}.}
+Bien qu’elle permette l’étude de hiérarchies évolutives entre des unités dépendantes et leurs hôtes, la réconciliation suppose que les unités étudiées évoluent indépendamment les unes des autres.
+Cette hypothèse est invalidée en particulier lorsque plusieurs unités sont organisées linéairement dans le même hôte, comme des gènes le long d’un génome, et affectées par des événements à grande échelle.
+Différentes méthodes ont été proposées pour étendre le paradigme à une réconciliation multiple, prenant en considération l’évolution conjointe de plusieurs unités.
+
+% Projet de recherche
+L’objectif principal du projet de recherche présenté dans ce document consiste à développer ces méthodes de réconciliation multiple.
+Il s’agit notamment de rechercher un équilibre entre puissance de modélisation et complexité algorithmique.
+L’application de ces méthodes à un cas biologique est également considérée pour les systèmes synténiques Crispr-Cas.
 
 % Plan du rapport
 Les deux premières sections de ce rapport sont consacrées à une revue de la littérature pertinente.
