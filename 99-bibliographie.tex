@@ -5,6 +5,7 @@
     \renewcommand*{\bibfont}{\normalfont\footnotesize}%
     \defbibheading{bibliography}[\bibname]{%
         \chapter*{#1}%
+        \addcontentsline{toc}{chapter}{#1}%
         \markboth{\textsc{\MakeLowercase{#1}}}{}%
     }%
     \printbibliography
