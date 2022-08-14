@@ -134,6 +134,14 @@
 \newcommand{\recmodelDTL}{\evtD\evtT\evtL}
 \newcommand{\recmodelDTLx}{\evtD\evtT\evtL\mathrm{x}}
 
+%%% Réconciliations multiples
+\newcommand{\gtrees}{\mathcal{T}}
+
+%%%% Adjacences
+\newcommand{\alladjs}{\mathcal{A}}
+\newcommand{\lladjset}{A}
+\newcommand{\adjset}{\tilde\lladjset}
+
 %% Algorithmes et complexité
 
 \newcommand{\problem}[3]{

@@ -27,11 +27,29 @@ Une approche consiste à étendre le modèle de réconciliation bilatéral pour 
 Dans ce chapitre, deux axes de recherche visant cette direction sont décrits.
 Nous les comparons selon le type d’événements qu’elles sont capables de modéliser et selon leur complexité algorithmique.
 
-\section{Évolution d’adjacences}
+\newcommand{\deco}{\textsc{DeCo}}
+\section{{\deco} -- Évolution d’adjacences}
 
 Pour réduire la complexité du problème de reconstruction de synténies ancestrales, celles-ci peuvent être modélisées par l’adjacence de leurs gènes.
 Ainsi, la contrainte de linéarité des gènes est relâchée.
 Cette approche a notamment été développée dans la famille d’algorithmes \textsc{DeCo} \parencite{Berard2012EvolutionGeneNeighborhoods,Patterson2013LateralGeneTransfer,Anselmetti2015AncestralGeneSynteny,Chauve2015EvolutionGenesNeighborhood,Duchemin2017DecostarReconstructingAncestral,Tannier2020AncestralGenomeOrganization}.
+
+
+Un ensemble \(\gtrees = \{T_1, ..., T_k\}\) d’arbres d’unités associées évoluant conjointement avec une famille d’espèces décrites par une phylogénie \(S\).
+Une adjacence est une assertion que deux gènes, ancestraux ou terminaux, sont colocalisés dans un génome.
+L’ensemble des adjacences possibles est \[
+    \alladjs = \bigcup_{\substack{
+        i,j \in [1..k]\\
+        i\neq j
+    }}{\tnodes(T_i)\times\tnodes(T_j)}.
+\]
+L’ensemble des adjacences terminales est donné en entrée, \(A\).
+Ainsi qu’un ensemble d’associations entre les feuilles \(\llmap_1, ..., \llmap_k\) de la forme \(\llmap_i : \tleavs(T_i) \onto \tleavs(S)\).
+L’ensemble des adjacences doit être \emph{compatible} avec \(\llmap_i\).
+
+
+Une réconciliation multiple au sens de {\deco} est un ensemble d’applications \(\rec_1, ..., \rec_k\) de la forme \(\rec_i : \tnodes(T_i) \onto \tnodes(S)\) et un ensemble d’adjacences
+\(\adjset \supseteq \lladjset\) tel que \(\adjset \subseteq \alladjs\).
 
 Problème de la structure reconstruite / linéarisation (cycles et chemins)
 
@@ -39,7 +57,7 @@ Modélisation des duplications segmentales ou pertes segmentales (voir \cite{Tan
 
 Question ouverte sur la complexité
 
-\section{Réconciliation segmentale}
+\section{Super-réconciliation -- Évolution segmentale}
 
 Lorsque un groupe de gènes évoluent systématiquement ensemble, par exemple en raison de leur proximité chromosomique ou de leur dépendance fonctionnelle, ils forment une \emph{synténie}.
 Même en synténie, les gènes restent soumis aux interactions décrites au chapitre précédent.
