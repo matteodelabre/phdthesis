@@ -203,7 +203,7 @@ La \cref{figure:dtl-interpret} donne une interprétation de la réconciliation \
 
 Contrairement au modèle \(\recmodelDL\), il peut exister plusieurs réconciliations optimales pour \(\recmodelDTL\) et la réconciliation \(\reclca\) n’en fait pas nécessairement partie.
 L’une des difficultés avec ce modèle est d’assurer que les réconciliations calculées soient valides.
-En raison de cette contrainte, le problème de décision associé à \refproblem{\(\recmodelDTL\)-Parcimonie} est NP-complet, comme montré par \textcite{Tofigh2011SimultaneousIdentificationDuplications} par réduction du problème du sous-graphe acyclique maximal.
+En raison de cette contrainte, le problème de décision associé à \refproblem{\(\recmodelDTL\)-Parcimonie} est NP-complet, comme montré par \textcite{Tofigh2011SimultaneousIdentificationDuplications} par réduction à partir du problème du sous-graphe acyclique maximal.
 
 Pour contourner cette difficulté, une version relâchée du problème est définie, \refproblem{\(\recmodelDTL\)-Parcimonie\(\star\)}, dans laquelle toutes les réconciliations \emph{localement valides} peuvent être considérées.
 Par exemple, la réconciliation \(\rec_4\) de la \cref{figure:free-rec} est acceptable bien qu’elle soit invalide.
