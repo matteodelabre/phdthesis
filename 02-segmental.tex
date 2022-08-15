@@ -5,10 +5,10 @@
 Certains hôtes sont porteurs de plusieurs familles d’unités dépendantes.
 Pour reconstruire les histoires respectives de ces familles, les méthodes de réconciliation décrites au chapitre précédent peuvent leur être appliquées individuellement.
 Cette approche suppose toutefois que les unités étudiées évoluent indépendamment les unes des autres, ce qui n’est en particulier pas le cas de certains gènes.
-Les gènes sont en effet organisés linéairement le long du génome de leur espèce, et ainsi soumis aux événements à l’échelle du génome.
-Ces événements modifient l’organisation et la composition du génome, en affectant simultanément plusieurs de ses gènes.
+Les gènes sont en effet organisés linéairement le long du génome de leur espèce, et ainsi affectés par des événements à l’échelle du génome.
+Ces événements modifient l’organisation et la composition du génome, agissant simultanément sur plusieurs de ses gènes.
 
-L’évolution de structures linéaires, façonnées par des réarrangements et des duplications, est principalement étudiée dans le contexte de la génomique comparative.
+L’évolution des structures linéaires, façonnées par des réarrangements et des duplications, est principalement étudiée dans le contexte de la génomique comparative.
 Le problème de la \emph{phylogénie génomique} consiste à reconstruire l’arbre phylogénétique le plus plausible pour un ensemble de génomes, en associant chaque embranchement à un génome ancestral.
 Ce problème se décline en une \emph{\enquote{grande}} version, où la topologie de l’arbre et les génomes ancestraux sont inférés simultanément, et une \emph{\enquote{petite}} version, dans laquelle la topologie est fixée et seuls les génomes ancestraux doivent être déterminés~\parencite[pour une revue de ces problèmes, voir][]{ElMabrouk2012AnalysisGeneOrder}.
 
@@ -19,50 +19,113 @@ Ce problème se décline en une \emph{\enquote{grande}} version, où la topologi
 % DCJ : polynomial pour sorting, NPC pour médiane, NPC pour duplications
 % SCJ : polylomial pour sorting, médiane et duplications
 
-L’étude de l’évolution des familles de gènes pourrait bénéficier de l’information à l’échelle génomique afin de prendre en compte la dépendance entre l’évolution des gènes.
-Inversement, l’étude de l’évolution des génomes pourrait bénéficier d’informations sur l’évolution des familles de gènes et notamment sur les relations d’orthologie.
-L’intégration de ces deux échelles d’étude a été proposée par~\textcite{Sankoff2000DuplicationRearrangementReconciliation}, avec pour objectif la mise au point de méthodes capables de reconstruire conjointement l’histoire de multiples familles de gènes évoluant au sein de génomes~\parencite[voir aussi][]{Chauve2013DuplicationRearrangementReconciliation}.
+L’intégration des méthodes développées pour l’évolution à l’échelle des familles de gènes avec celles pour l’échelle des génomes a été proposée par~\textcite{Sankoff2000DuplicationRearrangementReconciliation}.
+Les informations recouvrées par la réconciliation, notamment les relations d’orthologie, pourraient en effet guider l’étude de l’évolution des génomes contenant plusieurs copies de la même famille de gènes.
+Inversement, l’intégration de l’échelle génomique dans la réconciliation permettrait de prendre en compte l’interdépendance de l’évolution des gènes.
+L’un des objectifs de la recherche dans ces domaines depuis ces deux dernières décennies est donc la mise au point de méthodes capables de reconstruire conjointement l’histoire de multiples familles de gènes évoluant au sein de génomes~\parencite[voir aussi][]{Chauve2013DuplicationRearrangementReconciliation}.
 
-Une approche consiste à étendre le modèle de réconciliation bilatéral pour y intégrer un niveau intermédiaire, entre les gènes et les espèces, modélisant les évolution à l’échelle génomique.
-Dans ce chapitre, deux axes de recherche visant cette direction sont décrits.
-Nous les comparons selon le type d’événements qu’elles sont capables de modéliser et selon leur complexité algorithmique.
+Une approche consiste à étendre le modèle de réconciliation bilatéral pour y intégrer un niveau intermédiaire, entre les gènes et les espèces, modélisant l’évolution à l’échelle génomique.
+Dans ce chapitre, deux méthodes développées suivant cet axe de recherche sont décrites.
+Nous les comparons selon leur capacité de modélisation et leur complexité algorithmique.
 
-\newcommand{\deco}{\textsc{DeCo}}
-\section{{\deco} -- Évolution d’adjacences}
+\section{DeCo -- Évolution d’adjacences}
 
-Pour réduire la complexité du problème de reconstruction de synténies ancestrales, celles-ci peuvent être modélisées par l’adjacence de leurs gènes.
-Ainsi, la contrainte de linéarité des gènes est relâchée.
-Cette approche a notamment été développée dans la famille d’algorithmes \textsc{DeCo} \parencite{Berard2012EvolutionGeneNeighborhoods,Patterson2013LateralGeneTransfer,Anselmetti2015AncestralGeneSynteny,Chauve2015EvolutionGenesNeighborhood,Duchemin2017DecostarReconstructingAncestral,Tannier2020AncestralGenomeOrganization}.
+L’organisation linéaire d’un ensemble d’unités peut être représentée par un ensemble d’adjacences entre des paires d’unités.
+Par exemple un génome \(\{(a, b, c), (d, e)\}\), formé de deux chromosomes et cinq gènes, correspond aux trois adjacences \(\{(a, b), (b, c), (d, e)\}\).
+Cette représentation facilite notamment la modélisation d’événements de réarrangement, puisqu’il suffit d’agir sur les adjacences liminaires au segment déplacé.
+La famille de modèles DeCo (pour \enquote{Détection de la Coévolution}), introduits par \textcite{Berard2012EvolutionGeneNeighborhoods}, étendent la réconciliation pour y intégrer l’évolution d’adjacences entre plusieurs unités dépendantes.
 
+Supposons qu’un ensemble \(\gtrees = \{T_1, …, T_k\}\) de phylogénies d’unités dépendantes et celle \(S\) de leurs hôtes soient connus.
+Une adjacence \((a, b)\) est une assertion concernant deux unités, choisies parmi les nœuds de \(\gtrees\), affirmant que \(a\) précède immédiatement \(b\) dans la structure linéaire de leur hôte.
 
-Un ensemble \(\gtrees = \{T_1, ..., T_k\}\) d’arbres d’unités associées évoluant conjointement avec une famille d’espèces décrites par une phylogénie \(S\).
-Une adjacence est une assertion que deux gènes, ancestraux ou terminaux, sont colocalisés dans un génome.
-L’ensemble des adjacences possibles est \[
-    \alladjs = \bigcup_{\substack{
-        i,j \in [1..k]\\
-        i\neq j
-    }}{\tnodes(T_i)\times\tnodes(T_j)}.
-\]
-L’ensemble des adjacences terminales est donné en entrée, \(A\).
-Ainsi qu’un ensemble d’associations entre les feuilles \(\llmap_1, ..., \llmap_k\) de la forme \(\llmap_i : \tleavs(T_i) \onto \tleavs(S)\).
-L’ensemble des adjacences doit être \emph{compatible} avec \(\llmap_i\).
+\begin{definition}[Adjacence]\label{definition:adj}
+    Soit \(\mathcal{L} = \{L_1, …, L_k\}\) une famille d’ensembles
+    et \(\mathcal{F} = \{f_1, …, f_k\}\) un ensemble d’applications de la forme
+    \(f_i : L_i \onto M\) pour un ensemble \(M\).
+    Une adjacence est un couple \((a, b) \in L_i \times L_j\), avec \(1 \leq i, j \leq k\), tel que \(f_i(a) = f_j(b)\).
+    L’ensemble des adjacences possibles est \(\alladjs(\mathcal{F})\).
+\end{definition}
 
+Comme pour un réconciliation bilatérale, l’association des feuilles des arbres de \(\gtrees\) avec leurs hôtes respectifs est connue.
+De plus, un ensemble d’adjacences entre ces feuilles, représentant leur organisation linéaire, est donné.
+Une réconciliation d’adjacences de \(\gtrees\) avec \(S\) est alors un plongement de chaque arbre \(T_i\) dans \(S\), accompagné d’un ensemble d’adjacences ancestrales reliant les embranchements des arbres de \(\gtrees\).
+Ces plongements et adjacences ancestrales mènent aux associations des feuilles.
 
-Une réconciliation multiple au sens de {\deco} est un ensemble d’applications \(\rec_1, ..., \rec_k\) de la forme \(\rec_i : \tnodes(T_i) \onto \tnodes(S)\) et un ensemble d’adjacences
-\(\adjset \supseteq \lladjset\) tel que \(\adjset \subseteq \alladjs\).
+\begin{definition}[Réconciliation d’adjacences]\label{definition:adjrec}
+    Soient \(\gtrees = \{T_1, …, T_k\}\) un ensemble de \(k\) arbres phylogénétiques et \(S\) un arbre phylogénétique.
+    Soient \(\llmaps = \{\llmap_1, …, \llmap_k\}\) une famille de \(k\) applications de la forme \(\llmap_i : \tleavs(T_i) \onto \tleavs(S)\)
+    et \(\lladjset \subseteq \alladjs(\llmaps)\) un ensemble d’adjacences.
+    Une \emph{réconciliation d’adjacences} de \(\gtrees\) et \(\lladjset\) avec \(S\) est un couple \(\tuple{\recs, \adjset}\), où
+    \(\recs\) est un ensemble de réconciliations \(\{\rec_1, …, \rec_k\}\) de chaque \(T_i\) avec \(S\) étendant \(\llmap_i\),
+    et \(\adjset\) est un ensemble d’adjacences ancestrales tel que \(\lladjset \subseteq \adjset \subseteq \alladjs(\recs)\).
+\end{definition}
+
+\tk{fig : réconciliation d’adjacences}
+
+Chaque adjacence dans une réconciliation implique une contrainte temporelle, puisque les deux unités reliées sont supposées être présentes dans le même hôte simultanément.
+Ces contraintes doivent être cohérentes avec celles déjà imposées par les topologies des arbres de \(\gtrees\).
+Ainsi, une unité ne peut pas être adjacente à l’un de ses descendants ou ancêtres, et si deux unités sont adjacentes, alors un ancêtre de l’une ne peut être adjacent à un descendant de l’autre.
+
+\begin{definition}[Validité des adjacences d’une réconciliation]\label{definition:adjrec-adj-valid}
+    Soient \(\gtrees = \{T_1, …, T_k\}\) un ensemble de \(k\) arbres phylogénétiques, \(S\) un arbre phylogénétique, et \(\tuple{\recs, \adjset}\) une réconciliation d’adjacences de \(\gtrees\) et \(\lladjset\) avec \(S\).
+    Les adjacences d’une réconciliation \(\tuple{\recs, \adjset}\) sont \emph{valides} si
+        toute adjacence \((v, w) \in \adjset\) est telle que \(v \nottcomp w\) et
+        toute paire d’adjacences \((v, w), (x, y) \in \adjset\) est telle que
+            si \(v \tancs x\) alors \(w \nottdesc y\) et
+            si \(v \tdesc x\) alors \(w \nottancs y\).
+\end{definition}
+
+\tk{fig : adjacences croisées invalides}
+
+Pour éviter la confusion, il faut noter que deux notions de validité s’appliquent aux réconciliations d’adjacences.
+La \cref{definition:adjrec-adj-valid} concerne la validité des adjacences tandis que la validité définie en~\labelcref{definition:rec-valid} concerne les plongements.
+
+Différents modèles de réconciliation d’adjacences, étendant notamment les modèles bilatéraux \(\recmodelDL\), \(\recmodelDTL\) et \(\recmodelDTLx\), ont été proposés~\parencite{Berard2012EvolutionGeneNeighborhoods,Patterson2013LateralGeneTransfer,Anselmetti2015AncestralGeneSynteny,Chauve2015EvolutionGenesNeighborhood,Duchemin2017DecostarReconstructingAncestral,Tannier2020AncestralGenomeOrganization}.
+
+Comme les gènes, les adjacences sont également des unités dépendantes des espèces.
+Si une espèce subit une spéciation, les adjacences de l’espèce parente se retrouvent dans l’espèce descendante.
+Les adjacences peuvent également être dupliquées.
+Lorsqu’une adjacence \((a,b)\) se duplique ou change d’hôte, les deux unités \(a\) et \(b\) qu’elle unit subissent le même sort.
+De nouvelles adjacences peuvent se former ou se briser suite à des réarrangements du génome.
+
+\begin{definition}[Forêt d’adjacences réconciliées]\label{definition:adjrectree}
+    Soient \(\gtrees = \{T_1, …, T_k\}\) un ensemble de \(k\) arbres phylogénétiques et \(S\) un arbre phylogénétique, \(\recs\) et \(\adjset\) une réconciliation d’adjacences de \(\gtrees\) et \(\lladjset\) avec \(S\).
+    Soit \(\recmodel\) un ensemble de types d’événements.
+    Une forêt d’adjacences réconciliées est une famille d’arbres réconciliés \(\rectree_i\) pour chaque \(T_i\) ainsi qu’une forêt d’adjacences.
+    Soient \(T\) et \(S\) deux arbres, \(\rec\) une réconciliation de \(T\) avec \(S\), et \(\recmodel\) un ensemble de types d’événements.
+
+    ---
+
+    Un \emph{arbre réconcilié} est une extension partiellement binaire \(\rectree\) de~\(T\) munie d’une application \(\exrec : \tnodes(\rectree) \onto \tnodes(S)\) qui étend \(\rec\) et d’une application \(\evt : \tnodes(\rectree) \onto \recmodel \cup \{\evtE\}\)
+    telle que \(\{ v \in \tleavs(\rectree) \suchthat \evt(v) = \evtE \} = \tleavs(T)\).
+\end{definition}
+
 
 Problème de la structure reconstruite / linéarisation (cycles et chemins)
 
-Modélisation des duplications segmentales ou pertes segmentales (voir \cite{Tannier2020AncestralGenomeOrganization} / AGe).
+\begin{definition}\label{definition:adjrec-lin}
+    Une réconciliation d’adjacences est \emph{linéaire} si chaque \(v \in \bigcup_{1\leq i\leq k}\tnodes(T_i)\) apparaît dans au plus deux adjacences de \(\adjset\).
+\end{definition}
+
+Modélisation des duplications segmentales ou pertes segmentales (voir  / AGe).
 
 Question ouverte sur la complexité
 
+L’une des limitations fondamentales des méthodes d’adjacences est la question de la linéarisation.
+Puisque les segments sont modélisés au niveau des adjacences, les modèles peuvent générer des structures incompatibles avec une structure linéaire.
+L’application de ces méthodes peut donc demander une étape de linéarisation, qui engendre des problèmes NP-complets (?)~\parencite{Manuch2012LinearizationAncestralMultichromosomal}.
+
+Le modèle DeCo suppose également que les adjacences évoluent indépendamment les unes des autres, ce qui exclut la prise en compte d’événements segmentaux affectant plusieurs adjacences simultanément.
+Le modèle a cependant été étendu récemment pour prendre en considération les pertes segmentales par~\textcite{Tannier2020AncestralGenomeOrganization}.
+
 \section{Super-réconciliation -- Évolution segmentale}
 
+% Pour le moment, cette intégration se fait à une échelle réduite pour des synténies.
 Lorsque un groupe de gènes évoluent systématiquement ensemble, par exemple en raison de leur proximité chromosomique ou de leur dépendance fonctionnelle, ils forment une \emph{synténie}.
-Même en synténie, les gènes restent soumis aux interactions décrites au chapitre précédent.
 
 Super-réconciliation: Formulation initiale, Formulation non-ordonnée \cite{Delabre2020EvolutionSegmentalDuplications}
+
+\section{Comparaison et perspectives}
 
 % \section{Regroupement d’événements}
 

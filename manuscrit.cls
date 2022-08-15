@@ -81,6 +81,7 @@
 \newcommand{\onto}{\rightarrow}
 \newcommand{\suchthat}{\mathrel{:}}
 \newcommand{\nat}{\mathbb{N}}
+\newcommand{\tuple}[1]{\langle#1\rangle}
 
 %%% Arbres
 \newcommand{\tnodes}{V}
@@ -138,6 +139,9 @@
 
 %%% Réconciliations multiples
 \newcommand{\gtrees}{\mathcal{T}}
+\newcommand{\llmaps}{\mathcal{S}}
+\newcommand{\recs}{\tilde{\llmaps}}
+\newcommand{\exrecs}{\hat\llmaps}
 
 %%%% Adjacences
 \newcommand{\alladjs}{\mathcal{A}}
