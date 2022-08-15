@@ -26,7 +26,7 @@
 %% Police
 \RequirePackage{fontspec}
 \setmainfont{Libertinus Serif}[BoldFont=Libertinus Serif SemiBold]
-\RequirePackage{microtype}
+\RequirePackage[stretch=10, shrink=10]{microtype}
 
 %% Décorations
 \RequirePackage{adforn}
