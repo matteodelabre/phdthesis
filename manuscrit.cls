@@ -93,11 +93,13 @@
 \newcommand{\child}{_c}
 
 \newcommand{\tdesc}{\preceq}
-\newcommand{\nottdesc}{\mathrel{/\preceq}}
+\newcommand{\nottdesc}{\mathrel{\makebox[0pt]{\(\:\:\preceq\)}/}}
 \newcommand{\tdescneq}{\prec}
+\newcommand{\nottdescneq}{\mathrel{\makebox[0pt]{\(\:\:\prec\)}/}}
 \newcommand{\tancs}{\succeq}
 \newcommand{\nottancs}{\mathrel{\makebox[0pt]{\(\:\:\succeq\)}/}}
 \newcommand{\tancsneq}{\succ}
+\newcommand{\nottancsneq}{\mathrel{\makebox[0pt]{\(\:\:\succ\)}/}}
 \newcommand{\tcomp@base}{\makebox[0pt]{\raisebox{-2pt}{\(\mspace{12mu}\prec\)}}\raisebox{2pt}{\(\succ\)}}
 \newcommand{\tcomp}{\mathrel{\tcomp@base}}
 \newcommand{\nottcomp}{\mathrel{\makebox[0pt]{\(\:\:\:/\)}\tcomp@base}}
