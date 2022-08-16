@@ -31,16 +31,15 @@ Au contraire, si \(v\) est indépendant de l’évolution de l’hôte, il se ra
 Cette association de \(T\) avec \(S\) est appelée \emph{réconciliation}.
 
 Formellement, une réconciliation est un plongement de \(T\) dans \(S\), au sens défini ci-après.
-Pour simplifier, lorsque \(v\) correspond à une branche de \(S\), il est associé à sa terminaison.
+Pour simplifier la définition, lorsque \(v\) correspond à une branche de \(S\), il est associé à sa terminaison.
 Des exemples de réconciliations sont donnés dans les \cref{figure:valid-invalid-rec,figure:free-rec}.
+La réconciliation \(\rec_2\) en \cref{figure:valid-invalid-rec} est un exemple de réconciliation invalide.
 
 \begin{definition}[Réconciliation]\label{definition:rec}
     Soient \(T\) et \(S\) deux arbres phylogénétiques et \(\llmap : \tleavs(T) \onto \tleavs(S)\) une application qui associe chaque feuille de \(T\) à son hôte dans \(S\).
     Une \emph{réconciliation} de \(T\) avec \(S\) est une application \(\rec : \tnodes(T) \onto \tnodes(S)\) qui étend \(\llmap\).
+    Cette réconciliation est \emph{valide} si aucune paire \((v, w) \in \tnodes(T)^2\) n’est telle que \(v \tancsneq w\) et \(\rec(v) \tdescneq \rec(w)\).
 \end{definition}
-
-Si le plongement décrit par une réconciliation découle d’une réalité évolutive, celui-ci ne peut pas \enquote{remonter dans le temps}: un strict descendant de~\(v\) ne peut pas être associé à un strict ancêtre de l’associé de~\(v\).
-Une réconciliation qui respecte ce critère est dite \emph{valide}.
 
 \begin{figure}[htb]
     \capstart
@@ -49,47 +48,23 @@ Une réconciliation qui respecte ce critère est dite \emph{valide}.
     \caption{
         Deux réconciliations de la phylogénie \(T\) avec \(S\).
         Les associations entre embranchements sont représentées par des flèches et les associations entre feuilles sont indiquées implicitement en leur attribuant la même étiquette.
-        La réconciliation \(\rec_1\) est valide tandis que \(\rec_2\) est invalide.
     }
     \label{figure:valid-invalid-rec}
 \end{figure}
 
-\begin{definition}[Validité d’une réconciliation]\label{definition:rec-valid}
-    Une réconciliation \(\rec\) est \emph{\(k\)-valide} (\(k \in \nat\)) si aucune paire \((v, w) \in \tnodes(T)^2\) avec \(v \tancsneq w\) et \(\tdist(v, w) \leq k\) n’est telle que \(\rec(v) \tdescneq \rec(w)\).
-    Pour \(k = 1\), elle est dite \emph{localement valide}.
-    Si \(\rec\) est \emph{\(k\)-valide} pour tout \(k \in \nat\), alors elle est \emph{valide}.
-\end{definition}
-
 Dans certaines hiérarchies évolutives, les unités dépendantes sont capables de migrer de leur hôte vers un autre hôte coexistant.
 Par exemple, en particulier chez les procaryotes, des transferts horizontaux peuvent déplacer des gènes d’une espèce à une autre.
-Lorsqu’un changement d’hôte se produit le long d’une branche \((v, w) \in \tedges(T)\), l’espèce \(\rec(w)\) à laquelle se rapporte la terminaison de la branche est séparée de l’espèce \(\rec(v)\) associée à son origine.
-Une réconciliation qui ne contient pas de tel changement d’hôte est dite \emph{stricte}, car l’évolution de l’unité dépendante suit alors strictement celle de son hôte.
+Lorsqu’un changement d’hôte se produit le long d’une branche \((v, w) \in \tedges(T)\), les espèces \(\rec(v)\) et \(\rec(w)\) sont incomparables.
+Une réconciliation qui ne contient pas de branche de changement d’hôte est dite \emph{stricte}, car l’évolution de l’unité dépendante suit alors strictement celle de son hôte.
 
 \begin{definition}\label{definition:rec-strict}
     Une réconciliation \(\rec\) de \(T\) avec \(S\) est dite \emph{stricte} si toutes les paires
     \((v, w) \in \tnodes(T)^2\) avec \(v \tancsneq w\) sont telles que \(\rec(v) \tancsneq \rec(w)\).
     Sinon, \(\rec\) est dite \emph{libre}.
 \end{definition}
-\begin{remark}
-    Toutes les réconciliations strictes sont valides.
-\end{remark}
 
-Dans la \cref{figure:valid-invalid-rec}, la réconciliation \(\rec_1\) est une réconciliation stricte tandis que \(\rec_2\) est une réconciliation libre mais invalide.
-La \cref{figure:free-rec} donne deux exemples de réconciliations libres et valides ou localement valides.
-
-\begin{figure}[htb]
-    \capstart
-    \centering
-    \input{fig/01-free-reconciliation}
-    \caption{
-        Deux réconciliations libres des phylogénies \(T\) et \(T'\) avec \(S\).
-        Les branches marquées de pointillés correspondent à des changements d’hôtes.
-        La réconciliation \(\rec_3\) est valide tandis que
-        \(\rec_4\) est seulement localement valide.
-    }
-    \label{figure:free-rec}
-\end{figure}
-
+Dans la \cref{figure:valid-invalid-rec}, la réconciliation \(\rec_1\) est une réconciliation stricte.
+La \cref{figure:free-rec} donne deux exemples de réconciliations libres.
 Comme le suggère le lemme suivant, l’espace des réconciliations strictes est considérablement plus restreint que l’espace général des réconciliations.
 
 \begin{lemma}\label{lemma:strict-rec-space}
@@ -108,6 +83,40 @@ Comme le suggère le lemme suivant, l’espace des réconciliations strictes est
 La réconciliation stricte qui associe chaque embranchement de \(T\) au plus récent hôte possible dans~\(S\) est notée \(\reclca\) et définie par \(
     \reclca(v) = \lca\left\{ \llmap(l) \suchthat l \in \tleavs(\subtree{T}{v}) \right\}
 \).
+
+Pour qu’une réconciliation soit cohérente avec une réalité évolutive, celle-ci doit respecter l’ordre partiel imposé par la topologie de l’arbre des hôtes.
+Les branches de changement d’hôte impliquent des contraintes d’ordre supplémentaires, résultant du fait qu’un changement ne peut avoir lieu qu’entre deux hôtes coexistants.
+Ces contraintes sont modélisées dans un graphe d’ordre.
+
+\begin{definition}[Graphe d’ordre]\label{definition:rec-order}
+    Soit \(\rec\) une réconciliation de \(T\) avec \(S\).
+    Le \emph{graphe d’ordre}~\(\ograph(\rec)\) est un graphe orienté
+    défini sur \(\tnodes(S)\)
+    contenant tous les arcs de \(\tedges(S)\)
+    ainsi qu’un arc bidirectionnel \(\{\rec(v), \rec(w)\}\) pour chaque \((v, w) \in \tedges(T)\) tel que \(v\) et \(w\) sont incomparables.
+\end{definition}
+
+La \cref{figure:free-rec} donne deux exemples de réconciliations libres \(\rec_3\) et \(\rec_4\) et leur graphe d’ordre.
+Les changements d’hôtes de la réconciliation \(\rec_4\) causent une incohérence d’ordre.
+
+\begin{definition}[Réconciliation acyclique]\label{definition:rec-acycl}
+    Une réconciliation \(\rec\) est dite \emph{acyclique} si son graphe d’ordre \(\ograph(\rec)\) ne contient aucun cycle empruntant au plus une fois chaque arc bidirectionnel.
+\end{definition}
+
+\begin{remark}
+    Toutes les réconciliations strictes sont acycliques.
+\end{remark}
+
+\begin{figure}[htb]
+    \capstart
+    \centering
+    \input{fig/01-free-reconciliation}
+    \caption{
+        Deux réconciliations libres des phylogénies \(T\) et \(T'\) avec \(S\) et leur graphe d’ordre.
+        Les branches marquées de pointillés correspondent à des changements d’hôtes.
+    }
+    \label{figure:free-rec}
+\end{figure}
 
 \section{Arbres réconciliés et modèles de réconciliation}
 
@@ -223,13 +232,6 @@ Cette modification confère au problème une sous-structure optimale : une solut
 L’\cref{algo:dtl-parcimonie-star} exploite cette propriété pour résoudre efficacement le problème.
 La fonction \(\fndtl(v, \sigma)\) (\crefrange{algo:dtl-parcimonie-star:fndtl:start}{algo:dtl-parcimonie-star:fndtl:end}) calcule le coût minimum d’une réconciliation de \(\subtree{T}{v}\) avec \(S\) de sorte que \(v\) soit associé à un hôte \(\sigma\) donné.
 Pour ce faire, des appels récursifs sont utilisés pour obtenir le coût minimum de réconciliations de \(\subtree{T}{v\lchild}\) et \(\subtree{T}{v\rchild}\) avec \(S\) lorsque \(v\lchild\) et \(v\rchild\) sont associés à différents hôtes \(\sigma'\) et \(\sigma''\) de \(S\).
-Ces réconciliations sont assemblées à partir des observations suivantes:
-\begin{compactitemize}
-    \item \(\evt(v) = \evtS\) seulement si \(\sigma\) est un embranchement et \(\sigma'\) et \(\sigma''\) sont chacun dans un des deux sous-arbres \(\subtree{S}{\sigma\lchild}\) et \(\subtree{S}{\sigma\rchild}\) (variables \(\varspe\) et \(\varsperl\), \cref{algo:dtl-parcimonie-star:varspe,algo:dtl-parcimonie-star:varsperl});
-    \item \(\evt(v) = \evtD\) seulement si \(\sigma'\) et \(\sigma''\) descendent de \(\sigma\) (variable \(\vardup\), \cref{algo:dtl-parcimonie-star:vardup});
-    \item \(\evt(v) = \evtT\) seulement si \(\sigma'\) ou \(\sigma''\) sont séparés de \(\sigma\) (variables \(\varhgt\) et \(\varhgtr\), \cref{algo:dtl-parcimonie-star:varhgt,algo:dtl-parcimonie-star:varhgtr});
-    \item à l’exception des branches de transfert, des événements de perte doivent être insérés pour chaque espèce traversée entre \(\sigma\), \(\sigma'\) et \(\sigma''\) afin de respecter le modèle (termes en \(\cost(\evtL) \cdot \hdots\)).
-\end{compactitemize}
 
 \begin{algorithm}
     \KwIn{Phylogénies \(T\) et \(S\);
@@ -278,6 +280,14 @@ Ces réconciliations sont assemblées à partir des observations suivantes:
     \caption{Algorithme récursif pour le problème \refproblem{\(\recmodelDTL\)-Parcimonie\(\star\)}.}
     \label{algo:dtl-parcimonie-star}
 \end{algorithm}
+
+L’assemblage des sous-réconciliations dans l’algorithme est basé sur les observations suivantes:
+\begin{compactitemize}
+    \item \(\evt(v) = \evtS\) seulement si \(\sigma\) est un embranchement et \(\sigma'\) et \(\sigma''\) sont chacun dans un des deux sous-arbres \(\subtree{S}{\sigma\lchild}\) et \(\subtree{S}{\sigma\rchild}\) (variables \(\varspe\) et \(\varsperl\), \cref{algo:dtl-parcimonie-star:varspe,algo:dtl-parcimonie-star:varsperl});
+    \item \(\evt(v) = \evtD\) seulement si \(\sigma'\) et \(\sigma''\) descendent de \(\sigma\) (variable \(\vardup\), \cref{algo:dtl-parcimonie-star:vardup});
+    \item \(\evt(v) = \evtT\) seulement si \(\sigma'\) ou \(\sigma''\) sont séparés de \(\sigma\) (variables \(\varhgt\) et \(\varhgtr\), \cref{algo:dtl-parcimonie-star:varhgt,algo:dtl-parcimonie-star:varhgtr});
+    \item à l’exception des branches de transfert, des événements de perte doivent être insérés pour chaque espèce traversée entre \(\sigma\), \(\sigma'\) et \(\sigma''\) afin de respecter le modèle (termes en \(\cost(\evtL) \cdot \hdots\)).
+\end{compactitemize}
 
 L’\cref{algo:dtl-parcimonie-star} peut être transformé pour utiliser une table de programmation dynamique conservant les valeurs de \(\fndtl(v, \sigma)\), évitant ainsi de répéter plusieurs fois le même calcul.
 En posant \(n = \lvert\tnodes(T)\rvert\) et \(m = \lvert\tnodes(S)\rvert\), l’algorithme ainsi transformé a une complexité en temps de \(\bigo(nm^2)\) et en espace de \(\bigo(nm)\)~\parencite{Tofigh2011SimultaneousIdentificationDuplications}.

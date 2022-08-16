@@ -117,6 +117,7 @@
 \newcommand{\exrec}{\hat\llmap}
 \newcommand{\rectree}{\mathcal{R}}
 \newcommand{\rectreeDL}{\rectree_{\mathrm{DL}}}
+\newcommand{\ograph}{\mathcal{O}}
 
 %%% Modèles de réconciliation
 \newcommand{\recmodel}{\mathcal{M}}
@@ -192,6 +193,7 @@
 \usetikzlibrary{calc}
 \usetikzlibrary{arrows.meta}
 \usetikzlibrary{shapes.misc}
+\usetikzlibrary{decorations.markings}
 \usetikzlibrary{graphs}
 \usetikzlibrary{graphdrawing}
 \usegdlibrary{trees}
