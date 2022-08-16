@@ -35,8 +35,8 @@ Par exemple un génome \(\{(a, b, c), (d, e)\}\), formé de deux chromosomes et 
 Cette représentation facilite notamment la modélisation d’événements de réarrangement, puisqu’il suffit d’agir sur les adjacences liminaires au segment déplacé.
 La famille de modèles DeCo (pour \enquote{Détection de la Coévolution}), introduits par \textcite{Berard2012EvolutionGeneNeighborhoods}, étendent la réconciliation pour y intégrer l’évolution d’adjacences entre plusieurs unités dépendantes.
 
-Supposons qu’un ensemble \(\gtrees = \{T_1, …, T_k\}\) de phylogénies d’unités dépendantes et celle \(S\) de leurs hôtes soient connus.
-Une adjacence \((a, b)\) est une assertion concernant deux unités, choisies parmi les nœuds de \(\gtrees\), affirmant que \(a\) précède immédiatement \(b\) dans la structure linéaire de leur hôte.
+Supposons qu’un ensemble \(\gtrees\) de phylogénies d’unités dépendantes et celle \(S\) de leurs hôtes soient connus.
+Une adjacence \((a, b)\) est une assertion sur deux unités choisies parmi les nœuds de \(\gtrees\), affirmant que \(a\) précède immédiatement \(b\) dans la structure de l’hôte qu’elles ont en commun.
 
 \begin{definition}[Adjacence]\label{definition:adj}
     Soit \(\mathcal{L} = \{L_1, …, L_k\}\) une famille d’ensembles
@@ -46,16 +46,16 @@ Une adjacence \((a, b)\) est une assertion concernant deux unités, choisies par
     L’ensemble des adjacences possibles est \(\alladjs(\mathcal{F})\).
 \end{definition}
 
-Comme pour un réconciliation bilatérale, l’association des feuilles des arbres de \(\gtrees\) avec leurs hôtes respectifs est connue.
-De plus, un ensemble d’adjacences entre ces feuilles, représentant leur organisation linéaire, est donné.
+Comme pour une réconciliation bilatérale, l’association des feuilles des arbres de \(\gtrees\) avec leur hôte respectif est donnée.
+Un ensemble d’adjacences entre ces feuilles, représentant leur organisation linéaire, est également fourni.
 Une réconciliation d’adjacences de \(\gtrees\) avec \(S\) est alors un plongement de chaque arbre \(T_i\) dans \(S\), accompagné d’un ensemble d’adjacences ancestrales reliant les embranchements des arbres de \(\gtrees\).
-Ces plongements et adjacences ancestrales mènent aux associations des feuilles.
+Ces plongements et adjacences ancestrales mènent aux associations connues pour les feuilles.
 
 \begin{definition}[Réconciliation d’adjacences]\label{definition:adjrec}
-    Soient \(\gtrees = \{T_1, …, T_k\}\) un ensemble de \(k\) arbres phylogénétiques et \(S\) un arbre phylogénétique.
+    Soient \(\gtrees = \{T_1, …, T_k\}\) un ensemble d’arbres phylogénétiques et \(S\) un arbre phylogénétique.
     Soient \(\llmaps = \{\llmap_1, …, \llmap_k\}\) une famille de \(k\) applications de la forme \(\llmap_i : \tleavs(T_i) \onto \tleavs(S)\)
     et \(\lladjset \subseteq \alladjs(\llmaps)\) un ensemble d’adjacences.
-    Une \emph{réconciliation d’adjacences} de \(\gtrees\) et \(\lladjset\) avec \(S\) est un couple \(\tuple{\recs, \adjset}\), où
+    Une \emph{réconciliation d’adjacences} de \(\gtrees\) avec \(S\) est un couple \(\tuple{\recs, \adjset}\), où
     \(\recs\) est un ensemble de réconciliations \(\{\rec_1, …, \rec_k\}\) de chaque \(T_i\) avec \(S\) étendant \(\llmap_i\),
     et \(\adjset\) est un ensemble d’adjacences ancestrales tel que \(\lladjset \subseteq \adjset \subseteq \alladjs(\recs)\).
 \end{definition}
@@ -77,10 +77,28 @@ Ainsi, une unité ne peut pas être adjacente à l’un de ses descendants ou an
 
 \tk{fig : adjacences croisées invalides}
 
-Pour éviter la confusion, il faut noter que deux notions de validité s’appliquent aux réconciliations d’adjacences.
+Il faut noter que deux notions distinctes de validité s’appliquent aux réconciliations d’adjacences.
 La \cref{definition:adjrec-adj-valid} concerne la validité des adjacences tandis que la validité définie en~\labelcref{definition:rec-valid} concerne les plongements.
 
-Différents modèles de réconciliation d’adjacences, étendant notamment les modèles bilatéraux \(\recmodelDL\), \(\recmodelDTL\) et \(\recmodelDTLx\), ont été proposés~\parencite{Berard2012EvolutionGeneNeighborhoods,Patterson2013LateralGeneTransfer,Anselmetti2015AncestralGeneSynteny,Chauve2015EvolutionGenesNeighborhood,Duchemin2017DecostarReconstructingAncestral,Tannier2020AncestralGenomeOrganization}.
+Un modèle de réconciliation d’adjacences spécifie non seulement les événements qui affectent individuellement les unités dépendantes, mais aussi ceux qui touchent leurs adjacences.
+Comme les réconciliation bilatérales, les associations d’une réconciliation d’adjacences s’interprètent sous un modèle donné.
+Une telle interprétation est représentée par une forêt d’adjacences réconciliées.
+
+\begin{definition}[Forêt d’adjacences réconciliées]\label{definition:adjrectree}
+    Soient \(\gtrees = \{T_1, …, T_k\}\) et \(S\) des arbres phylogénétiques, \(\tuple{\recs, \adjset}\) une réconciliation d’adjacences de \(\gtrees\) avec \(S\), et \(\tuple{\recmodel\rmunit, \recmodel\rmadj}\) deux ensembles de types d’événements.
+    Une forêt d’adjacences réconciliées est composée d’une forêt d’arbres réconciliés \(\rectree\)  et d’une forêt d’adjacences \(\adjtree\).
+    La forêt \(\rectree\) est l’union d’arbres \(\rectree_i\) réconciliés pour chaque \(T_i\) sous le modèle \(\recmodel\rmunit\), et est étiquetée par \(\exrec_{\rectree}\) et \(\evt_{\rectree}\) comme définis en~\labelcref{definition:rectree}.
+    La forêt \(\adjtree\) est étiquetée par
+        \(\exadj : \tnodes(\adjtree) \onto \alladjs(\exrec_{\rectree})\)
+        et \(\evt_{\adjtree} : \tnodes(\adjtree) \onto \recmodel\rmadj \cup \{\evtE\}\),
+        de sorte que \(\lladjset = \{\exadj(v) \suchthat v \in \tleavs(\adjtree) \land \evt_{\adjtree}(v) = \evtE\}\)
+        et \(\adjset \subseteq \{\exadj(v) \suchthat v \in \tnodes(\adjtree)\}\).
+\end{definition}
+
+Différents modèles de réconciliation d’adjacences, étendant notamment les modèles bilatéraux \(\recmodelDL\), \(\recmodelDTL\) et \(\recmodelDTLx\), ont été proposés~\parencite{Berard2012EvolutionGeneNeighborhoods,Patterson2013LateralGeneTransfer,Duchemin2017DecostarReconstructingAncestral}.
+Le modèle \(\recmodelDL\) est défini comme suit.
+\(\recmodelDL\rmunit = \recmodelDL\).
+\(\recmodelDL\rmadj = \{\evtG, \evtB, \evtS, \evtD, \evtL\}\).
 
 Comme les gènes, les adjacences sont également des unités dépendantes des espèces.
 Si une espèce subit une spéciation, les adjacences de l’espèce parente se retrouvent dans l’espèce descendante.
@@ -88,17 +106,7 @@ Les adjacences peuvent également être dupliquées.
 Lorsqu’une adjacence \((a,b)\) se duplique ou change d’hôte, les deux unités \(a\) et \(b\) qu’elle unit subissent le même sort.
 De nouvelles adjacences peuvent se former ou se briser suite à des réarrangements du génome.
 
-\begin{definition}[Forêt d’adjacences réconciliées]\label{definition:adjrectree}
-    Soient \(\gtrees = \{T_1, …, T_k\}\) un ensemble de \(k\) arbres phylogénétiques et \(S\) un arbre phylogénétique, \(\recs\) et \(\adjset\) une réconciliation d’adjacences de \(\gtrees\) et \(\lladjset\) avec \(S\).
-    Soit \(\recmodel\) un ensemble de types d’événements.
-    Une forêt d’adjacences réconciliées est une famille d’arbres réconciliés \(\rectree_i\) pour chaque \(T_i\) ainsi qu’une forêt d’adjacences.
-    Soient \(T\) et \(S\) deux arbres, \(\rec\) une réconciliation de \(T\) avec \(S\), et \(\recmodel\) un ensemble de types d’événements.
-
-    ---
-
-    Un \emph{arbre réconcilié} est une extension partiellement binaire \(\rectree\) de~\(T\) munie d’une application \(\exrec : \tnodes(\rectree) \onto \tnodes(S)\) qui étend \(\rec\) et d’une application \(\evt : \tnodes(\rectree) \onto \recmodel \cup \{\evtE\}\)
-    telle que \(\{ v \in \tleavs(\rectree) \suchthat \evt(v) = \evtE \} = \tleavs(T)\).
-\end{definition}
+\tk{fig: forêt d’adjacences réconciliées}
 
 
 Problème de la structure reconstruite / linéarisation (cycles et chemins)

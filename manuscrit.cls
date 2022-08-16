@@ -147,6 +147,13 @@
 \newcommand{\alladjs}{\mathcal{A}}
 \newcommand{\lladjset}{A}
 \newcommand{\adjset}{\tilde\lladjset}
+\newcommand{\exadj}{\hat{a}}
+\newcommand{\rmunit}{\mathcal{_U}}
+\newcommand{\rmadj}{\mathcal{_A}}
+\newcommand{\adjtree}{\mathcal{F}}
+
+\newcommand{\evtG}{\mathrm{G}}
+\newcommand{\evtB}{\mathrm{B}}
 
 %% Algorithmes et complexité
 
