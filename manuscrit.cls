@@ -248,7 +248,7 @@
 }
 
 \DeclareRobustCommand{\showspeciation}{\tikz[baseline=-.75ex] \node[speciation] {};}
-\DeclareRobustCommand{\showduplication}{\tikz[baseline=-.75ex] \node[duplication] {};}
+\DeclareRobustCommand{\showduplication}{\,\tikz[baseline=-.75ex] \node[duplication] {};\,}
 \DeclareRobustCommand{\showtransfer}{\tikz[baseline=-.75ex] \node[transfer] {};}
 \DeclareRobustCommand{\showloss}{\,×\,}
 
