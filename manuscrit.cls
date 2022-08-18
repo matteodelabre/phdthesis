@@ -89,6 +89,7 @@
 \newcommand{\tinner}{I}
 \newcommand{\tedges}{E}
 \newcommand{\troot}{r}
+\newcommand{\tparent}{p}
 \newcommand{\lchild}{_\mathit{\ell}}
 \newcommand{\rchild}{_r}
 \newcommand{\child}{_c}
@@ -117,7 +118,7 @@
 \newcommand{\exrec}{\hat\llmap}
 \newcommand{\rectree}{\mathcal{R}}
 \newcommand{\rectreeDL}{\rectree_{\mathrm{DL}}}
-\newcommand{\ograph}{\mathcal{O}}
+\newcommand{\ograph}{\mathcal{P}}
 
 %%% Modèles de réconciliation
 \newcommand{\recmodel}{\mathcal{M}}
@@ -215,11 +216,48 @@
     },
     overlaid associate edge/.style={
         draw, line width=4pt, white,
-        shorten <=8pt, shorten >=16pt,
+        shorten <=8pt, shorten >=8pt,
         postaction={associate edge=#1},
     },
     associate/.style={every edge/.style={associate edge=#1}},
     overlaid associate/.style={every edge/.style={overlaid associate edge=#1}},
+    % Directed edges
+    directed edge/.style={
+        draw,
+        postaction={decorate},
+        decoration={
+            markings,
+            mark=at position 0.5 with {
+                \fill (2.5pt, 0) -- (-2.1pt, 2pt) -- (-2.1pt, -2pt) -- cycle;
+            },
+        },
+    },
+    directed/.style={every edge/.style={directed edge}},
+    marked directed edge/.style={
+        ultra thick, draw=marking,
+        shorten >=0.11pt, shorten <=0.11pt,
+        postaction={
+            directed edge, thin, black,
+            decoration={
+                markings,
+                mark=at position 0.5 with {
+                    \fill[marking, blend mode=darken]
+                        (3.7pt, 0) -- (-2.9pt, 3.2pt) -- (-2.9pt, -3.2pt) -- cycle;
+                    \fill[black]
+                        (2.5pt, 0) -- (-2.1pt, 2pt) -- (-2.1pt, -2pt) -- cycle;
+                },
+            },
+        },
+    },
+    marked directed/.style={every edge/.style={marked directed edge}},
+    marked edge/.style={
+        ultra thick, draw=marking,
+        shorten >=0.11pt, shorten <=0.11pt,
+        postaction={
+            draw, thin, black,
+        },
+    },
+    marked/.style={every edge/.style={marked edge}},
     % Tree layout
     /graph drawing/evolutionary unit length=.66cm,
     /graph drawing/sibling distance=.4cm,
@@ -258,6 +296,8 @@
 \definecolor{reccolor2}{HTML}{E84D48}
 \definecolor{reccolor3}{HTML}{4DB028}
 \definecolor{reccolor4}{HTML}{EB8A2F}
+
+\colorlet{marking}{reccolor2!35}
 
 %% Légendes
 

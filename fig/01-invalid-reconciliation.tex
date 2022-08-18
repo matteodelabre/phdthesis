@@ -23,13 +23,13 @@
         \node at (0, -2.3) {\(T\)};
     \end{scope}
 
+    \path[overlaid associate=reccolor1] (lt l2s1) edge[bend left=15] (s l2s1);
+    \path[overlaid associate=reccolor1] (lt l2s2) edge[out=0, in=180] (s l3s1);
     \path[associate=reccolor1] (lt l3s1) edge[bend left=10]
         node[above, midway] {\(\rec_1\)} (s l3s1);
-    \path[associate=reccolor1] (lt l2s1) edge[bend left=15] (s l2s1);
-    \path[overlaid associate=reccolor1] (lt l2s2) edge[out=0, in=180] (s l3s1);
 
     \path[overlaid associate=reccolor2] (rt l3s1) edge[bend left=10] (s l2s1);
-    \path[overlaid associate=reccolor2] (rt l2s1) edge[bend left=10] (s l2s1);
+    \path[overlaid associate=reccolor2] (rt l2s1) edge[bend left=10, shorten >=16pt] (s l2s1);
     \path[overlaid associate=reccolor2] (rt l2s2) edge[out=170, in=0]
         node[above, midway, reccolor2] {\(\rec_2\)} (s l3s1);
 \end{tikzpicture}

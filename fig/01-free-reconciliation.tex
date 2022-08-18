@@ -9,7 +9,7 @@
     };
     \node at (0, -2.3) {\(T\)};
 
-    \begin{scope}[shift={(4.3,0)}]
+    \begin{scope}[shift={(3.25, 0)}]
         \graph[phylogenetic tree layout, nodes={font=\small\bfseries}]{
             stree[name=s]
         };
@@ -17,102 +17,8 @@
         \node at (labels-|s l1s2) {\(S\)};
     \end{scope}
 
-    \begin{scope}[shift={(8.5,0)}]
-        \graph[
-            phylogenetic tree layout,
-            evolutionary unit length=0.44cm,
-            nodes={font=\small\itshape},
-        ]{
-            t2 l4s1 / [coordinate] -- {
-                t2 l3s2 / [coordinate] -- {
-                    t2 l1s5 / 3 [> length=2, > transfer edge],
-                    t2 l1s4 / 1 [> length=2],
-                },
-                t2 l3s1 / [coordinate] -- {
-                    t2 l1s3 / 3 [> length=2],
-                    t2 l2s1 / [coordinate, > transfer edge] -- {
-                        t2 l1s2 / 2,
-                        t2 l1s1 / 1,
-                    },
-                },
-            },
-        };
-        \coordinate (labels) at (0, -2.3);
-        \node at (labels-|t2 l1s3) {\(T'\)};
-    \end{scope}
-
-    \begin{scope}[shift={(1.33,-3.8)}]
-        \begin{scope}[
-            node distance=.66cm and .6cm,
-            every node/.style={circle, fill, inner sep=1pt, outer sep=0pt},
-        ]
-            \node (o1 l1s1) at (0, 0) {};
-            \node[right=of o1 l1s1] (o1 l1s2) {};
-            \node[right=of o1 l1s2] (o1 l1s3) {};
-            \node[above=of $(o1 l1s1)!.5!(o1 l1s2)$] (o1 l2s1) {};
-            \coordinate[above=of o1 l2s1] (o1 l3);
-            \node (o1 l3s1) at (o1 l3-|o1 l1s2) {};
-        \end{scope}
-
-        \begin{scope}[
-            decoration={
-                markings,
-                mark=at position 0.66 with {\arrow[scale=1.25]{latex}},
-            },
-            every edge/.style={draw, postaction={decorate}},
-        ]
-            \path (o1 l2s1) edge (o1 l1s1);
-            \path (o1 l2s1) edge (o1 l1s2);
-            \path (o1 l3s1) edge (o1 l1s3);
-            \path (o1 l3s1) edge (o1 l2s1);
-        \end{scope}
-
-        \draw (o1 l1s1) edge[bend right=30] (o1 l1s3);
-        \coordinate (labels) at (0, -.8);
-        \node at (labels-|o1 l1s2) {\(\ograph(\rec_3)\)};
-    \end{scope}
-
-    \begin{scope}[shift={(5.66,-3.8)}]
-        \begin{scope}[
-            node distance=.66cm and .6cm,
-            every node/.style={circle, fill, inner sep=1pt, outer sep=0pt},
-        ]
-            \node (o1 l1s1) at (0, 0) {};
-            \node[right=of o1 l1s1] (o1 l1s2) {};
-            \node[right=of o1 l1s2] (o1 l1s3) {};
-            \node[above=of $(o1 l1s1)!.5!(o1 l1s2)$] (o1 l2s1) {};
-            \coordinate[above=of o1 l2s1] (o1 l3);
-            \node (o1 l3s1) at (o1 l3-|o1 l1s2) {};
-        \end{scope}
-
-        \begin{scope}[
-            decoration={
-                markings,
-                mark=at position 0.66 with {\arrow[scale=1.25]{latex}},
-            },
-            every edge/.style={draw, postaction={decorate}},
-        ]
-            \path (o1 l2s1) edge (o1 l1s1);
-            \path (o1 l2s1) edge (o1 l1s2);
-            \path (o1 l3s1) edge (o1 l1s3);
-            \path (o1 l3s1) edge (o1 l2s1);
-        \end{scope}
-
-        \draw (o1 l1s1) edge[bend right=30] (o1 l1s3);
-        \draw (o1 l2s1) edge[out=-20, in=160] (o1 l1s3);
-        \coordinate (labels) at (0, -.8);
-        \node at (labels-|o1 l1s2) {\(\ograph(\rec_4)\)};
-    \end{scope}
-
-
+    \path[overlaid associate=reccolor3] (t1 l2s1) edge[bend left=13] (s l2s1);
     \path[associate=reccolor3] (t1 l3s1) edge[bend left=10]
         node[above, midway] {\(\rec_3\)} (s l2s1);
-    \path[associate=reccolor3] (t1 l2s1) edge[bend left=10] (s l2s1);
     \path[associate=reccolor3] (t1 l2s2) edge[bend left=10, shorten >=0pt] (s l1s1);
-
-    \path[associate=reccolor4] (t2 l4s1) edge[bend right=10]
-        node[above, midway] {\(\rec_4\)} (s l3s1);
-    \path[associate=reccolor4] (t2 l3s1) edge[bend right=10, shorten >=0pt] (s l1s3);
-    \path[associate=reccolor4] (t2 l3s2) edge[bend right=23, shorten >=0pt] (s l1s1);
-    \path[overlaid associate=reccolor4] (t2 l2s1) edge[out=180, in=0] (s l2s1);
 \end{tikzpicture}
