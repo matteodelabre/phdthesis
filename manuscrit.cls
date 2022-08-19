@@ -161,9 +161,9 @@
 
 \newcommand{\problem}[3]{
     \par\textbf{Problème} \textsc{#1}\textbf{.}\\[1ex]
-    \begin{tabular}{@{}p{3em}@{\hskip .7em}|@{\hskip .7em}p{\dimexpr\linewidth-4.4em-1pt}@{}}
-        \textbf{Entrée} & #2\\
-        \textbf{Sortie} & #3
+    \begin{tabular}{@{}p{4em}@{}p{\dimexpr\linewidth-4em-1pt}@{}}
+        \textbf{Entrée:} & #2\\
+        \textbf{Sortie:} & #3
     \end{tabular}\par
 }
 \newcommand{\refproblem}[1]{\textsc{#1}}

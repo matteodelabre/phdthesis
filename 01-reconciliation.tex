@@ -28,7 +28,7 @@ Les feuilles de \(T\) représentent des unités actuelles et correspondent chacu
 Cette association de \(T\) avec \(S\) est appelée \emph{réconciliation}.
 
 Formellement, une réconciliation est un plongement de \(T\) dans \(S\), au sens défini ci-après.
-Pour simplifier la définition, lorsque \(v\) correspond à une branche de \(S\), il est associé à sa terminaison.
+Pour faciliter la définition, lorsque \(v\) correspond à une branche de \(S\), il est associé à sa terminaison.
 
 \begin{definition}[Réconciliation]\label{definition:rec}
     Soient \(T\) et \(S\) deux arbres phylogénétiques et \(\llmap : \tleavs(T) \onto \tleavs(S)\) une application qui associe chaque feuille de \(T\) à son hôte dans \(S\).
@@ -52,7 +52,8 @@ En effet, \(\rec_2\) ne respecte pas la dernière condition de la définition, q
 
 Certaines unités dépendantes sont capables de migrer entre des hôtes coexistants.
 Par exemple, en particulier chez les procaryotes, des transferts horizontaux peuvent déplacer des gènes d’une espèce à une autre.
-Dans une réconciliation \(\rec\), une branche \((v, w) \in \tedges(T)\) telle que \(\rec(v) \nottcomp \rec(w)\) représente un changement d’hôte s’étant produit entre deux points sur les branches dont \(\rec(v)\) et \(\rec(w)\) sont les terminaisons.
+Dans une réconciliation \(\rec\), une branche \((v, w) \in \tedges(T)\) telle que \(\rec(v) \nottcomp \rec(w)\) représente un changement d’hôte.
+Ce changement se produit entre deux points sur les branches dont \(\rec(v)\) et \(\rec(w)\) sont les terminaisons.
 Une réconciliation qui ne contient pas de telle branche est dite \emph{stricte}, car l’évolution des unités dépendantes suit alors strictement celle de leurs hôtes.
 
 \begin{definition}\label{definition:rec-strict}
@@ -67,8 +68,7 @@ La \cref{figure:free-rec} donne deux exemples de réconciliations libres.
 \begin{figure}[htb]
     \capstart
     \centering
-    \input{fig/01-free-reconciliation}\hspace{4.4em}%
-    \input{fig/01-cycle-reconciliation}
+    \input{fig/01-free-reconciliation}
     \caption{
         Deux réconciliations libres des phylogénies \(T\) avec \(S\) et \(T'\) avec \(S'\).
         Par souci de lisibilité, \(\rec_4\) est représentée par des égalités d’étiquettes plutôt que par des flèches.
@@ -78,8 +78,8 @@ La \cref{figure:free-rec} donne deux exemples de réconciliations libres.
 \end{figure}
 
 Pour qu’une réconciliation soit cohérente avec une réalité évolutive, celle-ci doit respecter l’ordre partiel imposé par la topologie de l’arbre des hôtes.
-Les branches de changement d’hôte impliquent des contraintes d’ordre supplémentaires.
-Un tel changement ne pouvant avoir lieu qu’entre deux hôtes coexistants, les extrémités des branches doivent être ordonnées de sorte qu’un intervalle permettant le changement existe.
+Chaque branche de changement d’hôte implique des contraintes supplémentaires, car un tel changement ne peut avoir lieu qu’entre deux hôtes coexistants.
+Les extrémités de ces branches doivent ainsi être ordonnées de sorte à allouer un intervalle permettant le changement.
 Ces contraintes sont modélisées par un graphe d’ordre.
 
 \begin{definition}[Graphe d’ordre]\label{definition:rec-order}
@@ -88,7 +88,9 @@ Ces contraintes sont modélisées par un graphe d’ordre.
     défini sur \(\tnodes(S)\)
     et contenant tous les arcs de \(\tedges(S)\)
     ainsi que deux arcs \((\tparent(\rec(v)), \rec(w))\) et \((\tparent(\rec(w)), \rec(v))\)
-        pour chaque branche \((v, w) \in \tedges(T)\) telle que \(\rec(v) \nottcomp \rec(w)\).
+    pour chaque branche \((v, w) \in \tedges(T)\) telle que \(\rec(v) \nottcomp \rec(w)\)\footnote{
+        Remarquons que \(\tparent(\rec(v))\) est toujours défini puisque \(\rec(v)\) ne peut être égal à \(\troot(S)\), sans quoi \(\rec(v) \tancs \rec(w)\).
+    }.
 \end{definition}
 
 \begin{figure}[htb]
@@ -104,8 +106,8 @@ Ces contraintes sont modélisées par un graphe d’ordre.
 \end{figure}
 
 Les graphes d’ordre de \(\rec_3\) et \(\rec_4\) sont donnés dans la \cref{figure:order-graph}.
-Lorsque le graphe d’ordre d’une réconciliation est acyclique, les ordres sur les embranchements de \(S\) compatibles simultanément avec sa topologie et avec les changements d’hôte peuvent être obtenus par tri topologique.
-Autrement, comme pour \(\rec_4\), ces contraintes d’ordres ne peuvent être satisfaites.
+Lorsque le graphe d’ordre \(\ograph\)\, d’une réconciliation est acyclique, un ordre sur les embranchements de \(S\) compatible simultanément avec sa topologie et avec les changements d’hôte peut être obtenu par tri topologique de \(\ograph\).
+Autrement, comme avec \(\ograph(\rec_4)\), ces contraintes d’ordres ne peuvent être satisfaites.
 
 \begin{definition}[Réconciliation acyclique]\label{definition:rec-acyclic}
     Une réconciliation \(\rec\) est dite \emph{acyclique} si son graphe d’ordre \(\ograph(\rec)\) ne contient aucun cycle orienté.
@@ -142,7 +144,7 @@ Ces interprétations sont représentées par des arbres réconciliés étiqueté
 
 \begin{definition}[Arbre réconcilié]\label{definition:rectree}
     Soient \(T\) et \(S\) deux arbres, \(\rec\) une réconciliation de \(T\) avec \(S\), et \(\recmodel\) un ensemble de types d’événements.
-    Un \emph{arbre réconcilié} est une extension partiellement binaire \(\rectree\) de~\(T\) munie d’une application \(\exrec : \tnodes(\rectree) \onto \tnodes(S)\) qui étend \(\rec\) et d’une application \(\evt : \tnodes(\rectree) \onto \recmodel \cup \{\evtE\}\)
+    Un \emph{arbre réconcilié} \(\rectree_{\!\recmodel}(\rec)\) est une extension partiellement binaire de~\(T\) munie d’une application \(\exrec : \tnodes(\rectree) \onto \tnodes(S)\) qui étend \(\rec\) et d’une application \(\evt : \tnodes(\rectree) \onto \recmodel \cup \{\evtE\}\)
     telle que \(\tleavs(T) = \{ v \in \tleavs(\rectree) \suchthat \evt(v) = \evtE \}\).
 \end{definition}
 
@@ -160,22 +162,18 @@ Cette définition engendre une famille de problèmes d’optimisation combinatoi
     {Phylogénies \(T\) et \(S\);
      association des feuilles \(\llmap : \tleavs(T) \onto \tleavs(S)\);
      coûts \(\cost : \recmodel \onto \nat\).}
-    {Coût minimum d’une réconciliation valide de \(T\) et \(S\)
+    {Coût minimum d’une réconciliation acyclique de \(T\) et \(S\)
      sous le modèle \(\recmodel\) et les coûts \(\cost\).}
 
-Même si les phylogénies \(T\) et \(S\) étudiées sont exactes, les réconciliations les plus parcimonieuses ne correspondent pas nécessairement à des histoires complètes ou exactes des unités concernées, puisque l’évolution emprunte rarement le chemin le plus court.
+Même si les phylogénies \(T\) et \(S\) étudiées sont exemptes d’erreurs, les réconciliations les plus parcimonieuses ne correspondent pas nécessairement à des histoires complètes ou exactes des unités concernées, puisque l’évolution emprunte rarement le chemin le plus court.
 En revanche, cette méthode a l’avantage de sélectionner des réconciliations permettant d’expliquer les données observées en demandant le moins d’hypothèses supplémentaires.
-
-% Les limitations principales de la parcimonie sont …
-% Dans les méthodes \emph{probabilistes}, la longueur des branches de \(T\) est prise en compte et une probabilité est attribuée à chaque événement du modèle.
-% \tk{Préciser}
 
 \section{Modèles de réconciliation gènes--espèces}
 
 Cette section présente les principaux modèles de réconciliation gènes--espèces et les résultats connus en complexité du calcul pour les problèmes de \refproblem{\(\recmodel\)-Parcimonie} associés.
 
 \paragraph{Duplication--perte~\textup{\parencite{Goodman1979FittingGeneLineage,Page1994MapsTreesCladistic}}}
-Ce modèle définit trois types d’événements \(\recmodelDL = \{\evtD, \evtL, \evtS\}\).
+Ce modèle comporte trois types d’événements \(\recmodelDL = \{\evtD, \evtL, \evtS\}\).
 La divergence d’un gène s’explique par une duplication~(\(\evtD\)) ou par une spéciation de son hôte~(\(\evtS\)), et l’absence d’un gène dans une espèce descendante s’explique par une perte~(\(\evtL\)).
 Chaque nœud \(v \in \tnodes(\rectree)\) d’un arbre réconcilié sous ce modèle est tel que:
 \begin{compactitemize}
@@ -230,7 +228,7 @@ La \cref{figure:dtl-interpret} donne une interprétation de la réconciliation \
 
 Contrairement au modèle \(\recmodelDL\), il peut exister plusieurs réconciliations optimales pour \(\recmodelDTL\) et la réconciliation \(\reclca\) n’en fait pas nécessairement partie.
 L’une des difficultés avec ce modèle est de garantir que les réconciliations calculées soient acycliques (voir \cref{definition:rec-acyclic}).
-En raison de cette contrainte, le problème de décision associé à \refproblem{\(\recmodelDTL\)-Parcimonie} est NP-complet, comme montré par \textcite{Tofigh2011SimultaneousIdentificationDuplications} par réduction à partir du problème du sous-graphe acyclique maximal.
+Cette contrainte rend NP-complet le problème de décision associé à \refproblem{\(\recmodelDTL\)-Parcimonie}, comme montré par \textcite{Tofigh2011SimultaneousIdentificationDuplications} par réduction du problème du sous-graphe acyclique maximal.
 
 Pour contourner cette difficulté, une version relâchée du problème est définie, \refproblem{\(\recmodelDTL\)-Parcimonie\(\star\)}, dans laquelle toutes les réconciliations, même cycliques, peuvent être considérées.
 Par exemple, la réconciliation \(\rec_4\) de la \cref{figure:free-rec} est acceptable.
@@ -322,7 +320,7 @@ Pour intégrer cette possibilité dans l’algorithme, un cas supplémentaire pe
         + \min_{\sigma'' \nottcomp \sigma} \{\fndtl(v\rchild\kern1pt, \sigma'')\}.
 \]
 
-\paragraph{Espèces non-échantillonnées~\textup{\parencite{Weiner2021ImprovedDuplicationTransfer}}}
+\paragraph{Espèces non-échantillonnées~\textup{\parencite{Szoelloesi2013LateralGeneTransfer,Weiner2021ImprovedDuplicationTransfer}}}
 Dans le modèle \(\recmodelDL\), les espèces non-échantillonnées n’ont pas d’impact sur les réconciliations, puisque seules les réconciliations strictes sont considérées, ce qui implique que les espèces non-échantillonnées évoluent indépendamment de celles qui sont échantillonnées.
 Le modèle \(\recmodelDTLx = \{\evtD, \evtT, \evtTL, \evtTX, \evtL, \evtS\}\)…
 
