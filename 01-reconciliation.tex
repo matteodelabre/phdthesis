@@ -207,9 +207,6 @@ De surcroît, à condition que \(\cost(\evtL) > 0\), il s’agit de l’unique s
 Le calcul de~\(\reclca\) demande seulement un temps et espace linéaires en la taille de l’arbre \(T\)~\parencite{Zhang1997MirkinMuchnikSmith}.
 Le problème \refproblem{\(\recmodelDL\)-Parcimonie} est donc polynomial.
 
-% \paragraph{Duplication--perte--régulation~\textup{\parencite{Goodman1979FittingGeneLineage}}}
-% Ce modèle introduit un événement \(\evtR\) qui offre une interprétation alternative à l’absence d’un gène dans un descendant, pouvant être expliquée par sa \enquote{désactivation} temporaire par un mécanisme de régulation.
-
 \paragraph{Duplication--transfert--perte~\textup{\parencite{Tofigh2011SimultaneousIdentificationDuplications}}}
 Le modèle \(\recmodelDTL = \{\evtD, \evtT, \evtL, \evtS\}\) étend le modèle \(\recmodelDL\) pour y intégrer la possibilité de changements d’hôte et ainsi permettre d’interpréter des réconciliations libres.
 En plus des trois types d’événements définis précédemment, pour un embranchement \(v \in \tinner(\rectree)\) sous ce modèle, si \(\evt(v) = \evtT\), alors \(\exrec(v) = \exrec(v\lchild)\) et \(\exrec(v) \nottcomp \exrec(v\rchild)\), ou bien \(\exrec(v) = \exrec(v\rchild)\) et \(\exrec(v) \nottcomp \exrec(v\lchild)\).
@@ -329,37 +326,44 @@ Le modèle \(\recmodelDTLx = \{\evtD, \evtT, \evtTL, \evtTX, \evtL, \evtS\}\)…
     \item si \(\evt(v) = \evtTX\), alors \(\exrec(v) = \exrec(v\lchild)\) et \(\exrec(v) \tancs \exrec(v\rchild)\), ou bien \(\exrec(v) = \exrec(v\rchild)\) et \(\exrec(v) \tancs \exrec(v\lchild)\).
 \end{compactitemize}
 
-% \paragraph{Duplication--perte--coalescence~\textup{\parencite{Rasmussen2012UnifiedModelingGene,Wu2013MostParsimoniousReconciliation}}}
-% Tri incomplet de lignées (ILS), coalescence profonde.
+\paragraph{Autres modèles}
+\tk{
+Tri incomplet de lignées (ILS)/coalescence profonde~\parencite{Rasmussen2012UnifiedModelingGene,Wu2013MostParsimoniousReconciliation}
+---
+Régulation~\parencite{Goodman1979FittingGeneLineage}
+Ce modèle introduit un événement \(\evtR\) qui offre une interprétation alternative à l’absence d’un gène dans un descendant, pouvant être expliquée par sa \enquote{désactivation} temporaire par un mécanisme de régulation.
+---
+Arbres datés~\parencite{Tofigh2011SimultaneousIdentificationDuplications}
+}
 
-% \section{Applications des méthodes de réconciliation}
+\section{Applications des méthodes de réconciliation}
 
-% \paragraph{Scénarios d’évolution/Identification des paralogues}
-% L’application la plus directe des méthodes de réconciliation consiste à inférer un scénario évolutif en connaissance de la phylogénie d’une unité dépendante et de ses hôtes.
-% Cependant, ces méthodes sont sensibles aux erreurs dans les phylogénies données en entrée, et ces phylogénies peuvent parfois ne pas être connues en avance.
+\paragraph{Scénarios d’évolution/Identification des paralogues}
+L’application la plus directe des méthodes de réconciliation consiste à inférer un scénario évolutif en connaissance de la phylogénie d’une unité dépendante et de ses hôtes.
+Cependant, ces méthodes sont sensibles aux erreurs dans les phylogénies données en entrée, et ces phylogénies peuvent parfois ne pas être connues en avance.
 
-% \paragraph{Dénombrement, échantillonnage}
-% Certains modèles peuvent engendrer plusieurs solutions optimales et/ou demander de régler les coûts relatifs de certains types d’événements.
-% Dans ces cas, il peut être utile d’évaluer à quel point un événement est partagé par plusieurs solutions équivalentes, ce qu’on appelle des \emph{supports}.
-% \cite{Doyon2009SpaceGeneSpeciesTrees}
+\paragraph{Dénombrement, échantillonnage}
+Certains modèles peuvent engendrer plusieurs solutions optimales et/ou demander de régler les coûts relatifs de certains types d’événements.
+Dans ces cas, il peut être utile d’évaluer à quel point un événement est partagé par plusieurs solutions équivalentes, ce qu’on appelle des \emph{supports}.
+\cite{Doyon2009SpaceGeneSpeciesTrees}
 
-% \paragraph{Inférence de l’arbre d’espèces}
-% La réconciliation peut être utilisée pour inférer l’arbre d’espèces à partir d’un ensemble d’arbres de gènes.
-% \cite[pp. 72--73]{Page1994MapsTreesCladistic}
-% \cite{Guigo1996ReconstructionAncientMolecular}
+\paragraph{Inférence de l’arbre d’espèces}
+La réconciliation peut être utilisée pour inférer l’arbre d’espèces à partir d’un ensemble d’arbres de gènes.
+\cite[pp. 72--73]{Page1994MapsTreesCladistic}
+\cite{Guigo1996ReconstructionAncientMolecular}
 
-% \paragraph{Inférence de l’arbre de gènes}
-% Inversement, la réconciliation peut aussi être utilisée pour inférer l’arbre de gènes à partir de l’arbre d’espèces.
-% \cite{Ma2000GeneTreesSpecies}
-% % figure : un arbre de gènes, voisinage de l’arbre par branch swap, minimum de réconciliation
+\paragraph{Inférence de l’arbre de gènes}
+Inversement, la réconciliation peut aussi être utilisée pour inférer l’arbre de gènes à partir de l’arbre d’espèces.
+\cite{Ma2000GeneTreesSpecies}
+% figure : un arbre de gènes, voisinage de l’arbre par branch swap, minimum de réconciliation
 
-% \paragraph{Correction de l’arbre de gènes}
-% Phénomène de convergence évolutive peut brouiller l’inférence de l’arbre de gènes à partir de séquences nucléotidiques.
+\paragraph{Correction de l’arbre de gènes}
+Phénomène de convergence évolutive peut brouiller l’inférence de l’arbre de gènes à partir de séquences nucléotidiques.
 
-% \paragraph{Inférence simultanée arbre de gènes + réconciliation (modèle DTL + substitutions)}
+\paragraph{Inférence simultanée arbre de gènes + réconciliation (modèle DTL + substitutions)}
 
-% \paragraph{Arbres non-binaires}
+\paragraph{Arbres non-binaires}
 
-% probabiliste : \cite{Arvestad2004GeneTreeReconstruction}
+probabiliste : \cite{Arvestad2004GeneTreeReconstruction}
 
-% autres techniques/modèles non mentionnés, autres reviews
+autres techniques, autres reviews
