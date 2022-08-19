@@ -36,6 +36,7 @@
 \newlist{compactitemize}{itemize}{1}
 \setlist[compactitemize]{label=\textbullet, itemsep=0pt, parsep=0.5ex}
 \renewcommand{\paragraph}[1]{\noindent\textit{#1.}\enspace}
+\setlength{\columnsep}{2em}
 
 %% En-têtes
 \RequirePackage{fancyhdr}

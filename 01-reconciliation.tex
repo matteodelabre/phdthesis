@@ -89,7 +89,7 @@ Ces contraintes sont modélisées par un graphe d’ordre.
     et contenant tous les arcs de \(\tedges(S)\)
     ainsi que deux arcs \((\tparent(\rec(v)), \rec(w))\) et \((\tparent(\rec(w)), \rec(v))\)
     pour chaque branche \((v, w) \in \tedges(T)\) telle que \(\rec(v) \nottcomp \rec(w)\)\footnote{
-        Remarquons que \(\tparent(\rec(v))\) est toujours défini puisque \(\rec(v)\) ne peut être égal à \(\troot(S)\), sans quoi \(\rec(v) \tancs \rec(w)\).
+        \(\tparent(\rec(v))\) et \(\tparent(\rec(w))\) sont toujours définis puisque ni \(\rec(v)\) ni \(\rec(w)\) ne peuvent être égaux à \(\troot(S)\), sans quoi \(\rec(v) \tcomp \rec(w)\).
     }.
 \end{definition}
 

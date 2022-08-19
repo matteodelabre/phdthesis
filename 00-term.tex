@@ -1,38 +1,36 @@
 %! TeX root = ./main.tex
 % vim: set spelllang=fr:
+\twocolumn
 \chapter*{Objets et notations}
 \addcontentsline{toc}{chapter}{Objets et notations}
+\markboth{\textsc{objets et notations}}{}
 
-\tk{à faire}
+\paragraph{Graphes}
+Un graphe~\(G\) est formé sur un ensemble de nœuds~\(\tnodes(G)\) reliés par un ensemble d’arêtes ou d’arcs~\(\tedges(G)\).
+Une arête reliant deux nœuds~\(a\) et~\(b\) est notée~\(\{a, b\}\).
+Un arc ayant pour origine~\(a\) et pour terminaison~\(b\) est noté~\((a, b)\).
 
-application, extension d’application
+\paragraph{Arbres}
+Les nœuds d’un arbre \(T\) sont partitionnés entre un ensemble de \emph{feuilles} \(\tleavs(T)\) et d’\emph{embranchements} \(\tinner(T)\).
+Un arbre \emph{enraciné} est muni d’une racine \(\troot(T) \in \tnodes(T)\) et formé d’arcs orientés vers l’extérieur de la racine.
+Un arbre \(T'\) \emph{étend} \(T\) si \(T\) est un mineur de \(T'\).
+Une \emph{forêt} est une union disjointe d’arbres.
 
-arbres (binaires/partiellement binaires, enracinés)
+\paragraph{Chemins}
+La longueur d’un chemin est un de moins que le nombre de nœuds qui le composent.
+La longueur du plus court chemin reliant deux nœuds \(v\) et \(w\) est notée \(\tdist(v, w)\) et vaut \(\infty\) si aucun tel chemin n’existe.
 
-forêts
+\vfill\break
+\paragraph{Parenté}
+Dans un arbre enraciné \(T\), le parent d’un nœud \(v\) différent de \(\troot(T)\) est son unique prédécesseur, noté \(\tparent(v)\).
+L’arbre est \emph{binaire} si le degré sortant de tous les embranchements vaut deux et \emph{partiellement binaire} s’il vaut un ou deux.
+Les enfants d’un embranchement \(v\) sont ses successeurs, notés \(v\lchild\) et \(v\rchild\) s’ils sont deux ou \(v\child\) s’il n’y en a qu’un.
 
-arbres phylogénétiques
-\(\llmap\)
+\paragraph{Descendance}
+Si un nœud \(v\) est sur le chemin menant d’une racine à un nœud \(w\), alors \(v\) est un \emph{ancêtre} de \(w\), noté \(v \tancs w\).
+Réciproquement, \(w\)~est un \emph{descendant} de \(v\), noté \(w \tdesc v\).
+Le fait que \(v\) et \(w\) soient comparables par \(\tdesc\) est noté \(v \tcomp w\), sinon ils sont \emph{séparés}.
+L’ancêtre d’un ensemble de nœuds \(\{v_1, …, v_n\}\) qui est le plus éloigné de la racine est noté \(\lca\{v_1, …, v_n\}\).
+Le sous-arbre de \(T\) en \(v\), noté \(\subtree{T}{v}\), est le sous-graphe de \(T\) formé des descendants de \(v\).
 
-extensions/contractions d’arbres
-
-feuilles, embranchements, nœuds, branches, origine, terminaison
-\(\tleavs(T)\)
-\(\tinner(T)\)
-\(\tnodes(T)\)
-\(\tedges(T)\)
-
-enfants, parent
-\(v\), \(v\lchild\), \(v\rchild\), \(v\child\), \(\tparent(v)\)
-
-ancêtre, descendant (ordre partiel), comparables, séparés/incomparables (défini aussi si \(v\) et \(w\) sont dans deux arbres différents)
-\(v \tdesc w\), \(w \tancs v\), \(v \tcomp w\), \(v \nottcomp w\)
-
-sous-arbre
-\(\subtree{T}{v}\)
-
-chemins, distance
-\(v \tpath w\), \(\tdist(v, w)\)
-
-lca d’un ensemble de nœuds
-\(\lca\{v_1, v_2, ..., v_n\}\)
+\onecolumn
