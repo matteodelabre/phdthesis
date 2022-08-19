@@ -227,9 +227,10 @@ Contrairement au modèle \(\recmodelDL\), il peut exister plusieurs réconciliat
 L’une des difficultés avec ce modèle est de garantir que les réconciliations calculées soient acycliques (voir \cref{definition:rec-acyclic}).
 Cette contrainte rend NP-complet le problème de décision associé à \refproblem{\(\recmodelDTL\)-Parcimonie}, comme montré par \textcite{Tofigh2011SimultaneousIdentificationDuplications} par réduction du problème du sous-graphe acyclique maximal.
 
-Pour contourner cette difficulté, une version relâchée du problème est définie, \refproblem{\(\recmodelDTL\)-Parcimonie\(\star\)}, dans laquelle toutes les réconciliations, même cycliques, peuvent être considérées.
-Par exemple, la réconciliation \(\rec_4\) de la \cref{figure:free-rec} est acceptable.
+Pour contourner cette difficulté, une version relâchée du problème est définie, \refproblem{\(\recmodelDTL\)-Parcimonie\(\star\)}, dans laquelle les réconciliations cycliques sont acceptées.
+La réconciliation \(\rec_4\) de la \cref{figure:free-rec} est par exemple acceptable.
 Cette modification confère au problème une sous-structure optimale : une solution pour le sous-arbre \(\subtree{T}{v}\) est toujours un assemblage de deux solutions pour \(\subtree{T}{v\lchild}\) et \(\subtree{T}{v\rchild}\).
+L’\cref{algo:dtl-parcimonie-star} exploite cette propriété pour résoudre efficacement le problème.
 
 {
 \newcommand{\fndtl}{\mathrm{cost}}
@@ -240,15 +241,11 @@ Cette modification confère au problème une sous-structure optimale : une solut
 \newcommand{\varhgtr}{\mathrm{Tra_R}}
 \newcommand{\varhgtlr}{\mathrm{Tra_{LR}}}
 
-L’\cref{algo:dtl-parcimonie-star} exploite cette propriété pour résoudre efficacement le problème.
-La fonction \(\fndtl(v, \sigma)\) (\crefrange{algo:dtl-parcimonie-star:fndtl:start}{algo:dtl-parcimonie-star:fndtl:end}) calcule le coût minimum d’une réconciliation de \(\subtree{T}{v}\) avec \(S\) de sorte que \(v\) soit associé à un hôte \(\sigma\) donné.
-Pour ce faire, des appels récursifs sont utilisés pour obtenir le coût minimum de réconciliations de \(\subtree{T}{v\lchild}\) et \(\subtree{T}{v\rchild}\) avec \(S\) lorsque \(v\lchild\) et \(v\rchild\) sont associés à différents hôtes \(\sigma'\) et \(\sigma''\) de \(S\).
-
 \begin{algorithm}
     \KwIn{Phylogénies \(T\) et \(S\);
         association des feuilles \(\llmap : \tleavs(T) \onto \tleavs(S)\);
         coûts \(\cost : \recmodelDTL \onto \nat\).}
-    \KwOut{Coût minimum d’une réconciliation localement valide de \(T\) avec \(S\) sous le modèle \(\recmodelDTL\).}
+    \KwOut{Coût minimum d’une réconciliation de \(T\) avec \(S\) sous le modèle \(\recmodelDTL\).}
     \medskip
     \Fn{\(\fndtl(v, \sigma)\)}{\label{algo:dtl-parcimonie-star:fndtl:start}
         \If{\(v \in \tleavs(T)\)}{
@@ -292,6 +289,8 @@ Pour ce faire, des appels récursifs sont utilisés pour obtenir le coût minimu
     \label{algo:dtl-parcimonie-star}
 \end{algorithm}
 
+La fonction \(\fndtl(v, \sigma)\) (\crefrange{algo:dtl-parcimonie-star:fndtl:start}{algo:dtl-parcimonie-star:fndtl:end}) calcule le coût minimum d’une réconciliation de \(\subtree{T}{v}\) avec \(S\) de sorte que \(v\) soit associé à un hôte \(\sigma\) donné.
+Pour ce faire, des appels récursifs sont utilisés pour obtenir le coût minimum de réconciliations de \(\subtree{T}{v\lchild}\) et \(\subtree{T}{v\rchild}\) avec \(S\) lorsque \(v\lchild\) et \(v\rchild\) sont associés à différents hôtes \(\sigma'\) et \(\sigma''\) de \(S\).
 L’assemblage des sous-réconciliations dans l’algorithme est basé sur les observations suivantes:
 \begin{compactitemize}
     \item \(\evt(v) = \evtS\) seulement si \(\sigma\) est un embranchement et \(\sigma'\) et \(\sigma''\) sont chacun dans un des deux sous-arbres \(\subtree{S}{\sigma\lchild}\) et \(\subtree{S}{\sigma\rchild}\) (variables \(\varspe\) et \(\varsperl\), \cref{algo:dtl-parcimonie-star:varspe,algo:dtl-parcimonie-star:varsperl});
@@ -307,10 +306,10 @@ Le problème \refproblem{\(\recmodelDTL\)-Parcimonie\(\star\)} est donc polynomi
 Comme à l’habitude pour les algorithmes de programmation dynamique, une solution ayant un coût optimal peut être reconstruite en conservant des pointeurs vers les entrées minimales pour chaque expression \enquote{\(\min\)} dans l’algorithme.
 
 \paragraph{Transferts doubles~\textup{\parencite{Doyon2010EfficientAlgorithmGene}}}
-L’algorithme décrit précédemment pour le modèle \(\recmodelDTL\) n’explore pas toutes les possibilités de réconciliations libres localement valides au sens défini dans ce document.
+L’algorithme décrit précédemment pour le modèle \(\recmodelDTL\) n’explore pas toutes les possibilités de réconciliation au sens défini dans ce document.
 Il ne prend pas en compte la possibilité pour un embranchement d’être associé à une espèce séparée simultanément de celles de ses deux enfants.
 Une telle association pourrait s’expliquer dans le modèle \(\recmodelDTL\) par deux événements \(\evtT\) suivis d’un événement \(\evtL\).
-% \tk{La figure xxx} illustre un cas dans lequel une telle association se révèle avantageuse en terme du critère de parcimonie.
+\tk{La figure xxx} illustre un cas dans lequel une telle association se révèle avantageuse en terme du critère de parcimonie.
 Pour intégrer cette possibilité dans l’algorithme, un cas supplémentaire peut y être ajouté : \[
     \varhgtlr \gets 2\cost(\evtT) + \cost(\evtL)
         + \min_{\sigma' \nottcomp \sigma} \{\fndtl(v\lchild, \sigma')\}
