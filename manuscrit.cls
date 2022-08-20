@@ -119,6 +119,7 @@
 \newcommand{\exrec}{\hat\llmap}
 \newcommand{\rectree}{\mathcal{R}}
 \newcommand{\rectreeDL}{\rectree_{\mathrm{DL}}}
+\newcommand{\rectreeDTL}{\rectree_{\mathrm{DTL}}}
 \newcommand{\ograph}{\mathcal{P}}
 
 %%% Modèles de réconciliation
@@ -194,10 +195,10 @@
 \usetikzlibrary{positioning}
 \usetikzlibrary{calc}
 \usetikzlibrary{arrows.meta}
-\usetikzlibrary{shapes.misc}
+\usetikzlibrary{shapes.geometric,shapes.misc}
 \usetikzlibrary{decorations.markings}
-\usetikzlibrary{graphs}
-\usetikzlibrary{graphdrawing}
+\usetikzlibrary{fit}
+\usetikzlibrary{graphs,graphdrawing}
 \usegdlibrary{trees}
 \usegdlibrary{phylogenetics}
 
@@ -209,6 +210,9 @@
 \end{luacode*}
 
 \tikzset{
+    separator rule/.style={
+        draw=black!25,
+    },
     % Reconciliation edges
     associate edge/.style={
         draw, thick, #1,
@@ -264,18 +268,22 @@
     /graph drawing/sibling distance=.4cm,
     % Event shapes
     speciation/.style={
-        circle, draw,
+        circle, draw, fill=white,
         inner sep=3pt,
     },
     duplication/.style={
-        rectangle, draw,
+        rectangle, draw, fill=white,
         inner sep=4pt,
     },
     transfer/.style={
-        chamfered rectangle, draw,
+        chamfered rectangle, draw, fill=white,
         inner sep=2.5pt,
     },
     transfer edge/.style={dashed},
+    transfer edge cleft/.style={
+        ->, >=Latex,
+        bend left,
+    },
     loss/.style={
         inner sep=2pt,
         execute at end node={\textup{×}},
@@ -286,11 +294,31 @@
     host/.style={
         font=\small\bfseries,
     },
+    % Reconciliation layout
+    host node/.style={
+        ellipse,
+        fill=black!10,
+    },
+    host leaf node/.style={
+        host node,
+        inner sep=0pt,
+    },
+    host edge/.style={
+        fill=black!5,
+    },
+    host edge terminal/.style={
+        host edge,
+        rounded corners,
+    },
 }
 
-\DeclareRobustCommand{\showspeciation}{\tikz[baseline=-.75ex] \node[speciation] {};}
+\pgfdeclarelayer{hostnodes}
+\pgfdeclarelayer{hostedges}
+\pgfsetlayers{hostedges,hostnodes,main}
+
+\DeclareRobustCommand{\showspeciation}{\,\tikz[baseline=-.75ex] \node[speciation] {};\,}
 \DeclareRobustCommand{\showduplication}{\,\tikz[baseline=-.75ex] \node[duplication] {};\,}
-\DeclareRobustCommand{\showtransfer}{\tikz[baseline=-.75ex] \node[transfer] {};}
+\DeclareRobustCommand{\showtransfer}{\,\tikz[baseline=-.75ex] \node[transfer] {};\,}
 \DeclareRobustCommand{\showloss}{\,×\,}
 
 \definecolor{reccolor1}{HTML}{5960F5}

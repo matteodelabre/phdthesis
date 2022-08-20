@@ -1,0 +1,78 @@
+%! TeX root = ../main.tex
+% vim: set spelllang=fr:
+\begin{tikzpicture}
+    %% Réconciliation DL
+    \begin{scope}[x=.5cm, y=.8cm]
+        \graph[no placement, nodes={dependent}]{
+            t1l4s1 / [duplication, y=-.16] -- {
+                t1l3s1 / [speciation, x=-.5, y=-1] -- {
+                    t1l2s1 / [speciation, x=-2.5, y=-2] -- {
+                        t1l1s1 / 1 [x=-4, y=-3],
+                        t1l1s2 / 2 [x=-1, y=-3],
+                    },
+                    t1l1s3 / [loss, x=2, y=-3],
+                },
+                t1l3s2 / [speciation, x=.5, y=-1] -- {
+                    t1l2s2 / [speciation, x=-1.5, y=-2] -- {
+                        t1l1s4 / 1 [x=-3, y=-3],
+                        t1l1s5 / [loss, x=0, y=-3],
+                    },
+                    t1l1s6 / 3 [x=3, y=-3],
+                },
+            },
+        };
+        \node at (-6, -1.5) {\(\rectreeDL(\rec_1)\)};
+    \end{scope}
+
+    \draw[separator rule] (2.75, 0) -- ++(0, -2.4);
+
+    %% Réconciliation DTL
+    \begin{scope}[x=.5cm, y=.8cm, shift={(12, 0)}]
+        \graph[no placement, nodes={dependent}]{
+            t2l4s1 / [duplication, x=-1, y=-.75] -- {
+                t2l3s1 / [speciation, x=-2.5, y=-1.5] -- {
+                    t2l1s1 / 1 [x=-4, y=-3],
+                    t2l1s2 / 2 [x=-1, y=-3],
+                },
+                t2l3s2 / [speciation, x=-1.5, y=-1.5] -- {
+                    t2l2s1 / [transfer, x=-2.4, y=-2.4] -- {
+                        t2l1s3 / 1 [x=-3, y=-3],
+                        t2l1s4 anchor / [coordinate, x=1.95, y=-2.3, > transfer edge cleft]
+                            -- t2l1s4 / 3 [x=2.5, y=-3],
+                    },
+                    t2l1s5 / [loss, x=0, y=-3],
+                },
+            },
+        };
+        \coordinate (t2lroot) at (0, -.16);
+        \node at (6, -1.5) {\(\rectreeDTL(\rec_3)\)};
+    \end{scope}
+
+    \begin{pgfonlayer}{hostnodes}
+        \node[host leaf node, fit=(t1l1s1)(t1l1s4)] (s1l1s1) {};
+        \node[host leaf node, fit=(t1l1s2)(t1l1s5)] (s1l1s2) {};
+        \node[host leaf node, fit=(t1l1s3)(t1l1s6)] (s1l1s3) {};
+        \node[host node, fit=(t1l2s1)(t1l2s2)] (s1l2s1) {};
+        \node[host node, fit=(t1l3s1)(t1l3s2)] (s1l3s1) {};
+
+        \node[host leaf node, fit=(t2l1s1)(t2l1s3)] (s2l1s1) {};
+        \node[host leaf node, fit=(t2l1s2)(t2l1s5)] (s2l1s2) {};
+        \node[host leaf node, fit=(t2l1s4), inner xsep=.2cm] (s2l1s3) {};
+        \node[host node, fit=(t2l3s1)(t2l3s2)] (s2l2s1) {};
+        \node[host node, fit=(t2lroot), inner xsep=.5cm, inner ysep=.25cm] (s2l3s1) {};
+    \end{pgfonlayer}
+
+    \foreach \i in {1,2} {
+        \begin{pgfonlayer}{hostedges}
+            \path[host edge] (s\i l2s1.east) -- (s\i l3s1.east) -- (s\i l3s1.west) -- (s\i l2s1.160);
+            \path[host edge] (s\i l1s1.-10) -- (s\i l2s1.east) -- (s\i l2s1.160) -- (s\i l1s1.165);
+            \path[host edge] (s\i l1s2.15) -- (s\i l2s1.east) -- (s\i l2s1.west) -- (s\i l1s2.190);
+            \path[host edge] (s\i l1s3.15) -- (s\i l3s1.east) -- (s\i l3s1.west) -- (s\i l1s3.190);
+        \end{pgfonlayer}
+    };
+
+    \begin{pgfonlayer}{hostedges}
+        \path[host edge terminal] (s1l3s1.east) -- ($(s1l3s1.east)+(0, 1)$)
+            -- ($(s1l3s1.west)+(0, 1)$) -- (s1l3s1.west);
+    \end{pgfonlayer}
+\end{tikzpicture}
