@@ -121,7 +121,7 @@
 \newcommand{\rectreeDL}{\rectree_{\mathrm{DL}}}
 \newcommand{\rectreeDTL}{\rectree_{\mathrm{DTL}}}
 \newcommand{\ograph}{\mathcal{P}}
-\newcommand{\explar}[3]{#1_{\kern1pt#2}^{\,\romannumeral #3}}
+\newcommand{\explar}[3]{#1_{\mathit{#2}}^{\,\romannumeral #3}}
 
 %%% Modèles de réconciliation
 \newcommand{\recmodel}{\mathcal{M}}
@@ -267,6 +267,16 @@
     % Tree layout
     /graph drawing/evolutionary unit length=.66cm,
     /graph drawing/sibling distance=.4cm,
+    % Generic shapes
+    graph node/.style={
+        circle, draw, fill,
+        inner sep=1pt, outer sep=0pt,
+    },
+    hollow graph node/.style={
+        circle, draw,
+        inner sep=1pt, outer sep=0pt,
+        font={\bfseries\small},
+    },
     % Event shapes
     speciation/.style={
         circle, draw, fill=white,
@@ -311,6 +321,13 @@
         host edge,
         rounded corners,
     },
+    % Adjacencies
+    adjacency edge/.style={
+        draw, black, thick,
+        line cap=round,
+        dash pattern=on 0pt off 1.75\pgflinewidth,
+    },
+    adjacency/.style={every edge/.style={adjacency edge}},
 }
 
 \pgfdeclarelayer{hostnodes}

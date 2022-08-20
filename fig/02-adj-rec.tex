@@ -58,7 +58,7 @@
     \end{scope}
 \end{tikzpicture}
 
-\vspace{1em}
+\vspace{.8em}
 \begin{tikzpicture}
     %% Arbre T_c
     \begin{scope}[reccolor3]
@@ -81,14 +81,15 @@
 
     %% Associations
     \node[anchor=north] at (4.25, 0) {\small\begin{tabular}{@{}l@{}l@{}}
-        \(A = \{\)  & \(({\color{reccolor1}\explar{a}{1}{1}}, {\color{reccolor2}\explar{b}{1}{1}}),
-                        ({\color{reccolor2}\explar{b}{1}{1}}, {\color{reccolor2}\explar{b}{1}{2}}),
-                        ({\color{reccolor1}\explar{a}{1}{2}}, {\color{reccolor2}\explar{b}{1}{3}}),\) \\[3pt]
-                    & \(({\color{reccolor1}\explar{a}{2}{2}}, {\color{reccolor2}\explar{b}{2}{1}}),
-                        ({\color{reccolor2}\explar{b}{2}{1}}, {\color{reccolor3}\explar{c}{2}{1}}),
-                        ({\color{reccolor1}\explar{a}{3}{1}}, {\color{reccolor2}\explar{b}{3}{1}}),\) \\[3pt]
-                    & \(({\color{reccolor1}\explar{a}{3}{2}}, {\color{reccolor2}\explar{b}{3}{2}}),
-                        ({\color{reccolor2}\explar{b}{3}{2}}, {\color{reccolor3}\explar{c}{3}{1}})\}\)
+        \(A = \{\)
+        & \(({\color{reccolor1}\explar{a}{1}{1}}, {\color{reccolor2}\explar{b}{1}{1}}),
+            ({\color{reccolor2}\explar{b}{1}{1}}, {\color{reccolor2}\explar{b}{1}{2}}),
+            ({\color{reccolor1}\explar{a}{1}{2}}, {\color{reccolor2}\explar{b}{1}{3}}),\) \\[3pt]
+        & \(({\color{reccolor1}\explar{a}{2}{2}}, {\color{reccolor2}\explar{b}{2}{1}}),
+            ({\color{reccolor2}\explar{b}{2}{1}}, {\color{reccolor3}\explar{c}{2}{1}}),
+            ({\color{reccolor1}\explar{a}{3}{1}}, {\color{reccolor2}\explar{b}{3}{1}}),\) \\[3pt]
+        & \(({\color{reccolor1}\explar{a}{3}{2}}, {\color{reccolor2}\explar{b}{3}{2}}),
+            ({\color{reccolor2}\explar{b}{3}{2}}, {\color{reccolor3}\explar{c}{3}{1}})\}\)
     \end{tabular}};
 
     %% Arbre S
@@ -98,8 +99,8 @@
             sibling distance=.2cm,
             nodes={font=\small\bfseries},
         ]{
-            s l3s1 / [coordinate] -- {
-                s l2s1 / [coordinate] -- {
+            s l3s1 / [coordinate, label={[host]right:α}] -- {
+                s l2s1 / [coordinate, label={[host]right:β}] -- {
                     s l1s3 / 3,
                     s l1s2 / 2,
                 },
@@ -109,4 +110,84 @@
         \coordinate (labels) at (0, -2.3);
         \node at (labels-|s l1s2) {\(S\)};
     \end{scope}
+\end{tikzpicture}
+
+\vspace{.8em}
+\begin{tikzpicture}[x=.8cm, y=.9cm]
+    \draw[separator rule] (0, 4) -- (14, 4);
+
+    %% Arbre T_a
+    \begin{scope}[reccolor1]
+        \graph[no placement, nodes={font=\small}]{
+            ta l4s1 / [graph node, x=5.5, y=3, label={[host, black, yshift=2pt]left:α}] -- {
+                ta l3s1 / [graph node, x=2, y=2, label={[host, black]left:α}] -- {
+                    ta l1s1 / \(\explar{a}{1}{1}\) [x=0],
+                    ta l2s1 / [graph node, x=3, y=1, label={[host, black]right:β}] -- {
+                        ta l1s2 / \(\explar{a}{2}{1}\) [x=3],
+                        ta l1s3 / \(\explar{a}{3}{1}\) [x=4],
+                    },
+                },
+                ta l3s2 / [graph node, x=9, y=2] -- {
+                    ta l1s4 / \(\explar{a}{1}{2}\) [x=6],
+                    ta l2s2 / [graph node, x=10.5, y=1] -- {
+                        ta l1s5 / \(\explar{a}{2}{2}\) [x=9],
+                        ta l1s6 / \(\explar{a}{3}{2}\) [x=12],
+                    },
+                },
+            },
+        };
+    \end{scope}
+
+    %% Arbre T_b
+    \begin{scope}[reccolor2]
+        \graph[no placement, nodes={font=\small}]{
+            tb l4s1 / [graph node, x=6.5, y=3] -- {
+                tb l3s1 / [graph node, x=3, y=2] -- {
+                    tb l1s1 / \(\explar{b}{3}{1}\) [x=5],
+                    tb l2s1 / [graph node, x=2, y=1, label={[host, black]left:1}] -- {
+                        tb l1s2 / \(\explar{b}{1}{1}\) [x=1],
+                        tb l1s3 / \(\explar{b}{1}{2}\) [x=2],
+                    },
+                },
+                tb l3s2 / [graph node, x=10, y=2, label={[host, black]right:α}] -- {
+                    tb l1s4 / \(\explar{b}{1}{3}\) [x=7],
+                    tb l2s2 / [graph node, x=11.5, y=1] -- {
+                        tb l1s5 / \(\explar{b}{2}{1}\) [x=10],
+                        tb l1s6 / \(\explar{b}{3}{2}\) [x=13],
+                    },
+                },
+            },
+        };
+    \end{scope}
+
+    %% Arbre T_c
+    \begin{scope}[reccolor3]
+        \graph[no placement, nodes={font=\small}]{
+            tc l3s1 / [graph node, x=11, y=2, label={[host, black]right:α}] -- {
+                tc l1s1 / \(\explar{c}{1}{1}\) [x=8],
+                tc l2s1 / [graph node, x=12.5, y=1, label={[host, black, yshift=2pt]right:β}] -- {
+                    tc l1s2 / \(\explar{c}{2}{1}\) [x=11],
+                    tc l1s3 / \(\explar{c}{3}{1}\) [x=14],
+                },
+            },
+        };
+    \end{scope}
+
+    %% Adjacences
+    \begin{pgfonlayer}{hostedges}
+        \path[adjacency] (ta l4s1) edge (tb l4s1);
+        \path[adjacency] (ta l3s1) edge (tb l3s1);
+        \path[adjacency] (ta l3s2) edge (tb l3s2);
+        \path[adjacency] (ta l2s2) edge (tb l2s2);
+        \path[adjacency] (tb l2s2) edge (tc l2s1);
+
+        \path[adjacency] (ta l1s1) edge (tb l1s2);
+        \path[adjacency] (tb l1s2) edge (tb l1s3);
+        \path[adjacency] (ta l1s3) edge (tb l1s1);
+        \path[adjacency] (ta l1s4) edge (tb l1s4);
+        \path[adjacency] (ta l1s5) edge (tb l1s5);
+        \path[adjacency] (tb l1s5) edge (tc l1s2);
+        \path[adjacency] (ta l1s6) edge (tb l1s6);
+        \path[adjacency] (tb l1s6) edge (tc l1s3);
+    \end{pgfonlayer}
 \end{tikzpicture}
