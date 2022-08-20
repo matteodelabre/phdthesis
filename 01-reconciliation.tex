@@ -93,6 +93,10 @@ Ces contraintes sont modélisées par un graphe d’ordre.
     }.
 \end{definition}
 
+Les graphes d’ordre de \(\rec_3\) et \(\rec_4\) sont donnés dans la \cref{figure:order-graph}.
+Lorsque le graphe d’ordre \(\ograph\)\, d’une réconciliation est acyclique, un ordre sur les embranchements de \(S\) compatible simultanément avec sa topologie et avec les changements d’hôte peut être obtenu par tri topologique de \(\ograph\).
+Autrement, comme avec \(\ograph(\rec_4)\), ces contraintes d’ordres ne peuvent être satisfaites.
+
 \begin{figure}[htb]
     \capstart
     \centering
@@ -104,10 +108,6 @@ Ces contraintes sont modélisées par un graphe d’ordre.
     }
     \label{figure:order-graph}
 \end{figure}
-
-Les graphes d’ordre de \(\rec_3\) et \(\rec_4\) sont donnés dans la \cref{figure:order-graph}.
-Lorsque le graphe d’ordre \(\ograph\)\, d’une réconciliation est acyclique, un ordre sur les embranchements de \(S\) compatible simultanément avec sa topologie et avec les changements d’hôte peut être obtenu par tri topologique de \(\ograph\).
-Autrement, comme avec \(\ograph(\rec_4)\), ces contraintes d’ordres ne peuvent être satisfaites.
 
 \begin{definition}[Réconciliation acyclique]\label{definition:rec-acyclic}
     Une réconciliation \(\rec\) est dite \emph{acyclique} si son graphe d’ordre \(\ograph(\rec)\) ne contient aucun cycle orienté.
@@ -166,7 +166,7 @@ Cette définition engendre une famille de problèmes d’optimisation combinatoi
      sous le modèle \(\recmodel\) et les coûts \(\cost\).}
 
 Même si les phylogénies \(T\) et \(S\) étudiées sont exemptes d’erreurs, les réconciliations les plus parcimonieuses ne correspondent pas nécessairement à des histoires complètes ou exactes des unités concernées, puisque l’évolution emprunte rarement le chemin le plus court.
-En revanche, cette méthode a l’avantage de sélectionner des réconciliations permettant d’expliquer les données observées en demandant le moins d’hypothèses supplémentaires.
+En revanche, cette méthode a l’avantage de sélectionner des réconciliations permettant d’expliquer les données observées demandant le moins d’hypothèses supplémentaires.
 
 \begin{figure}[htb]
     \capstart
@@ -174,7 +174,7 @@ En revanche, cette méthode a l’avantage de sélectionner des réconciliations
     \input{fig/01-rec-trees}
     \caption{
         Arbres réconciliés pour les réconciliations \(\rec_1\) et \(\rec_3\) sous les modèles duplication--perte~(\(\recmodelDL\)) et duplication--transfert--perte~(\(\recmodelDTL\)) respectivement.
-        Chaque arbre est superposé sur la trame de la phylogénie des hôtes de sorte à représenter l’association des nœuds prescrite par la réconciliation.
+        Chaque arbre est superposé sur la trame de la phylogénie des hôtes de sorte à refléter l’association des nœuds prescrite par la réconciliation.
         Chaque carré~{\showduplication} représente un événement de duplication~(\(\evtD\)),
         chaque losange~{\showtransfer} un transfert~(\(\evtT\)),
         chaque croix~{\showloss} une perte~(\(\evtL\))

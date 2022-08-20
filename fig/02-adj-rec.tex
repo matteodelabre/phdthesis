@@ -1,0 +1,112 @@
+%! TeX root = ../main.tex
+% vim: set spelllang=fr:
+\begin{tikzpicture}
+    %% Arbre T_a
+    \begin{scope}[reccolor1]
+        \graph[
+            phylogenetic tree layout,
+            sibling distance=.2cm,
+            evolutionary unit length=0.44cm,
+            nodes={font=\small},
+        ]{
+            ta l4s1 / [coordinate] -- {
+                ta l3s2 / [coordinate] -- {
+                    ta l2s2 / [coordinate] -- {
+                        ta l1s6 / \(\explar{a}{3}{2}\),
+                        ta l1s5 / \(\explar{a}{2}{2}\),
+                    },
+                    ta l1s4 / \(\explar{a}{1}{2}\) [> length=2],
+                },
+                ta l3s1 / [coordinate] -- {
+                    ta l2s1 / [coordinate] -- {
+                        ta l1s3 / \(\explar{a}{3}{1}\),
+                        ta l1s2 / \(\explar{a}{2}{1}\),
+                    },
+                    ta l1s1 / \(\explar{a}{1}{1}\) [> length=2],
+                },
+            },
+        };
+        \node at (0, -2.3) {\(T_a\)};
+    \end{scope}
+
+    %% Arbre T_b
+    \begin{scope}[shift={(8, 0)}, reccolor2]
+        \graph[
+            phylogenetic tree layout,
+            sibling distance=.2cm,
+            evolutionary unit length=0.44cm,
+            nodes={font=\small},
+        ]{
+            tb l4s1 / [coordinate] -- {
+                tb l3s2 / [coordinate] -- {
+                    tb l2s2 / [coordinate] -- {
+                        tb l1s6 / \(\explar{b}{3}{2}\),
+                        tb l1s5 / \(\explar{b}{2}{1}\),
+                    },
+                    tb l1s4 / \(\explar{b}{1}{3}\) [> length=2],
+                },
+                tb l3s1 / [coordinate] -- {
+                    tb l1s1 / \(\explar{b}{3}{1}\) [> length=2],
+                    tb l2s1 / [coordinate] -- {
+                        tb l1s3 / \(\explar{b}{1}{2}\),
+                        tb l1s2 / \(\explar{b}{1}{1}\),
+                    },
+                },
+            },
+        };
+        \node at (0, -2.3) {\(T_b\)};
+    \end{scope}
+\end{tikzpicture}
+
+\vspace{1em}
+\begin{tikzpicture}
+    %% Arbre T_c
+    \begin{scope}[reccolor3]
+        \graph[
+            phylogenetic tree layout,
+            sibling distance=.2cm,
+            nodes={font=\small},
+        ]{
+            tc l3s1 / [coordinate] -- {
+                tc l2s1 / [coordinate] -- {
+                    tc l1s3 / \(\explar{c}{3}{1}\),
+                    tc l1s2 / \(\explar{c}{2}{1}\),
+                },
+                tc l1s1 / \(\explar{c}{1}{1}\) [> length=2],
+            },
+        };
+        \coordinate (labels) at (0, -2.3);
+        \node at (labels-|tc l1s2) {\(T_c\)};
+    \end{scope}
+
+    %% Associations
+    \node[anchor=north] at (4.25, 0) {\small\begin{tabular}{@{}l@{}l@{}}
+        \(A = \{\)  & \(({\color{reccolor1}\explar{a}{1}{1}}, {\color{reccolor2}\explar{b}{1}{1}}),
+                        ({\color{reccolor2}\explar{b}{1}{1}}, {\color{reccolor2}\explar{b}{1}{2}}),
+                        ({\color{reccolor1}\explar{a}{1}{2}}, {\color{reccolor2}\explar{b}{1}{3}}),\) \\[3pt]
+                    & \(({\color{reccolor1}\explar{a}{2}{2}}, {\color{reccolor2}\explar{b}{2}{1}}),
+                        ({\color{reccolor2}\explar{b}{2}{1}}, {\color{reccolor3}\explar{c}{2}{1}}),
+                        ({\color{reccolor1}\explar{a}{3}{1}}, {\color{reccolor2}\explar{b}{3}{1}}),\) \\[3pt]
+                    & \(({\color{reccolor1}\explar{a}{3}{2}}, {\color{reccolor2}\explar{b}{3}{2}}),
+                        ({\color{reccolor2}\explar{b}{3}{2}}, {\color{reccolor3}\explar{c}{3}{1}})\}\)
+    \end{tabular}};
+
+    %% Arbre S
+    \begin{scope}[shift={(8, 0)}]
+        \graph[
+            phylogenetic tree layout,
+            sibling distance=.2cm,
+            nodes={font=\small\bfseries},
+        ]{
+            s l3s1 / [coordinate] -- {
+                s l2s1 / [coordinate] -- {
+                    s l1s3 / 3,
+                    s l1s2 / 2,
+                },
+                s l1s1 / 1 [> length=2],
+            },
+        };
+        \coordinate (labels) at (0, -2.3);
+        \node at (labels-|s l1s2) {\(S\)};
+    \end{scope}
+\end{tikzpicture}

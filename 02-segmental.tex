@@ -22,7 +22,7 @@ Ce problème se décline en une \emph{\enquote{grande}} version, où la topologi
 L’intégration des méthodes développées pour l’évolution à l’échelle des familles de gènes avec celles pour l’échelle des génomes a été proposée par~\textcite{Sankoff2000DuplicationRearrangementReconciliation}.
 Les informations recouvrées par la réconciliation, notamment les relations d’orthologie, pourraient en effet guider l’étude de l’évolution des génomes contenant plusieurs copies de la même famille de gènes.
 Inversement, l’intégration de l’échelle génomique dans la réconciliation permettrait de prendre en compte l’interdépendance de l’évolution des gènes.
-L’un des objectifs de la recherche dans ces domaines depuis ces deux dernières décennies est donc la mise au point de méthodes capables de reconstruire conjointement l’histoire de multiples familles de gènes évoluant au sein de génomes~\parencite[voir aussi][]{Chauve2013DuplicationRearrangementReconciliation}.
+L’un des objectifs de la recherche dans ces domaines est donc la mise au point de méthodes capables de reconstruire conjointement l’histoire de multiples familles de gènes évoluant au sein de génomes~\parencite[voir aussi][]{Chauve2013DuplicationRearrangementReconciliation}.
 
 Une approche consiste à étendre le modèle de réconciliation bilatéral pour y intégrer un niveau intermédiaire, entre les gènes et les espèces, modélisant l’évolution à l’échelle génomique.
 Dans ce chapitre, deux méthodes développées suivant cet axe de recherche sont décrites.
@@ -32,18 +32,18 @@ Nous les comparons selon leur capacité de modélisation et leur complexité alg
 
 L’organisation linéaire d’un ensemble d’unités peut être représentée par un ensemble d’adjacences entre des paires d’unités.
 Par exemple un génome \(\{(a, b, c), (d, e)\}\), formé de deux chromosomes et cinq gènes, correspond aux trois adjacences \(\{(a, b), (b, c), (d, e)\}\).
-Cette représentation facilite notamment la modélisation d’événements de réarrangement, puisqu’il suffit d’agir sur les adjacences liminaires au segment déplacé.
-La famille de modèles DeCo (pour \enquote{Détection de la Coévolution}), introduits par \textcite{Berard2012EvolutionGeneNeighborhoods}, étendent la réconciliation pour y intégrer l’évolution d’adjacences entre plusieurs unités dépendantes.
+Cette représentation facilite notamment la modélisation d’événements de réarrangement, puisqu’il suffit d’agir sur les adjacences en bordure du segment déplacé.
+L’approche DeCo (pour \enquote{Détection de la Coévolution}), introduite par \textcite{Berard2012EvolutionGeneNeighborhoods}, étend la réconciliation pour y intégrer l’évolution d’adjacences entre plusieurs unités dépendantes.
 
-Supposons qu’un ensemble \(\gtrees\) de phylogénies d’unités dépendantes et celle \(S\) de leurs hôtes soient connus.
-Une adjacence \((a, b)\) est une assertion sur deux unités choisies parmi les nœuds de \(\gtrees\), affirmant que \(a\) précède immédiatement \(b\) dans la structure de l’hôte qu’elles ont en commun.
+Supposons qu’une forêt \(\gtrees\) de phylogénies d’unités dépendantes et celle \(S\) de leurs hôtes soient connus.
+Une adjacence \((a, b)\) entre deux embranchements de \(\gtrees\) est une assertion affirmant que les deux divergences se sont produites simultanément dans le même hôte et que l’exemplaire de \(a\) précède immédiatement \(b\) dans la structure de l’hôte.
 
 \begin{definition}[Adjacence]\label{definition:adj}
     Soit \(\mathcal{L} = \{L_1, …, L_k\}\) une famille d’ensembles
     et \(\mathcal{F} = \{f_1, …, f_k\}\) un ensemble d’applications de la forme
     \(f_i : L_i \onto M\) pour un ensemble \(M\).
     Une adjacence est un couple \((a, b) \in L_i \times L_j\), avec \(1 \leq i, j \leq k\), tel que \(f_i(a) = f_j(b)\).
-    L’ensemble des adjacences possibles est \(\alladjs(\mathcal{F})\).
+    L’ensemble des adjacences possibles est noté \(\alladjs(\mathcal{F})\).
 \end{definition}
 
 Comme pour une réconciliation bilatérale, l’association des feuilles des arbres de \(\gtrees\) avec leur hôte respectif est donnée.
@@ -52,19 +52,31 @@ Une réconciliation d’adjacences de \(\gtrees\) avec \(S\) est alors un plonge
 Ces plongements et adjacences ancestrales mènent aux associations connues pour les feuilles.
 
 \begin{definition}[Réconciliation d’adjacences]\label{definition:adjrec}
-    Soient \(\gtrees = \{T_1, …, T_k\}\) un ensemble d’arbres phylogénétiques et \(S\) un arbre phylogénétique.
-    Soient \(\llmaps = \{\llmap_1, …, \llmap_k\}\) une famille de \(k\) applications de la forme \(\llmap_i : \tleavs(T_i) \onto \tleavs(S)\)
+    Soient \(\gtrees = T_1 \sqcup … \sqcup T_k\) une forêt d’arbres phylogénétiques et \(S\) un arbre phylogénétique.
+    Soient \(\llmaps = \{\llmap_1, …, \llmap_k\}\) un ensemble de \(k\) applications de la forme \(\llmap_i : \tleavs(T_i) \onto \tleavs(S)\)
     et \(\lladjset \subseteq \alladjs(\llmaps)\) un ensemble d’adjacences.
     Une \emph{réconciliation d’adjacences} de \(\gtrees\) avec \(S\) est un couple \(\tuple{\recs, \adjset}\), où
     \(\recs\) est un ensemble de réconciliations \(\{\rec_1, …, \rec_k\}\) de chaque \(T_i\) avec \(S\) étendant \(\llmap_i\),
     et \(\adjset\) est un ensemble d’adjacences ancestrales tel que \(\lladjset \subseteq \adjset \subseteq \alladjs(\recs)\).
 \end{definition}
 
-\tk{fig : réconciliation d’adjacences}
+\begin{figure}[htb]
+    \capstart
+    \centering
+    \input{fig/02-adj-rec}
+    \caption{
+        Entrée pour une réconciliation d’adjacences
+        de \(\gtrees = T_a \sqcup T_b \sqcup T_c\)
+        avec~\(S\).
+        Chaque feuille de \(\gtrees\) est annotée
+        avec son hôte en indice
+        et un numéro d’exemplaire en exposant qui permet de la distinguer dans l’ensemble d’adjacences \(\lladjset\).
+    }
+    \label{figure:adj-rec}
+\end{figure}
 
-Chaque adjacence dans une réconciliation implique une contrainte temporelle, puisque les deux unités reliées sont supposées être présentes dans le même hôte simultanément.
-Ces contraintes doivent être cohérentes avec celles déjà imposées par les topologies des arbres de \(\gtrees\).
-Ainsi, une unité ne peut pas être adjacente à l’un de ses descendants ou ancêtres, et si deux unités sont adjacentes, alors un ancêtre de l’une ne peut être adjacent à un descendant de l’autre.
+L’ensemble d’adjacences ancestrales impliquent des contraintes temporelles qui doivent être compatibles avec celles déjà imposées par la topologie de \(\gtrees\).
+Ainsi, un nœud ne peut être adjacent à l’un de ses descendants ou ancêtres, et si deux nœuds sont adjacents, alors un ancêtre de l’un ne peut être adjacent à un descendant de l’autre.
 
 \begin{definition}[Validité des adjacences d’une réconciliation]\label{definition:adjrec-adj-valid}
     Soient \(\gtrees = \{T_1, …, T_k\}\) un ensemble de \(k\) arbres phylogénétiques, \(S\) un arbre phylogénétique, et \(\tuple{\recs, \adjset}\) une réconciliation d’adjacences de \(\gtrees\) et \(\lladjset\) avec \(S\).
@@ -84,9 +96,9 @@ Un modèle de réconciliation d’adjacences spécifie non seulement les événe
 Comme les réconciliation bilatérales, les associations d’une réconciliation d’adjacences s’interprètent sous un modèle donné.
 Une telle interprétation est représentée par une forêt d’adjacences réconciliées.
 
-\begin{definition}[Forêt d’adjacences réconciliées]\label{definition:adjrectree}
+\begin{definition}[Forêt réconciliée]\label{definition:adjrectree}
     Soient \(\gtrees = \{T_1, …, T_k\}\) et \(S\) des arbres phylogénétiques, \(\tuple{\recs, \adjset}\) une réconciliation d’adjacences de \(\gtrees\) avec \(S\), et \(\tuple{\recmodel\rmunit, \recmodel\rmadj}\) deux ensembles de types d’événements.
-    Une forêt d’adjacences réconciliées est composée d’une forêt d’arbres réconciliés \(\rectree\)  et d’une forêt d’adjacences \(\adjtree\).
+    Une forêt réconciliée est composée d’une forêt d’arbres réconciliés \(\rectree\)  et d’une forêt d’adjacences \(\adjtree\).
     La forêt \(\rectree\) est l’union d’arbres \(\rectree_i\) réconciliés pour chaque \(T_i\) sous le modèle \(\recmodel\rmunit\), et est étiquetée par \(\exrec_{\rectree}\) et \(\evt_{\rectree}\) comme définis en~\labelcref{definition:rectree}.
     La forêt \(\adjtree\) est étiquetée par
         \(\exadj : \tnodes(\adjtree) \onto \alladjs(\exrec_{\rectree})\)

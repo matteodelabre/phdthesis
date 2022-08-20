@@ -121,6 +121,7 @@
 \newcommand{\rectreeDL}{\rectree_{\mathrm{DL}}}
 \newcommand{\rectreeDTL}{\rectree_{\mathrm{DTL}}}
 \newcommand{\ograph}{\mathcal{P}}
+\newcommand{\explar}[3]{#1_{\kern1pt#2}^{\,\romannumeral #3}}
 
 %%% Modèles de réconciliation
 \newcommand{\recmodel}{\mathcal{M}}
