@@ -33,7 +33,7 @@
 
 %% Structure
 \RequirePackage{enumitem}
-\newlist{compactitemize}{itemize}{1}
+\newlist{compactitemize}{itemize}{2}
 \setlist[compactitemize]{label=\textbullet, itemsep=0pt, parsep=0.5ex}
 \renewcommand{\paragraph}[1]{\noindent\textit{#1.}\enspace}
 \setlength{\columnsep}{2em}
@@ -130,6 +130,7 @@
 \newcommand{\evt}{\mathcal{E}}
 
 \newcommand{\evtE}{\varepsilon}
+\newcommand{\evtP}{\lambda}
 \newcommand{\evtS}{\mathrm{S}}
 \newcommand{\evtD}{\mathrm{D}}
 \newcommand{\evtL}{\mathrm{L}}
@@ -162,12 +163,14 @@
 
 %% Algorithmes et complexité
 
-\newcommand{\problem}[3]{
-    \par\textbf{Problème} \textsc{#1}\textbf{.}\\[1ex]
-    \begin{tabular}{@{}p{4em}@{}p{\dimexpr\linewidth-4em-1pt}@{}}
-        \textbf{Entrée:} & #2\\
-        \textbf{Sortie:} & #3
-    \end{tabular}\par
+\newcommand{\problem}[3]{%
+    \parbox{\textwidth}{%
+        \textbf{Problème} \textsc{#1}\textbf{.}\\[1ex]
+        \begin{tabular}{@{}p{4em}@{}p{\dimexpr\linewidth-4em-1pt}@{}}
+            \textbf{Entrée:} & #2\\
+            \textbf{Sortie:} & #3
+        \end{tabular}%
+    }%
 }
 \newcommand{\refproblem}[1]{\textsc{#1}}
 \newcommand{\bigo}{\mathcal{O}}
@@ -339,9 +342,13 @@
 \DeclareRobustCommand{\showtransfer}{\,\tikz[baseline=-.75ex] \node[transfer] {};\,}
 \DeclareRobustCommand{\showloss}{\,×\,}
 
+\definecolor{color1}{HTML}{2E47D8}
 \definecolor{reccolor1}{HTML}{5960F5}
+\definecolor{color2}{HTML}{C82F30}
 \definecolor{reccolor2}{HTML}{E84D48}
+\definecolor{color3}{HTML}{2B9500}
 \definecolor{reccolor3}{HTML}{4DB028}
+\definecolor{color4}{HTML}{CE7112}
 \definecolor{reccolor4}{HTML}{EB8A2F}
 
 \colorlet{marking}{reccolor2!35}
