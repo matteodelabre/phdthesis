@@ -169,10 +169,18 @@ Le modèle a cependant été étendu récemment pour prendre en considération l
 
 \section{Super-réconciliation -- Évolution segmentale}
 
+L’approche super-réconciliation \parencite{Delabre2020EvolutionSegmentalDuplications}, étend l’approche précédente en définissant l’évolution de \emph{segments} (également appelés \emph{synténies}) qui généralisent la notion d’adjacence à des suites d’unités.
+
+\begin{definition}\label{definition:seg}
+    Soient \(L\) et \(M\) deux ensembles et \(f : L \onto M\) une application.
+    Un segment de taille~\(k\) est un tuple \(x = (x_1, …, x_k) \in L^k\) tel que, pour tout \(1 \leq i, j \leq k\) avec \(i \neq j\), \(x_i \neq x_j\) et \(f(x_i) = f(x_j)\).
+    L’ensemble des segments possibles de taille quelconque est noté \(\allsegs(f)\).
+\end{definition}
+
 % Pour le moment, cette intégration se fait à une échelle réduite pour des synténies.
 Lorsque un groupe de gènes évoluent systématiquement ensemble, par exemple en raison de leur proximité chromosomique ou de leur dépendance fonctionnelle, ils forment une \emph{synténie}.
 
-Super-réconciliation: Formulation initiale, Formulation non-ordonnée \cite{Delabre2020EvolutionSegmentalDuplications}
+Super-réconciliation: Formulation initiale, Formulation non-ordonnée 
 
 \section{Comparaison et perspectives}
 
