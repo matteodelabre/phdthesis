@@ -142,6 +142,8 @@
 \newcommand{\evtT}{\mathrm{T}}
 \newcommand{\evtTL}{\mathrm{TL}}
 \newcommand{\evtTX}{\mathrm{TX}}
+\newcommand{\evtG}{\mathrm{G}}
+\newcommand{\evtB}{\mathrm{B}}
 
 \newcommand{\recmodelDL}{\evtD\evtL}
 \newcommand{\recmodelDTL}{\evtD\evtT\evtL}
@@ -162,8 +164,13 @@
 \newcommand{\rmadj}{\mathcal{_A}}
 \newcommand{\adjtree}{\mathcal{F}}
 
-\newcommand{\evtG}{\mathrm{G}}
-\newcommand{\evtB}{\mathrm{B}}
+%%%% Segments
+\newcommand{\allsegs}{\mathcal{X}}
+\newcommand{\llsegset}{X}
+\newcommand{\segset}{\tilde\llsegset}
+\newcommand{\exseg}{\hat{x}}
+\newcommand{\rmseg}{\mathcal{_X}}
+\newcommand{\segtree}{\mathcal{H}}
 
 %% Algorithmes et complexité
 
@@ -200,12 +207,12 @@
 %% Dessin
 
 \RequirePackage{tikz}
-\usetikzlibrary{positioning}
-\usetikzlibrary{calc}
+\usetikzlibrary{positioning,calc}
 \usetikzlibrary{arrows.meta}
-\usetikzlibrary{shapes.geometric,shapes.misc}
 \usetikzlibrary{decorations.markings}
+\usetikzlibrary{shapes.geometric,shapes.misc}
 \usetikzlibrary{fit}
+\usetikzlibrary{patterns,patterns.meta}
 \usetikzlibrary{graphs,graphdrawing}
 \usegdlibrary{trees}
 \usegdlibrary{phylogenetics}
@@ -302,6 +309,10 @@
         ->, >=Latex,
         bend left,
     },
+    transfer edge cright/.style={
+        transfer edge cleft,
+        bend right,
+    },
     loss/.style={
         inner sep=2pt,
         execute at end node={\textup{×}},
@@ -330,6 +341,16 @@
         host edge={#1},
         rounded corners,
     },
+    host edge unsampled/.style={
+        host edge terminal,
+        pattern={Lines[
+            distance=.125cm,
+            angle=30,
+            line width=.05cm,
+        ]},
+        pattern color=#1!5,
+    },
+    host edge unsampled/.default={black},
     % Adjacencies
     adjacency edge/.style={
         draw, black, thick,

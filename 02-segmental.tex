@@ -3,9 +3,9 @@
 \chapter{Réconciliation multiple}
 
 Certains hôtes sont porteurs de plusieurs familles d’unités dépendantes.
-Pour reconstruire les histoires respectives de ces familles, les méthodes de réconciliation décrites au chapitre précédent peuvent leur être appliquées individuellement.
-Cette approche suppose toutefois que les unités étudiées évoluent indépendamment les unes des autres, ce qui n’est en particulier pas le cas de certains gènes.
-Les gènes sont en effet organisés linéairement le long du génome de leur espèce, et ainsi affectés par des événements à l’échelle du génome.
+Pour reconstruire les histoires respectives de ces familles, les méthodes de réconciliation décrites au chapitre précédent pourraient leur être appliquées individuellement.
+Cette approche supposerait toutefois que les unités étudiées évoluent indépendamment les unes des autres, ce qui n’est en particulier pas le cas de certains gènes.
+Les gènes sont en effet organisés linéairement le long du génome de leur espèce et ainsi affectés par des événements à l’échelle du génome.
 Ces événements modifient l’organisation et la composition du génome, agissant simultanément sur plusieurs de ses gènes.
 
 L’évolution des structures linéaires, façonnées par des réarrangements et des duplications, est principalement étudiée dans le contexte de la génomique comparative.
@@ -19,7 +19,7 @@ Ce problème se décline en une \emph{\enquote{grande}} version, où la topologi
 % DCJ : polynomial pour sorting, NPC pour médiane, NPC pour duplications
 % SCJ : polylomial pour sorting, médiane et duplications
 
-L’intégration des méthodes développées pour l’évolution à l’échelle des familles de gènes avec celles pour l’échelle des génomes a été proposée par~\textcite{Sankoff2000DuplicationRearrangementReconciliation}.
+L’intégration des méthodes développées pour analyser l’évolution à l’échelle des familles de gènes avec celles pour l’échelle des génomes a été proposée par~\textcite{Sankoff2000DuplicationRearrangementReconciliation}.
 Les informations recouvrées par la réconciliation, notamment les relations d’orthologie, pourraient en effet guider l’étude de l’évolution des génomes contenant plusieurs copies de la même famille de gènes.
 Inversement, l’intégration de l’échelle génomique dans la réconciliation permettrait de prendre en compte l’interdépendance de l’évolution des gènes.
 L’un des objectifs de la recherche dans ces domaines est donc la mise au point de méthodes capables de reconstruire conjointement l’histoire de multiples familles de gènes évoluant au sein de génomes~\parencite[voir aussi][]{Chauve2013DuplicationRearrangementReconciliation}.
@@ -31,24 +31,31 @@ Nous les comparons selon leur capacité de modélisation et leur complexité alg
 \section{DeCo -- Évolution d’adjacences}
 
 L’organisation linéaire d’un ensemble d’unités peut être représentée par un ensemble d’adjacences entre des paires d’unités.
-Par exemple un génome \(\{(a, b, c), (d, e)\}\), formé de deux chromosomes et cinq gènes, correspond aux trois adjacences \(\{(a, b), (b, c), (d, e)\}\).
+Par exemple, un génome \(\{(a, b, c), (d, e)\}\) formé de deux chromosomes et cinq gènes correspond aux trois adjacences \(\{(a, b), (b, c), (d, e)\}\).
 Cette représentation facilite notamment la modélisation d’événements de réarrangement, puisqu’il suffit d’agir sur les adjacences en bordure du segment déplacé par l’événement.
-L’approche DeCo (pour \enquote{Détection de la Coévolution}), introduite par \textcite{Berard2012EvolutionGeneNeighborhoods}, étend la réconciliation pour y intégrer l’évolution d’adjacences entre plusieurs unités dépendantes.
+L’approche DeCo (pour \enquote{Détection de la Coévolution}), introduite par \textcite{Berard2012EvolutionGeneNeighborhoods}, étend la réconciliation pour y intégrer l’évolution d’adjacences entre des paires d’unités dépendantes.
 
 Supposons qu’une forêt \(\gtrees\) de phylogénies d’unités dépendantes et la phylogénie \(S\) de leurs hôtes soient connues.
-Une adjacence \((a, b)\) entre deux embranchements de \(\gtrees\) est une assertion affirmant que les deux divergences se sont produites simultanément dans le même hôte et que l’exemplaire de \(a\) précède immédiatement celui de \(b\) dans la structure de l’hôte.
+Une adjacence \((a, b)\) entre deux embranchements de \(\gtrees\) est une assertion affirmant que les deux divergences se sont produites simultanément dans le même hôte et que l’exemplaire de \(a\) précède immédiatement celui de \(b\) dans la structure de cet hôte.
 
 \begin{definition}[Adjacence]\label{definition:adj}
-    Soit \(L\) et \(M\) deux ensembles et \(f : L \onto M\) une application.
+    Soient \(L\) et \(M\) deux ensembles et \(f : L \onto M\) une application.
     Une adjacence est un couple \((a, b) \in L^2\) tel que \(a \neq b\) et \(f(a) = f(b)\).
     L’ensemble des adjacences possibles est noté \(\alladjs(f)\).
 \end{definition}
 
-L’ensemble des adjacences entre les unités représentées par les feuilles de \(\gtrees\) est connu.
-Une réconciliation d’adjacences de \(\gtrees\) avec \(S\) est une réconciliation de chaque arbre de \(\gtrees\) avec \(S\) assorti d’un ensemble d’adjacences ancestrales menant aux adjacences connues pour les feuilles.
-La \cref{figure:adj-rec} donne un exemple de réconciliation d’adjacences.
+Supposons que l’ensemble des adjacences entre les unités représentées par les feuilles de \(\gtrees\) soit également connu.
+Une réconciliation d’adjacences de \(\gtrees\) avec \(S\) (voir \cref{figure:adj-rec}) est une réconciliation de chaque arbre de \(\gtrees\) avec \(S\) assorti d’un ensemble d’adjacences ancestrales menant aux adjacences connues pour les feuilles.
 
-\begin{figure}[p]
+\begin{definition}[Réconciliation d’adjacences]\label{definition:adjrec}
+    Soient \(\gtrees\) une forêt phylogénétique et \(S\) un arbre phylogénétique.
+    Soient \(\llmap : \tleavs(\gtrees) \onto \tleavs(S)\) une application et \(\lladjset \subseteq \alladjs(\llmap)\) un ensemble d’adjacences.
+    Une \emph{réconciliation d’adjacences} de \(\gtrees\) avec \(S\) est un couple \(\tuple{\rec, \adjset}\),
+    où \(\rec\) est une application étendant \(\llmap\) qui est l’union de réconciliations individuelles de chaque arbre de \(\gtrees\) avec \(S\);
+    et \(\adjset\) est un ensemble d’adjacences ancestrales tel que \(\lladjset \subseteq \adjset \subseteq \alladjs(\rec)\).
+\end{definition}
+
+\begin{figure}[htb]
     \capstart
     \centering
     \input{fig/02-adj-rec}
@@ -66,20 +73,12 @@ La \cref{figure:adj-rec} donne un exemple de réconciliation d’adjacences.
     \label{figure:adj-rec}
 \end{figure}
 
-\begin{definition}[Réconciliation d’adjacences]\label{definition:adjrec}
-    Soit \(\gtrees\) une forêt phylogénétique et \(S\) un arbre phylogénétique.
-    Soit \(\llmap : \tleavs(\gtrees) \onto \tleavs(S)\) une application et \(\lladjset \subseteq \alladjs(\llmap)\) un ensemble d’adjacences.
-    Une \emph{réconciliation d’adjacences} de \(\gtrees\) avec \(S\) est un couple \(\tuple{\rec, \adjset}\),
-    où \(\rec\) est une application étendant \(\llmap\) qui est l’union de réconciliations individuelles de chaque arbre de \(\gtrees\) avec \(S\);
-    et \(\adjset\) est un ensemble d’adjacences ancestrales tel que \(\lladjset \subseteq \adjset \subseteq \alladjs(\rec)\).
-\end{definition}
-
 Un ensemble d’adjacences ancestrales implique des contraintes temporelles qui doivent être compatibles avec celles imposées par la topologie de \(\gtrees\).
 Ainsi, un nœud ne peut être adjacent à l’un de ses descendants ou ancêtres, et si deux nœuds sont adjacents, alors un ancêtre de l’un ne peut être adjacent à un descendant de l’autre.
 
 \begin{definition}[Compatibilité des adjacences]\label{definition:adjrec-adj-compat}
-    Soient \(\gtrees\) une forêt phylogénétique, \(S\) un arbre phylogénétique, et \(\tuple{\rec, \adjset}\) une réconciliation d’adjacences de \(\gtrees\) avec \(S\).
-    Les adjacences de \(\tuple{\rec, \adjset}\) sont \emph{compatibles} si
+    Soient \(\gtrees\) une forêt phylogénétique, \(S\) un arbre phylogénétique, et \(\adjset\) un ensemble d’adjacences de \(\gtrees\).
+    Les adjacences de \(\adjset\) sont \emph{compatibles} si
         toute adjacence \((v, w) \in \adjset\) est telle que \(v \nottcomp w\) et
         toute paire d’adjacences \((v, w), (x, y) \in \adjset\) est telle que
             si \(v \tancs x\) alors \(w \nottdesc y\) et
@@ -88,14 +87,14 @@ Ainsi, un nœud ne peut être adjacent à l’un de ses descendants ou ancêtres
 
 Comme pour les réconciliation bilatérales, un modèle d’évolution doit être fixé pour permettre l’interprétation d’une réconciliation d’adjacences.
 Un tel modèle spécifie non seulement les événements qui affectent individuellement les unités dépendantes, mais aussi ceux qui touchent leurs adjacences.
-Une interprétation d’une réconciliation d’adjacences est représentée par une forêt réconciliée.
+Une interprétation est représentée par une forêt d’adjacences.
 
 \begin{definition}[Forêt d’adjacences]\label{definition:adjrectree}
     Soient \(\gtrees\) une forêt phylogénétique, \(S\) un arbre phylogénétiques, \(\tuple{\rec, \adjset}\) une réconciliation d’adjacences de \(\gtrees\) avec \(S\), et \(\tuple{\recmodel\rmunit, \recmodel\rmadj}\) deux ensembles de types d’événements.
     Soit \(\rectree\) l’union d’arbres réconciliés
         pour chaque arbre de \(\gtrees\) sous le modèle \(\recmodel\rmunit\),
         étiquetée par \(\exrec : \tnodes(\rectree) \onto \tnodes(S)\)
-        et \(\evt_{\rectree} : \tnodes(\rectree) \onto \recmodel\rmunit \cup \{\evtP\}\).
+        et \(\evt_{\rectree} : \tnodes(\rectree) \onto \recmodel\rmunit \cup \{\evtE, \evtP\}\).
     Une \emph{forêt d’adjacences} \(\adjtree\) est étiquetée par
         \(\exadj : \tnodes(\adjtree) \onto \alladjs(\exrec)\)
         et \(\evt_{\adjtree} : \tnodes(\adjtree) \onto \recmodel\rmadj \cup \{\evtE\}\),
@@ -103,7 +102,7 @@ Une interprétation d’une réconciliation d’adjacences est représentée par
         et \(\adjset \subseteq \{\exadj(v) \suchthat v \in \tnodes(\adjtree)\}\).
 \end{definition}
 
-La forêt d’adjacences représente un scénario d’apparition pour l’ensemble d’adjacences \(\adjset\).
+La forêt d’adjacences représente un scénario menant à l’ensemble d’adjacences \(\adjset\).
 Ce modèle a pour propriété que les adjacences évoluent indépendamment les unes des autres.
 Chaque racine de la forêt correspond à un événement de gain d’adjacence, qui est ensuite propagée dans ses descendants.
 Par exemple, une forêt sans aucune branche postule que toutes les adjacences sont apparues spontanément.
