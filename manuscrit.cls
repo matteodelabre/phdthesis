@@ -42,12 +42,16 @@
 \RequirePackage{fancyhdr}
 
 \pagestyle{fancy}
-\fancyhead[L]{\leftmark}
-\fancyhead[R]{\oldstylenums{\thepage}}
+\fancyhead[L,C,R]{}
+\fancyhead[L]{\leftmark\quad\hrulefill}
 \renewcommand{\headrulewidth}{0pt}
 \fancyfoot[L,C,R]{}
+\fancyfoot[C]{\oldstylenums{\thepage}}
 
-\renewcommand{\chaptermark}[1]{\markboth{\textsc{\MakeLowercase{\chaptername}\ \oldstylenums{\thechapter}}\ --\ #1}{}}
+\renewcommand{\chaptermark}[1]{\markboth{\textsc{\oldstylenums{%
+    \MakeLowercase{\chaptername}\ \thechapter\ %
+    --\ \MakeLowercase{#1}%
+}}}{}}
 
 \setlength{\headheight}{14pt}
 
