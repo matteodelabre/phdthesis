@@ -294,25 +294,41 @@ La complexité en temps peut être réduite à \(\bigo(nm)\) sans modifier la co
 Le problème \refproblem{\(\recmodelDTL\)-Parcimonie\(\star\)} est donc polynomial.
 Comme à l’habitude pour les algorithmes de programmation dynamique, une solution ayant un coût optimal peut être reconstruite en conservant des pointeurs vers les entrées minimales pour chaque expression \enquote{\(\min\)} dans l’algorithme.
 
-\paragraph{Transferts doubles~\textup{\parencite{Doyon2010EfficientAlgorithmGene}}}
-L’algorithme décrit précédemment pour le modèle \(\recmodelDTL\) n’explore pas toutes les possibilités de réconciliation au sens défini dans ce document.
-Il ne prend pas en compte la possibilité pour un embranchement d’être associé à une espèce séparée simultanément de celles de ses deux enfants.
-Une telle association pourrait s’expliquer dans le modèle \(\recmodelDTL\) par deux événements \(\evtT\) suivis d’un événement \(\evtL\).
-\tk{La figure xxx} illustre un cas dans lequel une telle association se révèle avantageuse en terme du critère de parcimonie.
-Pour intégrer cette possibilité dans l’algorithme, un cas supplémentaire peut y être ajouté : \[
-    \varhgtlr \gets 2\cost(\evtT) + \cost(\evtL)
-        + \min_{\sigma' \nottcomp \sigma} \{\fndtl(v\lchild, \sigma')\}
-        + \min_{\sigma'' \nottcomp \sigma} \{\fndtl(v\rchild\kern1pt, \sigma'')\}.
-\]
+% \paragraph{Transferts doubles~\textup{\parencite{Doyon2010EfficientAlgorithmGene}}}
+% L’algorithme décrit précédemment pour le modèle \(\recmodelDTL\) ne considère pas toutes les possibilités de réconciliation au sens défini dans ce document.
+% Il ne prend pas en compte la possibilité pour un embranchement d’être associé à une espèce séparée simultanément de celles de ses deux enfants.
+% Une telle association pourrait s’expliquer dans le modèle \(\recmodelDTL\) par deux événements \(\evtT\) suivis d’un événement \(\evtL\).
+% \tk{La figure xxx} illustre un cas dans lequel une telle association se révèle avantageuse en terme du critère de parcimonie.
+% Pour intégrer cette possibilité dans l’algorithme, un cas supplémentaire peut y être ajouté : \[
+%     \varhgtlr \gets 2\cost(\evtT) + \cost(\evtL)
+%         + \min_{\sigma' \nottcomp \sigma} \{\fndtl(v\lchild, \sigma')\}
+%         + \min_{\sigma'' \nottcomp \sigma} \{\fndtl(v\rchild\kern1pt, \sigma'')\}.
+% \]
 
 \paragraph{Espèces non-échantillonnées~\textup{\parencite{Szoelloesi2013LateralGeneTransfer,Weiner2021ImprovedDuplicationTransfer}}}
-Dans le modèle \(\recmodelDL\), les espèces non-échantillonnées n’ont pas d’impact sur les réconciliations, puisque seules les réconciliations strictes sont considérées, ce qui implique que les espèces non-échantillonnées évoluent indépendamment de celles qui sont échantillonnées.
-Le modèle \(\recmodelDTLx = \{\evtD, \evtT, \evtTL, \evtTX, \evtL, \evtS\}\)…
+La phylogénie \(S\) est nécessairement incomplète puisqu’elle ne renseigne que sur les espèces hôtes des gènes de~\(T\).
+Les embranchements ne menant qu’à des espèces absentes de cet échantillon sont donc manquants.
+Lorsque seules les réconciliations strictes sont considérées, les gènes évoluent en suivant les embranchements menant jusqu’aux feuilles présentes dans l’échantillon, donc les embranchements manquants sont sans effet.
+Ceci n’est plus vrai dès lors que les réconciliations libres sont permises, comme pour le modèle \(\recmodelDTL\).
+En effet, il est alors possible qu’un gène évolue dans une partie de la phylogénie hors de l’échantillon pour être par la suite transféré vers un hôte échantillonné (voir exemple en \cref{figure:rec-dtlx}).
 
-\begin{compactitemize}
-    \item si \(\evt(v) = \evtTL\), alors \(v\) est unaire et \(\exrec(v) \nottcomp \exrec(v\child)\);
-    \item si \(\evt(v) = \evtTX\), alors \(\exrec(v) = \exrec(v\lchild)\) et \(\exrec(v) \tancs \exrec(v\rchild)\), ou bien \(\exrec(v) = \exrec(v\rchild)\) et \(\exrec(v) \tancs \exrec(v\lchild)\).
-\end{compactitemize}
+\begin{figure}[htb]
+    \capstart
+    \centering
+    \input{fig/01-rec-dtlx}
+    \caption{
+        Deux interprétations alternatives de la même réconciliation sous les modèles \(\recmodelDL\) et \(\recmodelDTLx\) respectivement.
+        La branche sur trame hachurée correspond à une partie non-échantillonnée de la phylogénie des hôtes.
+    }
+    \label{figure:rec-dtlx}
+\end{figure}
+
+Le modèle \(\recmodelDTLx\) adjoint un événement supplémentaire \(\evtTX\) au modèle \(\recmodelDTL\).
+Pour un embranchement \(v \in \tinner(\rectree)\) sous ce modèle, si \(\evt(v) = \evtTX\), alors \(\exrec(v) = \exrec(v\lchild)\) et \(\exrec(v) \tancs \exrec(v\rchild)\), ou bien \(\exrec(v) = \exrec(v\rchild)\) et \(\exrec(v) \tancs \exrec(v\lchild)\).
+Ce nouvel événement offre une alternative à l’insertion de séquences de spéciations suivies de pertes pour faire coïncider la topologie de \(\rectree\) avec \(S\).
+Il peut donc dans certains cas permettre de réduire le coût d’une réconciliation, comme dans le cas illustré en~\cref{figure:rec-dtlx}.
+L’\cref{algo:dtl-parcimonie-star} peut être étendu pour le modèle \(\recmodelDTLx\), sans en modifier la complexité.
+Il suffit pour ce faire d’ajouter un cas pour chacune des \crefrange{algo:dtl-parcimonie-star:varspe}{algo:dtl-parcimonie-star:varhgtr} dans lesquels les termes en termes en \(\cost(\evtL) \cdot \hdots\) sont remplacés par l’invocation d’un événement \(\evtTX\).
 
 \paragraph{Autres modèles}
 \tk{
