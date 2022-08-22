@@ -331,14 +331,10 @@ L’\cref{algo:dtl-parcimonie-star} peut être étendu pour le modèle \(\recmod
 Il suffit pour ce faire d’ajouter un cas pour chacune des \crefrange{algo:dtl-parcimonie-star:varspe}{algo:dtl-parcimonie-star:varhgtr} dans lesquels les termes en termes en \(\cost(\evtL) \cdot \hdots\) sont remplacés par l’invocation d’un événement \(\evtTX\).
 
 \paragraph{Autres modèles}
-\tk{
-Tri incomplet de lignées (ILS)/coalescence profonde~\parencite{Rasmussen2012UnifiedModelingGene,Wu2013MostParsimoniousReconciliation}
----
-Régulation~\parencite{Goodman1979FittingGeneLineage}
-Ce modèle introduit un événement \(\evtR\) qui offre une interprétation alternative à l’absence d’un gène dans un descendant, pouvant être expliquée par sa \enquote{désactivation} temporaire par un mécanisme de régulation.
----
-Arbres datés~\parencite{Tofigh2011SimultaneousIdentificationDuplications}
-}
+Des extensions de la réconciliation pour prendre en compte le \emph{tri incomplet de lignées}~(ILS) ont été proposées par \textcite{Rasmussen2012UnifiedModelingGene,Wu2013MostParsimoniousReconciliation,Chan2017InferringIncompleteLineage}.
+Ce phénomène se produit lorsque des spéciations rapprochées dans le temps font que les espèces émergentes héritent de sous-ensembles d’unités distincts.
+Comme alternative aux modèles de type \(\recmodelDL\), \textcite{Goodman1979FittingGeneLineage} ont proposé un modèle intégrant la possibilité pour un gène d’être activé ou désactivé par un mécanisme de régulation, ce qui permet de limiter l’inférence de pertes superflues (voir également le modèle DTLx décrit ci-dessus).
+Enfin, la datation de la phylogénie des hôtes, imposant une contrainte supplémentaire sur les changements d’hôtes, peut être intégrée aux modèles autorisant ce type d’événements~\parencite{Tofigh2011SimultaneousIdentificationDuplications}.
 
 \section{Applications des méthodes de réconciliation}
 
