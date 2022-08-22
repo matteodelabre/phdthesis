@@ -58,7 +58,7 @@
     \end{scope}
 \end{tikzpicture}
 
-\vspace{1.2em}
+\vspace{1em}
 \begin{tikzpicture}
     %% Arbre T_c
     \begin{scope}[color3]
@@ -112,9 +112,9 @@
     \end{scope}
 \end{tikzpicture}
 
-\vspace{1.2em}
+\vspace{1.5em}
 \begin{tikzpicture}[x=.8cm, y=1cm]
-    \draw[separator rule] (0, 3.75) -- ++(14, 0);
+    \draw[separator rule] (0, 3.95) -- ++(14, 0);
 
     %% Arbre T_a
     \begin{scope}[color1]
@@ -122,7 +122,7 @@
             ta l4s1 / [graph node, x=5.5, y=3, label={[host, black, yshift=2pt]left:α}] -- {
                 ta l3s1 / [graph node, x=2, y=2, label={[host, black]left:α}] -- {
                     ta l1s1 / \(\explar{a}{1}{1}\) [x=0],
-                    ta l2s1 / [graph node, x=3, y=1, label={[host, black]right:β}] -- {
+                    ta l2s1 / [graph node, x=3.33, y=1, label={[host, black, yshift=-2pt]left:β}] -- {
                         ta l1s2 / \(\explar{a}{2}{1}\) [x=3],
                         ta l1s3 / \(\explar{a}{3}{1}\) [x=4],
                     },
@@ -144,7 +144,7 @@
             tb l4s1 / [graph node, x=6.5, y=3] -- {
                 tb l3s1 / [graph node, x=3, y=2] -- {
                     tb l1s1 / \(\explar{b}{3}{1}\) [x=5],
-                    tb l2s1 / [graph node, x=2, y=1, label={[host, black]left:1}] -- {
+                    tb l2s1 / [graph node, x=1.66, y=1, label={[host, black]right:1}] -- {
                         tb l1s2 / \(\explar{b}{1}{1}\) [x=1],
                         tb l1s3 / \(\explar{b}{1}{2}\) [x=2],
                     },

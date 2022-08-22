@@ -311,17 +311,19 @@
     % Reconciliation layout
     host node/.style={
         ellipse,
-        fill=black!10,
+        fill=#1!10,
     },
+    host node/.default={black},
     host leaf node/.style={
-        host node,
+        host node={#1},
         inner sep=0pt,
     },
     host edge/.style={
-        fill=black!5,
+        fill=#1!5,
     },
+    host edge/.default={black},
     host edge terminal/.style={
-        host edge,
+        host edge={#1},
         rounded corners,
     },
     % Adjacencies

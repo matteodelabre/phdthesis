@@ -39,15 +39,14 @@ Supposons qu’une forêt \(\gtrees\) de phylogénies d’unités dépendantes e
 Une adjacence \((a, b)\) entre deux embranchements de \(\gtrees\) est une assertion affirmant que les deux divergences se sont produites simultanément dans le même hôte et que l’exemplaire de \(a\) précède immédiatement celui de \(b\) dans la structure de l’hôte.
 
 \begin{definition}[Adjacence]\label{definition:adj}
-    Soit \(\mathcal{L} = \{L_1, …, L_k\}\) une famille d’ensembles
-    et \(\mathcal{F} = \{f_1, …, f_k\}\) un ensemble d’applications de la forme
-    \(f_i : L_i \onto M\) pour un ensemble \(M\).
-    Une adjacence est un couple \((a, b) \in L_i \times L_j\), avec \(1 \leq i, j \leq k\), tel que \(f_i(a) = f_j(b)\).
-    L’ensemble des adjacences possibles est noté \(\alladjs(\mathcal{F})\).
+    Soit \(L\) et \(M\) deux ensembles et \(f : L \onto M\) une application.
+    Une adjacence est un couple \((a, b) \in L^2\) tel que \(a \neq b\) et \(f(a) = f(b)\).
+    L’ensemble des adjacences possibles est noté \(\alladjs(f)\).
 \end{definition}
 
 L’ensemble des adjacences entre les unités représentées par les feuilles de \(\gtrees\) est connu.
 Une réconciliation d’adjacences de \(\gtrees\) avec \(S\) est une réconciliation de chaque arbre de \(\gtrees\) avec \(S\) assorti d’un ensemble d’adjacences ancestrales menant aux adjacences connues pour les feuilles.
+La \cref{figure:adj-rec} donne un exemple de réconciliation d’adjacences.
 
 \begin{figure}[p]
     \capstart
@@ -68,20 +67,19 @@ Une réconciliation d’adjacences de \(\gtrees\) avec \(S\) est une réconcilia
 \end{figure}
 
 \begin{definition}[Réconciliation d’adjacences]\label{definition:adjrec}
-    Soient \(\gtrees = T_1 \sqcup … \sqcup T_k\) une forêt d’arbres phylogénétiques et \(S\) un arbre phylogénétique.
-    Soient \(\llmaps = \{\llmap_1, …, \llmap_k\}\) un ensemble de \(k\) applications de la forme \(\llmap_i : \tleavs(T_i) \onto \tleavs(S)\)
-    et \(\lladjset \subseteq \alladjs(\llmaps)\) un ensemble d’adjacences.
-    Une \emph{réconciliation d’adjacences} de \(\gtrees\) avec \(S\) est un couple \(\tuple{\recs, \adjset}\), où
-    \(\recs\) est un ensemble de réconciliations \(\{\rec_1, …, \rec_k\}\) de chaque \(T_i\) avec \(S\) étendant \(\llmap_i\),
-    et \(\adjset\) est un ensemble d’adjacences ancestrales tel que \(\lladjset \subseteq \adjset \subseteq \alladjs(\recs)\).
+    Soit \(\gtrees\) une forêt phylogénétique et \(S\) un arbre phylogénétique.
+    Soit \(\llmap : \tleavs(\gtrees) \onto \tleavs(S)\) une application et \(\lladjset \subseteq \alladjs(\llmap)\) un ensemble d’adjacences.
+    Une \emph{réconciliation d’adjacences} de \(\gtrees\) avec \(S\) est un couple \(\tuple{\rec, \adjset}\),
+    où \(\rec\) est une application étendant \(\llmap\) qui est l’union de réconciliations individuelles de chaque arbre de \(\gtrees\) avec \(S\);
+    et \(\adjset\) est un ensemble d’adjacences ancestrales tel que \(\lladjset \subseteq \adjset \subseteq \alladjs(\rec)\).
 \end{definition}
 
 Un ensemble d’adjacences ancestrales implique des contraintes temporelles qui doivent être compatibles avec celles imposées par la topologie de \(\gtrees\).
 Ainsi, un nœud ne peut être adjacent à l’un de ses descendants ou ancêtres, et si deux nœuds sont adjacents, alors un ancêtre de l’un ne peut être adjacent à un descendant de l’autre.
 
-\begin{definition}[Validité des adjacences d’une réconciliation]\label{definition:adjrec-adj-valid}
-    Soient \(\gtrees = \{T_1, …, T_k\}\) un ensemble de \(k\) arbres phylogénétiques, \(S\) un arbre phylogénétique, et \(\tuple{\recs, \adjset}\) une réconciliation d’adjacences de \(\gtrees\) et \(\lladjset\) avec \(S\).
-    Les adjacences d’une réconciliation \(\tuple{\recs, \adjset}\) sont \emph{valides} si
+\begin{definition}[Compatibilité des adjacences]\label{definition:adjrec-adj-compat}
+    Soient \(\gtrees\) une forêt phylogénétique, \(S\) un arbre phylogénétique, et \(\tuple{\rec, \adjset}\) une réconciliation d’adjacences de \(\gtrees\) avec \(S\).
+    Les adjacences de \(\tuple{\rec, \adjset}\) sont \emph{compatibles} si
         toute adjacence \((v, w) \in \adjset\) est telle que \(v \nottcomp w\) et
         toute paire d’adjacences \((v, w), (x, y) \in \adjset\) est telle que
             si \(v \tancs x\) alors \(w \nottdesc y\) et
@@ -92,14 +90,15 @@ Comme pour les réconciliation bilatérales, un modèle d’évolution doit êtr
 Un tel modèle spécifie non seulement les événements qui affectent individuellement les unités dépendantes, mais aussi ceux qui touchent leurs adjacences.
 Une interprétation d’une réconciliation d’adjacences est représentée par une forêt réconciliée.
 
-\begin{definition}[Forêt réconciliée]\label{definition:adjrectree}
-    Soient \(\gtrees = \{T_1, …, T_k\}\) et \(S\) des arbres phylogénétiques, \(\tuple{\recs, \adjset}\) une réconciliation d’adjacences de \(\gtrees\) avec \(S\), et \(\tuple{\recmodel\rmunit, \recmodel\rmadj}\) deux ensembles de types d’événements.
-    Une forêt réconciliée est un couple de forêts \(\tuple{\rectree, \adjtree}\).
-    La forêt d’unités \(\rectree\) est l’union d’arbres réconciliés \(\rectree_i\) pour chaque \(T_i\) sous le modèle \(\recmodel\rmunit\).
-    Elle est étiquetée par \(\exrec_{\rectree}\) et \(\evt_{\rectree}\) comme définis en~\labelcref{definition:rectree}.
-    La forêt d’adjacences \(\adjtree\) est étiquetée par
-        \(\exadj : \tnodes(\adjtree) \onto \alladjs(\exrec_{\rectree})\)
-        et \(\evt_{\adjtree} : \tnodes(\adjtree) \onto \recmodel\rmadj \cup \{\evtE, \evtP\}\),
+\begin{definition}[Forêt d’adjacences]\label{definition:adjrectree}
+    Soient \(\gtrees\) une forêt phylogénétique, \(S\) un arbre phylogénétiques, \(\tuple{\rec, \adjset}\) une réconciliation d’adjacences de \(\gtrees\) avec \(S\), et \(\tuple{\recmodel\rmunit, \recmodel\rmadj}\) deux ensembles de types d’événements.
+    Soit \(\rectree\) l’union d’arbres réconciliés
+        pour chaque arbre de \(\gtrees\) sous le modèle \(\recmodel\rmunit\),
+        étiquetée par \(\exrec : \tnodes(\rectree) \onto \tnodes(S)\)
+        et \(\evt_{\rectree} : \tnodes(\rectree) \onto \recmodel\rmunit \cup \{\evtP\}\).
+    Une \emph{forêt d’adjacences} \(\adjtree\) est étiquetée par
+        \(\exadj : \tnodes(\adjtree) \onto \alladjs(\exrec)\)
+        et \(\evt_{\adjtree} : \tnodes(\adjtree) \onto \recmodel\rmadj \cup \{\evtE\}\),
         de sorte que \(\lladjset = \{\exadj(v) \suchthat v \in \tleavs(\adjtree) \land \evt_{\adjtree}(v) = \evtE\}\)
         et \(\adjset \subseteq \{\exadj(v) \suchthat v \in \tnodes(\adjtree)\}\).
 \end{definition}
@@ -113,9 +112,9 @@ Inversement, une forêt composée d’un seul arbre correspond à un scénario d
 Le coût d’une réconciliation d’adjacences est la somme des coûts des événements dans la forêt d’unités et la forêt d’adjacences.
 
 \problem{\(\tuple{\recmodel\rmunit, \recmodel\rmadj}\)-Parcimonie}
-    {Phylogénies \(\gtrees = T_1 \sqcup ... \sqcup T_k\) et \(S\);
-     associations des feuilles \(\llmap_i : \tleavs(T_i) \onto \tleavs(S)\);
-     adjacences de feuilles \(\lladjset \subseteq \alladjs(\llmaps)\);
+    {Phylogénies \(\gtrees\) et \(S\);
+     association des feuilles \(\llmap : \tleavs(\gtrees) \onto \tleavs(S)\);
+     adjacences de feuilles \(\lladjset \subseteq \alladjs(\llmap)\);
      coûts \(\cost : \recmodel\rmunit \cup \recmodel\rmadj \cup \{\evtG\} \onto \nat\).}
     {Coût minimum d’une réconciliation d’adjacences acyclique de \(T\) et \(S\)
      sous le modèle \(\tuple{\recmodel\rmunit, \recmodel\rmadj}\) et les coûts \(\cost\).}
@@ -126,18 +125,31 @@ Le modèle \(\recmodelDL\) est défini par \(\recmodel\rmunit = \{\evtD, \evtL, 
 Les événements sur les arbres réconciliés suivent les mêmes règles que pour les arbres réconciliés.
 Pour un nœud \(v \in \tnodes(\adjtree)\) de la forêt d’adjacences tel que \(\exadj(v) = (a, b)\):
 \begin{compactitemize}
-    \item si \(v\) est une feuille, alors:
-    \begin{compactitemize}
-        \item si \(\evt_{\adjtree}(v) = \evtB\), alors \(\evt_{\rectree}(a) = \evtL\) ou bien \(\evt_{\rectree}(b) = \evtL\),
-        \item si \(\evt_{\adjtree}(v) = \evtL\), alors \(\evt_{\rectree}(a) = \evt_{\rectree}(b) = \evtL\);
-    \end{compactitemize}
-    \item si \(v\) est unaire, alors \(\evt_{\adjtree}(v) = \evtP\) et en notant \(\exadj(v\child) = (a', b')\), \(a' \tdesc a\), \(b' \tdesc b\), \(\exrec(a') = \exrec(a)\) et \(\exrec(b') = \exrec(b)\);
-    \item si \(v\) est binaire, alors \(\evt_{\adjtree}(v) \in \{\evtD, \evtS, \evtT\}\) et \(\evt_{\rectree}(v\lchild) = \evt_{\rectree}(v\rchild) = \evt_{\adjtree}(v)\) et en notant \(\exadj(v\lchild) = (a', b')\) et \(\exadj(v\rchild) = (a'', b'')\), \(\{a', a''\} = \{a\lchild, a\rchild\}\) et \(\{b', b''\} = \{b\lchild, b\rchild\}\).
+    \item si \(\evt_{\adjtree}(v) = \evtB\) alors \(v\) est une feuille et \(\evt_{\rectree}(a) = \evtL\) ou bien \(\evt_{\rectree}(b) = \evtL\),
+    \item si \(\evt_{\adjtree}(v) = \evtL\) alors \(v\) est une feuille et \(\evt_{\rectree}(a) = \evt_{\rectree}(b) = \evtL\);
+    \item si \(\evt_{\adjtree}(v) \in \{\evtD, \evtS, \evtT\}\) alors \(v\) est un embranchement,
+        \(\evt_{\rectree}(v\lchild) = \evt_{\rectree}(v\rchild) = \evt_{\adjtree}(v)\),
+        et en notant \(\exadj(v\lchild) = (a', b')\) et \(\exadj(v\rchild) = (a'', b'')\),
+        \(\{a', a''\} = \{a\lchild, a\rchild\}\) et \(\{b', b''\} = \{b\lchild, b\rchild\}\).
 \end{compactitemize}
 
-\tk{fig: forêt d’adjacences}
+\begin{figure}[htb]
+    \capstart
+    \centering
+    \input{fig/02-adj-forest}
+    \caption{
+        \emph{(Haut)}
+        Arbres réconciliés de \(T_a\), \(T_b\) et \(T_c\) avec \(S\)
+        sous le modèle \(\recmodelDL\)
+        et selon la réconciliation représentée en \cref{figure:adj-rec}.
+        \emph{(Bas)}
+        Forêt d’adjacences représentant un scénario d’évolution à partir de trois adjacences ancestrales.
+        L’étoile \(\star\) correspond à une scission de l’adjacence par perte d’une de ses extrémités.
+    }
+    \label{figure:adj-forest}
+\end{figure}
 
-Il n’existe pour l’heure pas d’algorithme général connu pour les problèmes de \refproblem{\(\tuple{\recmodel\rmunit, \recmodel\rmadj}\)-Parcimonie}, et il a été conjecturé que le problème est NP-complet~\parencite{Boussau2020ReconcilingGeneTrees}.
+Il n’existe pas d’algorithme général connu pour les problèmes de \refproblem{\(\tuple{\recmodel\rmunit, \recmodel\rmadj}\)-Parcimonie}, et il a été conjecturé que le problème est NP-complet~\parencite{Boussau2020ReconcilingGeneTrees}.
 Lorsque les arbres réconciliés de la forêt d’unités sont calculés séparément, le problème qui consiste à calculer la forêt d’adjacences peut être résolu en temps polynomial par un algorithme de programmation dynamique.
 
 Une adjacence ne peut donner lieu qu’à des adjacences homologues.

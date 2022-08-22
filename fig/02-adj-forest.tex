@@ -1,0 +1,153 @@
+%! TeX root = ../main.tex
+% vim: set spelllang=fr:
+\begin{tikzpicture}[reference/.style={font=\small}]
+    %% Réconciliation T_a
+    \begin{scope}[x=.5cm, y=.8cm]
+        \graph[no placement, nodes={dependent}]{
+            tal4s1 / [duplication, x=3.5, y=2.75, label={[reference]left:α}] -- {
+                tal3s1 / [speciation, x=3, y=2, label={[reference]left:β}] -- {
+                    tal2s1 / [graph node, x=1.5, y=1, label={[reference]left:δ}] --
+                        tal1s1 / \(\explar{a}{1}{1}\) [x=0, y=0],
+                    tal2s2 / [speciation, x=5.75, y=1.1, label={[reference]left:ε}] -- {
+                        tal1s2 / \(\explar{a}{2}{1}\) [x=4, y=0],
+                        tal1s3 / \(\explar{a}{3}{1}\) [x=7.5, y=0],
+                    },
+                },
+                tal3s2 / [speciation, x=4, y=2, label={[reference]right:γ}] -- {
+                    tal1s4 / \(\explar{a}{1}{2}\) [x=1, y=0],
+                    tal2s3 / [speciation, x=6.75, y=1.1, label={[reference]right:ζ}] -- {
+                        tal1s5 / \(\explar{a}{2}{2}\) [x=5, y=0],
+                        tal1s6 / \(\explar{a}{3}{2}\) [x=8.5, y=0],
+                    },
+                },
+            },
+        };
+    \end{scope}
+
+    %% Réconciliation T_b
+    \begin{scope}[x=.5cm, y=.8cm, shift={(12, 0)}]
+        \graph[no placement, nodes={dependent}]{
+            tbl4s1 / [duplication, x=3.5, y=2.75, label={[reference]left:η}] -- {
+                tbl3s1 / [speciation, x=3, y=2, label={[reference]left:θ}] -- {
+                    tbl2s1 / [duplication, x=1.5, y=1, label={[reference]left:κ}] -- {
+                        tbl1s1 / \(\explar{b}{1}{1}\) [x=-.5, y=0],
+                        tbl1s2 / \(\explar{b}{1}{2}\) [x=.5, y=0],
+                    },
+                    tbl2s2 / [speciation, x=5.75, y=1.1, label={[reference]left:λ}] -- {
+                        tbl1s3 / [loss, x=4, y=0],
+                        tbl1s4 / \(\explar{b}{3}{1}\) [x=7.5, y=0],
+                    },
+                },
+                tbl3s2 / [speciation, x=4, y=2, label={[reference]right:ι}] -- {
+                    tbl1s5 / \(\explar{b}{1}{3}\) [x=1.5, y=0],
+                    tbl2s3 / [speciation, x=6.75, y=1.1, label={[reference]right:μ}] -- {
+                        tbl1s6 / \(\explar{b}{2}{1}\) [x=5, y=0],
+                        tbl1s7 / \(\explar{b}{3}{2}\) [x=8.5, y=0],
+                    },
+                },
+            },
+        };
+    \end{scope}
+
+    %% Réconciliation T_c
+    \begin{scope}[x=.5cm, y=1.1cm, shift={(24, 0)}]
+        \graph[no placement, nodes={dependent}]{
+            tcl3s1 / [speciation, label={[reference]right:ν}, x=1.5, y=2] -- {
+                tcl1s1 / \(\explar{c}{1}{1}\) [x=0, y=0],
+                tcl2s1 / [speciation, label={[reference]right:ξ}, x=3, y=1.1] -- {
+                    tcl1s2 / \(\explar{c}{2}{1}\) [x=2, y=0],
+                    tcl1s3 / \(\explar{c}{3}{1}\) [x=4, y=0],
+                },
+            },
+        };
+    \end{scope}
+
+    \begin{pgfonlayer}{hostnodes}
+        \node[host leaf node=color1, fit=(tal1s1)(tal1s4)] (sal1s1) {};
+        \node[host leaf node=color1, fit=(tal1s2)(tal1s5)] (sal1s2) {};
+        \node[host leaf node=color1, fit=(tal1s3)(tal1s6)] (sal1s3) {};
+        \node[host node=color1, fit=(tal2s2)(tal2s3)] (sal2s1) {};
+        \node[host node=color1, fit=(tal3s1)(tal3s2)] (sal3s1) {};
+
+        \node[host leaf node=color2, fit=(tbl1s1)(tbl1s2)(tbl1s5), inner xsep=-.15cm] (sbl1s1) {};
+        \node[host leaf node=color2, fit=(tbl1s3)(tbl1s6)] (sbl1s2) {};
+        \node[host leaf node=color2, fit=(tbl1s4)(tbl1s7)] (sbl1s3) {};
+        \node[host node=color2, fit=(tbl2s2)(tbl2s3)] (sbl2s1) {};
+        \node[host node=color2, fit=(tbl3s1)(tbl3s2)] (sbl3s1) {};
+
+        \node[host leaf node=color3, fit=(tcl1s1), inner xsep=.05cm] (scl1s1) {};
+        \node[host leaf node=color3, fit=(tcl1s2), inner xsep=.05cm] (scl1s2) {};
+        \node[host leaf node=color3, fit=(tcl1s3), inner xsep=.05cm] (scl1s3) {};
+        \node[host node=color3, fit=(tcl2s1), inner xsep=.15cm] (scl2s1) {};
+        \node[host node=color3, fit=(tcl3s1), inner xsep=.15cm] (scl3s1) {};
+    \end{pgfonlayer}
+
+    \begin{pgfonlayer}{hostedges}
+        \path[host edge=color1] (sal1s1.-10) -- (sal3s1.-10) -- (sal3s1.170) -- (sal1s1.170);
+        \path[host edge=color1] (sal1s2.-10) -- (sal2s1.-10) -- (sal2s1.170) -- (sal1s2.170);
+        \path[host edge=color1] (sal2s1.25) -- (sal3s1.10) -- (sal3s1.190) -- (sal2s1.190);
+        \path[host edge=color1] (sal1s3.10) -- (sal2s1.10) -- (sal2s1.190) -- (sal1s3.190);
+        \path[host edge terminal=color1] (sal3s1.east) -- ($(sal3s1.east)+(0, 1)$)
+            -- ($(sal3s1.west)+(0, 1)$) -- (sal3s1.west);
+
+        \path[host edge=color2] (sbl1s1.-10) -- (sbl3s1.-10) -- (sbl3s1.170) -- (sbl1s1.170);
+        \path[host edge=color2] (sbl1s2.-10) -- (sbl2s1.-10) -- (sbl2s1.170) -- (sbl1s2.170);
+        \path[host edge=color2] (sbl2s1.25) -- (sbl3s1.10) -- (sbl3s1.190) -- (sbl2s1.190);
+        \path[host edge=color2] (sbl1s3.10) -- (sbl2s1.10) -- (sbl2s1.190) -- (sbl1s3.190);
+        \path[host edge terminal=color2] (sbl3s1.east) -- ($(sbl3s1.east)+(0, 1)$)
+            -- ($(sbl3s1.west)+(0, 1)$) -- (sbl3s1.west);
+
+        \path[host edge=color3] (scl1s1.-10) -- (scl3s1.-10) -- (scl3s1.170) -- (scl1s1.170);
+        \path[host edge=color3] (scl1s2.-10) -- (scl2s1.-10) -- (scl2s1.170) -- (scl1s2.170);
+        \path[host edge=color3] (scl2s1.25) -- (scl3s1.10) -- (scl3s1.190) -- (scl2s1.190);
+        \path[host edge=color3] (scl1s3.10) -- (scl2s1.10) -- (scl2s1.190) -- (scl1s3.190);
+    \end{pgfonlayer}
+\end{tikzpicture}
+
+%% Forêt d’adjacences
+\vspace{1.5em}
+\begin{tikzpicture}[reference/.style={font=\small}]
+    \draw[separator rule] (-3.5, .75) -- ++(14, 0);
+
+    \begin{scope}
+        \graph[
+            phylogenetic tree layout,
+            evolutionary unit length=0.44cm,
+            nodes={reference},
+        ] {
+            / {(α, η)} -- {
+                / {(γ, ι)} -- {
+                    / {(ζ, μ)} -- {
+                        / {\((\explar{a}{3}{2}, \explar{b}{3}{2})\)},
+                        / {\((\explar{a}{2}{2}, \explar{b}{2}{1})\)},
+                    },
+                    / {\((\explar{a}{1}{2}, \explar{b}{1}{3})\)} [> length=2],
+                },
+                / {(β, θ)} -- {
+                    / {(ε, λ)} -- {
+                        / {\((\explar{a}{3}{1}, \explar{b}{3}{1})\)},
+                        / \(\strut\star\),
+                    },
+                    / {(δ, κ)} -- / {\((\explar{a}{1}{1}, \explar{b}{1}{1})\)},
+                },
+            },
+        };
+    \end{scope}
+
+    \begin{scope}[shift={(6.25, 0)}]
+        \node[reference] at (0, -1.6) {\((\explar{b}{1}{1}, \explar{b}{1}{2})\)};
+    \end{scope}
+
+    \begin{scope}[shift={(9, 0)}]
+        \graph[
+            phylogenetic tree layout,
+            evolutionary unit length=1.32cm,
+            nodes={reference},
+        ] {
+            / {(μ, ξ)} -- {
+                / {\((\explar{b}{3}{2}, \explar{c}{3}{1})\)},
+                / {\((\explar{b}{2}{1}, \explar{c}{2}{1})\)},
+            },
+        };
+    \end{scope}
+\end{tikzpicture}
