@@ -5,12 +5,12 @@
 Certains hôtes sont porteurs de plusieurs familles d’unités dépendantes.
 Pour reconstruire les histoires respectives de ces familles, les méthodes de réconciliation décrites au chapitre précédent pourraient leur être appliquées individuellement.
 Cette approche supposerait toutefois que les unités étudiées évoluent indépendamment les unes des autres, ce qui n’est en particulier pas le cas de certains gènes.
-Les gènes sont en effet organisés linéairement le long du génome de leur espèce et ainsi affectés par des événements à l’échelle du génome.
+Les gènes sont en effet organisés linéairement le long du génome de leur espèce et affectés par des événements à l’échelle du génome.
 Ces événements modifient l’organisation et la composition du génome, agissant simultanément sur plusieurs de ses gènes.
 
-L’évolution des structures linéaires, façonnées par des réarrangements et des duplications, est principalement étudiée dans le contexte de la génomique comparative.
+L’évolution des structures linéaires, façonnées par les réarrangements et les duplications, est principalement étudiée dans le contexte de la génomique comparative.
 Le problème de la \emph{phylogénie génomique} consiste à reconstruire l’arbre phylogénétique le plus plausible pour un ensemble de génomes, en associant chaque embranchement à un génome ancestral.
-Ce problème se décline en une \emph{\enquote{grande}} version, où la topologie de l’arbre et les génomes ancestraux sont inférés simultanément, et une \emph{\enquote{petite}} version, dans laquelle la topologie est fixée et seuls les génomes ancestraux doivent être déterminés~\parencite[pour une revue de ces problèmes, voir][]{ElMabrouk2012AnalysisGeneOrder}.
+Ce problème se décline en une \emph{\enquote{grande}} version, où la topologie de l’arbre et les génomes ancestraux sont inférés simultanément, et une \emph{\enquote{petite}} version, dans laquelle la topologie est fixée et seuls les génomes ancestraux restent à déterminer~\parencite[pour une revue de ces problèmes, voir][]{ElMabrouk2012AnalysisGeneOrder}.
 
 % Le contenu des génomes étudiés est représenté par des ensembles de chaînes de caractères orientées, formées sur l’alphabet des familles de gènes.
 % La question du \emph{tri de génomes} consiste à identifier la plus courte séquence d’événements permettant de transformer un premier génome en un second, afin d’évaluer la distance évolutive qui les sépare~\parencite[voir][]{Hannenhalli1999TransformingCabbageTurnip,Bergeron2009NewLinearTime,Feijao2011ScjBreakpointDistance}.
@@ -24,8 +24,8 @@ Les informations recouvrées par la réconciliation, notamment les relations d�
 Inversement, l’intégration de l’échelle génomique dans la réconciliation permettrait de prendre en compte l’interdépendance de l’évolution des gènes.
 L’un des objectifs de la recherche dans ces domaines est donc la mise au point de méthodes capables de reconstruire conjointement l’histoire de multiples familles de gènes évoluant au sein de génomes~\parencite[voir aussi][]{Chauve2013DuplicationRearrangementReconciliation}.
 
-Une approche consiste à étendre le modèle de réconciliation bilatéral pour y intégrer un niveau intermédiaire, entre les gènes et les espèces, modélisant l’évolution à l’échelle génomique.
-Dans ce chapitre, deux méthodes développées suivant cet axe de recherche sont décrites.
+Pour ce faire, un niveau intermédiaire peut être intégré dans le modèle de réconciliation bilatéral, entre les gènes et les espèces, afin de modéliser l’évolution à l’échelle génomique.
+Dans ce chapitre, deux approches développées suivant cet axe de recherche sont décrites.
 Nous les comparons selon leur capacité de modélisation et leur complexité algorithmique.
 
 \section{DeCo -- Évolution d’adjacences}
@@ -44,14 +44,14 @@ Une adjacence \((a, b)\) entre deux embranchements de \(\gtrees\) est une assert
     L’ensemble des adjacences possibles est noté \(\alladjs(f)\).
 \end{definition}
 
-Supposons que l’ensemble des adjacences entre les unités représentées par les feuilles de \(\gtrees\) soit également connu.
-Une réconciliation d’adjacences de \(\gtrees\) avec \(S\) (voir \cref{figure:adj-rec}) est une réconciliation de chaque arbre de \(\gtrees\) avec \(S\) assorti d’un ensemble d’adjacences ancestrales menant aux adjacences connues pour les feuilles.
+Supposons que l’ensemble des adjacences entre les feuilles de \(\gtrees\) soit également connu.
+Une réconciliation d’adjacences de \(\gtrees\) avec \(S\) (voir \cref{figure:adj-rec}) est une réconciliation de chaque arbre de \(\gtrees\) avec \(S\) assorti d’un ensemble d’adjacences ancestrales menant aux adjacences entre les feuilles.
 
 \begin{definition}[Réconciliation d’adjacences]\label{definition:adjrec}
     Soient \(\gtrees\) une forêt phylogénétique et \(S\) un arbre phylogénétique.
     Soient \(\llmap : \tleavs(\gtrees) \onto \tleavs(S)\) une application et \(\lladjset \subseteq \alladjs(\llmap)\) un ensemble d’adjacences.
     Une \emph{réconciliation d’adjacences} de \(\gtrees\) avec \(S\) est un couple \(\tuple{\rec, \adjset}\),
-    où \(\rec\) est une application étendant \(\llmap\) qui est l’union de réconciliations individuelles de chaque arbre de \(\gtrees\) avec \(S\);
+    où \(\rec\) est une application étendant \(\llmap\) qui est l’union de réconciliations individuelles de chaque arbre de \(\gtrees\) avec \(S\),
     et \(\adjset\) est un ensemble d’adjacences ancestrales tel que \(\lladjset \subseteq \adjset \subseteq \alladjs(\rec)\).
 \end{definition}
 
@@ -85,10 +85,10 @@ Ainsi, un nœud ne peut être adjacent à l’un de ses descendants ou ancêtres
             si \(v \tdesc x\) alors \(w \nottancs y\).
 \end{definition}
 
-Par ailleurs, pour qu’elles puissent correspondre aux structures biologiques connues, ces adjacences doivent pouvoir être assemblées en segments ou en cycles, sans former d’embranchements.
+Par ailleurs, pour qu’elles puissent correspondre à une structure biologique connue, ces adjacences doivent pouvoir être assemblées en segments ou en cycles sans former d’embranchements.
 
 \begin{definition}[Linéarité]\label{definition:adjrec-lin}
-    Soient \(\gtrees\) une forêt phylogénétique, \(S\) un arbre phylogénétiques, \(\tuple{\rec, \adjset}\) une réconciliation d’adjacences de \(\gtrees\) avec \(S\).
+    Soient \(\gtrees\) une forêt phylogénétique, \(S\) un arbre phylogénétique, et \(\tuple{\rec, \adjset}\) une réconciliation d’adjacences de \(\gtrees\) avec \(S\).
     Les adjacences de \(\adjset\) sont \emph{linéaires} si chaque \(v \in \tnodes(\gtrees)\) apparaît dans au plus deux adjacences.
 \end{definition}
 
@@ -97,40 +97,42 @@ Un tel modèle spécifie non seulement les événements qui affectent individuel
 Une interprétation est représentée par une forêt d’adjacences.
 
 \begin{definition}[Forêt d’adjacences]\label{definition:adjrectree}
-    Soient \(\gtrees\) une forêt phylogénétique, \(S\) un arbre phylogénétiques, \(\tuple{\rec, \adjset}\) une réconciliation d’adjacences de \(\gtrees\) avec \(S\), et \(\tuple{\recmodel\rmunit, \recmodel\rmadj}\) deux ensembles de types d’événements.
+    Soient \(\gtrees\) une forêt phylogénétique, \(S\) un arbre phylogénétique, \(\tuple{\rec, \adjset}\) une réconciliation d’adjacences de \(\gtrees\) avec \(S\), et \(\tuple{\recmodel\rmunit, \recmodel\rmadj}\) deux ensembles de types d’événements.
     Soit \(\rectree\) une forêt réconciliée, union d’arbres réconciliés
         pour chaque arbre de \(\gtrees\) sous le modèle \(\recmodel\rmunit\),
         étiquetée par \(\exrec : \tnodes(\rectree) \onto \tnodes(S)\)
-        et \(\evt_{\rectree} : \tnodes(\rectree) \onto \recmodel\rmunit \cup \{\evtE, \evtP\}\).
+        et \(\evt : \tnodes(\rectree) \onto \recmodel\rmunit \cup \{\evtE, \evtP\}\).
     Une \emph{forêt d’adjacences} \(\adjtree\) est composée de nœuds
         étiquetés par des adjacences
         \(\exadj : \tnodes(\adjtree) \onto \alladjs(\exrec)\)
         et des événements
-        \(\evt_{\adjtree} : \tnodes(\adjtree) \onto \recmodel\rmadj \cup \{\evtE\}\),
-        de sorte que \(\lladjset = \{\exadj(v) \suchthat v \in \tleavs(\adjtree) \land \evt_{\adjtree}(v) = \evtE\}\)
+        \(\evt : \tnodes(\adjtree) \onto \recmodel\rmadj \cup \{\evtE, \evtP\}\),
+        de sorte que \(\lladjset = \{\exadj(v) \suchthat v \in \tleavs(\adjtree) \land \evt(v) = \evtE\}\)
         et \(\adjset \subseteq \{\exadj(v) \suchthat v \in \tnodes(\adjtree)\}\).
 \end{definition}
 
-Chaque racine d’une forêt d’adjacences correspond à l’apparition d’une nouvelle adjacence entre deux unités (un événement noté \(\evtG\)), qui peut ensuite se propager selon les événements de \(\recmodel\rmadj\).
-Par conséquent, une forêt sans aucune branche correspond à un scénario dans lequel toutes les adjacences sont apparues spontanément, tandis qu’une forêt composée d’un seul arbre correspond à l’émergence de toutes les adjacences depuis une unique adjacence ancestrale.
-Le coût associé à une forêt d’adjacences est la somme des coûts de ses événements, incluant autant d’événements de gain (\(\evtG\)) qu’elle ne compte de racines.
+Chaque racine d’une forêt d’adjacences correspond à l’apparition d’une nouvelle adjacence entre deux unités, qui peut ensuite se propager selon les événements de \(\recmodel\rmadj\).
+Cet événement de gain d’adjacence est noté~\(\evtG\).
+Par conséquent, une forêt sans aucune branche correspond à un scénario dans lequel toutes les adjacences sont apparues spontanément, tandis qu’une forêt composée d’un seul arbre correspond à l’émergence de toutes les adjacences depuis un ancêtre unique.
+Le coût associé à une forêt d’adjacences est la somme des coûts de ses événements, incluant autant d’événements de gain qu’elle ne compte de racines.
 
 \problem{\(\tuple{\recmodel\rmunit, \recmodel\rmadj}\)-Parcimonie}
     {Phylogénies \(\gtrees\) et \(S\);
      association des feuilles \(\llmap : \tleavs(\gtrees) \onto \tleavs(S)\);
-     adjacences de feuilles \(\lladjset \subseteq \alladjs(\llmap)\);
+     adjacences entre feuilles \(\lladjset \subseteq \alladjs(\llmap)\);
      coûts \(\cost : \recmodel\rmunit \cup \recmodel\rmadj \cup \{\evtG\} \onto \nat\).}
-    {Coût minimum d’une forêt réconciliée acyclique et d’une forêt d’adjacences de \(T\) et \(S\)
-     sous le modèle \(\tuple{\recmodel\rmunit, \recmodel\rmadj}\) et les coûts \(\cost\).}
+    {Coût minimum d’une forêt réconciliée acyclique de \(\gtrees\) avec \(S\) sous le modèle \(\recmodel\rmunit\)
+     et d’une forêt d’adjacences associée sous le modèle \(\recmodel\rmadj\)
+ pour les coûts \(\cost\).}
 
-Les modèles de réconciliation d’adjacences proposés par \textcite{Berard2012EvolutionGeneNeighborhoods,Patterson2013LateralGeneTransfer,Duchemin2017DecostarReconstructingAncestral} s’appuient sur les modèles de réconciliation bilatérale et fixent \(\recmodel\rmunit = \recmodelDL\), \(\recmodel\rmunit = \recmodelDTL\) ou \(\recmodel\rmunit = \recmodelDTLx\).
+Les modèles d’évolution d’adjacences proposés par \textcite{Berard2012EvolutionGeneNeighborhoods,Patterson2013LateralGeneTransfer,Duchemin2017DecostarReconstructingAncestral} s’appuient sur les modèles de réconciliation bilatérale et fixent \(\recmodel\rmunit = \recmodelDL\), \(\recmodel\rmunit = \recmodelDTL\) ou \(\recmodel\rmunit = \recmodelDTLx\).
 L’ensemble des événements pouvant affecter les adjacences est \(\recmodel\rmadj = \recmodel\rmunit \cup \{\evtB\}\).
-L’événement de scission (\(\evtB\)) correspond aux cas où l’une des deux extrémités est perdue et cause la rupture de l’adjacence.
+L’événement de scission (\(\evtB\)) affecte une adjacence lorsqu’une de ses deux extrémités est perdue.
 Les autres événements affectent l’adjacence si et seulement s’ils affectent simultanément ses deux extrémités.
-Pour un nœud \(v \in \tnodes(\adjtree)\) de la forêt d’adjacences tel que \(\exadj(v) = (a, b)\):
+Pour un nœud \(v \in \tnodes(\adjtree)\) tel que \(\exadj(v) = (a, b)\):
 \begin{compactitemize}
-    \item si \(\evt_{\adjtree}(v) = \evtB\) alors \(v\) est une feuille et \(\evt_{\rectree}(a) = \evtL\) ou bien \(\evt_{\rectree}(b) = \evtL\);
-    \item sinon, \(\evt_{\rectree}(a) = \evt_{\rectree}(b) = \evt_{\adjtree}(v)\) et:
+    \item si \(\evt(v) = \evtB\) alors \(v\) est une feuille et \(\evt(a) = \evtL\) ou bien \(\evt(b) = \evtL\);
+    \item sinon, \(\evt(a) = \evt(b) = \evt(v)\) et:
     \begin{compactitemize}
         \item \(v\) est une feuille si et seulement si \(a\) et \(b\) sont des feuilles,
         \item \(v\) est un embranchement si et seulement si \(a\) et \(b\) sont des embranchements, auquel cas, en notant
@@ -139,7 +141,7 @@ Pour un nœud \(v \in \tnodes(\adjtree)\) de la forêt d’adjacences tel que \(
     \end{compactitemize}
 \end{compactitemize}
 
-Un exemple de forêt réconciliée et de forêt d’adjacences correspondant à la réconciliation de la \cref{figure:adj-rec} est donnée dans la \cref{figure:adj-forest}.
+La \cref{figure:adj-forest} donne un exemple de forêt réconciliée et de forêt d’adjacences correspondant à la réconciliation d’adjacences de la \cref{figure:adj-rec}.
 
 \begin{figure}[htb]
     \capstart
@@ -158,12 +160,12 @@ Un exemple de forêt réconciliée et de forêt d’adjacences correspondant à 
 \end{figure}
 
 Aucun algorithme général n’est connu pour les problèmes de \refproblem{\(\tuple{\recmodel\rmunit, \recmodel\rmadj}\)-Parcimonie}, et il a été conjecturé que le problème est NP-complet~\parencite{Boussau2020ReconcilingGeneTrees}.
-Lorsque la forêt réconciliée est calculée séparément, le problème qui consiste à calculer la forêt d’adjacences optimale sous l’hypothèse d’une forêt réconciliée peut être résolu en temps polynomial par un algorithme de programmation dynamique.
-Cet algorithme est détaillé notamment par \textcite{Duchemin2017DecostarReconstructingAncestral} pour le modèle \(\recmodelDTL\) et implémenté dans le programme DeCoSTAR.
+Lorsque la forêt réconciliée est calculée en amont, le problème qui consiste à calculer la forêt d’adjacences optimale sous l’hypothèse d’une forêt réconciliée est résolu en temps polynomial par un algorithme de programmation dynamique.
+Cet algorithme est détaillé notamment par \textcite{Duchemin2017DecostarReconstructingAncestral} pour le modèle \(\recmodelDTL\) et est implémenté dans le programme DeCoSTAR.
 
 Puisque les adjacences sont reconstruites séparément les unes des autres, cet algorithme peut retourner un ensemble d’adjacences non-linéaire (voir \cref{definition:adjrec-lin}).
 Une étape de linéarisation peut être réalisée en post-traitement, mais le problème de linéarisation est NP-complet en général~\parencite{Manuch2012LinearizationAncestralMultichromosomal}.
-La présence de non-linéarités dans une reconstruction optimale peut également permettre de déceler des incohérences dans les données d’entrée~\parencite{Tannier2020AncestralGenomeOrganization}.
+La présence de non-linéarités dans un résultat optimal peut permettre de déceler des incohérences dans les données d’entrée~\parencite{Tannier2020AncestralGenomeOrganization}.
 
 L’approche DeCo suppose que les adjacences évoluent indépendamment les unes des autres, ce qui exclut de la modélisation les événements segmentaux affectant plusieurs adjacences simultanément.
 Cette caractéristique fait aussi que la perte d’une unité à l’intérieur d’un segment d’adjacences cause la séparation de ce segment en deux, et demande le gain d’une nouvelle adjacence entre les deux segments.
