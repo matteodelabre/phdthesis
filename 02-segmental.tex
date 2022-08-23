@@ -76,7 +76,7 @@ Une réconciliation d’adjacences de \(\gtrees\) avec \(S\) (voir \cref{figure:
 Un ensemble d’adjacences ancestrales implique des contraintes temporelles qui doivent être compatibles avec celles imposées par la topologie de \(\gtrees\).
 Ainsi, un nœud ne peut être adjacent à l’un de ses descendants ou ancêtres, et si deux nœuds sont adjacents, alors un ancêtre de l’un ne peut être adjacent à un descendant de l’autre.
 
-\begin{definition}[Compatibilité des adjacences]\label{definition:adjrec-adj-compat}
+\begin{definition}[Compatibilité]\label{definition:adjrec-adj-compat}
     Soient \(\gtrees\) une forêt phylogénétique, \(S\) un arbre phylogénétique, et \(\adjset\) un ensemble d’adjacences de \(\gtrees\).
     Les adjacences de \(\adjset\) sont \emph{compatibles} si
         toute adjacence \((v, w) \in \adjset\) est telle que \(v \nottcomp w\) et
@@ -85,52 +85,61 @@ Ainsi, un nœud ne peut être adjacent à l’un de ses descendants ou ancêtres
             si \(v \tdesc x\) alors \(w \nottancs y\).
 \end{definition}
 
+Par ailleurs, pour qu’elles puissent correspondre aux structures biologiques connues, ces adjacences doivent pouvoir être assemblées en segments ou en cycles, sans former d’embranchements.
+
+\begin{definition}[Linéarité]\label{definition:adjrec-lin}
+    Soient \(\gtrees\) une forêt phylogénétique, \(S\) un arbre phylogénétiques, \(\tuple{\rec, \adjset}\) une réconciliation d’adjacences de \(\gtrees\) avec \(S\).
+    Les adjacences de \(\adjset\) sont \emph{linéaires} si chaque \(v \in \tnodes(\gtrees)\) apparaît dans au plus deux adjacences.
+\end{definition}
+
 Comme pour les réconciliation bilatérales, un modèle d’évolution doit être fixé pour permettre l’interprétation d’une réconciliation d’adjacences.
 Un tel modèle spécifie non seulement les événements qui affectent individuellement les unités dépendantes, mais aussi ceux qui touchent leurs adjacences.
 Une interprétation est représentée par une forêt d’adjacences.
 
 \begin{definition}[Forêt d’adjacences]\label{definition:adjrectree}
     Soient \(\gtrees\) une forêt phylogénétique, \(S\) un arbre phylogénétiques, \(\tuple{\rec, \adjset}\) une réconciliation d’adjacences de \(\gtrees\) avec \(S\), et \(\tuple{\recmodel\rmunit, \recmodel\rmadj}\) deux ensembles de types d’événements.
-    Soit \(\rectree\) l’union d’arbres réconciliés
+    Soit \(\rectree\) une forêt réconciliée, union d’arbres réconciliés
         pour chaque arbre de \(\gtrees\) sous le modèle \(\recmodel\rmunit\),
         étiquetée par \(\exrec : \tnodes(\rectree) \onto \tnodes(S)\)
         et \(\evt_{\rectree} : \tnodes(\rectree) \onto \recmodel\rmunit \cup \{\evtE, \evtP\}\).
-    Une \emph{forêt d’adjacences} \(\adjtree\) est étiquetée par
+    Une \emph{forêt d’adjacences} \(\adjtree\) est composée de nœuds
+        étiquetés par des adjacences
         \(\exadj : \tnodes(\adjtree) \onto \alladjs(\exrec)\)
-        et \(\evt_{\adjtree} : \tnodes(\adjtree) \onto \recmodel\rmadj \cup \{\evtE\}\),
+        et des événements
+        \(\evt_{\adjtree} : \tnodes(\adjtree) \onto \recmodel\rmadj \cup \{\evtE\}\),
         de sorte que \(\lladjset = \{\exadj(v) \suchthat v \in \tleavs(\adjtree) \land \evt_{\adjtree}(v) = \evtE\}\)
         et \(\adjset \subseteq \{\exadj(v) \suchthat v \in \tnodes(\adjtree)\}\).
 \end{definition}
 
-La forêt d’adjacences représente un scénario menant à l’ensemble d’adjacences \(\adjset\).
-Ce modèle a pour propriété que les adjacences évoluent indépendamment les unes des autres.
-Chaque racine de la forêt correspond à un événement de gain d’adjacence, qui est ensuite propagée dans ses descendants.
-Par exemple, une forêt sans aucune branche postule que toutes les adjacences sont apparues spontanément.
-Inversement, une forêt composée d’un seul arbre correspond à un scénario dans lequel toutes les adjacences ont émergé d’une unique adjacence ancestrale.
-
-Le coût d’une réconciliation d’adjacences est la somme des coûts des événements dans la forêt d’unités et la forêt d’adjacences.
+Chaque racine d’une forêt d’adjacences correspond à l’apparition d’une nouvelle adjacence entre deux unités (un événement noté \(\evtG\)), qui peut ensuite se propager selon les événements de \(\recmodel\rmadj\).
+Par conséquent, une forêt sans aucune branche correspond à un scénario dans lequel toutes les adjacences sont apparues spontanément, tandis qu’une forêt composée d’un seul arbre correspond à l’émergence de toutes les adjacences depuis une unique adjacence ancestrale.
+Le coût associé à une forêt d’adjacences est la somme des coûts de ses événements, incluant autant d’événements de gain (\(\evtG\)) qu’elle ne compte de racines.
 
 \problem{\(\tuple{\recmodel\rmunit, \recmodel\rmadj}\)-Parcimonie}
     {Phylogénies \(\gtrees\) et \(S\);
      association des feuilles \(\llmap : \tleavs(\gtrees) \onto \tleavs(S)\);
      adjacences de feuilles \(\lladjset \subseteq \alladjs(\llmap)\);
      coûts \(\cost : \recmodel\rmunit \cup \recmodel\rmadj \cup \{\evtG\} \onto \nat\).}
-    {Coût minimum d’une réconciliation d’adjacences acyclique de \(T\) et \(S\)
+    {Coût minimum d’une forêt réconciliée acyclique et d’une forêt d’adjacences de \(T\) et \(S\)
      sous le modèle \(\tuple{\recmodel\rmunit, \recmodel\rmadj}\) et les coûts \(\cost\).}
 
-Les modèles de réconciliation d’adjacences proposés par \textcite{Berard2012EvolutionGeneNeighborhoods,Patterson2013LateralGeneTransfer,Duchemin2017DecostarReconstructingAncestral} étendent respectivement les modèles de réconciliation bilatérale \(\recmodelDL\), \(\recmodelDTL\) et \(\recmodelDTLx\).
-Le modèle \(\recmodelDL\) est défini par \(\recmodel\rmunit = \{\evtD, \evtL, \evtS\}\) et
-\(\recmodelDL\rmadj = \{\evtG, \evtB, \evtD, \evtL, \evtS\}\).
-Les événements sur les arbres réconciliés suivent les mêmes règles que pour les arbres réconciliés.
+Les modèles de réconciliation d’adjacences proposés par \textcite{Berard2012EvolutionGeneNeighborhoods,Patterson2013LateralGeneTransfer,Duchemin2017DecostarReconstructingAncestral} s’appuient sur les modèles de réconciliation bilatérale et fixent \(\recmodel\rmunit = \recmodelDL\), \(\recmodel\rmunit = \recmodelDTL\) ou \(\recmodel\rmunit = \recmodelDTLx\).
+L’ensemble des événements pouvant affecter les adjacences est \(\recmodel\rmadj = \recmodel\rmunit \cup \{\evtB\}\).
+L’événement de scission (\(\evtB\)) correspond aux cas où l’une des deux extrémités est perdue et cause la rupture de l’adjacence.
+Les autres événements affectent l’adjacence si et seulement s’ils affectent simultanément ses deux extrémités.
 Pour un nœud \(v \in \tnodes(\adjtree)\) de la forêt d’adjacences tel que \(\exadj(v) = (a, b)\):
 \begin{compactitemize}
-    \item si \(\evt_{\adjtree}(v) = \evtB\) alors \(v\) est une feuille et \(\evt_{\rectree}(a) = \evtL\) ou bien \(\evt_{\rectree}(b) = \evtL\),
-    \item si \(\evt_{\adjtree}(v) = \evtL\) alors \(v\) est une feuille et \(\evt_{\rectree}(a) = \evt_{\rectree}(b) = \evtL\);
-    \item si \(\evt_{\adjtree}(v) \in \{\evtD, \evtS, \evtT\}\) alors \(v\) est un embranchement,
-        \(\evt_{\rectree}(v\lchild) = \evt_{\rectree}(v\rchild) = \evt_{\adjtree}(v)\),
-        et en notant \(\exadj(v\lchild) = (a', b')\) et \(\exadj(v\rchild) = (a'', b'')\),
-        \(\{a', a''\} = \{a\lchild, a\rchild\}\) et \(\{b', b''\} = \{b\lchild, b\rchild\}\).
+    \item si \(\evt_{\adjtree}(v) = \evtB\) alors \(v\) est une feuille et \(\evt_{\rectree}(a) = \evtL\) ou bien \(\evt_{\rectree}(b) = \evtL\);
+    \item sinon, \(\evt_{\rectree}(a) = \evt_{\rectree}(b) = \evt_{\adjtree}(v)\) et:
+    \begin{compactitemize}
+        \item \(v\) est une feuille si et seulement si \(a\) et \(b\) sont des feuilles,
+        \item \(v\) est un embranchement si et seulement si \(a\) et \(b\) sont des embranchements, auquel cas, en notant
+            \(\exadj(v\lchild) = (a', b')\) et \(\exadj(v\rchild) = (a'', b'')\), on a
+            \(\{a', a''\} = \{a\lchild, a\rchild\}\) et \(\{b', b''\} = \{b\lchild, b\rchild\}\).
+    \end{compactitemize}
 \end{compactitemize}
+
+Un exemple de forêt réconciliée et de forêt d’adjacences correspondant à la réconciliation de la \cref{figure:adj-rec} est donnée dans la \cref{figure:adj-forest}.
 
 \begin{figure}[htb]
     \capstart
@@ -149,22 +158,15 @@ Pour un nœud \(v \in \tnodes(\adjtree)\) de la forêt d’adjacences tel que \(
 \end{figure}
 
 Aucun algorithme général n’est connu pour les problèmes de \refproblem{\(\tuple{\recmodel\rmunit, \recmodel\rmadj}\)-Parcimonie}, et il a été conjecturé que le problème est NP-complet~\parencite{Boussau2020ReconcilingGeneTrees}.
-Lorsque les arbres réconciliés de la forêt d’unités sont calculés séparément, le problème qui consiste à calculer la forêt d’adjacences peut être résolu en temps polynomial par un algorithme de programmation dynamique.
+Lorsque la forêt réconciliée est calculée séparément, le problème qui consiste à calculer la forêt d’adjacences optimale sous l’hypothèse d’une forêt réconciliée peut être résolu en temps polynomial par un algorithme de programmation dynamique.
+Cet algorithme est détaillé notamment par \textcite{Duchemin2017DecostarReconstructingAncestral} pour le modèle \(\recmodelDTL\) et implémenté dans le programme DeCoSTAR.
 
-Une adjacence ne peut donner lieu qu’à des adjacences homologues.
-Ceci permet de partitionner l’ensemble d’adjacences en partitions homologues, puis de chercher à reconstruire les forêts d’adjacences indépendamment sur chacune de ces partitions.
-Ceci permet de construire un algorithme en programmation dynamique permettant de résoudre le problème de parcimonie d’adjacences.
+Puisque les adjacences sont reconstruites séparément les unes des autres, cet algorithme peut retourner un ensemble d’adjacences non-linéaire (voir \cref{definition:adjrec-lin}).
+Une étape de linéarisation peut être réalisée en post-traitement, mais le problème de linéarisation est NP-complet en général~\parencite{Manuch2012LinearizationAncestralMultichromosomal}.
 
-L’une des limitations fondamentales des méthodes d’adjacences est la question de la linéarisation.
-Puisque les segments sont modélisés au niveau des adjacences, les modèles peuvent générer des structures incompatibles avec une structure linéaire.
-L’application de ces méthodes peut donc demander une étape de linéarisation, qui engendre des problèmes NP-complets (?)~\parencite{Manuch2012LinearizationAncestralMultichromosomal}.
-
-\begin{definition}\label{definition:adjrec-lin}
-    Une réconciliation d’adjacences est \emph{linéaire} si chaque \(v \in \bigcup_{1\leq i\leq k}\tnodes(T_i)\) apparaît dans au plus deux adjacences de \(\adjset\).
-\end{definition}
-
-Le modèle DeCo suppose également que les adjacences évoluent indépendamment les unes des autres, ce qui exclut la prise en compte d’événements segmentaux affectant plusieurs adjacences simultanément.
-Le modèle a cependant été étendu récemment pour prendre en considération les pertes segmentales par (AGe)~\textcite{Tannier2020AncestralGenomeOrganization}.
+L’approche DeCo suppose que les adjacences évoluent indépendamment les unes des autres, ce qui exclut la modélisation d’événements segmentaux affectant plusieurs adjacences simultanément.
+Cette caractéristique fait aussi que la perte d’une unité à l’intérieur d’un segment d’adjacences cause la séparation de ce segment en deux, et demande le gain d’une nouvelle adjacence entre les deux segments.
+Une approche permettant de remédier à cette dernière limite a cependant été récemment présentée par~\textcite{Tannier2020AncestralGenomeOrganization}.
 
 \section{Super-réconciliation -- Évolution segmentale}
 
