@@ -2,37 +2,37 @@
 % vim: set spelllang=fr:
 \chapter{Projet de recherche}
 
-L’objectif général du projet de recherche est de contribuer au développement de la théorie de la réconciliation multiple, et plus spécifiquement de l’approche de super-réconciliation, et de démontrer son potentiel dans l’analyse de l’évolution de systèmes biologiques.
+L’objectif général du projet de recherche est de développer la théorie de la réconciliation multiple, en particulier autour de l’approche de super-réconciliation, et de démontrer son potentiel dans l’analyse de l’évolution de systèmes biologiques.
+Le déroulement de ce projet s’échelonne sur douze trimestres universitaires, de septembre~2020 à août~2024.
 
-\paragraph{Intégration des transferts horizontaux}
+\paragraph{Super-réconciliation avec transferts horizontaux}
+Le premier volet du projet s’est déroulé entre l’été~2021 et l’hiver~2022.
+Il a consisté en l’extension du modèle et des algorithmes de la super-réconciliation pour permettre l’inférence de transferts horizontaux.
+Ma contribution s’est focalisée sur le développement d’un algorithme pour le problème de parcimonie dans le cadre de la super-réconciliation avec transferts.
+J’ai également été en charge de la programmation de l’algorithme\footnote{Voir \url{https://github.com/UdeM-LBIT/superrec2}.}.
+Pour démontrer l’intérêt de ce programme, notre équipe a réalisé une analyse de l’évolution des synténies d’un échantillon de systèmes CRISPR-Cas.
+Cette analyse préliminaire s’est révélée être alignée avec les hypothèses actuelles sur l’évolution de ces systèmes, et a permis de proposer de nouvelles pistes.
+En lien avec ces travaux, j’ai donné deux présentations à la conférence ISMB en juillet~2021 et à la conférence RECOMB-CG en mai~2022.
+Nos travaux ont été publiés dans les actes de cette dernière conférence~\parencite{Anselmetti2022ReconciliationSegmentalDuplication}.
 
-Terminé.
-Article SuperDTL de RECOMB-CG.
-
-\cite{Anselmetti2022ReconciliationSegmentalDuplication}
-
-\tk{Figure : Histoire inférée pour CRISPR-Cas}
-
-…via espèces non-échantillonnées et extension des données.
-
-Pour Q4 2022.
-(SuperDTLx)
+\paragraph{Transferts horizontaux avec espèces non-échantillonnées}
+Dans la continuité du volet précédent, je travaille présentement à l’extension de l’algorithme pour prendre en compte les interactions possibles entre espèces non-échantillonnées et transferts horizontaux.
+Nous appliquerons cette nouvelle extension à un jeu de données plus étendu de systèmes CRISPR-Cas.
+Nous prévoyons de soumettre ces résultats à une revue à comité de lecture au cours de l’automne~2022.
 
 \paragraph{Complexité algorithmique du problème de super-réconciliation}
+Le problème d’optimisation combinatoire lié à la super-réconciliation de segments a été démontré NP-complet dans sa grande version.
+La question de la complexité algorithmique de la petite version, c’est-à-dire lorsque la topologie de l’arbre de synténies est fixée à l’avance, est encore ouverte.
+Mes résultats préliminaires actuels sur cette question montreraient que le problème est NP-complet en général, mais qu’un algorithme polynomial existerait lorsque l’ordre de la synténie ancestrale est également fixé en avance.
+Je prévois de soumettre à publication les résultats obtenus au cours de l’hiver~2023.
 
-Pour Q1 2023.
-(selon que l’ordre ancestral soit donné ou non)
+\paragraph{Extensions supplémentaires de la super-réconciliation}
+L’applicabilité de la super-réconciliation à des données réelles est encore limitée par le spectre restreint d’événements qui y sont modélisés.
+En particulier, la super-réconciliation de segments ne permet pas de prendre en compte les événements de scission ou de fusion de segments, ni les événements de duplication en tandem.
+L’ajout des événements de scission et de fusion permettrait de modéliser les réarrangements et les transferts horizontaux intégrant leur matériel à l’intérieur d’une synténie existante.
+Cette extension représenterait toutefois un saut important de complexité du modèle.
+La dernière année du projet, entre l’été~2023 et l’été~2024, sera consacrée à l’étude des possibilités dans ce domaine.
 
-\tk{Figure : Gadget de clause pour la réduction NPC}
-
-\paragraph{Intégration des duplications en tandem}
-
-Pour Q2 2023.
-
-\tk{Figure : Exemple donné à ISMB 2021}
-
-\paragraph{Validation des modèles via simulations}
-
-Au cours de l’année 2023 (transversal).
-
-Réfs. ZOMBI, simulateurs domain architecture
+\paragraph{Validation des modèles à l’aide de simulations}
+Enfin, un objectif transversal du projet est la validation de la capacité des modèles étudiés à reconstruire des scénarios adéquats.
+Nous souhaitons tirer profit des simulateurs existants afin de générer de tester les algorithmes sur des données synthétiques et de d’étudier l’influence des différents paramètres sur la qualité des résultats.
