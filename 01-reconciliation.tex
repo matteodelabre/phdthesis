@@ -14,9 +14,8 @@ Cette méthode, proposée par \textcite{Goodman1979FittingGeneLineage}, formalis
 
 Ce chapitre est consacré à la présentation de cette méthode.
 Les deux premières sections établissent un cadre théorique commun permettant de comparer les modèles de réconciliation entre eux.
-La dernière section décrit les principaux modèles développés pour la réconciliation gènes--espèces et fait état de leurs atouts et limites respectifs.
-% La section suivante décrit les principaux modèles développés pour la réconciliation gènes--espèces et fait état de leurs atouts et limites respectifs.
-% Pour conclure le chapitre, la dernière section passe en revue différentes applications courantes de la réconciliation.
+La section suivante décrit les principaux modèles développés pour la réconciliation gènes--espèces et fait état de leurs atouts et limites respectifs.
+Pour conclure le chapitre, la dernière section passe en revue quelques applications courantes de la réconciliation.
 
 \section{Plongement d’arbres phylogénétiques}
 
@@ -338,32 +337,16 @@ Enfin, la datation de la phylogénie des hôtes, imposant une contrainte supplé
 
 \section{Applications des méthodes de réconciliation}
 
-\paragraph{Scénarios d’évolution/Identification des paralogues}
-L’application la plus directe des méthodes de réconciliation consiste à inférer un scénario évolutif en connaissance de la phylogénie d’une unité dépendante et de ses hôtes.
-Cependant, ces méthodes sont sensibles aux erreurs dans les phylogénies données en entrée, et ces phylogénies peuvent parfois ne pas être connues en avance.
+La réconciliation bilatérale définit un cadre théorique d’étude de l’évolution conjointe d’unités dépendantes et de leurs hôtes.
+Les algorithmes décrits dans la section précédente permettent d’obtenir de l’information sur ces relations évolutives à partir des phylogénies respectives des unités et des hôtes.
+Sous certains modèles d’évolution tels que le modèle~\(\recmodelDTL\), plusieurs solutions distinctes peuvent toutefois être optimales au sens du critère de parcimonie.
+Par ailleurs, l’exécution de ces algorithmes est dépendante des coûts fixés pour chaque type d’événement, et la variation de ces coûts modifie les solutions optimales.
+Il n’est donc pas suffisant d’analyser une seule solution retournée par un algorithme.
+Pour réaliser une analyse pertinente, l’espace des solutions doit être exploré pour quantifier dans quelle mesure les différentes solutions s’accordent sur certaines parties du scénario inféré~\parencite[voir][]{Doyon2009SpaceGeneSpeciesTrees,Weiner2021ImprovedDuplicationTransfer}.
 
-\paragraph{Dénombrement, échantillonnage}
-Certains modèles peuvent engendrer plusieurs solutions optimales et/ou demander de régler les coûts relatifs de certains types d’événements.
-Dans ces cas, il peut être utile d’évaluer à quel point un événement est partagé par plusieurs solutions équivalentes, ce qu’on appelle des \emph{supports}.
-\cite{Doyon2009SpaceGeneSpeciesTrees}
-
-\paragraph{Inférence de l’arbre d’espèces}
-La réconciliation peut être utilisée pour inférer l’arbre d’espèces à partir d’un ensemble d’arbres de gènes.
-\cite[pp. 72--73]{Page1994MapsTreesCladistic}
-\cite{Guigo1996ReconstructionAncientMolecular}
-
-\paragraph{Inférence de l’arbre de gènes}
-Inversement, la réconciliation peut aussi être utilisée pour inférer l’arbre de gènes à partir de l’arbre d’espèces.
-\cite{Ma2000GeneTreesSpecies}
-% figure : un arbre de gènes, voisinage de l’arbre par branch swap, minimum de réconciliation
-
-\paragraph{Correction de l’arbre de gènes}
-Phénomène de convergence évolutive peut brouiller l’inférence de l’arbre de gènes à partir de séquences nucléotidiques.
-
-\paragraph{Inférence simultanée arbre de gènes + réconciliation (modèle DTL + substitutions)}
-
-\paragraph{Arbres non-binaires}
-
-probabiliste : \cite{Arvestad2004GeneTreeReconstruction}
-
-autres techniques, autres reviews
+Les phylogénies fournies en entrée des algorithmes sont parfois connues avec une précision limitée, voire inconnues.
+La réconciliation peut fournir un critère permettant d’améliorer les phylogénies des unités dépendantes ou des hôtes.
+Par exemple, la réconciliation peut permettre d’inférer un arbre d’espèces inconnu à partir d’un ensemble d’arbres de plusieurs familles de gènes~\parencite[voir][p.~72--73]{Guigo1996ReconstructionAncientMolecular,Page1994MapsTreesCladistic}.
+Le problème sous-jacent étant NP-complet~\parencite{Ma2000GeneTreesSpecies}, cette application de la réconciliation s’appuie sur des heuristiques.
+Dans certains cas, notamment en cas d’incertitudes dans sa construction, la phylogénie des unités dépendantes peut comporter des polytomies, c’est-à-dire des embranchements ayant plus de deux descendants.
+La réconciliation peut alors être utilisée comme un critère pour \emph{résoudre} ces polytomies, en recherchant l’arbre binaire résultant en un score de réconciliation moindre~\parencite{Lafond2016EfficientNonBinary}.
