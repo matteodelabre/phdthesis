@@ -165,17 +165,17 @@ Cet algorithme est détaillé notamment par \textcite{Duchemin2017DecostarRecons
 
 Puisque les adjacences sont reconstruites séparément les unes des autres, cet algorithme peut retourner un ensemble d’adjacences non-linéaire (voir \cref{definition:adjrec-lin}).
 Une étape de linéarisation peut être réalisée en post-traitement, mais le problème de linéarisation est NP-complet en général~\parencite{Manuch2012LinearizationAncestralMultichromosomal}.
-La présence de non-linéarités dans un résultat optimal peut permettre de déceler des incohérences dans les données d’entrée~\parencite{Tannier2020AncestralGenomeOrganization}.
+La non-linéarité d’un résultat optimal peut permettre de déceler des incohérences dans les données d’entrée~\parencite{Tannier2020AncestralGenomeOrganization}.
 
 L’approche DeCo suppose que les adjacences évoluent indépendamment les unes des autres, ce qui exclut de la modélisation les événements segmentaux affectant plusieurs adjacences simultanément.
 Cette caractéristique fait aussi que la perte d’une unité à l’intérieur d’un segment d’adjacences cause la séparation de ce segment en deux, et demande le gain d’une nouvelle adjacence entre les deux segments.
-Une approche permettant de remédier à cette dernière limite a cependant été récemment présentée par~\textcite{Tannier2020AncestralGenomeOrganization}.
+Une façon de remédier à cette dernière limite a cependant été récemment présentée par~\textcite{Tannier2020AncestralGenomeOrganization}.
 
 \section{Super-réconciliation -- Évolution segmentale}
 
-Pour permettre la modélisation d’événements segmentaux affectant simultanément plus de deux unités, \textcite{Delabre2020EvolutionSegmentalDuplications} ont introduit la méthode de super-réconciliation.
-Cette méthode généralise la notion d’adjacence à des ensembles d’unités de taille quelconque.
-Deux variantes sont définies selon si l’ordre interne de ces ensembles est pris en compte (segments) ou non (groupes), et le terme de \emph{synténie} est utilisé ici pour faire référence indistinctement à l’un ou l’autre.
+Pour permettre la modélisation d’événements segmentaux affectant simultanément plus de deux unités, \textcite{Delabre2020EvolutionSegmentalDuplications} ont introduit l’approche de super-réconciliation.
+La super-réconciliation généralise la notion d’adjacence à des ensembles d’unités de taille quelconque appelés \emph{synténies}.
+L’ordre interne de ces synténies peut être pris en compte (segments) ou ignoré (groupes).
 
 \begin{definition}[Segment]\label{definition:seg}
     Soient \(L\) et \(M\) deux ensembles et \(f : L \onto M\) une application.
@@ -189,13 +189,13 @@ Deux variantes sont définies selon si l’ordre interne de ces ensembles est pr
     L’ensemble des groupes possibles est noté \(\allclstrs(f)\).
 \end{definition}
 
-Les définitions détaillées dans la section précédente concernant les réconciliations et les forêts d’adjacences se transposent directement dans le contexte de la super-réconciliation.
+Les définitions détaillées dans la section précédente concernant les réconciliations et les forêts d’adjacences se transposent directement dans le contexte de la super-réconciliation, pour définir des réconciliations et forêts de synténies.
 
-Grâce à cette extension, il est possible de définir un modèle d’évolution comportant des événements segmentaux, qui affectent simultanément un ensemble d’unités.
-Le modèle d’évolution étudié s’appuie sur \(\recmodelDL\).
-Lors d’un événement de spéciation~(\(\evtS\)), chaque unité membre de la synténie subit simultanément une codivergence et se retrouve dans les deux synténies descendantes.
+Cette extension permet de spécifier des modèles d’évolution comportant des événements segmentaux, qui affectent simultanément des ensembles d’unités.
+Le modèle d’évolution étudié dans l’article s’appuie sur \(\recmodelDL\).
+Lors d’un événement de spéciation~(\(\evtS\)), chaque unité membre de la synténie subit simultanément une codivergence et se retrouve dans les synténies des deux enfants.
 Un événement de duplication~(\(\evtD\)) inclut la possibilité que seul un sous-segment de la synténie initiale soit copié.
-Enfin, un événement de perte~(\(\evtL\)) peut affecter un sous-segment de la synténie initiale, formant une nouvelle synténie à partir de la concaténation des deux parties restantes.
+Enfin, un événement de perte~(\(\evtL\)) affecte un sous-segment de la synténie initiale, formant une nouvelle synténie à partir de la concaténation des deux parties restantes.
 Formellement, pour un nœud \(v \in \tnodes(\segtree)\) de la forêt de synténies tel que \(\exseg(v) = (x_1, …, x_k)\):
 
 \begin{compactitemize}
@@ -224,29 +224,34 @@ Formellement, pour un nœud \(v \in \tnodes(\segtree)\) de la forêt de synténi
         \(y_i \in \{x_i{}\lchild, x_i{}\rchild\}\).
 \end{compactitemize}
 
-Le problème est étudié dans une version contrainte où la forêt de synténies doit être composée d’un seul arbre et tous les segments doivent dériver d’un unique segment ancestral.
-Le problème se décline en une \enquote{grande} version, dans laquelle la forêt de synténies n’est pas spécifiée, et une \enquote{petite} version dans laquelle elle l’est.
-Dans sa grande version, le problème est NP-complet.
+Le problème d’optimisation combinatoire associé à la super-réconciliation est similaire au problème de
+\refproblem{\(\tuple{\recmodel\rmunit, \recmodel\rmadj}\)-Parcimonie}
+défini précédemment, à ceci près que la sortie attendue est une forêt de synténies au lieu d’adjacences.
+Ce problème se décline en une \enquote{grande} version, dans laquelle la topologie de la forêt et le contenu de ses synténies doivent être inférés simultanément, et une \enquote{petite} version dans laquelle la topologie est fixée.
+
+Dans l’article, une restriction du problème d’optimisation est étudiée dans laquelle la forêt de synténies est composée d’un seul arbre et tous les segments dérivent d’un unique segment ancestral.
+Dans sa grande version, le problème est démontré NP-complet.
 Le statut de complexité de la petite version demeure inconnu dans le cas des segments, tandis que le problème est polynomial dans le cas des groupes.
 
 \section{Comparaison et perspectives}
 
-Dans ce chapitre, deux approches ont été présentées permettant de généraliser la réconciliation dans un contexte où plusieurs unités dépendantes évoluent conjointement.
-Ce cas de figure se présente notamment lorsque de multiples gènes évoluent ensemble le long d’un génome.
-Ces deux méthodes consistent à modéliser un niveau intermédiaire dans la hiérarchie évolutive, décrivant respectivement l’évolution d’adjacences entre des paires d’unités (DeCo) ou de segments porteurs d’un ensemble d’unités (super-réconciliation).
+Dans ce chapitre ont été présentées deux approches généralisant la réconciliation bilatérale à des contextes où plusieurs unités dépendantes évoluent conjointement.
+Ce cas de figure se présente lorsque de multiples gènes évoluent ensemble le long d’un génome.
+Le principe général consiste à intégrer un niveau intermédiaire dans la hiérarchie évolutive, décrivant l’évolution d’adjacences (DeCo) ou de segments porteurs d’ensembles d’unités (super-réconciliation).
 
-La méthode DeCo permet de modéliser des événements qui affectent simultanément des paires d’unités voisines, incluant notamment des réarrangements.
+L’approche DeCo permet de modéliser des événements qui affectent des paires d’unités voisines, incluant notamment des réarrangements.
 D’un point de vue algorithmique, elle consiste à réconcilier individuellement les arbres phylogénétiques de chaque unité, puis à rassembler des paires de nœuds pour former une forêt d’adjacences.
-Chaque racine de cette forêt correspond au gain d’une famille d’adjacences, qui se propage ensuite dans sa descendance, et l’objectif est de minimiser le nombre de racines, c’est-à-dire le nombre de gains.
+Chaque racine de cette forêt correspond au gain d’une adjacence qui se propage ensuite dans sa descendance.
+L’objectif est de minimiser le nombre de racines, c’est-à-dire le nombre de gains d’adjacences.
 Le statut de complexité du problème est encore inconnu, quoiqu’il ait été conjecturé NP-complet, mais un algorithme polynomial existe lorsque les réconciliations individuelles sont fixées en avance.
 La modélisation à l’échelle des adjacences impose des limites sur les événements pouvant être pris en compte, puisqu’elle exclut les événements qui affectent simultanément plus de deux unités.
-Par ailleurs, un résultat optimal peut comporter des structures non-linéaires dans lesquelles une unité est voisine de trois autres ou plus.
+Par ailleurs, un résultat optimal peut comporter des structures non-linéaires, dans lesquelles une unité est voisine de trois autres ou plus, incompatibles avec les structures linéaires ou circulaires des génomes.
 
-La super-réconciliation propose un paradigme similaire, mais basé sur l’évolution de segments qui joignent un nombre quelconque d’unités.
-Cette extension permet de modéliser des événements segmentaux affectant plusieurs unités simultanément.
+La super-réconciliation propose un paradigme similaire, basé sur l’évolution de segments joignant un nombre quelconque d’unités.
+Cette extension permet de modéliser des événements segmentaux affectant plusieurs unités.
 De la même façon que pour DeCo, l’objectif algorithmique est de construire un arbre dans lequel chaque nœud rassemble des segments de nœuds issus de réconciliations individuelles.
-La structure reconstruite ici est un arbre et non une forêt, tous les segments étant supposés dériver d’un segment ancestral unique.
+La structure reconstruite ici est un arbre et non une forêt car tous les segments sont supposés dériver d’un segment ancestral unique.
 Le problème d’optimisation combinatoire associé est NP-complet dans sa version générale, lorsque la topologie de l’arbre de synténies est inconnue.
-Si la topologie est fixée, la complexité est inconnue dans la déclinaison du problème avec des segments, et polynomial dans sa déclinaison avec des groupes.
-Les modèles d’évolution considérés jusqu’à présent pour la super-réconciliation sont encore très limités.
+Si la topologie est fixée, la complexité est inconnue dans la déclinaison du problème avec des segments, et polynomiale dans sa déclinaison avec des groupes.
+Les modèles d’évolution considérés jusqu’à présent pour la super-réconciliation sont encore limités.
 Contrairement à ceux considérés sous DeCo, ils ne permettent pas de modéliser des duplications en tandem, des fusions ou fissions de synténies ou des réarrangements.
