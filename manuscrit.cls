@@ -172,6 +172,13 @@
 \newcommand{\rmseg}{\mathcal{_X}}
 \newcommand{\segtree}{\mathcal{H}}
 
+%%%% Groupes
+\newcommand{\allclstrs}{\mathcal{C}}
+\newcommand{\llclstrset}{C}
+\newcommand{\clstrset}{\tilde\llclstrset}
+\newcommand{\exclstr}{\hat{c}}
+\newcommand{\rmclstr}{\mathcal{_C}}
+
 %% Algorithmes et complexité
 
 \newcommand{\problem}[3]{%
