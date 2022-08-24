@@ -1,3 +1,4 @@
+%! TeX root = ./main.tex
 % vim: set ft=tex:
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{manuscrit}[2022-07-19 Manuscrit de thèse]
@@ -448,11 +449,7 @@
     \@documentkind
 
     \vfill
-    % \@date
-    \textcolor{red}{%
-        Brouillon compilé le \today\\
-        Révision n°~\@shortcommit
-    }
+    \@date
 
     \vfill
     © \@author, \the\year

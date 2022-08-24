@@ -92,13 +92,13 @@ Par ailleurs, pour qu’elles puissent correspondre à une structure biologique 
     Les adjacences de \(\adjset\) sont \emph{linéaires} si chaque \(v \in \tnodes(\gtrees)\) apparaît dans au plus deux adjacences.
 \end{definition}
 
-Comme pour les réconciliation bilatérales, un modèle d’évolution doit être fixé pour permettre l’interprétation d’une réconciliation d’adjacences.
+Comme pour les réconciliation bilatérales, le choix d’un modèle d’évolution permet d’interpréter une réconciliation d’adjacences.
 Un tel modèle spécifie non seulement les événements qui affectent individuellement les unités dépendantes, mais aussi ceux qui touchent leurs adjacences.
 Une interprétation est représentée par une forêt d’adjacences.
 
 \begin{definition}[Forêt d’adjacences]\label{definition:adjrectree}
     Soient \(\gtrees\) une forêt phylogénétique, \(S\) un arbre phylogénétique, \(\tuple{\rec, \adjset}\) une réconciliation d’adjacences de \(\gtrees\) avec \(S\), et \(\tuple{\recmodel\rmunit, \recmodel\rmadj}\) deux ensembles de types d’événements.
-    Soit \(\rectree\) une forêt réconciliée, union d’arbres réconciliés
+    Soit \(\rectree\) une forêt réconciliée, formée par l’union d’arbres réconciliés
         pour chaque arbre de \(\gtrees\) sous le modèle \(\recmodel\rmunit\),
         étiquetée par \(\exrec : \tnodes(\rectree) \onto \tnodes(S)\)
         et \(\evt : \tnodes(\rectree) \onto \recmodel\rmunit \cup \{\evtE, \evtP\}\).
@@ -111,7 +111,7 @@ Une interprétation est représentée par une forêt d’adjacences.
         et \(\adjset \subseteq \{\exadj(v) \suchthat v \in \tnodes(\adjtree)\}\).
 \end{definition}
 
-Chaque racine d’une forêt d’adjacences correspond à l’apparition d’une nouvelle adjacence entre deux unités, qui peut ensuite se propager selon les événements de \(\recmodel\rmadj\).
+Chaque racine d’une forêt d’adjacences correspond à l’apparition d’une nouvelle adjacence entre deux unités, qui se propage ensuite selon les événements de \(\recmodel\rmadj\).
 Cet événement de gain d’adjacence est noté~\(\evtG\).
 Par conséquent, une forêt sans aucune branche correspond à un scénario dans lequel toutes les adjacences sont apparues spontanément, tandis qu’une forêt composée d’un seul arbre correspond à l’émergence de toutes les adjacences depuis un ancêtre unique.
 Le coût associé à une forêt d’adjacences est la somme des coûts de ses événements, incluant autant d’événements de gain qu’elle ne compte de racines.
@@ -161,7 +161,7 @@ La \cref{figure:adj-forest} donne un exemple de forêt réconciliée et de forê
 
 Aucun algorithme général n’est connu pour les problèmes de \refproblem{\(\tuple{\recmodel\rmunit, \recmodel\rmadj}\)-Parcimonie}, et il a été conjecturé que le problème est NP-complet~\parencite{Boussau2020ReconcilingGeneTrees}.
 Lorsque la forêt réconciliée est calculée en amont, le problème qui consiste à calculer la forêt d’adjacences optimale sous l’hypothèse d’une forêt réconciliée est résolu en temps polynomial par un algorithme de programmation dynamique.
-Cet algorithme est détaillé notamment par \textcite{Duchemin2017DecostarReconstructingAncestral} pour le modèle \(\recmodelDTL\) et est implémenté dans le programme DeCoSTAR.
+Cet algorithme est détaillé notamment par \textcite{Duchemin2017DecostarReconstructingAncestral} pour le modèle \(\recmodelDTLx\) et est implémenté dans le programme DeCoSTAR.
 
 Puisque les adjacences sont reconstruites séparément les unes des autres, cet algorithme peut retourner un ensemble d’adjacences non-linéaire (voir \cref{definition:adjrec-lin}).
 Une étape de linéarisation peut être réalisée en post-traitement, mais le problème de linéarisation est NP-complet en général~\parencite{Manuch2012LinearizationAncestralMultichromosomal}.
@@ -208,20 +208,23 @@ Formellement, pour un nœud \(v \in \tnodes(\segtree)\) de la forêt de synténi
     \item si \(\evt(\segtree) = \evtD\), alors
         \(v\) et tous les \(x_i\) sont également binaires,
         et il existe deux indices \(1 \leq s \leq t \leq k\) tels que
-        \(\evt(v\lchild) = (y_1, …, y_k)\) et \(\exseg(v\rchild) = (z_s, …, z_t)\)
+        \(\exseg(v\lchild) = (y_1, …, y_k)\) et \(\exseg(v\rchild) = (z_s, …, z_t)\)
         (ou inversement pour \(v\lchild\) et \(v\rchild\)),
         et pour tout \(1 \leq i \leq k\),
-        \(\evt(x_i) = \evtS\),
+        \(\evt(x_i) = \evtD\),
         pour \(1 \leq i < s\) et \(t < i \leq k\),
         \(y_i \in \{x_i{}\lchild, x_i{}\rchild\}\),
-        et pour \(s \leq i \leq e\),
+        et pour \(s \leq i \leq t\),
         et \(\{y_i, z_i\} = \{x_i{}\lchild, x_i{}\rchild\}\);
     \item si \(\evt(\segtree) = \evtL\), alors
-        \(v\) est unaire et
+        \(v\) et tous les \(x_i\) sont unaires et
         il existe deux indices \(1 \leq s \leq t \leq k\) tels que
-        \(\evt(v\child) = (y_1, …, y_{s-1}, y_{t+1}, …, y_k)\)
-        et pour tout \(1 \leq i < s\) et \(t < i \leq k\),
-        \(y_i \in \{x_i{}\lchild, x_i{}\rchild\}\).
+        \(\exseg(v\child) = (y_1, …, y_{s-1}, y_{t+1}, …, y_k)\),
+        pour tout \(1 \leq i < s\) et \(t < i \leq k\),
+        \(\evt(x_i) = \evtP\) et
+        \(y_i = x_i{}\child\),
+        et pour \(s \leq i \leq t\),
+        \(\evt(x_i) = \evtL\).
 \end{compactitemize}
 
 Le problème d’optimisation combinatoire associé à la super-réconciliation est similaire au problème de

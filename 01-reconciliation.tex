@@ -76,7 +76,7 @@ La \cref{figure:free-rec} donne deux exemples de réconciliations libres.
     \label{figure:free-rec}
 \end{figure}
 
-Pour qu’une réconciliation soit cohérente avec une réalité évolutive, celle-ci doit respecter l’ordre partiel imposé par la topologie de l’arbre des hôtes.
+Pour qu’une réconciliation puisse correspondre à une réalité évolutive, celle-ci doit respecter l’ordre partiel imposé par la topologie de l’arbre des hôtes.
 Chaque branche de changement d’hôte implique des contraintes supplémentaires, car un tel changement ne peut avoir lieu qu’entre deux hôtes coexistants.
 Les extrémités de ces branches doivent ainsi être ordonnées de sorte à allouer un intervalle permettant le changement.
 Ces contraintes sont modélisées par un graphe d’ordre.
@@ -93,6 +93,7 @@ Ces contraintes sont modélisées par un graphe d’ordre.
 \end{definition}
 
 Les graphes d’ordre de \(\rec_3\) et \(\rec_4\) sont donnés dans la \cref{figure:order-graph}.
+Les arcs ajoutés pour chaque branche de changement d’hôte \((v, w)\) imposent que l’intersection entre les intervalles de temps de \(\tparent(\rec(v))\) à \(\rec(v)\) et de \(\tparent(\rec(w))\) à \(\rec(w)\) soit non-vide.
 Lorsque le graphe d’ordre \(\ograph\)\, d’une réconciliation est acyclique, un ordre sur les embranchements de \(S\) compatible simultanément avec sa topologie et avec les changements d’hôte peut être obtenu par tri topologique de \(\ograph\).
 Autrement, comme avec \(\ograph(\rec_4)\), ces contraintes d’ordres ne peuvent être satisfaites.
 
@@ -117,7 +118,7 @@ Comme le suggèrent les deux énoncés suivants, l’espace des réconciliations
 \begin{remark}
     Toutes les réconciliations strictes sont acycliques.
 \end{remark}
-
+\vspace{-.5em}
 \begin{lemma}\label{lemma:strict-rec-space}
     Si \(\rec\) est une réconciliation stricte de \(T\) avec \(S\) alors, pour tout embranchement \(v \in \tnodes(T)\),
     \(\rec(v) \tancs \lca\left\{ \llmap(l) \suchthat l \in \tleavs(\subtree{T}{v}) \right\}\).
@@ -131,6 +132,7 @@ Comme le suggèrent les deux énoncés suivants, l’espace des réconciliations
     Donc \(\rec\) n’est pas stricte.
 \end{proof}
 
+\vspace{-.5em}
 La réconciliation stricte qui associe chaque embranchement de \(T\) au plus récent hôte possible dans~\(S\) est notée \(\reclca\) et définie par \(
     \reclca(v) = \lca\left\{ \llmap(l) \suchthat l \in \tleavs(\subtree{T}{v}) \right\}
 \).
@@ -138,8 +140,8 @@ La réconciliation stricte qui associe chaque embranchement de \(T\) au plus ré
 \section{Arbres réconciliés et modèles de réconciliation}
 
 Un modèle de réconciliation spécifie les types d’événements qui peuvent affecter, conjointement ou séparément, l’évolution des unités dépendantes et de leurs hôtes.
-Une interprétation d’une réconciliation sous un modèle donné est une combinaison d’événements expliquant ses associations dépendant--hôte.
-Ces interprétations sont représentées par des arbres réconciliés étiquetés par les événements choisis (voir exemples dans la \cref{figure:rec-trees} en \cpageref{figure:rec-trees}).
+Une interprétation d’une réconciliation sous un modèle donné est une combinaison d’événements du modèle qui explique ses associations dépendant--hôte.
+Ces interprétations sont représentées par des arbres réconciliés étiquetés par les événements choisis (voir exemples dans la \cref{figure:rec-trees}).
 
 \begin{definition}[Arbre réconcilié]\label{definition:rectree}
     Soient \(T\) et \(S\) deux arbres, \(\rec\) une réconciliation de \(T\) avec \(S\), et \(\recmodel\) un ensemble de types d’événements.
@@ -155,7 +157,7 @@ La suite de ce document est consacrée aux méthodes de parcimonie.
 En parcimonie, une fonction \(\cost : \recmodel \onto \nat\) attribuant un coût à chaque type d’événement est fixée en avance.
 Le coût d’un arbre réconcilié est la somme des coûts de ses événements.
 Le coût d’une réconciliation est alors défini comme celui de son interprétation la plus économique.
-Cette définition engendre une famille de problèmes d’optimisation combinatoire qui consistent à rechercher les réconciliations de coût minimum (c’est-à-dire les plus parcimonieuses).
+Cette définition engendre une famille de problèmes d’optimisation combinatoire qui consistent à rechercher les réconciliations de coût minimum, c’est-à-dire les plus parcimonieuses.
 
 \problem{\(\recmodel\)-Parcimonie}
     {Phylogénies \(T\) et \(S\);
@@ -165,7 +167,7 @@ Cette définition engendre une famille de problèmes d’optimisation combinatoi
      sous le modèle \(\recmodel\) et les coûts \(\cost\).}
 
 Même si les phylogénies \(T\) et \(S\) étudiées sont exemptes d’erreurs, les réconciliations les plus parcimonieuses ne correspondent pas nécessairement à des histoires complètes ou exactes des unités concernées, puisque l’évolution emprunte rarement le chemin le plus court.
-En revanche, cette méthode a l’avantage de sélectionner des réconciliations permettant d’expliquer les données observées demandant le moins d’hypothèses supplémentaires.
+En revanche, cette méthode a l’avantage de sélectionner des réconciliations qui permettent d’expliquer les données observées en demandant le moins d’hypothèses supplémentaires.
 
 \begin{figure}[htb]
     \capstart
@@ -197,7 +199,7 @@ Chaque nœud \(v \in \tnodes(\rectree)\) d’un arbre réconcilié sous ce modè
 \end{compactitemize}
 Un exemple d’interprétation d’une réconciliation sous le modèle \(\recmodelDL\) est donné dans la \cref{figure:rec-trees}.
 Les fonctions de coût considérées pour ce modèle fixent toujours \(\cost(\evtS) = 0\).
-Par conséquent, rechercher les réconciliations de coût minimal implique de maximiser le nombre de codivergences entre \(T\) et \(S\).
+Par conséquent, rechercher les réconciliations de coût minimal correspond à maximiser le nombre de codivergences entre \(T\) et \(S\).
 Ce choix est motivé par le fait que chaque événement~\(\evtS\) s’appuie sur la spéciation d’un hôte, un événement déjà postulé par l’arbre \(S\) donné en entrée.
 
 Le modèle \(\recmodelDL\) excluant toute possibilité de changement d’hôte, les réconciliations optimales se trouvent dans l’espace des réconciliations strictes (voir lemme~\labelcref{lemma:strict-rec-space}).
@@ -277,7 +279,7 @@ L’\cref{algo:dtl-parcimonie-star} exploite cette propriété pour résoudre ef
     \label{algo:dtl-parcimonie-star}
 \end{algorithm}
 
-La fonction \(\fndtl(v, \sigma)\) (\crefrange{algo:dtl-parcimonie-star:fndtl:start}{algo:dtl-parcimonie-star:fndtl:end}) calcule le coût minimum d’une réconciliation de \(\subtree{T}{v}\) avec \(S\) de sorte que \(v\) soit associé à un hôte \(\sigma\) donné.
+La fonction \(\fndtl(v, \sigma)\) (\crefrange{algo:dtl-parcimonie-star:fndtl:start}{algo:dtl-parcimonie-star:fndtl:end}) calcule le coût minimum d’une réconciliation de \(\subtree{T}{v}\) avec \(S\) de sorte que \(v\) soit associé à l’hôte \(\sigma\) donné.
 Pour ce faire, des appels récursifs sont utilisés pour obtenir le coût minimum de réconciliations de \(\subtree{T}{v\lchild}\) et \(\subtree{T}{v\rchild}\) avec \(S\) lorsque \(v\lchild\) et \(v\rchild\) sont associés à différents hôtes \(\sigma'\) et \(\sigma''\) de \(S\).
 L’assemblage des sous-réconciliations dans l’algorithme est basé sur les observations suivantes:
 \begin{compactitemize}
@@ -307,7 +309,7 @@ Comme à l’habitude pour les algorithmes de programmation dynamique, une solut
 \paragraph{Espèces non-échantillonnées~\textup{\parencite{Szoelloesi2013LateralGeneTransfer,Weiner2021ImprovedDuplicationTransfer}}}
 La phylogénie \(S\) est nécessairement incomplète puisqu’elle ne renseigne que sur les espèces hôtes des gènes de~\(T\).
 Les embranchements ne menant qu’à des espèces absentes de cet échantillon sont donc manquants.
-Lorsque seules les réconciliations strictes sont considérées, les gènes évoluent en suivant les embranchements menant jusqu’aux feuilles présentes dans l’échantillon, donc les embranchements manquants sont sans effet.
+Lorsque seules les réconciliations strictes sont considérées, les gènes évoluent en suivant les embranchements menant jusqu’aux feuilles présentes dans l’échantillon, et les embranchements manquants sont donc sans effet.
 Ceci n’est plus vrai dès lors que les réconciliations libres sont permises, comme pour le modèle \(\recmodelDTL\).
 En effet, il est alors possible qu’un gène évolue dans une partie de la phylogénie hors de l’échantillon pour être par la suite transféré vers un hôte échantillonné (voir exemple en \cref{figure:rec-dtlx}).
 
@@ -325,28 +327,28 @@ En effet, il est alors possible qu’un gène évolue dans une partie de la phyl
 Le modèle \(\recmodelDTLx\) adjoint un événement supplémentaire \(\evtTX\) au modèle \(\recmodelDTL\).
 Pour un embranchement \(v \in \tinner(\rectree)\) sous ce modèle, si \(\evt(v) = \evtTX\), alors \(\exrec(v) = \exrec(v\lchild)\) et \(\exrec(v) \tancs \exrec(v\rchild)\), ou bien \(\exrec(v) = \exrec(v\rchild)\) et \(\exrec(v) \tancs \exrec(v\lchild)\).
 Ce nouvel événement offre une alternative à l’insertion de séquences de spéciations suivies de pertes pour faire coïncider la topologie de \(\rectree\) avec \(S\).
-Il peut donc dans certains cas permettre de réduire le coût d’une réconciliation, comme dans le cas illustré en~\cref{figure:rec-dtlx}.
+Il peut donc permettre de réduire le coût d’une réconciliation, comme dans le cas illustré en~\cref{figure:rec-dtlx}.
 L’\cref{algo:dtl-parcimonie-star} peut être étendu pour le modèle \(\recmodelDTLx\), sans en modifier la complexité.
 Il suffit pour ce faire d’ajouter un cas pour chacune des \crefrange{algo:dtl-parcimonie-star:varspe}{algo:dtl-parcimonie-star:varhgtr} dans lesquels les termes en termes en \(\cost(\evtL) \cdot \hdots\) sont remplacés par l’invocation d’un événement \(\evtTX\).
 
 \paragraph{Autres modèles}
 Des extensions de la réconciliation pour prendre en compte le \emph{tri incomplet de lignées}~(ILS) ont été proposées par \textcite{Rasmussen2012UnifiedModelingGene,Wu2013MostParsimoniousReconciliation,Chan2017InferringIncompleteLineage}.
 Ce phénomène se produit lorsque des spéciations rapprochées dans le temps font que les espèces émergentes héritent de sous-ensembles d’unités distincts.
-Comme alternative aux modèles de type \(\recmodelDL\), \textcite{Goodman1979FittingGeneLineage} ont proposé un modèle intégrant la possibilité pour un gène d’être activé ou désactivé par un mécanisme de régulation, ce qui permet de limiter l’inférence de pertes superflues (voir également le modèle DTLx décrit ci-dessus).
+Comme alternative aux modèles de type \(\recmodelDL\), \textcite{Goodman1979FittingGeneLineage} ont proposé un modèle intégrant la possibilité pour un gène d’être activé ou désactivé par un mécanisme de régulation, ce qui permet de limiter l’inférence de pertes superflues (voir également le modèle \(\recmodelDTLx\) décrit ci-dessus).
 Enfin, la datation de la phylogénie des hôtes, imposant une contrainte supplémentaire sur les changements d’hôtes, peut être intégrée aux modèles autorisant ce type d’événements~\parencite{Tofigh2011SimultaneousIdentificationDuplications}.
 
 \section{Applications des méthodes de réconciliation}
 
-La réconciliation bilatérale définit un cadre théorique d’étude de l’évolution conjointe d’unités dépendantes et de leurs hôtes.
+La réconciliation bilatérale permet l’étude de l’évolution conjointe d’unités dépendantes et de leurs hôtes.
 Les algorithmes décrits dans la section précédente permettent d’obtenir de l’information sur ces relations évolutives à partir des phylogénies respectives des unités et des hôtes.
 Sous certains modèles d’évolution tels que le modèle~\(\recmodelDTL\), plusieurs solutions distinctes peuvent toutefois être optimales au sens du critère de parcimonie.
 Par ailleurs, l’exécution de ces algorithmes est dépendante des coûts fixés pour chaque type d’événement, et la variation de ces coûts modifie les solutions optimales.
-Il n’est donc pas suffisant d’analyser une seule solution retournée par un algorithme.
-Pour réaliser une analyse pertinente, l’espace des solutions doit être exploré pour quantifier dans quelle mesure les différentes solutions s’accordent sur certaines parties du scénario inféré~\parencite[voir][]{Doyon2009SpaceGeneSpeciesTrees,Weiner2021ImprovedDuplicationTransfer}.
+Il n’est donc pas suffisant d’analyser une seule solution retournée par un seul paramétrage d’algorithme.
+Pour une analyse pertinente, l’espace des solutions doit être exploré pour quantifier dans quelle mesure ces solutions s’accordent sur les différentes parties du scénario inféré~\parencite[voir][]{Doyon2009SpaceGeneSpeciesTrees,Weiner2021ImprovedDuplicationTransfer}.
 
-Les phylogénies fournies en entrée des algorithmes sont parfois connues avec une précision limitée, voire inconnues.
-La réconciliation peut fournir un critère permettant d’améliorer les phylogénies des unités dépendantes ou des hôtes.
-Par exemple, la réconciliation peut permettre d’inférer un arbre d’espèces inconnu à partir d’un ensemble d’arbres de plusieurs familles de gènes~\parencite[voir][p.~72--73]{Guigo1996ReconstructionAncientMolecular,Page1994MapsTreesCladistic}.
+Les phylogénies attendues en entrée des algorithmes sont parfois connues avec une précision limitée, voire sont inconnues.
+La réconciliation peut fournir un critère permettant d’améliorer ces phylogénies.
+Par exemple, la réconciliation peut être utilisée pour inférer un arbre d’espèces inconnu à partir d’un ensemble d’arbres de plusieurs familles de gènes~\parencite[voir][p.~72--73]{Guigo1996ReconstructionAncientMolecular,Page1994MapsTreesCladistic}.
 Le problème sous-jacent étant NP-complet~\parencite{Ma2000GeneTreesSpecies}, cette application de la réconciliation s’appuie sur des heuristiques.
 Dans certains cas, notamment en cas d’incertitudes dans sa construction, la phylogénie des unités dépendantes peut comporter des polytomies, c’est-à-dire des embranchements ayant plus de deux descendants.
 La réconciliation peut alors être utilisée comme un critère pour \emph{résoudre} ces polytomies, en recherchant l’arbre binaire résultant en un score de réconciliation moindre~\parencite{Lafond2016EfficientNonBinary}.
