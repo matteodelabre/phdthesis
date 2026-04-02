@@ -1,6 +1,6 @@
 %! TeX root = ./main.tex
 % vim: set spelllang=fr:
-\chapter{Réconciliation bilatérale}
+\chapter{Réconciliation}
 
 La phylogénie d’une famille de gènes est riche d’information.
 Elle renseigne non seulement sur l’histoire évolutive des gènes mais aussi sur celle de leurs espèces hôtes.
@@ -17,7 +17,9 @@ Les deux premières sections établissent un cadre théorique commun permettant 
 La section suivante décrit les principaux modèles développés pour la réconciliation gènes--espèces et fait état de leurs atouts et limites respectifs.
 Pour conclure le chapitre, la dernière section passe en revue quelques applications courantes de la réconciliation.
 
-\section{Plongement d’arbres phylogénétiques}
+\section{Réconciliation bilatérale}
+
+\subsection{Plongement d’arbres phylogénétiques}
 
 Un embranchement dans l’arbre phylogénétique d’unités dépendantes peut être causé soit par une codivergence avec un hôte, soit par une divergence indépendante des hôtes.
 Supposons que la phylogénie~\(T\) d’unités dépendantes et celle~\(S\) de leurs hôtes soient connues.
@@ -137,7 +139,7 @@ La réconciliation stricte qui associe chaque embranchement de \(T\) au plus ré
     \reclca(v) = \lca\left\{ \llmap(l) \suchthat l \in \tleavs(\subtree{T}{v}) \right\}
 \).
 
-\section{Arbres réconciliés et modèles de réconciliation}
+\subsection{Arbres réconciliés et modèles de réconciliation}
 
 Un modèle de réconciliation spécifie les types d’événements qui peuvent affecter, conjointement ou séparément, l’évolution des unités dépendantes et de leurs hôtes.
 Une interprétation d’une réconciliation sous un modèle donné est une combinaison d’événements du modèle qui explique ses associations dépendant--hôte.
@@ -184,7 +186,7 @@ En revanche, cette méthode a l’avantage de sélectionner des réconciliations
     \label{figure:rec-trees}
 \end{figure}
 
-\section{Modèles de réconciliation gènes--espèces}
+\subsection{Modèles de réconciliation gènes--espèces}
 
 Cette section présente les principaux modèles de réconciliation gènes--espèces et les résultats connus en complexité du calcul pour les problèmes de \refproblem{\(\recmodel\)-Parcimonie} associés.
 
@@ -337,7 +339,7 @@ Ce phénomène se produit lorsque des spéciations rapprochées dans le temps fo
 Comme alternative aux modèles de type \(\recmodelDL\), \textcite{Goodman1979FittingGeneLineage} ont proposé un modèle intégrant la possibilité pour un gène d’être activé ou désactivé par un mécanisme de régulation, ce qui permet de limiter l’inférence de pertes superflues (voir également le modèle \(\recmodelDTLx\) décrit ci-dessus).
 Enfin, la datation de la phylogénie des hôtes, imposant une contrainte supplémentaire sur les changements d’hôtes, peut être intégrée aux modèles autorisant ce type d’événements~\parencite{Tofigh2011SimultaneousIdentificationDuplications}.
 
-\section{Applications des méthodes de réconciliation}
+\subsection{Applications des méthodes de réconciliation}
 
 La réconciliation bilatérale permet l’étude de l’évolution conjointe d’unités dépendantes et de leurs hôtes.
 Les algorithmes décrits dans la section précédente permettent d’obtenir de l’information sur ces relations évolutives à partir des phylogénies respectives des unités et des hôtes.

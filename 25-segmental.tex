@@ -1,6 +1,6 @@
 %! TeX root = ./main.tex
 % vim: set spelllang=fr:
-\chapter{Réconciliation multiple}
+\section{Réconciliation multiple}
 
 Certains hôtes sont porteurs de plusieurs familles d’unités dépendantes.
 Pour reconstruire les histoires respectives de ces familles, les méthodes de réconciliation décrites au chapitre précédent pourraient leur être appliquées individuellement.
@@ -28,7 +28,7 @@ Pour ce faire, un niveau intermédiaire peut être intégré dans le modèle de 
 Dans ce chapitre, deux approches développées suivant cet axe de recherche sont décrites.
 Nous les comparons selon leur capacité de modélisation et leur complexité algorithmique.
 
-\section{DeCo -- Évolution d’adjacences}
+\subsection{DeCo -- Évolution d’adjacences}
 
 L’organisation linéaire d’un ensemble d’unités peut être représentée par un ensemble d’adjacences entre des paires d’unités.
 Par exemple, un génome \(\{(a, b, c), (d, e)\}\) formé de deux chromosomes et cinq gènes correspond aux trois adjacences \(\{(a, b), (b, c), (d, e)\}\).
@@ -171,7 +171,7 @@ L’approche DeCo suppose que les adjacences évoluent indépendamment les unes 
 Cette caractéristique fait aussi que la perte d’une unité à l’intérieur d’un segment d’adjacences cause la séparation de ce segment en deux, et demande le gain d’une nouvelle adjacence entre les deux segments.
 Une façon de remédier à cette dernière limite a cependant été récemment présentée par~\textcite{Tannier2020AncestralGenomeOrganization}.
 
-\section{Super-réconciliation -- Évolution segmentale}
+\subsection{Super-réconciliation -- Évolution segmentale}
 
 Pour permettre la modélisation d’événements segmentaux affectant simultanément plus de deux unités, \textcite{Delabre2020EvolutionSegmentalDuplications} ont introduit l’approche de super-réconciliation.
 La super-réconciliation généralise la notion d’adjacence à des ensembles d’unités de taille quelconque appelés \emph{synténies}.
@@ -236,7 +236,7 @@ Dans l’article, une restriction du problème d’optimisation est étudiée da
 Dans sa grande version, le problème est démontré NP-complet.
 Le statut de complexité de la petite version demeure inconnu dans le cas des segments, tandis que le problème est polynomial dans le cas des groupes.
 
-\section{Comparaison et perspectives}
+\subsection{Comparaison et perspectives}
 
 Dans ce chapitre ont été présentées deux approches généralisant la réconciliation bilatérale à des contextes où plusieurs unités dépendantes évoluent conjointement.
 Ce cas de figure se présente lorsque de multiples gènes évoluent ensemble le long d’un génome.

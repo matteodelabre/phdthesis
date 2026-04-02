@@ -3,24 +3,42 @@
 \documentclass{manuscrit}
 
 \institution{Université de Montréal}
-\school{Département d’informatique et de recherche opérationnelle\\\emph{Faculté des arts et des sciences}}
-\documentkind{Examen général de synthèse du doctorat\\\textsc{\oldstylenums{partie 3}} -- Présentation du projet de recherche}
+\school{%
+    Département d’informatique et de recherche opérationnelle\\
+    \emph{Faculté des arts et des sciences}
+}
+\documentkind{%
+    Thèse présentée en vue de l’obtention du grade\\
+    de \emph{philosophiae doctor} (Ph. D.) en informatique
+}
 
-\title{Reconstruction de l’histoire évolutive de familles de gènes en synténie}
-\subtitle{Méthodes algorithmiques pour le problème de la réconciliation segmentale}
+\title{
+    Méthodes algorithmiques pour la génomique comparative par inférence simultanée des événements affectant l’ordre et le contenu en gènes des génomes
+}
+    % Reconstruction de l’histoire évolutive de familles de gènes en synténie}
+% \subtitle{Méthodes algorithmiques pour le problème de la réconciliation segmentale}
 \author{Mattéo Delabre}
 
-\date{Août 2022}
+\jurypres{Sylvie Hamel}
+\jurydirec{Nadia El-Mabrouk}
+\jurymember{Miklós Csürös}
+\juryext{Blerina Sinaimeri}
+
+\date{Avril 2026}
 
 \begin{document}
 
 \maketitle
+\makejury
+\input{02-abstract-fr}
+\input{03-abstract-en}
 \tableofcontents
-\input{06-intro}
-\input{07-term}
-\input{10-reconciliation}
-\input{20-segmental}
-\input{30-research}
-\input{99-bibliographie}
+% \input{07-term}
+\input{09-remerciements}
+\input{10-avant-propos}
+\input{20-reconciliation}
+\input{25-segmental}
+\input{40-research}
+\input{80-bibliographie}
 
 \end{document}

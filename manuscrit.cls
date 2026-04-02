@@ -413,14 +413,20 @@
 \RequirePackage{hypcap}
 \RequirePackage[nameinlink,noabbrev]{cleveref}
 
-% Métadonnées
+% Pages liminaires
+
+%% Métadonnées
 
 \newcommand{\@institution}{}\newcommand{\institution}[1]{\renewcommand{\@institution}{#1}}
 \newcommand{\@school}{}\newcommand{\school}[1]{\renewcommand{\@school}{#1}}
 \newcommand{\@subtitle}{}\newcommand{\subtitle}[1]{\renewcommand{\@subtitle}{#1}}
 \newcommand{\@documentkind}{}\newcommand{\documentkind}[1]{\renewcommand{\@documentkind}{#1}}
+\newcommand{\@jurypres}{}\newcommand{\jurypres}[1]{\renewcommand{\@jurypres}{#1}}
+\newcommand{\@jurydirec}{}\newcommand{\jurydirec}[1]{\renewcommand{\@jurydirec}{#1}}
+\newcommand{\@jurymember}{}\newcommand{\jurymember}[1]{\renewcommand{\@jurymember}{#1}}
+\newcommand{\@juryext}{}\newcommand{\juryext}[1]{\renewcommand{\@juryext}{#1}}
 
-% Page de titre
+%% Page de titre
 
 \RequirePackage{catchfile}
 \RequirePackage{xstring}
@@ -431,8 +437,10 @@
 \CatchFileDef{\@commit}{.git/refs/heads/\@branch}{}
 \StrLeft{\@commit}{7}[\@shortcommit]
 
+\newcommand{\personref}[1]{\large\textbf{#1}}
+
 \renewcommand{\maketitle}{{
-    \newgeometry{textwidth=8in}
+    % \newgeometry{textwidth=8in}
     \clearpage
     \thispagestyle{empty}
     \centering
@@ -444,8 +452,9 @@
     \large\emph{\@subtitle}\par}
 
     \vfill
-    par\\
-    {\large\@author\par}
+    par
+
+    {\personref{\@author}\par}
 
     \vfill
     {\large\adforn{45}}
@@ -457,11 +466,54 @@
     \@documentkind
 
     \vfill
-    \@date
+    \@date\\
+    Numéro de révision \@shortcommit
 
     \vfill
     © \@author, \the\year
 
     \clearpage
-    \restoregeometry
+    % \restoregeometry
+}}
+
+%% Page de jury
+
+\newcommand{\makejury}{{
+    % \newgeometry{textwidth=8in}
+    \clearpage
+    \thispagestyle{empty}
+    \centering
+
+    \@institution\\
+    \@school
+
+    \vfill
+    Cette thèse intitulée
+
+    \vfill
+    {\Large\textbf{\@title}\\[.1em]
+    \large\emph{\@subtitle}\par}
+
+    \vfill
+    présentée par
+
+    \personref{\@author}
+
+    \vfill
+    a été évaluée par un jury composé des personnes suivantes
+
+    \vspace{1ex}
+    \personref{\@jurypres}\\
+    Présidente
+
+    \personref{\@jurydirec}\\
+    Directrice de recherche
+
+    \personref{\@jurymember}\\
+    Membre du jury
+
+    \personref{\@juryext}\\
+    Examinatrice externe
+
+    \clearpage
 }}
