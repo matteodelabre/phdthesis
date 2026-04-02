@@ -6,6 +6,7 @@
 \LoadClass[letterpaper, oneside, 11pt]{book}
 
 % Format
+
 \RequirePackage{geometry}
 \RequirePackage[skip=.75\baselineskip]{parskip}
 \RequirePackage{setspace}
@@ -38,6 +39,13 @@
 \setlist[compactitemize]{label=\textbullet, itemsep=0pt, parsep=0.5ex}
 \renewcommand{\paragraph}[1]{\noindent\textit{#1.}\enspace}
 \setlength{\columnsep}{2em}
+
+%% Désactive les numéros de page en début de chapitre
+\renewcommand\chapter{\if@openright\cleardoublepage\else\clearpage\fi
+                      \thispagestyle{empty}%
+                      \global\@topnum\z@
+                      \@afterindentfalse
+                      \secdef\@chapter\@schapter}
 
 %% En-têtes
 \RequirePackage{fancyhdr}
