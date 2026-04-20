@@ -1,9 +1,10 @@
 %! TeX root = ./main.tex
 % vim: set spelllang=fr:
+
 \section{Réconciliation multiple}
 
 Certains hôtes sont porteurs de plusieurs familles d’unités dépendantes.
-Pour reconstruire les histoires respectives de ces familles, les méthodes de réconciliation décrites au chapitre précédent pourraient leur être appliquées individuellement.
+Pour reconstruire les histoires respectives de ces familles, les méthodes de réconciliation bilatérales pourraient leur être appliquées individuellement.
 Cette approche supposerait toutefois que les unités étudiées évoluent indépendamment les unes des autres, ce qui n’est en particulier pas le cas de certains gènes.
 Les gènes sont en effet organisés linéairement le long du génome de leur espèce et affectés par des événements à l’échelle du génome.
 Ces événements modifient l’organisation et la composition du génome, agissant simultanément sur plusieurs de ses gènes.
@@ -25,8 +26,7 @@ Inversement, l’intégration de l’échelle génomique dans la réconciliation
 L’un des objectifs de la recherche dans ces domaines est donc la mise au point de méthodes capables de reconstruire conjointement l’histoire de multiples familles de gènes évoluant au sein de génomes~\parencite[voir aussi][]{Chauve2013DuplicationRearrangementReconciliation}.
 
 Pour ce faire, un niveau intermédiaire peut être intégré dans le modèle de réconciliation bilatéral, entre les gènes et les espèces, afin de modéliser l’évolution à l’échelle génomique.
-Dans ce chapitre, deux approches développées suivant cet axe de recherche sont décrites.
-Nous les comparons selon leur capacité de modélisation et leur complexité algorithmique.
+Dans la suite, nous comparons deux approches existantes fondées sur cette idée selon leur capacité de modélisation et leur complexité algorithmique.
 
 \subsection{DeCo -- Évolution d’adjacences}
 
@@ -235,26 +235,3 @@ Ce problème se décline en une \enquote{grande} version, dans laquelle la topol
 Dans l’article, une restriction du problème d’optimisation est étudiée dans laquelle la forêt de synténies est composée d’un seul arbre et tous les segments dérivent d’un unique segment ancestral.
 Dans sa grande version, le problème est démontré NP-complet.
 Le statut de complexité de la petite version demeure inconnu dans le cas des segments, tandis que le problème est polynomial dans le cas des groupes.
-
-\subsection{Comparaison et perspectives}
-
-Dans ce chapitre ont été présentées deux approches généralisant la réconciliation bilatérale à des contextes où plusieurs unités dépendantes évoluent conjointement.
-Ce cas de figure se présente lorsque de multiples gènes évoluent ensemble le long d’un génome.
-Le principe général consiste à intégrer un niveau intermédiaire dans la hiérarchie évolutive, décrivant l’évolution d’adjacences (DeCo) ou de segments porteurs d’ensembles d’unités (super-réconciliation).
-
-L’approche DeCo permet de modéliser des événements qui affectent des paires d’unités voisines, incluant notamment des réarrangements.
-D’un point de vue algorithmique, elle consiste à réconcilier individuellement les arbres phylogénétiques de chaque unité, puis à rassembler des paires de nœuds pour former une forêt d’adjacences.
-Chaque racine de cette forêt correspond au gain d’une adjacence qui se propage ensuite dans sa descendance.
-L’objectif est de minimiser le nombre de racines, c’est-à-dire le nombre de gains d’adjacences.
-Le statut de complexité du problème est encore inconnu, quoiqu’il ait été conjecturé NP-complet, mais un algorithme polynomial existe lorsque les réconciliations individuelles sont fixées en avance.
-La modélisation à l’échelle des adjacences impose des limites sur les événements pouvant être pris en compte, puisqu’elle exclut les événements qui affectent simultanément plus de deux unités.
-Par ailleurs, un résultat optimal peut comporter des structures non-linéaires, dans lesquelles une unité est voisine de trois autres ou plus, incompatibles avec les structures linéaires ou circulaires des génomes.
-
-La super-réconciliation propose un paradigme similaire, basé sur l’évolution de segments joignant un nombre quelconque d’unités.
-Cette extension permet de modéliser des événements segmentaux affectant plusieurs unités.
-De la même façon que pour DeCo, l’objectif algorithmique est de construire un arbre dans lequel chaque nœud rassemble des segments de nœuds issus de réconciliations individuelles.
-La structure reconstruite ici est un arbre et non une forêt car tous les segments sont supposés dériver d’un segment ancestral unique.
-Le problème d’optimisation combinatoire associé est NP-complet dans sa version générale, lorsque la topologie de l’arbre de synténies est inconnue.
-Si la topologie est fixée, la complexité est inconnue dans la déclinaison du problème avec des segments, et polynomiale dans sa déclinaison avec des groupes.
-Les modèles d’évolution considérés jusqu’à présent pour la super-réconciliation sont encore limités.
-Contrairement à ceux considérés sous DeCo, ils ne permettent par exemple pas de modéliser des duplications en tandem, des fusions ou fissions de synténies ou des réarrangements.
