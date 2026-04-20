@@ -73,14 +73,13 @@
 \RequirePackage{amsmath}
 \RequirePackage{amsthm}
 \RequirePackage{amssymb}
+\RequirePackage{mleftright}
 
 %% Police
-
 \RequirePackage{unicode-math}
 \setmathfont{Libertinus Math}
 
 %% Théorèmes/définitions
-
 \theoremstyle{plain}
 \newtheorem{theorem}{Théorème}[chapter]
 \newtheorem{lemma}[theorem]{Lemme}
@@ -88,124 +87,17 @@
 \theoremstyle{definition}
 \newtheorem{definition}{Définition}[chapter]
 \newtheorem{remark}[definition]{Remarque}
+\newtheorem{example}[definition]{Example}
 
 %% Notations
-
-%%% Général
-\newcommand{\onto}{\rightarrow}
-\newcommand{\suchthat}{\mathrel{:}}
-\newcommand{\nat}{\mathbb{N}}
-\newcommand{\tuple}[1]{\langle#1\rangle}
-
-%%% Arbres
-\newcommand{\tnodes}{V}
-\newcommand{\tleavs}{L}
-\newcommand{\tinner}{I}
-\newcommand{\tedges}{E}
-\newcommand{\troot}{r}
-\newcommand{\tparent}{p}
-\newcommand{\lchild}{_\mathit{\ell}}
-\newcommand{\rchild}{_r}
-\newcommand{\child}{_c}
-
-\newcommand{\tdesc}{\preceq}
-\newcommand{\nottdesc}{\mathrel{\makebox[0pt]{\(\:\:\preceq\)}/}}
-\newcommand{\tdescneq}{\prec}
-\newcommand{\nottdescneq}{\mathrel{\makebox[0pt]{\(\:\:\prec\)}/}}
-\newcommand{\tancs}{\succeq}
-\newcommand{\nottancs}{\mathrel{\makebox[0pt]{\(\:\:\succeq\)}/}}
-\newcommand{\tancsneq}{\succ}
-\newcommand{\nottancsneq}{\mathrel{\makebox[0pt]{\(\:\:\succ\)}/}}
-\newcommand{\tcomp@base}{\makebox[0pt]{\raisebox{-2pt}{\(\mspace{12mu}\prec\)}}\raisebox{2pt}{\(\succ\)}}
-\newcommand{\tcomp}{\mathrel{\tcomp@base}}
-\newcommand{\nottcomp}{\mathrel{\makebox[0pt]{\(\:\:\:/\)}\tcomp@base}}
-
-\newcommand{\subtree}[2]{#1[#2]}
-\newcommand{\lca}{\mathrm{lca}}
-\newcommand{\tpath}{\mathbin{\leadsto}}
-\newcommand{\tdist}{\mathrm{dist}}
-
-%%% Réconciliations
-\newcommand{\llmap}{s}
-\newcommand{\rec}{\tilde\llmap}
-\newcommand{\reclca}{\rec_{\,\lca}}
-\newcommand{\exrec}{\hat\llmap}
-\newcommand{\rectree}{\mathcal{R}}
-\newcommand{\rectreeDL}{\rectree_{\mathrm{DL}}}
-\newcommand{\rectreeDTL}{\rectree_{\mathrm{DTL}}}
-\newcommand{\ograph}{\mathcal{P}}
-\newcommand{\explar}[3]{#1_{\mathit{#2}}^{\,\romannumeral #3}}
-
-%%% Modèles de réconciliation
-\newcommand{\recmodel}{\mathcal{M}}
-\newcommand{\cost}{\delta}
-\newcommand{\treecost}{\Delta}
-\newcommand{\evt}{\mathcal{E}}
-
-\newcommand{\evtE}{\varepsilon}
-\newcommand{\evtP}{\lambda}
-\newcommand{\evtS}{\mathrm{S}}
-\newcommand{\evtD}{\mathrm{D}}
-\newcommand{\evtL}{\mathrm{L}}
-\newcommand{\evtR}{\mathrm{R}}
-\newcommand{\evtT}{\mathrm{T}}
-\newcommand{\evtTL}{\mathrm{TL}}
-\newcommand{\evtTX}{\mathrm{TX}}
-\newcommand{\evtG}{\mathrm{G}}
-\newcommand{\evtB}{\mathrm{B}}
-
-\newcommand{\recmodelDL}{\evtD\evtL}
-\newcommand{\recmodelDTL}{\evtD\evtT\evtL}
-\newcommand{\recmodelDTLx}{\evtD\evtT\evtL\mathrm{x}}
-
-%%% Réconciliations multiples
-\newcommand{\gtrees}{\mathcal{T}}
-\newcommand{\llmaps}{\mathcal{S}}
-\newcommand{\recs}{\tilde{\llmaps}}
-\newcommand{\exrecs}{\hat\llmaps}
-
-%%%% Adjacences
-\newcommand{\alladjs}{\mathcal{A}}
-\newcommand{\lladjset}{A}
-\newcommand{\adjset}{\tilde\lladjset}
-\newcommand{\exadj}{\hat{a}}
-\newcommand{\rmunit}{\mathcal{_U}}
-\newcommand{\rmadj}{\mathcal{_A}}
-\newcommand{\adjtree}{\mathcal{F}}
-
-%%%% Segments
-\newcommand{\allsegs}{\mathcal{X}}
-\newcommand{\llsegset}{X}
-\newcommand{\segset}{\tilde\llsegset}
-\newcommand{\exseg}{\hat{x}}
-\newcommand{\rmseg}{\mathcal{_X}}
-\newcommand{\segtree}{\mathcal{H}}
-
-%%%% Groupes
-\newcommand{\allclstrs}{\mathcal{C}}
-\newcommand{\llclstrset}{C}
-\newcommand{\clstrset}{\tilde\llclstrset}
-\newcommand{\exclstr}{\hat{c}}
-\newcommand{\rmclstr}{\mathcal{_C}}
-
-%% Algorithmes et complexité
-
-\newcommand{\problem}[3]{%
-    \parbox{\textwidth}{%
-        \textbf{Problème} \textsc{#1}\textbf{.}\\[1ex]
-        \begin{tabular}{@{}p{4em}@{}p{\dimexpr\linewidth-4em-1pt}@{}}
-            \textbf{Entrée:} & #2\\
-            \textbf{Sortie:} & #3
-        \end{tabular}%
-    }%
-}
-\newcommand{\refproblem}[1]{\textsc{#1}}
-\newcommand{\bigo}{\mathcal{O}}
+\input{notations}
 
 % Figures
 
-%% Algorithmes
+%% Tables
+\RequirePackage{booktabs}
 
+%% Algorithmes
 \RequirePackage[algochapter, plainruled, vlined, linesnumbered, french, onelanguage]{algorithm2e}
 
 \SetKwInput{KwIn}{Entrée}
@@ -221,7 +113,6 @@
 \setlength{\interspacealgoruled}{1ex}
 
 %% Dessin
-
 \RequirePackage{tikz}
 \usetikzlibrary{positioning,calc}
 \usetikzlibrary{arrows.meta}
@@ -397,7 +288,6 @@
 \colorlet{marking}{reccolor2!35}
 
 %% Légendes
-
 \RequirePackage{caption}
 \DeclareCaptionLabelFormat{oldstyle}{\textsc{\MakeLowercase{#1}} \oldstylenums{#2}}
 \captionsetup{labelformat=oldstyle, labelsep=endash, margin=2em}
@@ -416,7 +306,6 @@
 % Pages liminaires
 
 %% Métadonnées
-
 \newcommand{\@institution}{}\newcommand{\institution}[1]{\renewcommand{\@institution}{#1}}
 \newcommand{\@school}{}\newcommand{\school}[1]{\renewcommand{\@school}{#1}}
 \newcommand{\@subtitle}{}\newcommand{\subtitle}[1]{\renewcommand{\@subtitle}{#1}}
@@ -427,7 +316,6 @@
 \newcommand{\@juryext}{}\newcommand{\juryext}[1]{\renewcommand{\@juryext}{#1}}
 
 %% Page de titre
-
 \RequirePackage{catchfile}
 \RequirePackage{xstring}
 
@@ -477,7 +365,6 @@
 }}
 
 %% Page de jury
-
 \newcommand{\makejury}{{
     % \newgeometry{textwidth=8in}
     \clearpage

@@ -1,0 +1,180 @@
+%%% Général
+\newcommand{\onto}{\rightarrow}
+\newcommand{\suchthat}{\mathrel{:}}
+\newcommand{\nat}{\mathbb{N}}
+\newcommand{\tuple}[1]{\langle#1\rangle}
+
+%%% Arbres
+\newcommand{\tnodes}{V}
+\newcommand{\tleavs}{L}
+\newcommand{\tinner}{I}
+\newcommand{\tedges}{E}
+\newcommand{\troot}{r}
+\newcommand{\tparent}{p}
+\newcommand{\lchild}{_\mathit{\ell}}
+\newcommand{\rchild}{_r}
+\newcommand{\child}{_c}
+
+\newcommand{\tdesc}{\preceq}
+\newcommand{\nottdesc}{\mathrel{\makebox[0pt]{\(\:\:\preceq\)}/}}
+\newcommand{\tdescneq}{\prec}
+\newcommand{\nottdescneq}{\mathrel{\makebox[0pt]{\(\:\:\prec\)}/}}
+\newcommand{\tancs}{\succeq}
+\newcommand{\nottancs}{\mathrel{\makebox[0pt]{\(\:\:\succeq\)}/}}
+\newcommand{\tancsneq}{\succ}
+\newcommand{\nottancsneq}{\mathrel{\makebox[0pt]{\(\:\:\succ\)}/}}
+\newcommand{\tcomp@base}{\makebox[0pt]{\raisebox{-2pt}{\(\mspace{12mu}\prec\)}}\raisebox{2pt}{\(\succ\)}}
+\newcommand{\tcomp}{\mathrel{\tcomp@base}}
+% \newcommand{\nottcomp}{\mathrel{\makebox[0pt]{\(\:\:\:/\)}\tcomp@base}}
+\newcommand{\nottcomp}{\mathrel{||}}
+
+\newcommand{\subtree}[2]{#1[#2]}
+\newcommand{\lca}{\mathrm{lca}}
+\newcommand{\tpath}{\mathbin{\leadsto}}
+\newcommand{\tdist}{\mathrm{dist}}
+
+%%% Réconciliations
+\newcommand{\llmap}{s}
+\newcommand{\rec}{\tilde\llmap}
+\newcommand{\reclca}{\rec_{\,\lca}}
+\newcommand{\exrec}{\hat\llmap}
+\newcommand{\rectree}{\mathcal{R}}
+\newcommand{\rectreeDL}{\rectree_{\mathrm{DL}}}
+\newcommand{\rectreeDTL}{\rectree_{\mathrm{DTL}}}
+\newcommand{\ograph}{\mathcal{P}}
+\newcommand{\explar}[3]{#1_{\mathit{#2}}^{\,\romannumeral #3}}
+
+%%% Modèles de réconciliation
+\newcommand{\recmodel}{\mathcal{M}}
+\newcommand{\cost}{\delta}
+\newcommand{\treecost}{\Delta}
+\newcommand{\evt}{\mathcal{E}}
+
+\newcommand{\evtE}{\varepsilon}
+\newcommand{\evtP}{\lambda}
+\newcommand{\evtS}{\mathrm{S}}
+\newcommand{\evtD}{\mathrm{D}}
+\newcommand{\evtL}{\mathrm{L}}
+\newcommand{\evtR}{\mathrm{R}}
+\newcommand{\evtT}{\mathrm{T}}
+\newcommand{\evtTL}{\mathrm{TL}}
+\newcommand{\evtTX}{\mathrm{TX}}
+\newcommand{\evtG}{\mathrm{G}}
+\newcommand{\evtB}{\mathrm{B}}
+
+\newcommand{\recmodelDL}{\evtD\evtL}
+\newcommand{\recmodelDTL}{\evtD\evtT\evtL}
+\newcommand{\recmodelDTLx}{\evtD\evtT\evtL\mathrm{x}}
+
+%%% Réconciliations multiples
+\newcommand{\gtrees}{\mathcal{T}}
+\newcommand{\llmaps}{\mathcal{S}}
+\newcommand{\recs}{\tilde{\llmaps}}
+\newcommand{\exrecs}{\hat\llmaps}
+
+%%%% Adjacences
+\newcommand{\alladjs}{\mathcal{A}}
+\newcommand{\lladjset}{A}
+\newcommand{\adjset}{\tilde\lladjset}
+\newcommand{\exadj}{\hat{a}}
+\newcommand{\rmunit}{\mathcal{_U}}
+\newcommand{\rmadj}{\mathcal{_A}}
+\newcommand{\adjtree}{\mathcal{F}}
+
+%%%% Segments
+\newcommand{\allsegs}{\mathcal{X}}
+\newcommand{\llsegset}{X}
+\newcommand{\segset}{\tilde\llsegset}
+\newcommand{\exseg}{\hat{x}}
+\newcommand{\rmseg}{\mathcal{_X}}
+\newcommand{\segtree}{\mathcal{H}}
+
+%%%% Groupes
+\newcommand{\allclstrs}{\mathcal{C}}
+\newcommand{\llclstrset}{C}
+\newcommand{\clstrset}{\tilde\llclstrset}
+\newcommand{\exclstr}{\hat{c}}
+\newcommand{\rmclstr}{\mathcal{_C}}
+
+%% Algorithmes et complexité
+
+\newcommand{\problem}[3]{%
+    \parbox{\textwidth}{%
+        \textbf{Problème} \textsc{#1}\textbf{.}\\[1ex]
+        \begin{tabular}{@{}p{4em}@{}p{\dimexpr\linewidth-4em-1pt}@{}}
+            \textbf{Entrée:} & #2\\
+            \textbf{Sortie:} & #3
+        \end{tabular}%
+    }%
+}
+\newcommand{\refproblem}[1]{\textsc{#1}}
+\newcommand{\bigo}{\mathcal{O}}
+
+%%%%%% ADP
+
+\DeclareMathOperator*{\boxedmin}{\BoxedString{\min}}
+\DeclareMathOperator*{\boxedsum}{\BoxedString{\sum}}
+
+% math
+\DeclareMathOperator{\size}{sz}
+\DeclareMathOperator{\depth}{d}
+\DeclareMathOperator{\term}{t}
+% \DeclareMathOperator{\bigo}{\mathcal{O}}
+\newcommand{\tup}[1]{\left\langle#1\right\rangle}
+\newcommand{\alg}{\mathbf{A}}
+\newcommand{\algb}{\mathbf{B}}
+\newcommand{\algplus}{\mathbin{\oplus}}
+\newcommand{\algsum}{\bigoplus}
+\newcommand{\algnull}{\mathbb{0}}
+\newcommand{\algtimes}{\mathbin{\otimes}}
+\newcommand{\algunit}{\mathbb{1}}
+\newcommand{\algterm}{\mathbb{T}}
+\newcommand{\brak}{\mathfrak{B}}
+\newcommand{\algsign}{\mathcal{F}}
+\newcommand{\mset}[1]{\left[\mkern-2.5mu\left[#1\right]\mkern-2.5mu\right]}
+\newcommand{\bigmset}[1]{\left[\mkern-6.5mu\left[#1\right]\mkern-6.5mu\right]}
+\newcommand{\verybigmset}[1]{\left[\mkern-8mu\left[#1\right]\mkern-8mu\right]}
+% \newcommand{\nat}{\mathbb{N}}
+\newcommand{\natex}{\nat \cup \{\infty\}}
+% \newcommand{\natex}{\nat^\infty}
+\newcommand{\rel}{\mathbb{Z}}
+\newcommand{\relex}{\rel \cup \{\pm\infty\}}
+% \newcommand{\relex}{\rel^\infty}
+\newcommand{\realpos}{\mathbb{R}_{\ge 0}}
+
+\newcommand{\alminplus}{\mathbf{M}}
+\newcommand{\alcount}{\mathbf{C}}
+\newcommand{\alprod}{\mathbf{P}}
+\newcommand{\alclass}{\mathbf{K}}
+
+\newcommand{\alterm}{\mathcal{S}}
+\newcommand{\altrace}{\mathcal{C}}
+
+\newcommand{\termset}{S}
+\DeclareMathOperator{\algeval}{val}
+
+\newcommand{\madd}{\mathbin{+\mkern-11.5mu+}}
+\newcommand{\mmul}{\mathbin{\times\mkern-11.5mu\times}}
+\DeclareMathOperator{\setof}{set}
+\DeclareMathOperator{\msetof}{mset}
+\DeclareMathOperator{\tsort}{sort}
+\DeclareMathOperator{\mult}{m}
+
+\DeclareMathOperator{\proj}{\pi}
+\DeclareMathOperator{\group}{g}
+
+\newcommand{\allex}[1]{\mathrm{lex}(#1)}
+\newcommand{\alpower}{\mathrm{power}}
+\newcommand{\algroup}{\mathrm{group}}
+\newcommand{\alsort}{\mathrm{sort}}
+\newcommand{\allimit}[1]{\mathrm{limit}(#1)}
+\newcommand{\albound}[1]{\mathrm{bound}(#1)}
+\newcommand{\alpareto}{\mathrm{pareto}}
+
+\newcommand{\parle}{\preceq}
+\newcommand{\parlt}{\prec}
+\DeclareMathOperator{\parfront}{pf}
+
+\DeclareMathOperator{\width}{width}
+\DeclareMathOperator{\breadth}{bd}
+\DeclareMathOperator{\var}{var}
