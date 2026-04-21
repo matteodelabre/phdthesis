@@ -17,6 +17,7 @@
 \RequirePackage{csquotes}
 \RequirePackage{polyglossia}
 \setmainlanguage{french}
+\setotherlanguage{english}
 
 % Bibliographie
 
@@ -72,6 +73,7 @@
 
 \RequirePackage{amsmath}
 \RequirePackage{amsthm}
+\RequirePackage{thmtools}
 \RequirePackage{amssymb}
 \RequirePackage{mleftright}
 
@@ -80,14 +82,52 @@
 \setmathfont{Libertinus Math}
 
 %% Théorèmes/définitions
-\theoremstyle{plain}
-\newtheorem{theorem}{Théorème}[chapter]
-\newtheorem{lemma}[theorem]{Lemme}
+\newcommand{\manu@name@definition}{}
+\addto\captionsfrench{\renewcommand{\manu@name@definition}{Définition}}
+\addto\captionsenglish{\renewcommand{\manu@name@definition}{Definition}}
+\declaretheorem[
+    style=definition,
+    qed=\(\blacklozenge\),
+    numberwithin=section,
+    name={\noexpand\noexpand\noexpand\manu@name@definition},
+]{definition}
 
-\theoremstyle{definition}
-\newtheorem{definition}{Définition}[chapter]
-\newtheorem{remark}[definition]{Remarque}
-\newtheorem{example}[definition]{Example}
+\newcommand{\manu@name@example}{}
+\addto\captionsfrench{\renewcommand{\manu@name@example}{Exemple}}
+\addto\captionsenglish{\renewcommand{\manu@name@example}{Example}}
+\declaretheorem[
+    style=remark,
+    qed=\(\lozenge\),
+    numberwithin=section,
+    name={\noexpand\noexpand\noexpand\manu@name@example},
+]{example}
+
+\newcommand{\manu@name@remark}{}
+\addto\captionsfrench{\renewcommand{\manu@name@remark}{Remarque}}
+\addto\captionsenglish{\renewcommand{\manu@name@remark}{Remark}}
+\declaretheorem[
+    style=remark,
+    numberwithin=section,
+    name={\noexpand\noexpand\noexpand\manu@name@remark},
+]{remark}
+
+\newcommand{\manu@name@theorem}{}
+\addto\captionsfrench{\renewcommand{\manu@name@theorem}{Théorème}}
+\addto\captionsenglish{\renewcommand{\manu@name@theorem}{Theorem}}
+\declaretheorem[
+    style=theorem,
+    numberwithin=section,
+    name={\noexpand\noexpand\noexpand\manu@name@theorem},
+]{theorem}
+
+\newcommand{\manu@name@lemma}{}
+\addto\captionsfrench{\renewcommand{\manu@name@lemma}{Lemme}}
+\addto\captionsenglish{\renewcommand{\manu@name@lemma}{Lemma}}
+\declaretheorem[
+    style=theorem,
+    numberwithin=section,
+    name={\noexpand\noexpand\noexpand\manu@name@lemma},
+]{lemma}
 
 %% Notations
 \input{notations}
