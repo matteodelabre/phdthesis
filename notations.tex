@@ -98,12 +98,22 @@
 
 %% Algorithmes et complexité
 
+\newcommand{\manu@name@problem}{}
+\addto\captionsfrench{\renewcommand{\manu@name@problem}{Problème}}
+\addto\captionsenglish{\renewcommand{\manu@name@problem}{Problem}}
+\newcommand{\manu@name@problem@input}{}
+\addto\captionsfrench{\renewcommand{\manu@name@problem@input}{Entrée}}
+\addto\captionsenglish{\renewcommand{\manu@name@problem@input}{Input}}
+\newcommand{\manu@name@problem@output}{}
+\addto\captionsfrench{\renewcommand{\manu@name@problem@output}{Sortie}}
+\addto\captionsenglish{\renewcommand{\manu@name@problem@output}{Output}}
+
 \newcommand{\problem}[3]{%
     \parbox{\textwidth}{%
-        \textbf{Problème} \textsc{#1}\textbf{.}\\[1ex]
+        \textbf{\manu@name@problem} \textsc{#1}\textbf{.}\\[1ex]
         \begin{tabular}{@{}p{4em}@{}p{\dimexpr\linewidth-4em-1pt}@{}}
-            \textbf{Entrée:} & #2\\
-            \textbf{Sortie:} & #3
+            \textbf{\manu@name@problem@input:} & #2\\
+            \textbf{\manu@name@problem@output:} & #3
         \end{tabular}%
     }%
 }

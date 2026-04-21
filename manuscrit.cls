@@ -14,7 +14,7 @@
 
 % Langage
 
-\RequirePackage{csquotes}
+\RequirePackage[autostyle=true]{csquotes}
 \RequirePackage{polyglossia}
 \setmainlanguage{french}
 \setotherlanguage{english}
@@ -338,8 +338,15 @@
 
 % Liens et hyperliens
 
+\definecolor{lightblue}{HTML}{0074D9}
+\colorlet{linkhg}{lightblue}
 \RequirePackage{hyperref}
-\hypersetup{colorlinks=true,allcolors=black}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=linkhg,
+    citecolor=linkhg,
+    urlcolor=linkhg,
+}
 \RequirePackage{hypcap}
 \RequirePackage[nameinlink,noabbrev]{cleveref}
 
@@ -443,4 +450,26 @@
     Examinatrice externe
 
     \clearpage
+}}
+
+%% Pages d’articles
+\newenvironment{abstract}{\small\list{}{\rightmargin.5in\leftmargin.5in}\item[]\textbf{Abstract:}}{\endlist}
+
+\newcommand{\keywords}[1]{\textbf{Keywords:}\renewcommand{\and}{~·~} #1}
+
+\newcommand{\inst}[1]{\textsuperscript{#1}}
+\newcommand{\@institute}{}
+\newcommand{\institute}[1]{\renewcommand{\@institute}{#1}}
+
+\newcommand{\makearticlehead}{{%
+    \newpage
+    \centering
+    {\Large\@title\par}
+
+    \renewcommand{\and}{\quad}
+    \@author
+
+    \renewcommand{\and}{\\}
+    {\small\@institute\par}
+
 }}
