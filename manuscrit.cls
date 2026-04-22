@@ -317,6 +317,9 @@
 
 \colorlet{marking}{reccolor2!35}
 
+\definecolor{lightblue}{HTML}{0074D9}
+\definecolor{lightgreen}{HTML}{2ECC40}
+
 %% Légendes
 \RequirePackage{caption}
 \DeclareCaptionLabelFormat{oldstyle}{\textsc{\MakeLowercase{#1}} \oldstylenums{#2}}
@@ -328,7 +331,6 @@
 
 % Liens et hyperliens
 
-\definecolor{lightblue}{HTML}{0074D9}
 \colorlet{linkhg}{lightblue}
 \RequirePackage{hyperref}
 \hypersetup{
@@ -340,9 +342,10 @@
 \RequirePackage{hypcap}
 \RequirePackage[nameinlink,noabbrev]{cleveref}
 
-\crefname{problem}{x}{y}
-
 % Traductions
+
+\crefname{problem}{problem}{problems}
+\crefname{property}{property}{properties}
 
 \addto\captionsfrench{%
     \renewcommand{\crefrangeconjunction}{ à~}%
@@ -370,6 +373,12 @@
     \renewcommand{\manu@name@problem@input}{Entrée}%
     \renewcommand{\manu@name@problem@output}{Sortie}%
     \renewcommand{\manu@name@problem@query}{Question}%
+    \crefname{property}{propriété}{propriétés}%
+    \Crefname{property}{Propriété}{Propriétés}%
+    \crefname{table}{tableau}{tableaux}%
+    \Crefname{table}{Tableau}{Tableaux}%
+    \crefname{algorithm}{algorithme}{algorithmes}%
+    \Crefname{algorithm}{Algorithme}{Algorithmes}%
     \crefname{chapter}{chapitre}{chapitres}%
     \Crefname{chapter}{Chapitre}{Chapitres}%
     \crefname{enumi}{point}{points}%
@@ -401,6 +410,12 @@
     \renewcommand{\manu@name@problem@input}{Input}%
     \renewcommand{\manu@name@problem@output}{Output}%
     \renewcommand{\manu@name@problem@query}{Question}%
+    \crefname{property}{property}{properties}%
+    \Crefname{property}{Property}{Properties}%
+    \crefname{table}{table}{tables}%
+    \Crefname{table}{Table}{Tables}%
+    \crefname{algorithm}{algorithm}{algorithms}%
+    \Crefname{algorithm}{Algorithm}{Algorithms}%
     \crefname{chapter}{chapter}{chapters}%
     \Crefname{chapter}{Chapter}{Chapters}%
     \crefname{enumi}{item}{items}%
