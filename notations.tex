@@ -99,25 +99,31 @@
 %% Algorithmes et complexité
 
 \newcommand{\manu@name@problem}{}
-\addto\captionsfrench{\renewcommand{\manu@name@problem}{Problème}}
-\addto\captionsenglish{\renewcommand{\manu@name@problem}{Problem}}
-\newcommand{\manu@name@problem@input}{}
-\addto\captionsfrench{\renewcommand{\manu@name@problem@input}{Entrée}}
-\addto\captionsenglish{\renewcommand{\manu@name@problem@input}{Input}}
-\newcommand{\manu@name@problem@output}{}
-\addto\captionsfrench{\renewcommand{\manu@name@problem@output}{Sortie}}
-\addto\captionsenglish{\renewcommand{\manu@name@problem@output}{Output}}
 
-\newcommand{\problem}[3]{%
-    \parbox{\textwidth}{%
-        \textbf{\manu@name@problem} \textsc{#1}\textbf{.}\\[1ex]
-        \begin{tabular}{@{}p{4em}@{}p{\dimexpr\linewidth-4em-1pt}@{}}
-            \textbf{\manu@name@problem@input:} & #2\\
-            \textbf{\manu@name@problem@output:} & #3
-        \end{tabular}%
-    }%
+\newcommand{\manu@name@problem@input}{}
+\newcommand{\probinput}[1]{\textbf{\manu@name@problem@input:}&#1\\}
+
+\newcommand{\manu@name@problem@output}{}
+\newcommand{\proboutput}[1]{\textbf{\manu@name@problem@output:}&#1\\}
+
+\newcommand{\manu@name@problem@query}{}
+\newcommand{\probquery}[1]{\textbf{\manu@name@problem@query:}&#1\\}
+
+\newcounter{problem}[section]
+\renewcommand{\theproblem}{\thesection.\arabic{problem}}
+
+\newenvironment{problem}[1]{%
+    \refstepcounter{problem}%
+    \addvspace{.5ex}%
+    \begingroup%
+    \textbf{Problem {\theproblem}} (#1)\textbf{.}\\%
+    \begin{tabular}{@{}p{4em}@{}p{\dimexpr\linewidth-4em-1pt}@{}}%
+}{%
+    \end{tabular}%
+    \endgroup%
+    \addvspace{.5ex}%
 }
-\newcommand{\refproblem}[1]{\textsc{#1}}
+
 \newcommand{\bigo}{\mathcal{O}}
 
 %%%%%% ADP

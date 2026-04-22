@@ -83,8 +83,6 @@
 
 %% Théorèmes/définitions
 \newcommand{\manu@name@definition}{}
-\addto\captionsfrench{\renewcommand{\manu@name@definition}{Définition}}
-\addto\captionsenglish{\renewcommand{\manu@name@definition}{Definition}}
 \declaretheorem[
     style=definition,
     qed=\(\blacklozenge\),
@@ -93,8 +91,6 @@
 ]{definition}
 
 \newcommand{\manu@name@example}{}
-\addto\captionsfrench{\renewcommand{\manu@name@example}{Exemple}}
-\addto\captionsenglish{\renewcommand{\manu@name@example}{Example}}
 \declaretheorem[
     style=remark,
     qed=\(\lozenge\),
@@ -103,8 +99,6 @@
 ]{example}
 
 \newcommand{\manu@name@remark}{}
-\addto\captionsfrench{\renewcommand{\manu@name@remark}{Remarque}}
-\addto\captionsenglish{\renewcommand{\manu@name@remark}{Remark}}
 \declaretheorem[
     style=remark,
     numberwithin=section,
@@ -112,8 +106,6 @@
 ]{remark}
 
 \newcommand{\manu@name@theorem}{}
-\addto\captionsfrench{\renewcommand{\manu@name@theorem}{Théorème}}
-\addto\captionsenglish{\renewcommand{\manu@name@theorem}{Theorem}}
 \declaretheorem[
     style=theorem,
     numberwithin=section,
@@ -121,8 +113,6 @@
 ]{theorem}
 
 \newcommand{\manu@name@lemma}{}
-\addto\captionsfrench{\renewcommand{\manu@name@lemma}{Lemme}}
-\addto\captionsenglish{\renewcommand{\manu@name@lemma}{Lemma}}
 \declaretheorem[
     style=theorem,
     numberwithin=section,
@@ -349,6 +339,73 @@
 }
 \RequirePackage{hypcap}
 \RequirePackage[nameinlink,noabbrev]{cleveref}
+
+\crefname{problem}{x}{y}
+
+% Traductions
+
+\addto\captionsfrench{%
+    \renewcommand{\crefrangeconjunction}{ à~}%
+    \renewcommand{\crefpairconjunction}{ et~}%
+    \renewcommand{\crefmiddleconjunction}{, }%
+    \renewcommand{\creflastconjunction}{, }%
+    \renewcommand{\manu@name@definition}{Définition}%
+    \crefname{definition}{définition}{définitions}%
+    \Crefname{definition}{Définition}{Définitions}%
+    \renewcommand{\manu@name@example}{Exemple}%
+    \crefname{example}{exemple}{exemples}%
+    \Crefname{example}{Exemple}{Exemples}%
+    \renewcommand{\manu@name@remark}{Remarque}%
+    \crefname{remark}{remarque}{remarques}%
+    \Crefname{remark}{Remarque}{Remarques}%
+    \renewcommand{\manu@name@theorem}{Théorème}%
+    \crefname{theorem}{théorème}{théorèmes}%
+    \Crefname{theorem}{Théorème}{Théorèmes}%
+    \renewcommand{\manu@name@lemma}{Lemme}%
+    \crefname{lemma}{lemme}{lemmes}%
+    \Crefname{lemma}{Lemme}{Lemmes}%
+    \renewcommand{\manu@name@problem}{Problème}%
+    \crefname{problem}{problème}{problèmes}%
+    \Crefname{problem}{Problème}{Problèmes}%
+    \renewcommand{\manu@name@problem@input}{Entrée}%
+    \renewcommand{\manu@name@problem@output}{Sortie}%
+    \renewcommand{\manu@name@problem@query}{Question}%
+    \crefname{chapter}{chapitre}{chapitres}%
+    \Crefname{chapter}{Chapitre}{Chapitres}%
+    \crefname{enumi}{point}{points}%
+    \Crefname{enumi}{Point}{Points}%
+}
+\addto\captionsenglish{%
+    \renewcommand{\crefrangeconjunction}{ to~}%
+    \renewcommand{\crefpairconjunction}{ and~}%
+    \renewcommand{\crefmiddleconjunction}{, }%
+    \renewcommand{\creflastconjunction}{, }%
+    \renewcommand{\manu@name@definition}{Definition}%
+    \crefname{definition}{definition}{definitions}%
+    \Crefname{definition}{Definition}{Definitions}%
+    \renewcommand{\manu@name@example}{Example}%
+    \crefname{example}{example}{examples}%
+    \Crefname{example}{Example}{Examples}%
+    \renewcommand{\manu@name@remark}{Remark}%
+    \crefname{remark}{remark}{remarks}%
+    \Crefname{remark}{Remark}{Remarks}%
+    \renewcommand{\manu@name@theorem}{Theorem}%
+    \crefname{theorem}{theorem}{theorems}%
+    \Crefname{theorem}{Theorem}{Theorems}%
+    \renewcommand{\manu@name@lemma}{Lemma}%
+    \crefname{lemma}{lemma}{lemmas}%
+    \Crefname{lemma}{Lemma}{Lemmas}%
+    \renewcommand{\manu@name@problem}{Problem}%
+    \crefname{problem}{problem}{problems}%
+    \Crefname{problem}{Problem}{Problems}%
+    \renewcommand{\manu@name@problem@input}{Input}%
+    \renewcommand{\manu@name@problem@output}{Output}%
+    \renewcommand{\manu@name@problem@query}{Question}%
+    \crefname{chapter}{chapter}{chapters}%
+    \Crefname{chapter}{Chapter}{Chapters}%
+    \crefname{enumi}{item}{items}%
+    \Crefname{enumi}{Item}{Items}%
+}
 
 % Pages liminaires
 
