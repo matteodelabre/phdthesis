@@ -24,7 +24,7 @@ Deux applications \(\rec_1\) et \(\rec_2\) sont illustrées en \cref{figure:stri
 Parmi elles, seule \(\rec_1\) est une réconciliation acceptable.
 En effet, \(\rec_2\) ne respecte pas la dernière condition de la définition, qui interdit aux réconciliations de \enquote{remonter dans le temps} par rapport à la topologie de \(S\).
 
-\begin{figure}[htb]
+\begin{figure}[htb] % xx
     \capstart
     \centering
     \input{fig/01-strict-rec}
@@ -50,7 +50,7 @@ Une réconciliation qui ne contient pas de telle branche est dite \emph{stricte}
 Dans la \cref{figure:strict-rec}, la réconciliation \(\rec_1\) est une réconciliation stricte.
 La \cref{figure:free-rec} donne deux exemples de réconciliations libres.
 
-\begin{figure}[htb]
+\begin{figure}[htb] % xy
     \capstart
     \centering
     \input{fig/01-free-rec}
@@ -85,7 +85,7 @@ Les arcs ajoutés pour chaque branche de changement d’hôte \((v, w)\) imposen
 Lorsque le graphe d’ordre \(\ograph\)\, d’une réconciliation est acyclique, un ordre sur les embranchements de \(S\) compatible simultanément avec sa topologie et avec les changements d’hôte peut être obtenu par tri topologique de \(\ograph\).
 Autrement, comme avec \(\ograph(\rec_4)\), ces contraintes d’ordres ne peuvent être satisfaites.
 
-\begin{figure}[htb]
+\begin{figure}[htb] % xz
     \capstart
     \centering
     \input{fig/01-order-graph}
@@ -147,17 +147,17 @@ Le coût d’un arbre réconcilié est la somme des coûts de ses événements.
 Le coût d’une réconciliation est alors défini comme celui de son interprétation la plus économique.
 Cette définition engendre une famille de problèmes d’optimisation combinatoire qui consistent à rechercher les réconciliations de coût minimum, c’est-à-dire les plus parcimonieuses.
 
-\problem{\(\recmodel\)-Parcimonie}
-    {Phylogénies \(T\) et \(S\);
-     association des feuilles \(\llmap : \tleavs(T) \onto \tleavs(S)\);
-     coûts \(\cost : \recmodel \onto \nat\).}
-    {Coût minimum d’une réconciliation acyclique de \(T\) et \(S\)
-     sous le modèle \(\recmodel\) et les coûts \(\cost\).}
+\begin{problem}{\(\recmodel\)-parcimonie}
+    \probinput{Phylogénies \(T\) et \(S\);
+               association des feuilles \(\llmap : \tleavs(T) \onto \tleavs(S)\);
+               coûts \(\cost : \recmodel \onto \nat\).}
+    \proboutput{Coût minimum d’une réconciliation acyclique de \(T\) et \(S\) sous le modèle \(\recmodel\) et les coûts \(\cost\).}
+\end{problem}
 
 Même si les phylogénies \(T\) et \(S\) étudiées sont exemptes d’erreurs, les réconciliations les plus parcimonieuses ne correspondent pas nécessairement à des histoires complètes ou exactes des unités concernées, puisque l’évolution emprunte rarement le chemin le plus court.
 En revanche, cette méthode a l’avantage de sélectionner des réconciliations qui permettent d’expliquer les données observées en demandant le moins d’hypothèses supplémentaires.
 
-\begin{figure}[htb]
+\begin{figure}[htb] % yx
     \capstart
     \centering
     \input{fig/01-rec-trees}
@@ -174,7 +174,7 @@ En revanche, cette méthode a l’avantage de sélectionner des réconciliations
 
 \subsection{Modèles de réconciliation gènes--espèces}
 
-Cette section présente les principaux modèles de réconciliation gènes--espèces et les résultats connus en complexité du calcul pour les problèmes de \refproblem{\(\recmodel\)-Parcimonie} associés.
+Cette section présente les principaux modèles de réconciliation gènes--espèces et les résultats connus en complexité du calcul pour les problèmes de \(\recmodel\)-parcimonie associés.
 
 \paragraph{Duplication--perte~\textup{\parencite{Goodman1979FittingGeneLineage,Page1994MapsTreesCladistic}}}
 Ce modèle comporte trois types d’événements \(\recmodelDL = \{\evtD, \evtL, \evtS\}\).
@@ -194,7 +194,7 @@ Le modèle \(\recmodelDL\) excluant toute possibilité de changement d’hôte, 
 La réconciliation~\(\reclca\) est toujours une solution sous ce modèle.
 De surcroît, à condition que \(\cost(\evtL) > 0\), il s’agit de l’unique solution~\parencite{Chauve2009NewPerspectivesGene}.
 Le calcul de~\(\reclca\) demande seulement un temps et espace linéaires en la taille de l’arbre \(T\)~\parencite{Zhang1997MirkinMuchnikSmith}.
-Le problème \refproblem{\(\recmodelDL\)-Parcimonie} est donc polynomial.
+Le problème de \(\recmodelDL\)-parcimonie est donc polynomial.
 
 \paragraph{Duplication--transfert--perte~\textup{\parencite{Tofigh2011SimultaneousIdentificationDuplications}}}
 Le modèle \(\recmodelDTL = \{\evtD, \evtT, \evtL, \evtS\}\) étend le modèle \(\recmodelDL\) pour y intégrer la possibilité de changements d’hôte et ainsi permettre d’interpréter des réconciliations libres.
@@ -203,11 +203,11 @@ Un exemple d’interprétation d’une réconciliation sous le modèle \(\recmod
 
 Contrairement au modèle \(\recmodelDL\), il peut exister plusieurs réconciliations optimales pour \(\recmodelDTL\) et la réconciliation \(\reclca\) n’en fait pas nécessairement partie.
 L’une des difficultés avec ce modèle est de garantir que les réconciliations calculées soient acycliques (voir \cref{definition:rec-acyclic}).
-Cette contrainte rend NP-complet le problème de décision associé à \refproblem{\(\recmodelDTL\)-Parcimonie}, comme montré par \textcite{Tofigh2011SimultaneousIdentificationDuplications} par réduction du problème du sous-graphe acyclique maximal.
+Cette contrainte rend NP-complet le problème de décision associé à la \(\recmodelDTL\)-parcimonie, comme montré par \textcite{Tofigh2011SimultaneousIdentificationDuplications} par réduction du problème du sous-graphe acyclique maximal.
 
 % TODO: faire un lien avec le chapitre ADP
 
-Pour contourner cette difficulté, une version relâchée du problème est définie, \refproblem{\(\recmodelDTL\)-Parcimonie\(\star\)}, dans laquelle les réconciliations cycliques sont acceptées.
+Pour contourner cette difficulté, une version relâchée du problème est définie, \(\recmodelDTL\)-parcimonie\(\star\), dans laquelle les réconciliations cycliques sont acceptées.
 La réconciliation \(\rec_4\) de la \cref{figure:free-rec} est par exemple acceptable.
 Cette modification confère au problème une sous-structure optimale : une solution pour le sous-arbre \(\subtree{T}{v}\) est toujours un assemblage de deux solutions pour \(\subtree{T}{v\lchild}\) et \(\subtree{T}{v\rchild}\).
 L’\cref{algo:dtl-parcimonie-star} exploite cette propriété pour résoudre efficacement le problème.
@@ -265,7 +265,7 @@ L’\cref{algo:dtl-parcimonie-star} exploite cette propriété pour résoudre ef
     }\label{algo:dtl-parcimonie-star:fndtl:end}
     \medskip
     \Return \(\min_{\sigma \in \tnodes(S)}\fndtl(\troot(T), \sigma)\)
-    \caption{Algorithme récursif pour le problème \refproblem{\(\recmodelDTL\)-Parcimonie\(\star\)}.}
+    \caption{Algorithme récursif pour le problème de \(\recmodelDTL\)-parcimonie\(\star\).}
     \label{algo:dtl-parcimonie-star}
 \end{algorithm}
 
@@ -282,7 +282,7 @@ L’assemblage des sous-réconciliations dans l’algorithme est basé sur les o
 L’\cref{algo:dtl-parcimonie-star} peut être transformé pour utiliser une table de programmation dynamique conservant les valeurs de \(\fndtl(v, \sigma)\), évitant ainsi de répéter plusieurs fois le même calcul.
 En posant \(n = \lvert\tnodes(T)\rvert\) et \(m = \lvert\tnodes(S)\rvert\), l’algorithme ainsi transformé a une complexité en temps de \(\bigo(nm^2)\) et en espace de \(\bigo(nm)\)~\parencite{Tofigh2011SimultaneousIdentificationDuplications}.
 La complexité en temps peut être réduite à \(\bigo(nm)\) sans modifier la complexité en espace~\parencite{Bansal2012EfficientAlgorithmsReconciliation}.
-Le problème \refproblem{\(\recmodelDTL\)-Parcimonie\(\star\)} est donc polynomial.
+Le problème de \(\recmodelDTL\)-parcimonie\(\star\) est donc polynomial.
 Comme à l’habitude pour les algorithmes de programmation dynamique, une solution ayant un coût optimal peut être reconstruite en conservant des pointeurs vers les entrées minimales pour chaque expression \enquote{\(\min\)} dans l’algorithme.
 
 % \paragraph{Transferts doubles~\textup{\parencite{Doyon2010EfficientAlgorithmGene}}}
@@ -303,7 +303,7 @@ Lorsque seules les réconciliations strictes sont considérées, les gènes évo
 Ceci n’est plus vrai dès lors que les réconciliations libres sont permises, comme pour le modèle \(\recmodelDTL\).
 En effet, il est alors possible qu’un gène évolue dans une partie de la phylogénie hors de l’échantillon pour être par la suite transféré vers un hôte échantillonné (voir exemple en \cref{figure:rec-dtlx}).
 
-\begin{figure}[htb]
+\begin{figure}[htb] % yy
     \capstart
     \centering
     \input{fig/01-rec-dtlx}

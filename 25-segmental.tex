@@ -116,14 +116,13 @@ Cet événement de gain d’adjacence est noté~\(\evtG\).
 Par conséquent, une forêt sans aucune branche correspond à un scénario dans lequel toutes les adjacences sont apparues spontanément, tandis qu’une forêt composée d’un seul arbre correspond à l’émergence de toutes les adjacences depuis un ancêtre unique.
 Le coût associé à une forêt d’adjacences est la somme des coûts de ses événements, incluant autant d’événements de gain qu’elle ne compte de racines.
 
-\problem{\(\tuple{\recmodel\rmunit, \recmodel\rmadj}\)-Parcimonie}
-    {Phylogénies \(\gtrees\) et \(S\);
-     association des feuilles \(\llmap : \tleavs(\gtrees) \onto \tleavs(S)\);
-     adjacences entre feuilles \(\lladjset \subseteq \alladjs(\llmap)\);
-     coûts \(\cost : \recmodel\rmunit \cup \recmodel\rmadj \cup \{\evtG\} \onto \nat\).}
-    {Coût minimum d’une forêt réconciliée acyclique de \(\gtrees\) avec \(S\) sous le modèle \(\recmodel\rmunit\)
-     et d’une forêt d’adjacences associée sous le modèle \(\recmodel\rmadj\)
- pour les coûts \(\cost\).}
+\begin{problem}{\(\tuple{\recmodel\rmunit, \recmodel\rmadj}\)-parcimonie}
+    \probinput{Phylogénies \(\gtrees\) et \(S\);
+               association des feuilles \(\llmap : \tleavs(\gtrees) \onto \tleavs(S)\);
+               adjacences entre feuilles \(\lladjset \subseteq \alladjs(\llmap)\);
+               coûts \(\cost : \recmodel\rmunit \cup \recmodel\rmadj \cup \{\evtG\} \onto \nat\).}
+    \proboutput{Coût minimum d’une forêt réconciliée acyclique de \(\gtrees\) avec \(S\) sous le modèle \(\recmodel\rmunit\) et d’une forêt d’adjacences associée sous le modèle \(\recmodel\rmadj\) pour les coûts \(\cost\).}
+\end{problem}
 
 Les modèles d’évolution d’adjacences proposés par \textcite{Berard2012EvolutionGeneNeighborhoods,Patterson2013LateralGeneTransfer,Duchemin2017DecostarReconstructingAncestral} s’appuient sur les modèles de réconciliation bilatérale et fixent \(\recmodel\rmunit = \recmodelDL\), \(\recmodel\rmunit = \recmodelDTL\) ou \(\recmodel\rmunit = \recmodelDTLx\).
 L’ensemble des événements pouvant affecter les adjacences est \(\recmodel\rmadj = \recmodel\rmunit \cup \{\evtB\}\).
@@ -159,7 +158,7 @@ La \cref{figure:adj-forest} donne un exemple de forêt réconciliée et de forê
     \label{figure:adj-forest}
 \end{figure}
 
-Aucun algorithme général n’est connu pour les problèmes de \refproblem{\(\tuple{\recmodel\rmunit, \recmodel\rmadj}\)-Parcimonie}, et il a été conjecturé que le problème est NP-complet~\parencite{Boussau2020ReconcilingGeneTrees}.
+Aucun algorithme général n’est connu pour les problèmes de \(\tuple{\recmodel\rmunit, \recmodel\rmadj}\)-parcimonie, et il a été conjecturé que le problème est NP-complet~\parencite{Boussau2020ReconcilingGeneTrees}.
 Lorsque la forêt réconciliée est calculée en amont, le problème qui consiste à calculer la forêt d’adjacences optimale sous l’hypothèse d’une forêt réconciliée est résolu en temps polynomial par un algorithme de programmation dynamique.
 Cet algorithme est détaillé notamment par \textcite{Duchemin2017DecostarReconstructingAncestral} pour le modèle \(\recmodelDTLx\) et est implémenté dans le programme DeCoSTAR.
 
@@ -228,7 +227,7 @@ Formellement, pour un nœud \(v \in \tnodes(\segtree)\) de la forêt de synténi
 \end{compactitemize}
 
 Le problème d’optimisation combinatoire associé à la super-réconciliation est similaire au problème de
-\refproblem{\(\tuple{\recmodel\rmunit, \recmodel\rmadj}\)-Parcimonie}
+\(\tuple{\recmodel\rmunit, \recmodel\rmadj}\)-parcimonie
 défini précédemment, à ceci près que la sortie attendue est une forêt de synténies au lieu d’adjacences.
 Ce problème se décline en une \enquote{grande} version, dans laquelle la topologie de la forêt et le contenu de ses synténies doivent être inférés simultanément, et une \enquote{petite} version dans laquelle la topologie est fixée.
 
