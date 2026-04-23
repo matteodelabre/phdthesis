@@ -1,24 +1,29 @@
 \selectlanguage{french}
 \chapter{Réconciliation avec duplications, transferts, pertes et gains segmentaux}\label{chap:superdtl}
 
-Ce chapitre est une reproduction de l’article intitulé \enquote{Reconciliation with segmental duplication, transfer, loss and gain}.
-Cet article a été écrit entre novembre 2020 et octobre 2021, présenté lors de l’édition 2022 de la conférence RECOMB-CG à La Jolla en Californie, et publié en mai 2022 dans les actes de ladite conférence parus chez Springer.
+% TODO: Clarifier que l’on se concentre sur le problème sans ordres
 
-Le travail d’extension aux transferts horizontaux a été initié par Maher Mallem.
+Les travaux initiaux menés sur la réconciliation segmentale se limitaient à un modèle évolutif à base de spéciations et de duplications~\parencite{Delabre2020EvolutionSegmentalDuplications}.
+Au cours de l’année 2019--2020, Maher~\textsc{Mallem} a travaillé, sous la supervision de Nadia~\textsc{El-Mabrouk}, à étendre le modèle et l’algorithme associé afin de permettre l’inférence de transferts horizontaux.
+L’approche proposée souffrait d’une complexité algorithmique élevée puisqu’elle demandait une exploration exhaustive pour déterminer quels sommets seraient des sommets de transfert horizontal.
+Dans ce chapitre, je montre comment obtenir un algorithme de complexité polynomiale pour résoudre ce problème.
 
-Il vient répondre à la négative à la question suivante: est-il possible de résoudre le problème de DTL-Super-réconciliation en procédant en deux étapes, d’abord la minimisation du nombre d’événements duplications et de transferts, puis la minimisation du nombre de pertes segmentales par rapport à la position de ces événements?
+L’approche initiale de \textcite{Delabre2020EvolutionSegmentalDuplications} reposait sur une méthodologie en deux étapes: premièrement la recherche d’une réconciliation optimale en ignorant le caractère segmental du problème, deuxièmement la minimisation des pertes segmentales en fixant les événements binaires identifiés à l’étape précédente.
+Nous verrons à la \cref{sec:superdtl:2steps} qu’il existe un contre-exemple empêchant l’extension de cette approche au cas impliquant des transferts horizontaux.
+Je parviens néanmoins au résultat annoncé en développant un algorithme de programmation dynamique combinant les deux étapes sur la base des résultats de \textcite{Tofigh2011SimultaneousIdentificationDuplications}.
 
-Il pointe également plusieurs problèmes qui vont guider la suite des recherches de cette thèse:
+Pour démontrer l’intérêt de cet algorithme, Yoann \textsc{Anselmetti} a réalisé une analyse de l’évolution des synténies d’un échantillon de systèmes CRISPR-Cas.
+Cette analyse préliminaire s’est révélée être alignée avec les hypothèses actuelles sur l’évolution de ces systèmes et a permis de proposer de nouvelles pistes.
+J’ai été en charge de la programmation de l’algorithme ayant permis ces analyses.
 
-l’abondance de solutions optimales, qui viennent relativiser toute conclusion tirée d’une réconciliation particulière.
-
-la difficulté d’identifier des coûts pour les différents événements
-
-la question de l’existence d’hôtes non-échantillonnés pouvant influencer l’évolution d’une synténie
-
-la position des gains est forcée au LCA
-
-les fonctions de coûts sont rigides (coût constant quel que soit la taille des synténies)
+Les résultats obtenus doivent toutefois être lus dans le contexte de plusieurs limites dont souffre la méthode présentée.
+Premièrement, son application demande l’estimation de probabilités d’occurrence de chacun des événements modélisés et ces probabilités ont une grande influence sur les solutions produites.
+Par ailleurs, la fonction de coût est rigide et considère avec le même poids toutes les pertes quelle que soit leur taille.
+Deuxièmement, l’inférence suppose que l’échantillonage des espèces est complet et exclut la possibilité d’une interaction des synténies étudiées avec des espèces qui se sont par la suite éteintes ou qui n’ont pas été échantillonnées.
+Comme suggéré par l’une des personnes relectrices de l’article présenté ci-dessous, cette limite pourrait expliquer la séquence d’événements de pertes observée dans le scénario présenté à la \cref{fig:superdtl:crispr-scenario}.
+Troisièmement, les événements de gain sont toujours positionnés à l’ancêtre commun, en excluant de la fonction de minimisation le nombre de gains.
+Finalement, il existe une abondance de solutions optimales parmi lesquelles seule une arbitraire est tirée, ce qui est illustré par la \cref{tab:superdtl:sol-count}.
+Ces limites ont guidé la recherche qui est présentée aux chapitres suivants.
 
 % TODO: Migrate notations to notations.tex
 
@@ -148,6 +153,10 @@ les fonctions de coûts sont rigides (coût constant quel que soit la taille des
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \selectlanguage{english}
+\articlehat{
+    \textfrench{La suite de ce chapitre est une reproduction partielle de l’article intitulé \enquote{Reconciliation with segmental duplication, transfer, loss and gain}.
+    Cet article a été écrit entre novembre 2020 et octobre 2021, présenté lors de l’édition 2022 de la conférence RECOMB-CG à La Jolla en Californie, et publié en mai 2022 dans les actes de ladite conférence parus chez Springer.}
+}
 \title{Reconciliation with segmental duplication, transfer, loss and gain}
 \author{
     Yoann Anselmetti\inst{1,2}
@@ -155,8 +164,8 @@ les fonctions de coûts sont rigides (coût constant quel que soit la taille des
     \and Nadia El-Mabrouk\inst{1}
 }
 \institute{
-    \inst{1}Département d'informatique et de recherche opérationnelle (DIRO), Université de Montréal
-    \and \inst{2}Laboratoire CoBIUS, Département d'informatique, Université de Sherbrooke
+    \textfrench{\inst{1}Département d'informatique et de recherche opérationnelle, Université de Montréal}
+    \and \textfrench{\inst{2}Laboratoire CoBIUS, Département d'informatique, Université de Sherbrooke}
 }
 \makearticlehead
 
@@ -323,7 +332,7 @@ In addition, in order to avoid the unrealistic assumption of having all gene fam
 	\item $\eventDup$ \textup{(D)} produces two syntenies $Y$ and $Z$ verifying $Y= X$, $Z \subseteq X$, and $s(X)=s(Y)=s(Z)$.
 	\item $\eventHGT$ \textup{(T)} produces two syntenies $Y$ and $Z$ verifying $Y= X$, $Z \subseteq X$, $s(Y) = s(X)$ and $s(Z)$ is separated from $s(X)$.
 	\item $\eventLoss$ \textup{(L)} produces a single synteny $Y$ verifying $Y \subset X$ and $s(Y) = s(X)$. A loss is \emph{full} if $Y$ is the empty synteny (i.e., $Y = \emptyset$) and \emph{partial} otherwise.
-	\item $\eventGain$ \textup{(G)} produces a single synteny $Y$ verifying $X \subset Y$ and $s(Y) = s(X)$.
+	\item $\eventGain$ \textup{(G)} produces a single synteny $Y$ verifying $X \subset Y$ and $s(Y) = s(X)$. \qedhere
     \end{itemize}
 \end{definition}
 

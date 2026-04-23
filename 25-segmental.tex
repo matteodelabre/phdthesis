@@ -28,7 +28,7 @@ L’un des objectifs de la recherche dans ces domaines est donc la mise au point
 Pour ce faire, un niveau intermédiaire peut être intégré dans le modèle de réconciliation bilatéral, entre les gènes et les espèces, afin de modéliser l’évolution à l’échelle génomique.
 Dans la suite, nous comparons deux approches existantes fondées sur cette idée selon leur capacité de modélisation et leur complexité algorithmique.
 
-\subsection{DeCo -- Évolution d’adjacences}
+\subsection{Reconciliation d’adjacences}
 
 L’organisation linéaire d’un ensemble d’unités peut être représentée par un ensemble d’adjacences entre des paires d’unités.
 Par exemple, un génome \(\{(a, b, c), (d, e)\}\) formé de deux chromosomes et cinq gènes correspond aux trois adjacences \(\{(a, b), (b, c), (d, e)\}\).
@@ -170,10 +170,9 @@ L’approche DeCo suppose que les adjacences évoluent indépendamment les unes 
 Cette caractéristique fait aussi que la perte d’une unité à l’intérieur d’un segment d’adjacences cause la séparation de ce segment en deux, et demande le gain d’une nouvelle adjacence entre les deux segments.
 Une façon de remédier à cette dernière limite a cependant été récemment présentée par~\textcite{Tannier2020AncestralGenomeOrganization}.
 
-\subsection{Super-réconciliation -- Évolution segmentale}
+\subsection{Réconciliation segmentale}
 
-Pour permettre la modélisation d’événements segmentaux affectant simultanément plus de deux unités, \textcite{Delabre2020EvolutionSegmentalDuplications} ont introduit l’approche de super-réconciliation.
-La super-réconciliation généralise la notion d’adjacence à des ensembles d’unités de taille quelconque appelés \emph{synténies}.
+Pour permettre la modélisation d’événements segmentaux affectant simultanément plus de deux unités, \textcite{Delabre2020EvolutionSegmentalDuplications} ont introduit, sous le nom de \emph{super-réconciliation}, une méthode généralisant la notion d’adjacence à des ensembles d’unités de taille quelconque appelés \emph{synténies}.
 L’ordre interne de ces synténies peut être pris en compte (segments) ou ignoré (groupes).
 
 \begin{definition}[Segment]\label{definition:seg}

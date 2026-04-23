@@ -529,12 +529,20 @@
 
 \newcommand{\keywords}[1]{\textbf{Keywords:}\renewcommand{\and}{~·~} #1}
 
+\newcommand{\@articlehat}{}
+\newcommand{\articlehat}[1]{\renewcommand{\@articlehat}{\ignorespaces#1}}
+
 \newcommand{\inst}[1]{\textsuperscript{#1}}
 \newcommand{\@institute}{}
 \newcommand{\institute}[1]{\renewcommand{\@institute}{#1}}
 
 \newcommand{\makearticlehead}{{%
-    \newpage
+    \emph{\@articlehat}
+
+    \vspace{1ex}
+    \rule{\linewidth}{.25pt}
+
+    \vspace{1ex}
     \centering
     {\Large\@title\par}
 
