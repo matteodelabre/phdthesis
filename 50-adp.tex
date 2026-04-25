@@ -1,10 +1,21 @@
 \selectlanguage{french}
-\chapter{Une vue unifiée de la programmation dynamique algébrique}
+\chapter{Théorie unifiée de la programmation dynamique algébrique}
 
-Ce chapitre est une reproduction de l’article intitulé \enquote{A unifying approach to algebraic dynamic programming}.
-Cet article a été écrit entre juillet 2025 et avril 2026 et est prêt à être soumis pour publication dans un journal ou en tant que chapitre de livre.
+La bioinformatique repose sur de nombreux algorithmes de programmation dynamique, qui permet de résoudre efficacement des problèmes d’optimisation combinatoire.
+La réconciliation phylogénétique, comme nous avons pu le voir dans les chapitres précédents, ne fait pas exception à cette règle.
+Plusieurs défis sont reliés à la conception de tels algorithmes.
+D’une part, il existe souvent un grand nombre (exponentiel) de solutions optimales à un problème donné, parfois accomagné d’un certain nombre de paramètres qui doivent être déterminés pour exécuter l’algorithme.
+Cette réalité amène des besoins algorithmiques supplémentaires : énumération et échantillonnage de solutions représentatives, caractérisation des solutions proches de l’optimal, calcul de statistiques sur ces solutions, exploration efficace des paramètres.
+D’autre part, les algorithmes conçus sont de plus en plus techniques, requérant plusieurs parfois plusieurs pages d’équations pour être décrits et encore davantage pour être démontrés corrects.
 
-The author would like to thank Peter F. Stadler, Cédric Chauve, Bertrand Marchand, Manuel Lafond, Mathieu Gascon, Nadia El-Mabrouk, and other participants of the \enquote{Novel Mathematical Paradigm for Phylogenomics} BIRS workshop, for the fruitful discussions.
+L’approche \emph{algébrique} de la programmation dynamique, popularisée par \textcite{Giegerich2004DisciplineDynamicProgramming} dans le domaine de la bioinformatique, vise à offrir un niveau d’abstraction plus élevé afin de faciliter le développement de nouveaux algorithmes.
+Cette abstraction permet de résoudre les questions d’analyse de l’espace des solutions d’une manière générique qui peut par la suite être appliquée à tous les problèmes.
+Elle permet aussi, à terme, de concevoir des algorithmes de programmation dynamique complexes en les séparant en sous-tâches plus élémentaires, permettant ainsi de leur appliquer l’un des principes fondamentaux de l’informatique.
+
+Les développements, relativement récents, reliés à la programmation dynamique algébrique sont toutefois rendus peu accessibles par l’absence d’une ressource présentant une théorie cohérente du domaine.
+Plusieurs résultats importants ont ainsi été redécouverts par plusieurs groupes d’auteurs distincts et isolés.
+L’objet de ce chapitre est de contribuer à bâtir une telle ressource.
+Le chapitre suivant montre comment cette théorie peut s’appliquer au problème de la réconciliation segmentale.
 
 \newcommand{\Call}[2]{\textsc{#1}(#2)}
 
@@ -115,6 +126,11 @@ The author would like to thank Peter F. Stadler, Cédric Chauve, Bertrand Marcha
 }
 
 \selectlanguage{english}
+\articlehat{
+    \textfrench{La suite de ce chapitre est une reproduction de l’article intitulé \enquote{A unifying approach to algebraic dynamic programming}.
+    Une version préliminaire de cet article a été présentée lors de l’atelier \enquote{Novel Mathematical Paradigm for Phylogenomics} à la \emph{Banff International Research Station} en août~2025 et a bénéficié des commentaires avisés de Peter~F.~\textsc{Stadler}, Cédric~\textsc{Chauve}, Bertrand~\textsc{Marchand} et Manuel~\textsc{Lafond}.
+    L’article a été écrit entre juillet 2025 et avril 2026 et est prêt à être soumis pour publication dans un journal ou en tant que chapitre de livre.}
+}
 \title{A unifying approach to algebraic dynamic programming}
 \author{Mattéo Delabre}
 \institute{Département d'informatique et de recherche opérationnelle (DIRO), Université de Montréal}
