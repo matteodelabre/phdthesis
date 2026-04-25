@@ -1,20 +1,22 @@
 \selectlanguage{french}
 \chapter{Synesth: réconciliation segmentale avec hôtes non-échantillonnés}\label{chap:synesth}
 
-Conceptualization, N.E.-M.;
-methodology, M.D. and N.E.-M.;
-software, M.D.;
-writing, M.D. and N.E.-M.
+L’une des limites de la méthode proposée au chapitre précédent est qu’elle ignore les interactions possibles entre les unités étudiées et des hôtes qui ne feraient pas partie de l’échantillon choisi, par exemple s’ils appartiennent à une lignée qui s’est éteinte depuis lors.
+Dans le contexte de la réconciliation avec transferts horizontaux, de telles interactions sont possibles: une unité pourrait être transférée d’un hôte \(A\), ancêtre d’un hôte échantillonné, vers un hôte \(B\) inconnu, puis à nouveau transféré vers un descendant \(C \tdesc A\).
+Sous le modèle précédent, ce scénario serait interprété comme une série d’autant de spéciations et de pertes que d’hôtes ancestraux qui séparent \(A\) de \(C\), ce qui peut avoir tendance à écarter artificiellement ce type de possibilité.
+Cette problématique a été étudiée par plusieurs auteurs dans le contexte de la réconciliation bilatérale, par exemple récemment par \textcite{Weiner2021ImprovedDuplicationTransfer}.
+Nous verrons dans ce chapitre comment étendre le modèle pour prendre en compte cette possibilité.
 
-Étude approfondie de l’espace des solutions
+Nous montrons également comment intégrer un nouveau type d’événement de \emph{scission} dans le modèle, suivant lequel une synténie se partitionne en deux synténies disjointes.
+Cet événement additionnel, suggéré par Russell~\textsc{Schwartz} lors de discussions à la conférence RECOMB~2022, permet de mieux prendre en compte la réalité évolutive des synténies.
 
-Pareto
-
-Nouveaux types d’événements: scissions et hôtes non-échantillonnés
-
-Scissions proposées par Russell Schwarts à RECOMB-CG 2022
-
-We would like to thank Arnaud~Grandisson for his work on the graphical output and Mathieu~Gascon for his help and invaluable comments on the model and algorithm.
+Finalement, un autre enjeu important est le besoin d’estimer des coûts pour les différents types d’événements du modèle.
+En pratique, la valeur exacte des coûts a une influence importante sur la teneur des scénarios inférés, bien que les procédures d’estimation de ces coûts pourraient avoir une certaine incertitude.
+Il devient alors pertinent de qualifier précisément l’impact des variations des coûts sur les résultats
+Une possibilité coûteuse et imprécise consiste à échantillonner l’espace des coûts et à exécuter l’algorithme pour chacun des choix, une méthode qui s’apparente au \emph{grid search} en apprentissage automatique.
+Une approche préférable consiste à caractériser l’espace des solutions Pareto-optimales, c’est-à-dire des solutions dont le nombre d’événements de chaque type fait qu’il existe un certain ensemble de coûts qui les rendent meilleures que les autres.
+En nous appuyant sur les travaux de \textcite{LibeskindHadas2014ParetoOptimalPhylogenetic}, nous montrerons qu’il est possible de brosser efficacement le \emph{paysage} des scénarios de réconciliation segmentale pour une certaine instance, indépendamment de tout choix spécifique de coûts.
+Pour ce faire, nous procéderons à une étude combinatoire de l’espace des réconciliations segmentales sous ce modèle étendu.
 
 % TODO: Migrate notations to notations.tex
 
