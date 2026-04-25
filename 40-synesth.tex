@@ -12,21 +12,12 @@ Pareto
 
 Nouveaux types d’événements: scissions et hôtes non-échantillonnés
 
+Scissions proposées par Russell Schwarts à RECOMB-CG 2022
+
 We would like to thank Arnaud~Grandisson for his work on the graphical output and Mathieu~Gascon for his help and invaluable comments on the model and algorithm.
 
 % TODO: Migrate notations to notations.tex
 
-\newcommand{\sidecols}[4]{%
-    \noindent%
-    \begin{minipage}[b]{#1}\vspace*{0pt}#3\end{minipage}\hfill%
-    \begin{minipage}[b]{#2}\vspace*{0pt}#4\end{minipage}\hfill%
-}
-\newcommand{\threecols}[6]{%
-    \noindent%
-    \begin{minipage}[b]{#1}\vspace*{0pt}#4\end{minipage}\hfill%
-    \begin{minipage}[b]{#2}\vspace*{0pt}#5\end{minipage}\hfill%
-    \begin{minipage}[b]{#3}\vspace*{0pt}#6\end{minipage}\hfill%
-}
 \newcommand{\ancest}{\leq}
 \newcommand{\separ}{\mathrel{\|}}
 % \newcommand{\rootOf}{\mathrm{r}}
@@ -87,9 +78,13 @@ We would like to thank Arnaud~Grandisson for his work on the graphical output an
 %%%%%%%%%%%%%%%%%%%%%%%
 
 \selectlanguage{english}
-\title{Synesth: Comprehensive segmental\\reconciliation with unsampled lineages}
+\articlehat{
+    \textfrench{La suite de ce chapitre est une reproduction partielle de l’article intitulé \enquote{Synesth: Comprehensive syntenic reconciliation with unsampled lineages}.
+    Cet article a été écrit entre octobre~2022 et décembre~2023 et a été publié en avril~2024 dans le journal Algorithms chez MDPI.}
+}
+\title{Synesth: Comprehensive syntenic\\reconciliation with unsampled lineages}
 \author{Mattéo Delabre \and Nadia El-Mabrouk}
-\institute{Département d'informatique et de recherche opérationnelle (DIRO), Université de Montréal}
+\institute{Département d'informatique et de recherche opérationnelle, Université de Montréal}
 \makearticlehead
 
 \begin{abstract}

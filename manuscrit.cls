@@ -65,6 +65,19 @@
 
 \setlength{\headheight}{14pt}
 
+%% Colonnes et grilles
+\newcommand{\sidecols}[4]{%
+    \noindent\hspace*{\fill}%
+    \begin{minipage}[b]{#1}\vspace*{0pt}#3\end{minipage}\hfill%
+    \begin{minipage}[b]{#2}\vspace*{0pt}#4\end{minipage}\hspace*{\fill}%
+}
+\newcommand{\threecols}[6]{%
+    \noindent\hspace*{\fill}%
+    \begin{minipage}[b]{#1}\vspace*{0pt}#4\end{minipage}\hfill%
+    \begin{minipage}[b]{#2}\vspace*{0pt}#5\end{minipage}\hfill%
+    \begin{minipage}[b]{#3}\vspace*{0pt}#6\end{minipage}\hspace*{\fill}%
+}
+
 % Révision
 
 \newcommand{\tk}[1]{\textcolor{red}{\textsc{tk:}\enspace#1}}
@@ -156,6 +169,8 @@
 
 \RequirePackage{luacode}
 % Disable edge bending in rectangular phylogenetic layout
+% (so "rectangular phylograms" look like "straight phylograms",
+% but length are counted only vertically instead of diagonally)
 \begin{luacode*}
     local maeusle = require 'pgf.gd.phylogenetics.Maeusle2012'
     maeusle.bendEdge90Degree = function () end

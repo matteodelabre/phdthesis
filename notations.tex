@@ -46,7 +46,7 @@
 
 %%% Modèles de réconciliation
 \newcommand{\recmodel}{\mathcal{M}}
-\newcommand{\cost}{\delta}
+\newcommand{\cost}{\delta\kern.1pt}
 \newcommand{\treecost}{\Delta}
 \newcommand{\evt}{\mathcal{E}}
 
@@ -65,6 +65,15 @@
 \newcommand{\recmodelDL}{\evtD\evtL}
 \newcommand{\recmodelDTL}{\evtD\evtT\evtL}
 \newcommand{\recmodelDTLx}{\evtD\evtT\evtL\mathrm{x}}
+
+\newcommand{\evSpe}{\mathrm{spe}}
+\newcommand{\evDup}{\mathrm{dup}}
+\newcommand{\evTr}{\mathrm{tr}}
+\newcommand{\evSkip}{\mathrm{skip}}
+\newcommand{\evDesc}{\mathrm{desc}}
+\newcommand{\evLoss}{\mathrm{loss}}
+\newcommand{\evGain}{\mathrm{gain}}
+\newcommand{\evLeaf}{\mathrm{leaf}}
 
 %%% Réconciliations multiples
 \newcommand{\gtrees}{\mathcal{T}}
@@ -124,7 +133,7 @@
     \addvspace{.5ex}%
 }
 
-\newcommand{\bigo}{\mathcal{O}}
+\DeclareMathOperator{\bigo}{\mathcal{O}}
 
 %%%%%% ADP
 
@@ -135,7 +144,6 @@
 \DeclareMathOperator{\size}{sz}
 \DeclareMathOperator{\depth}{d}
 \DeclareMathOperator{\term}{t}
-% \DeclareMathOperator{\bigo}{\mathcal{O}}
 \newcommand{\tup}[1]{\left\langle#1\right\rangle}
 \newcommand{\alg}{\mathbf{A}}
 \newcommand{\algb}{\mathbf{B}}

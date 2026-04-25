@@ -474,7 +474,7 @@ For brevity, we will say that an algebra \(\alg\) is totally-ordered when its na
     for example \(2 <^{\alprod^{\nat}} 3\), yet \(2 \times 0 \not<^{\alprod^{\nat}} 3 \times 0\).
 \end{example}
 
-\subsection{Algebra combinators}\label{sec:alg-combin}
+\subsection{Algebra combinators}\label{sec:adp:alg-combin}
 
 In many problems, it is desirable to combine multiple optimization criteria or to simultaneously compute multiple characteristics on the set of solutions.
 For example, in a shortest path problem such as routing on a map, one could seek paths that simultaneously minimize the travelled distance and the fuel use.
@@ -485,7 +485,7 @@ They can be seen as forming an algebra on the set all of algebras having a given
 
 % TODO: diagram/table summarizing the combinators and their complexity
 
-\subsubsection{Direct product}
+\subsubsection{Direct product}\label{sec:adp:alg-combin:prod}
 
 The direct product of two or more algebras creates a new algebra that independently evaluates the original algebras \enquote{in parallel}.
 This is a standard construction in universal algebra~\parencite[ch. II, §7]{Burris2012CourseUniversalAlgebra}.
@@ -802,7 +802,7 @@ This combinator generalizes the classified algebraic dynamic programming approac
 Depends linearly on the number of possible values for the grouped dimensions \(D\), using a dictionary.
 % TODO: Add details and proof
 
-\subsubsection{Sort}\label{sec:alg-combin-sort}
+\subsubsection{Sort}\label{sec:adp:alg-combin:sort}
 
 In optimization scenarios where there is uncertainty on the input data or on the scoring scheme, obtaining information not only about the optimal solution but also about the near-optimal ones can be particularly insightful.
 For example, one may want to find the \(k\)-best solutions or all the solutions that have a value within \(x\%\) of the best value.
@@ -851,7 +851,7 @@ For bounded, depends on how many elements can have values under the bound.
 For limited, depends on \(m\).
 % TODO: Add details and proof
 
-\subsubsection{Pareto choice}
+\subsubsection{Pareto choice}\label{sec:adp:alg-combin:pareto}
 
 While the lexicographic choice combinator can be useful for multiobjective optimization, there is not always a clear ordering between the multiple criteria.
 For example, when computing the best route between two places, one may want to minimize both the travelled distance and the amount of fuel used, without a set preference between the two.
@@ -1097,7 +1097,7 @@ These underlying circuits can be made explicit using what we call a \emph{trace 
 The algebraic circuit in \cref{fig:circuit-matrix-mult} is the circuit obtained by feeding the trace algebra to the matrix chain multiplication \cref{alg:matrix-chain-algo}.
 In general, while the solutions term for this problem is of length \(\Theta(4^n / n^{3/2})\), the algorithm produces circuits of size \(\Theta(n^3)\) and evaluates them in space \(\Theta(n^2)\).
 
-The trace algebra can also be used jointly with the combinators from \cref{sec:alg-combin} to automatically construct circuits that represent optimal subsets of the solution space.
+The trace algebra can also be used jointly with the combinators from \cref{sec:adp:alg-combin} to automatically construct circuits that represent optimal subsets of the solution space.
 
 \begin{example}[Constructing circuits of optimal solutions]\label{ex:construct-circ-optimal}
     Let \(\alminplus\) be an optimization algebra for a problem of signature \(\algsign\).
@@ -1114,7 +1114,7 @@ Algebraic circuits also correspond to the \emph{AND/OR graphs} as studied by \te
 An equivalent formulation using \emph{forward-hypergraphs (F-graphs)} was also proposed by~\textcite{Ponty2011CombinatorialFrameworkDesigning} in which combination vertices correspond to directed hyperedges and solutions correspond to paths in the hypergraph.
 All of these formulations generalize the original concept of \emph{combinatorial families} introduced by~\textcite{Wilf1977UnifiedSettingSequencing} that was restricted to linear objects since it did not allow for combination vertices.
 
-\subsection{Enumerating and sampling solutions}\label{sec:space-enum-sample}
+\subsection{Enumerating and sampling solutions}\label{sec:adp:space-enum-sample}
 
 Apart from evaluation of algebras, the short representation of solution spaces as algebraic circuits also enable efficient algorithms to extract information about the solutions.
 We are interested in particular in: enumerating some or all of the solutions encoded by the circuit, counting the total number of solutions in the set, and uniformly sampling solutions from the set.
@@ -1220,7 +1220,7 @@ This algorithm follows the recursive method of \textcite{Wilf1977UnifiedSettingS
 \begin{example}[Boltzmann sampling]
     It may be desired to perform sampling not only among the optimal solutions, but also among the near-optimal ones.
     For example in RNA secondary structure prediction, the near-optimal solutions can prove very insightful~\parencite{McCaskill1990EquilibriumPartitionFunction}.
-    One way to do this would be to use the algebra combinators from~\cref{sec:alg-combin-sort} as in~\cref{ex:construct-circ-optimal} to build a circuit containing optimal solutions and near-optimal solutions within a fixed bound of the optimal value.
+    One way to do this would be to use the algebra combinators from~\cref{sec:adp:alg-combin:sort} as in~\cref{ex:construct-circ-optimal} to build a circuit containing optimal solutions and near-optimal solutions within a fixed bound of the optimal value.
     A limitation of this is that the number of solutions under that bound can be very large.
 
     An alternative is to perform Boltzmann sampling.
@@ -1273,7 +1273,7 @@ This enables computing \(\prob_\alg(v \in x)\) as follows
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Yield grammars}
+\section{Yield grammars}\label{sec:adp:yield-gram}
 
 % see error in original Gotoh algo: http://www.sciencedirect.com/science/article/pii/S0092824086900108
 
@@ -1844,7 +1844,7 @@ Other definitions and results from the previous subsection carry over accordingl
 
 Adapting \cref{alg:seq-yield-parser} for hedge patterns results in the following complexity.
 
-\begin{theorem}[Complexity of \cref{alg:seq-yield-parser} on hedges]
+\begin{theorem}[Complexity of \cref{alg:seq-yield-parser} on hedges]\label{thm:adp:gram-hedge-complex}
     Let \(\gram\) be a hedge yield grammar of signature~\(\algsign\) and let~\(I\) be a tuple of hedges of size \(n\) and maximum degree \(\deg I\).
     If \(\altrace(\algsign)\) is the trace algebra of \(\algsign\), then \(\Call{\emph{yield-parse}}{\gram, \altrace(\algsign), S, I, \emptyset}\) is an algebraic circuit of size \(\bigo(|P| (n \deg{I})^{\dim \gram})\).
     The algorithm operates in time \(\bigo(|\gram| n^{\dim\gram}(\deg I)^{\dim\gram+\width\gram})\).
@@ -1999,7 +1999,7 @@ Hence, this provides an effective way to parse some ICOREs, which was missing fr
 \subsection{Ambiguity}
 
 Algebraic circuits are called redundant when they encode the same solution multiple times.
-While this situation is not problematic when evaluating idempotent algebras, it causes duplicates  and incorrect results when counting or sampling solutions, as discussed in~\cref{sec:space-enum-sample}.
+While this situation is not problematic when evaluating idempotent algebras, it causes duplicates  and incorrect results when counting or sampling solutions, as discussed in~\cref{sec:adp:space-enum-sample}.
 It is therefore desirable to construct yield algebras that produce non-redundant circuits, which we call semantically unambiguous algebras following~\textcite{Reeder2005EffectiveAmbiguityChecking}.
 
 \begin{definition}[Semantic ambiguity]

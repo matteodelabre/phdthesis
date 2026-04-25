@@ -1,0 +1,350 @@
+\chapter{Approches algébriques pour la réconciliation segmentale}
+
+\tikzset{
+    gain/.code n args={3}{
+        \pgfkeysalso{
+            draw={#1}, fill=black,
+            semicircle, inner sep=1pt,
+        }
+        \def\cmp{#2}\ifx\cmp\empty\else
+            \pgfkeysalso{
+                label={[%
+                    font={\scriptsize\vphantom{gb}},
+                    label distance=2pt,
+                    inner xsep=0pt, inner ysep=0pt,
+                    outer xsep=0pt, outer ysep=0pt,
+                ]#3:#2},
+            }
+        \fi
+    },
+    loss/.code n args={3}{
+        \pgfkeysalso{
+            draw={#1}, fill=black,
+            semicircle, inner sep=1pt,
+            shape border rotate={180},
+        }
+        \def\cmp{{#2}}\ifx\cmp\empty\else
+            \pgfkeysalso{
+                label={[%
+                    font={\scriptsize\vphantom{gb}},
+                    label distance=2pt,
+                    inner xsep=0pt, inner ysep=0pt,
+                    outer xsep=0pt, outer ysep=0pt,
+                ]#3:#2},
+            }
+        \fi
+    },
+}
+
+Le problème de réconciliation segmentale peut être vu comme une combinaison de deux problèmes indépendants: d’une part la réconciliation bilatérale de l’arbre des synténies avec l’arbre des hôtes, et d’autre part l’inférence des ensembles de contenus ancestraux des synténies.
+Dans ce chapitre, nous montrons que l’approche algébrique présentée précédemment permet de rendre précise et effective cette intuition.
+Nous faisons indépendamment un traitement algébrique de chacun des deux problèmes dans les \cref{sec:adp-rec:bilateral,sec:adp-rec:set} puis montrons comment combiner leurs solutions pour résoudre la réconciliation segmentale dans la \cref{sec:adp-rec:both}.
+
+\newpage
+\section{Réconciliation bilatérale}\label{sec:adp-rec:bilateral}
+
+L’entrée est composée d’un arbre d’unités \(T\) et d’un arbre d’hôtes \(S\).
+Les sommets de \(T\) sont en bijection avec un ensemble d’étiquettes~\(\mathcal{T}\)
+et ceux de \(S\) avec un ensemble~\(\mathcal{S}\).
+De plus, il existe une bijection, notée \(\llmap\), des étiquettes de \(\tleavs(T)\) vers les étiquettes de \(\tleavs(S)\).
+
+\subsection{Algèbre d’évaluation}
+
+\newcommand{\algsignrec}{\algsign_{\mathrm{rec}}}
+
+La signature du problème est
+\(\algsignrec = \{\algnull, \algplus, \evLeaf, \evSkip, \evSpe, \evDup, \evTr\}\),
+où \enquote{\(\evLeaf\)} est un opérateur d’arité zéro représentant une feuille de l’arbre,
+\enquote{\(\evSkip\)} est un opérateur unaire représentant un saut vers l’enfant d’une espèce,
+et \enquote{\(\evSpe\)}, \enquote{\(\evDup\)} et \enquote{\(\evTr\)} sont des opérateurs binaire représentant respectivement des événements de spéciation, de duplication et de transfert.
+Les opérateurs \enquote{\(\evLeaf\)}, \enquote{\(\evSpe\)}, \enquote{\(\evDup\)} et \enquote{\(\evTr\)} reçoivent par ailleurs un élément de \(\mathcal{T} \times \mathcal{S}\) représentant la paire de sommets concernée par l’événement en question.
+L’opérateur \enquote{\(\evSkip\)} reçoit un élément de \(\mathcal{S}\) indiquant l’espèce sautée.
+
+Cette représentation de l’espace des réconciliations permet de définir aisément une algèbre de coûts en fixant
+\(\algnull = +\infty\),
+\(\algplus = \min\),
+\(\evLeaf_{v,s} = 0\),
+\(\evSkip_{s}(h) = h + \cost_\evLoss\),
+\(\evSpe_{v,s}(h, h') = h + h'\),
+\(\evDup_{v,s}(h, h') = h + h' + \cost_\evDup\) et
+\(\evTr_{v,s}(h, h') = h + h' + \cost_\evTr\),
+pour des coûts \(\cost_\evLoss\), \(\cost_\evDup\), \(\cost_\evTr \in \realpos\) donnés.
+Cette algèbre peut être convertie en algèbre de Boltzmann (voir \cref{sec:adp:space-enum-sample}) afin de prendre des échantillons de solutions quasioptimales.
+
+Une algèbre de minimisation de la quantité d’événements d’un certain type \(e\), notée \(\alminplus_e\), peut être obtenue en fixant \(\cost_e = 1\) et \(\cost_{e'} = 0\) pour tous les autres types \(e'\). 
+À l’aide des opérateurs des \cref{sec:adp:alg-combin:prod,sec:adp:alg-combin:pareto}, il est possible de construire une algèbre de Pareto, \(\alminplus_\evDup \times \alminplus_\evTr \times \alminplus_\evLoss \mid \alpareto\), calculant les solutions Pareto-optimales.
+
+\subsection{Grammaire de structure}
+
+\newcommand{\gRec}{\mathrm{Rec}}
+\newcommand{\gRecPath}{\mathrm{Rec}^{\downarrow}}
+\newcommand{\gRecIn}{\mathrm{Rec}^{\ast}}
+\newcommand{\gRecOut}{\mathrm{Rec}^{\curvearrowright}}
+L’espace des solutions peut être décrit par une grammaire de dimension deux (voir \cref{sec:adp:yield-gram}).
+La grammaire utilise trois prédicats, représentant tous une réconciliation de l’entièreté du sous-arbre \(T\) donné dans leur première dimension, définis ainsi:
+\begin{compactitemize}
+    \item \(\gRec[T, S]\), telle que \(\troot(T)\) est appariée à \(\troot(S)\);
+    \item \(\gRecOut[T, S]\), telle que \(\troot(T)\) est appariée à n’importe quel sommet \(s \nottcomp \troot(S)\);
+    \item \(\gRecIn[T, S]\), telle que \(\troot(T)\) est appariée à n’importe quel sommet \(s \tdesc \troot(S)\);
+    \item \(\gRecPath[T, S]\), telle que \(\troot(T)\) est appariée à n’importe quel sommet \(s \tdesc \troot(S)\) et précédée de \(\tdist(s, \troot(S))\) événements \enquote{\(\evSkip\)}.
+\end{compactitemize}
+L'espace des solutions est constitué des termes dérivés de \(\gRecIn[T, S]\).
+
+Les clauses de la grammaire sont:
+{\allowdisplaybreaks
+\begin{subequations}
+\begin{align}
+    \gRec[v(), s()] &\rightarrow \evLeaf_{v,s} \\
+    \gRec[(T') \mid (T''), (S_L)(S_R)] &\rightarrow
+        \evSpe_{v,s}(\gRecPath[(T'), (S_L)], \gRecPath[(T''), (S_R)]) \\
+    \gRec[(T_L)(T_R), S] &\rightarrow
+        \evDup_{v,s}(\gRecPath[(T_L), S], \gRecPath[(T_R), S]) \\
+    \gRec[(T') \mid (T''), S] &\rightarrow
+        \evTr_{v,s}(\gRecOut[(T'), S], \gRecPath[(T''), S]) \\[1ex]
+    %\gRec[(T') \mid (T''), S] &\rightarrow
+    %    \evDesc_{v,s}(\gRecIn[(T'), S], \gRec[(T''), S]) \\
+    \gRecPath[T, (S') \mid S''] &\rightarrow \evSkip_s(\gRecPath[T, S']) \\
+    \gRecPath[T, S] &\rightarrow \gRec[T, S] \\[1ex]
+    \gRecIn[T, (S') \mid S''] &\rightarrow \gRecIn[T, S'] \\
+    \gRecIn[T, S] &\rightarrow \gRec[T, S] \\[1ex]
+    \gRecOut[T, S \text{ sib. } S'] &\rightarrow
+        \gRecIn[T, S']\\
+    \gRecOut[T, S \text{ par. } P] &\rightarrow
+        \gRecOut[T, P]
+    %\gRec[T, ((S') \mid S''] &\rightarrow
+    %    \evSpe_{v,s}(\gRec[T, (S')], \evLoss]) \\
+\end{align}
+\end{subequations}}%
+Grâce à l’\cref{alg:seq-yield-parser}, cette grammaire peut être automatiquement tranformée en un algorithme de programmation dynamique.
+Sa complexité en temps est \(\bigo(nm)\), où \(n\) et \(m\) sont les tailles de \(T\) et \(S\), en vertu du \cref{thm:adp:gram-hedge-complex}.
+Cette complexité correspond à la meilleure complexité connue pour le problème de réconciliation bilatérale \parencite{Weiner2021ImprovedDuplicationTransfer}.
+
+Il est possible d’étendre cette grammaire pour supporter des arbres d’unités non-binaires et ainsi d’obtenir un algorithme qui recherche des binarisations de cet arbre menant à des réconciliations optimales.
+La complexité de l’algorithme résultant, en vertu du théorème XXX, est YYY, c’est-à-dire qu’il est FPT dans le degré maximum de l’arbre des unités.
+Cette complexité correspond à celle de l’algorithme développé par ZZZ (Exact Algorithms for Duplication-Transfer-Loss Reconciliation with Non-Binary Gene Trees, Misagh Kordi, Mukul S. Bansal).
+
+\subsection{Résultats}
+
+% TODO: Figures/résultats, illustration de l’espace des solutions, référence à MF Sagot et autre article espace des solutions, afficher les supports, discuter de Boltzmann/Pareto
+
+\section{Parcimonie d’ensembles}\label{sec:adp-rec:set}
+
+Le problème de parcimonie d’ensembles traite de la question de l’inférence des ensembles de contenus ancestraux des synténies dans un arbre dont le contenu des feuilles est connu.
+Cette inférence s’appuie sur un modèle de gains et de pertes, de sorte que chaque arête de l’arbre peut être étiquetée par un gain qui fait apparaître une ou plusieurs nouvelles unités ou par une perte qui en fait disparaître.
+L’objectif est alors de trouver un scénario qui minimise une certaine fonction de coûts sur les événements inférés.
+L’hypothèse de Dollo, selon laquelle une unité ne peut être gagnée qu’une seule fois dans un tel scénario, sera prise dans la suite.
+
+Notons que cet problème est proche de celui résolu par le programme Count de \textcite{Csuros2010CountEvolutionaryAnalysis}.
+% TODO: similarités et différences
+% similarité avec Count de Miklos, mais différences: modèle probabiliste; évolution du nombre de copies des différentes familles indépendament les unes des autres
+
+Ce problème est sous-jacent à la réconciliation segmentale.
+Une première version ainsi été étudiée par \textcite{Delabre2020EvolutionSegmentalDuplications} sous l’hypothèse simplificatrice que toutes les unités soient gagnées dès la racine de l’arbre, n’inférant donc que la position des pertes.
+Au cours du printemps~2025, Corélie~\textsc{Godefroid} a étudié la version de ce problème étendue pour également placer les événements de gains de manière optimale.
+Ces idées ont été développées par Mathieu~\textsc{Gascon} et ont mené à un article présenté à la conférence RECOMB-CG~2026 \parencite{Gascon2026GeneRepertoireEvolution}.
+
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}[xscale=-1]
+        \graph[
+            phylogenetic tree layout,
+            evolutionary unit length=0.44cm,
+            nodes={font=\small\strut, inner sep=0pt},
+            length=1,
+        ]{
+            tf / [coordinate] -- {
+                tc / [coordinate] -- {
+                    tb / [coordinate] -- {
+                        ta / [coordinate] -- {
+                            t1 / b,
+                            t2 / bc,
+                        },
+                        t3 / bce [>length=2],
+                    },
+                    t4 / ac [>length=3],
+                },
+                te / [coordinate] -- {
+                    t5 / abd [>length=3],
+                    td / [coordinate] -- {
+                        t6 / bdf [>length=2],
+                        t7 / bdfg [>length=2],
+                    },
+                },
+            }
+        };
+    \end{tikzpicture}
+    \caption{Exemple d’entrée pour le problème}
+\end{figure}
+
+\subsection{Algèbre d’évaluation}
+
+\newcommand{\algsignset}{\algsign_{\mathrm{set}}}
+\newcommand{\evSplit}{\mathrm{split}}
+
+La signature du problème est \(\algsignset = \{\algnull, \algplus, \evLeaf, \evGain, \evLoss, \evSplit\}\),
+où \enquote{\(\evLeaf\)} est un opérateur d’arité zéro représentant une feuille de l’arbre,
+\enquote{\(\evGain\)} et \(\evLoss\) sont des opérateurs unaires représentant un gain ou une perte d’une partie de la synténie,
+et \enquote{\(\evSplit\)} est un opérateur binaire représentant un embranchement de l’arbre.
+Les opérateurs \enquote{\(\evGain\)} et \enquote{\(\evLoss\)} reçoivent également un entier représentant le nombre d’unités gagnées ou perdues.
+
+Cette signature permet de définir des algèbres d’optimisation pour minimiser le nombre d’événements de gains et de pertes.
+Elle donne également la possibilité de fixer un coût différent pour l’ouverture d’un gain ou d’une perte et pour leur extension.
+Un coût d’ouverture nul et un coût d’extension unitaire rend ce problème équivalent à la parcimonie individuelle puisque les unités deviennent alors indépendantes.
+Inversement, un coût d’extension nul et un coût d’ouverture unitaire rend ce problème équivalent à celui étudié au chapitre XXX, c’est-à-dire en donnant le même poids à tous les événements peu importe le nombre réel d’unités gagnées et perdues, à ceci près que les gains sont également minimisés.
+
+Comme précédemment, ces algèbres peuvent être adaptées en algères de Boltzmann ou de Pareto.
+
+probabilités conditionnelles sur les événements unaires -> permettent d’obtenir une espérance du nombre de gain/perte sur chaque arête
+
+\subsection{Grammaire de structure}
+
+L’espace des solutions peut être décrit par une grammaire de dimension trois.
+La première dimension \(T\) représente le sous-arbre traité.
+La seconde dimension \(G\) représente le nombre d’unités restant à gagner dans le sous-arbre \(T\).
+La troisième dimension \(L\) représente le nombre d’unités déjà gagnées mais qui n’apparaissent dans aucune feuille dans le sous-arbre \(T\).
+
+\newcommand{\xmin}{x_{\mathrm{min}}}
+\newcommand{\xlca}{x_{\mathrm{lca}}}
+
+Pour chaque sous-arbre \(T\), deux valeurs sont précalculées:
+\(\xmin(T)\), l’ensemble des unités dont le \emph{lca} est un ancêtre de la racine de \(T\) et qui apparaissent dans \(T\),
+et \(\xlca(T)\), l’ensemble des unités dont le \emph{lca} est un descendant de la racine de \(T\).
+
+\newcommand{\gCont}{\mathrm{C}}
+\newcommand{\gContSub}{\mathrm{\Delta}}
+
+\newcommand{\gSplit}{\mathrm{Split}}
+\newcommand{\gBranch}{\mathrm{Branch}}
+
+% in + gains - lca_below = 0
+    % in: number of gained genes that are not in the minimum but appear in the subtree
+    % out: ... and do not appear in the subtree
+    % gains: number of genes to be gained in this subtree
+
+% Two predicates of four dimensions each are used: \(\gSplit\) and \(\gBranch\).
+% The first dimension holds the input tree.
+% The second dimension is the number of ``in'' genes at the current node, i.e., of extraneous genes that have their lca strictly below the current node.
+% The third dimension is the number of ``out'' genes, i.e., of extraneous genes that do not appear in any leaf below the current node.
+% The fourth dimension is the number of gene families that are to be gained below the current node.
+
+La grammaire utilise trois prédicats.
+Le prédicat \(\gSplit[T, G, L]\) représente les solutions dont la racine est \(T\) en dessous de laquelle il reste à gagner \(G\) unités et à en perdre \(L\).
+Les prédicats \(\gBranch[T, G, L]\) et \(\gBranch'[T, G, L]\), quant à eux, représentent les solutions qui ajoutent des événements unaires de perte et gain au dessus de \(T\).
+Les clauses de la grammaire sont:
+\begin{subequations}
+\begin{align}
+    &\gSplit[(), 0, 0] \rightarrow \evLeaf \\[1ex]
+    &\gSplit[(T_L)(T_R), G_L + G_R, L]\label{eq:adp-rec:set-split-inner}\\\nonumber
+    \rightarrow\ &\evSplit_{G_L, G_R, L}(
+    \begin{aligned}[t]
+        &\gBranch[T_L, G_L, L + |\xlca(T_R)| - G_R + |\xmin(T) - \xmin(T_L)|], \\
+        &\gBranch[T_R, G_R, L + |\xlca(T_L)| - G_L + |\xmin(T) - \xmin(T_R)|])
+    \end{aligned}\\
+    &\text{\itshape\small (seulement lorsque \(|\xlca(T_L)| \ge G_L\) and \(|\xlca(T_R)| \ge G_R\))}\nonumber\\[1ex]
+    &\gBranch[T, G, L_H + L_D] \rightarrow \evLoss_{L_H}(\gBranch'[T, G, L_D]) \\
+    &\gBranch'[T, G_H + G_D, L] \rightarrow \evGain_{G_H}(\gSplit[T, G_D, L])
+\end{align}
+% \begin{align}
+%     &\gSplit[(), 0, 0, 0] \rightarrow \evLeaf \\[1ex]
+%     &\gSplit[(T_L)(T_R), \vIn_L + \vIn_R, \vOut, G_L + G_R]\\\nonumber
+%     \rightarrow\ &\evSplit_{\vIn_L,\vIn_R,\vOut}(
+%     \begin{aligned}[t]
+%         &\gBranch[T_L, \vIn_L, \vOut + \vIn_R + |\xmin(T) - \xmin(T_L)|, G_L], \\
+%         &\gBranch[T_R, \vIn_R, \vOut + \vIn_L + |\xmin(T) - \xmin(T_R)|, G_R]) 
+%     \end{aligned}\\[1ex]
+%     &\gBranch[T, \vIn, L_H + L_D, G_H + G_D]\\\nonumber
+%     \rightarrow\ &\evLoss_{L_H}(\evGain_{G_H}(
+%         \gSplit[T, \vIn + G_H - |\xlca(T)|, L_D, G_D]
+%     )\\\nonumber
+%     &\text{\itshape\small (only if \(\vIn + G_H \ge |\xlca(T)|\))}
+% \end{align}
+\end{subequations}
+L’ensemble des solutions est constitué des termes dérivés de \(\gBranch[T, F, 0]\), où \(T\) est l’arbre d’entrée et \(F\) est le nombre total d’unités, c’est-à-dire le cardinal de \(\xlca(T)\).
+
+À noter que l’\cref{eq:adp-rec:set-split-inner} ne s’applique que sous certaines conditions.
+Ces conditions permettent de s’assurer que suffisamment d’unités sont gagnées au dessus de chaque sommet, afin que la solution soit réalisable compte tenu du fait qu’une unité ne peut être gagnée plus bas que son \emph{lca}.
+
+\subsection{Résultats}
+
+Considérons l’arbre représenté à la figure XXX.
+En fixant des coûts unitaires, \(\cost_\evLoss(s) = \cost_\evGain(s) = 1\) si \(s > 0\) et \(\cost_\evLoss(0) = \cost_\evGain(0) = 0\), nous obtenons effectivement une solution de coût~8 similaire à celle de l’article de RECOMB-CG.
+
+\begin{figure}[h]
+    \centering
+    \sidecols{.4\textwidth}{.4\textwidth}{
+    \centering
+    \begin{tikzpicture}[xscale=-1]
+        \graph[
+            phylogenetic tree layout,
+            evolutionary unit length=0.9cm,
+            nodes={font=\small\strut, inner ysep=0pt, draw, rounded corners},
+            length=1,
+        ]{
+            tf / abcdef -- {
+                tc / abcdef -- {
+                    tb / bce [>edge node={node [loss={black}{adf}{left}] {}}] -- {
+                        ta / bce -- {
+                            t1 / b [>edge node={node [loss={black}{ce}{left}] {}}],
+                            t2 / bc [>edge node={node [loss={black}{e}{right}] {}}],
+                        },
+                        t3 / bce [>length=2],
+                    },
+                    t4 / ac [>length=3, >edge node={node [loss={black}{bdef}{right}] {}}],
+                },
+                te / abcdef -- {
+                    t5 / abd [>length=3, >edge node={node [loss={black}{cef}{right}] {}}],
+                    td / bdf [>edge node={node [loss={black}{ace}{right}] {}}] -- {
+                        t6 / bdf [>length=2],
+                        t7 / bdfg [>length=2, >edge node={node [gain={black}{g}{right}] {}}],
+                    },
+                },
+            }
+        };
+        \draw (tf) edge node[gain={black}{abcdef}{right}] {} ($(tf)+(0,.66)$);
+    \end{tikzpicture}
+    }{
+    \centering
+    \begin{tikzpicture}[xscale=-1]
+        \graph[
+            phylogenetic tree layout,
+            evolutionary unit length=0.9cm,
+            nodes={font=\small\strut, inner ysep=0pt, draw, rounded corners},
+            length=1,
+        ]{
+            tf / abd -- {
+                tc / abcd [>edge node={node [gain={black}{c}{right}] {}}] -- {
+                    tb / bc [>edge node={node [loss={black}{ad}{left}] {}}] -- {
+                        ta / bc -- {
+                            t1 / b [>edge node={node [loss={black}{c}{left}] {}}],
+                            t2 / bc,
+                        },
+                        t3 / bce [>length=2, >edge node={node [gain={black}{e}{right}] {}}],
+                    },
+                    t4 / ac [>length=3, >edge node={node [loss={black}{bd}{right}] {}}],
+                },
+                te / abd -- {
+                    t5 / abd [>length=3],
+                    td / bdf [
+                        >edge node={node [pos=.25, loss={black}{a}{right}] {}},
+                        >edge node={node [pos=.7, gain={black}{f}{right}] {}},
+                    ] -- {
+                        t6 / bdf [>length=2],
+                        t7 / bdfg [>length=2, >edge node={node [gain={black}{g}{right}] {}}],
+                    },
+                },
+            }
+        };
+        \draw (tf) edge node[gain={black}{abd}{right}] {} ($(tf)+(0,.66)$);
+    \end{tikzpicture}
+    }
+    \caption{
+        À gauche, l’une des 15 solutions optimales avec 8~événements pour un coût unitaire.
+        À droite, la solution optimale avec 9~événements pour un coût d’ouverture de~3 et d’extension de~1.
+    }
+\end{figure}
+
+% TODO: Figures/résultats, illustration de l’espace des solutions, référence à MF Sagot et autre article espace des solutions, afficher les supports, discuter de Boltzmann/Pareto
+
+\section{Combinaison}\label{sec:adp-rec:both}
+
+...
