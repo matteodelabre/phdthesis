@@ -1,0 +1,66 @@
+\sidecols{.4\textwidth}{.4\textwidth}{
+\centering
+\begin{tikzpicture}[xscale=-1]
+    \graph[
+        phylogenetic tree layout,
+        evolutionary unit length=0.9cm,
+        nodes={font=\small\strut, inner ysep=0pt},%, draw, rounded corners},
+        length=1,
+    ]{
+        tf / abcdef -- {
+            tc / abcdef -- {
+                tb / bce [>edge node={node [loss={black}{adf}{left}] {}}] -- {
+                    ta / bce -- {
+                        t1 / b [>edge node={node [loss={black}{ce}{left}] {}}],
+                        t2 / bc [>edge node={node [loss={black}{e}{right}] {}}],
+                    },
+                    t3 / bce [>length=2],
+                },
+                t4 / ac [>length=3, >edge node={node [loss={black}{bdef}{right}] {}}],
+            },
+            te / abcdef -- {
+                t5 / abd [>length=3, >edge node={node [loss={black}{cef}{right}] {}}],
+                td / bdf [>edge node={node [loss={black}{ace}{right}] {}}] -- {
+                    t6 / bdf [>length=2],
+                    t7 / bdfg [>length=2, >edge node={node [gain={black}{g}{right}] {}}],
+                },
+            },
+        }
+    };
+    \draw (tf) edge node[gain={black}{abcdef}{right}] {} ($(tf)+(0,.66)$);
+\end{tikzpicture}
+}{
+\centering
+\begin{tikzpicture}[xscale=-1]
+    \graph[
+        phylogenetic tree layout,
+        evolutionary unit length=0.9cm,
+        nodes={font=\small\strut, inner ysep=0pt},%, draw, rounded corners},
+        length=1,
+    ]{
+        tf / abd -- {
+            tc / abcd [>edge node={node [gain={black}{c}{left}] {}}] -- {
+                tb / bc [>edge node={node [loss={black}{ad}{left}] {}}] -- {
+                    ta / bc -- {
+                        t1 / b [>edge node={node [loss={black}{c}{left}] {}}],
+                        t2 / bc,
+                    },
+                    t3 / bce [>length=2, >edge node={node [gain={black}{e}{right}] {}}],
+                },
+                t4 / ac [>length=3, >edge node={node [loss={black}{bd}{right}] {}}],
+            },
+            te / abd -- {
+                t5 / abd [>length=3],
+                td / bdf [
+                    >edge node={node [pos=.25, loss={black}{a}{right}] {}},
+                    >edge node={node [pos=.7, gain={black}{f}{right}] {}},
+                ] -- {
+                    t6 / bdf [>length=2],
+                    t7 / bdfg [>length=2, >edge node={node [gain={black}{g}{right}] {}}],
+                },
+            },
+        }
+    };
+    \draw (tf) edge node[gain={black}{abd}{right}] {} ($(tf)+(0,.66)$);
+\end{tikzpicture}
+}

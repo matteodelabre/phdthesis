@@ -1,38 +1,31 @@
 \chapter{Approches algébriques pour la réconciliation segmentale}
 
 \tikzset{
-    gain/.code n args={3}{
-        \pgfkeysalso{
-            draw={#1}, fill=black,
-            semicircle, inner sep=1pt,
-        }
+    unary/.code n args={3}{
+        \pgfkeysalso{#1}
         \def\cmp{#2}\ifx\cmp\empty\else
             \pgfkeysalso{
                 label={[%
                     font={\scriptsize\vphantom{gb}},
-                    label distance=2pt,
+                    label distance=3pt,
                     inner xsep=0pt, inner ysep=0pt,
                     outer xsep=0pt, outer ysep=0pt,
                 ]#3:#2},
             }
         \fi
     },
-    loss/.code n args={3}{
-        \pgfkeysalso{
+    gain/.style n args={3}{
+        unary={
+            draw={#1}, fill=black,
+            semicircle, inner sep=1pt,
+        }{#2}{#3},
+    },
+    loss/.style n args={3}{
+        unary={
             draw={#1}, fill=black,
             semicircle, inner sep=1pt,
             shape border rotate={180},
-        }
-        \def\cmp{{#2}}\ifx\cmp\empty\else
-            \pgfkeysalso{
-                label={[%
-                    font={\scriptsize\vphantom{gb}},
-                    label distance=2pt,
-                    inner xsep=0pt, inner ysep=0pt,
-                    outer xsep=0pt, outer ysep=0pt,
-                ]#3:#2},
-            }
-        \fi
+        }{#2}{#3},
     },
 }
 
@@ -125,6 +118,8 @@ Cette complexité correspond à celle de l’algorithme développé par ZZZ (Exa
 
 \subsection{Résultats}
 
+% espaces des réconciliations
+
 % TODO: Figures/résultats, illustration de l’espace des solutions, référence à MF Sagot et autre article espace des solutions, afficher les supports, discuter de Boltzmann/Pareto
 
 \section{Parcimonie d’ensembles}\label{sec:adp-rec:set}
@@ -145,35 +140,9 @@ Ces idées ont été développées par Mathieu~\textsc{Gascon} et ont mené à u
 
 \begin{figure}[h]
     \centering
-    \begin{tikzpicture}[xscale=-1]
-        \graph[
-            phylogenetic tree layout,
-            evolutionary unit length=0.44cm,
-            nodes={font=\small\strut, inner sep=0pt},
-            length=1,
-        ]{
-            tf / [coordinate] -- {
-                tc / [coordinate] -- {
-                    tb / [coordinate] -- {
-                        ta / [coordinate] -- {
-                            t1 / b,
-                            t2 / bc,
-                        },
-                        t3 / bce [>length=2],
-                    },
-                    t4 / ac [>length=3],
-                },
-                te / [coordinate] -- {
-                    t5 / abd [>length=3],
-                    td / [coordinate] -- {
-                        t6 / bdf [>length=2],
-                        t7 / bdfg [>length=2],
-                    },
-                },
-            }
-        };
-    \end{tikzpicture}
+    \input{fig/adp-rec/set-example}
     \caption{Exemple d’entrée pour le problème}
+    \label{fig:adp-rec:set-example}
 \end{figure}
 
 \subsection{Algèbre d’évaluation}
@@ -244,107 +213,49 @@ Les clauses de la grammaire sont:
     &\gBranch[T, G, L_H + L_D] \rightarrow \evLoss_{L_H}(\gBranch'[T, G, L_D]) \\
     &\gBranch'[T, G_H + G_D, L] \rightarrow \evGain_{G_H}(\gSplit[T, G_D, L])
 \end{align}
-% \begin{align}
-%     &\gSplit[(), 0, 0, 0] \rightarrow \evLeaf \\[1ex]
-%     &\gSplit[(T_L)(T_R), \vIn_L + \vIn_R, \vOut, G_L + G_R]\\\nonumber
-%     \rightarrow\ &\evSplit_{\vIn_L,\vIn_R,\vOut}(
-%     \begin{aligned}[t]
-%         &\gBranch[T_L, \vIn_L, \vOut + \vIn_R + |\xmin(T) - \xmin(T_L)|, G_L], \\
-%         &\gBranch[T_R, \vIn_R, \vOut + \vIn_L + |\xmin(T) - \xmin(T_R)|, G_R]) 
-%     \end{aligned}\\[1ex]
-%     &\gBranch[T, \vIn, L_H + L_D, G_H + G_D]\\\nonumber
-%     \rightarrow\ &\evLoss_{L_H}(\evGain_{G_H}(
-%         \gSplit[T, \vIn + G_H - |\xlca(T)|, L_D, G_D]
-%     )\\\nonumber
-%     &\text{\itshape\small (only if \(\vIn + G_H \ge |\xlca(T)|\))}
-% \end{align}
 \end{subequations}
 L’ensemble des solutions est constitué des termes dérivés de \(\gBranch[T, F, 0]\), où \(T\) est l’arbre d’entrée et \(F\) est le nombre total d’unités, c’est-à-dire le cardinal de \(\xlca(T)\).
-
 À noter que l’\cref{eq:adp-rec:set-split-inner} ne s’applique que sous certaines conditions.
 Ces conditions permettent de s’assurer que suffisamment d’unités sont gagnées au dessus de chaque sommet, afin que la solution soit réalisable compte tenu du fait qu’une unité ne peut être gagnée plus bas que son \emph{lca}.
 
 \subsection{Résultats}
 
-Considérons l’arbre représenté à la figure XXX.
+Considérons l’arbre représenté à la \cref{fig:adp-rec:set-example}.
 En fixant des coûts unitaires, \(\cost_\evLoss(s) = \cost_\evGain(s) = 1\) si \(s > 0\) et \(\cost_\evLoss(0) = \cost_\evGain(0) = 0\), nous obtenons effectivement une solution de coût~8 similaire à celle de l’article de RECOMB-CG.
 
 \begin{figure}[h]
     \centering
-    \sidecols{.4\textwidth}{.4\textwidth}{
-    \centering
-    \begin{tikzpicture}[xscale=-1]
-        \graph[
-            phylogenetic tree layout,
-            evolutionary unit length=0.9cm,
-            nodes={font=\small\strut, inner ysep=0pt, draw, rounded corners},
-            length=1,
-        ]{
-            tf / abcdef -- {
-                tc / abcdef -- {
-                    tb / bce [>edge node={node [loss={black}{adf}{left}] {}}] -- {
-                        ta / bce -- {
-                            t1 / b [>edge node={node [loss={black}{ce}{left}] {}}],
-                            t2 / bc [>edge node={node [loss={black}{e}{right}] {}}],
-                        },
-                        t3 / bce [>length=2],
-                    },
-                    t4 / ac [>length=3, >edge node={node [loss={black}{bdef}{right}] {}}],
-                },
-                te / abcdef -- {
-                    t5 / abd [>length=3, >edge node={node [loss={black}{cef}{right}] {}}],
-                    td / bdf [>edge node={node [loss={black}{ace}{right}] {}}] -- {
-                        t6 / bdf [>length=2],
-                        t7 / bdfg [>length=2, >edge node={node [gain={black}{g}{right}] {}}],
-                    },
-                },
-            }
-        };
-        \draw (tf) edge node[gain={black}{abcdef}{right}] {} ($(tf)+(0,.66)$);
-    \end{tikzpicture}
-    }{
-    \centering
-    \begin{tikzpicture}[xscale=-1]
-        \graph[
-            phylogenetic tree layout,
-            evolutionary unit length=0.9cm,
-            nodes={font=\small\strut, inner ysep=0pt, draw, rounded corners},
-            length=1,
-        ]{
-            tf / abd -- {
-                tc / abcd [>edge node={node [gain={black}{c}{right}] {}}] -- {
-                    tb / bc [>edge node={node [loss={black}{ad}{left}] {}}] -- {
-                        ta / bc -- {
-                            t1 / b [>edge node={node [loss={black}{c}{left}] {}}],
-                            t2 / bc,
-                        },
-                        t3 / bce [>length=2, >edge node={node [gain={black}{e}{right}] {}}],
-                    },
-                    t4 / ac [>length=3, >edge node={node [loss={black}{bd}{right}] {}}],
-                },
-                te / abd -- {
-                    t5 / abd [>length=3],
-                    td / bdf [
-                        >edge node={node [pos=.25, loss={black}{a}{right}] {}},
-                        >edge node={node [pos=.7, gain={black}{f}{right}] {}},
-                    ] -- {
-                        t6 / bdf [>length=2],
-                        t7 / bdfg [>length=2, >edge node={node [gain={black}{g}{right}] {}}],
-                    },
-                },
-            }
-        };
-        \draw (tf) edge node[gain={black}{abd}{right}] {} ($(tf)+(0,.66)$);
-    \end{tikzpicture}
-    }
+    \input{fig/adp-rec/set-solutions}
     \caption{
         À gauche, l’une des 15 solutions optimales avec 8~événements pour un coût unitaire.
         À droite, la solution optimale avec 9~événements pour un coût d’ouverture de~3 et d’extension de~1.
     }
+    \label{fig:adp-rec:set-solutions}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \input{fig/adp-rec/set-pareto}
+    \caption{
+        Mosaïque des régions de coûts pour les vecteurs Pareto-optimaux.
+        La première dimension correspond au nombre d’événements de perte, la seconde au nombre d’événements de gain, et la troisième au nombre total d’unités perdues.
+        Les solutions de la \cref{fig:adp-rec:set-solutions} correspondent respectivement à la région \((5, 3, 11)\) et à la région \((4, 5, 6)\).
+    }
+    \label{fig:adp-rec:set-pareto}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \input{fig/adp-rec/set-exp}
+    \caption{
+        Espérances de la taille des pertes, des gains et des contenus dans un scénario moyen de la distribution de Boltzmann avec température \(T=1\) et coût d’ouverture de \(3\) et d’extension de \(1\).
+    }
+    \label{fig:adp-rec:set-exp}
 \end{figure}
 
 % TODO: Figures/résultats, illustration de l’espace des solutions, référence à MF Sagot et autre article espace des solutions, afficher les supports, discuter de Boltzmann/Pareto
 
+\clearpage
 \section{Combinaison}\label{sec:adp-rec:both}
 
 ...

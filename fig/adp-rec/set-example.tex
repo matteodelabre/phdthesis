@@ -1,0 +1,30 @@
+%! TeX root = ../../main.tex
+% vim: set spelllang=fr:
+\begin{tikzpicture}[xscale=-1]
+    \graph[
+        phylogenetic tree layout,
+        evolutionary unit length=0.44cm,
+        nodes={font=\small\strut, inner sep=0pt},
+        length=1,
+    ]{
+        tf / [coordinate] -- {
+            tc / [coordinate] -- {
+                tb / [coordinate] -- {
+                    ta / [coordinate] -- {
+                        t1 / b,
+                        t2 / bc,
+                    },
+                    t3 / bce [>length=2],
+                },
+                t4 / ac [>length=3],
+            },
+            te / [coordinate] -- {
+                t5 / abd [>length=3],
+                td / [coordinate] -- {
+                    t6 / bdf [>length=2],
+                    t7 / bdfg [>length=2],
+                },
+            },
+        }
+    };
+\end{tikzpicture}

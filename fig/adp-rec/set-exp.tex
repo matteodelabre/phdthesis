@@ -1,0 +1,138 @@
+% temp=1, gain=loss=3, ext=1
+% 1
+% loss=1.044
+% gain=0.000
+% size=1.000
+
+% 2
+% loss=0.044
+% gain=0.000
+% size=2.000
+
+% A
+% loss=0.160
+% gain=0.000
+% size=2.044
+
+% 3
+% loss=0.050
+% gain=0.846
+% size=3.000
+
+% B
+% loss=1.570
+% gain=0.025
+% size=2.204
+
+% 4
+% loss=1.748
+% gain=0.000
+% size=2.000
+
+% C
+% loss=0.117
+% gain=0.706
+% size=3.748
+
+% 5
+% loss=0.467
+% gain=0.000
+% size=3.000
+
+% 6
+% loss=0.369
+% gain=0.000
+% size=3.000
+
+% 7
+% loss=0.087
+% gain=0.718
+% size=4.000
+
+% D
+% loss=1.123
+% gain=1.025
+% size=3.369
+
+% E
+% loss=0.213
+% gain=0.521
+% size=3.467
+
+% F
+% loss=0.000
+% gain=3.159
+% size=3.159
+\begin{tikzpicture}[xscale=-1]
+    \graph[
+        phylogenetic tree layout,
+        evolutionary unit length=0.95cm,
+        nodes={font=\small\strut, inner ysep=0pt},%, draw, rounded corners},
+        length=1,
+    ]{
+        tf / 3.159 -- {
+            tc / 3.748 [
+                >edge node={node [pos=.25, loss={black}{0.117}{left}] {}},
+                >edge node={node [pos=.7, gain={black}{0.706}{left}] {}},
+            ] -- {
+                tb / 2.204 [
+                    >edge node={node [pos=.25, loss={black}{1.570}{left}] {}},
+                    >edge node={node [pos=.7, gain={black}{0.025}{left}] {}},
+                ] -- {
+                    ta / 2.044 [
+                        >edge node={node [pos=.25, loss={black}{0.160}{left}] {}},
+                        >edge node={node [pos=.7, gain={black}{0.000}{left}] {}},
+                    ] -- {
+                        t1 / b [
+                            >edge node={node [pos=.25, loss={black}{1.044}{left}] {}},
+                            >edge node={node [pos=.6, gain={black}{0.000}{left}] {}},
+                        ],
+                        t2 / bc [
+                            >edge node={node [pos=.25, loss={black}{0.044}{right}] {}},
+                            >edge node={node [pos=.6, gain={black}{0.000}{right}] {}},
+                        ],
+                    },
+                    t3 / bce [
+                        >length=2,
+                        >edge node={node [pos=.25, loss={black}{0.050}{right}] {}},
+                        >edge node={node [pos=.4, gain={black}{0.846}{right}] {}},
+                    ],
+                },
+                t4 / ac [
+                    >length=3,
+                    >edge node={node [pos=.2, loss={black}{1.748}{right}] {}},
+                    >edge node={node [pos=.32, gain={black}{0.000}{right}] {}},
+                ],
+            },
+            te / 3.467 [
+                >edge node={node [pos=.25, loss={black}{0.213}{right}] {}},
+                >edge node={node [pos=.7, gain={black}{0.521}{right}] {}},
+            ] -- {
+                t5 / abd [
+                    >length=3,
+                    >edge node={node [pos=.2, loss={black}{0.467}{left}] {}},
+                    >edge node={node [pos=.32, gain={black}{0.000}{left}] {}},
+                ],
+                td / 3.369 [
+                    >edge node={node [pos=.25, loss={black}{1.123}{right}] {}},
+                    >edge node={node [pos=.7, gain={black}{1.025}{right}] {}},
+                ] -- {
+                    t6 / bdf [
+                        >length=2,
+                        >edge node={node [pos=.45, loss={black}{0.369}{left}] {}},
+                        >edge node={node [pos=.6, gain={black}{0.000}{left}] {}},
+                    ],
+                    t7 / bdfg [
+                        >length=2,
+                        >edge node={node [pos=.45, loss={black}{0.087}{right}] {}},
+                        >edge node={node [pos=.6, gain={black}{0.718}{right}] {}},
+                    ],
+                },
+            },
+        }
+    };
+    \draw (tf) edge
+        node[pos=.25, gain={black}{\(3.159\)}{right}] {}
+        node[pos=.7, loss={black}{\(0.000\)}{right}] {}
+    ($(tf)+(0,.66)$);
+\end{tikzpicture}
