@@ -140,6 +140,13 @@
 %% Tables
 \RequirePackage{booktabs}
 
+%% Code
+\RequirePackage[section]{minted}
+\setminted{
+    bgcolor=black!3,
+    bgcolorpadding=2ex,
+}
+
 %% Algorithmes
 \RequirePackage[algochapter, plainruled, vlined, linesnumbered, french, onelanguage]{algorithm2e}
 
@@ -335,12 +342,15 @@
 \definecolor{lightblue}{HTML}{0074D9}
 \definecolor{lightgreen}{HTML}{2ECC40}
 
+%% Diagrammes
+\RequirePackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
 %% Légendes
 \RequirePackage{caption}
 \DeclareCaptionLabelFormat{oldstyle}{\textsc{\MakeLowercase{#1}} \oldstylenums{#2}}
 \captionsetup{labelformat=oldstyle, labelsep=endash, margin=2em}
 
-\addto\captionsfrench{\renewcommand{\figurename}{Figure}}
 \renewcommand{\AlCapSty}[1]{\textsc{\MakeLowercase{\oldstylenums{#1}}}}
 \SetAlgoCaptionSeparator{--}
 
@@ -361,8 +371,13 @@
 
 \crefname{problem}{problem}{problems}
 \crefname{property}{property}{properties}
+\newcommand{\listingname}{}
 
 \addto\captionsfrench{%
+    \renewcommand{\figurename}{Figure}%
+    \renewcommand{\listingname}{Programme}%
+    \crefname{listing}{programme}{programmes}%
+    \Crefname{listing}{Programme}{Programmes}%
     \renewcommand{\crefrangeconjunction}{ à~}%
     \renewcommand{\crefpairconjunction}{ et~}%
     \renewcommand{\crefmiddleconjunction}{, }%
@@ -400,6 +415,8 @@
     \Crefname{enumi}{Point}{Points}%
 }
 \addto\captionsenglish{%
+    \renewcommand{\figurename}{Figure}%
+    \renewcommand{\listingname}{Listing}%
     \renewcommand{\crefrangeconjunction}{ to~}%
     \renewcommand{\crefpairconjunction}{ and~}%
     \renewcommand{\crefmiddleconjunction}{, }%
