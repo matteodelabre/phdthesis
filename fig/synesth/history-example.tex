@@ -1,0 +1,47 @@
+\begin{tikzpicture}[y={(.65pt,0)},x={(0,-.85pt)}]
+% hosts
+\path[host background] (0.0,75.175) [rounded corners={3pt}] -- (0.0,16.922) -- (19.8265,16.922) [sharp corners] -- (19.8265,-5.0) -- (41.3457,-5.0) [rounded corners={3pt}] -- (41.3457,16.922) -- (159.7763,16.922) [sharp corners] -- (159.7763,53.532) -- (140.6863,53.532) [rounded corners={3pt}] -- (140.6863,47.532) -- (19.8265,47.532) [sharp corners] -- (19.8265,75.175) -- cycle;
+\path[unsampled host background] (0.0,75.175) [rounded corners={3pt}] -- (0.0,303.2216) --  (19.8265,303.2216) [sharp corners] -- (19.8265,75.175) -- cycle;
+\path[host background] (75.7306,90.142) [rounded corners={3pt}] -- (75.7306,53.532) -- (140.6863,53.532) [sharp corners] -- (140.6863,53.532) -- (159.7763,53.532) [rounded corners={3pt}] -- (159.7763,53.532) -- (182.5113,53.532) [sharp corners] -- (182.5113,215.175) -- (159.7763,215.175) [rounded corners={3pt}] -- (159.7763,84.142) -- (112.9105,84.142) [sharp corners] -- (112.9105,90.142) -- cycle;
+\path[host background] (41.3457,215.175) [rounded corners={3pt}] -- (41.3457,137.845) -- (75.7306,137.845) [sharp corners] -- (75.7306,90.142) -- (112.9105,90.142) [rounded corners={3pt}] -- (112.9105,137.845) -- (140.6863,137.845) [sharp corners] -- (140.6863,215.175) -- (112.9106,215.175) [rounded corners={3pt}] -- (112.9106,209.175) -- (75.7306,209.175) [sharp corners] -- (75.7306,215.175) -- cycle;
+\path[host background] (41.3457,215.175) [rounded corners={3pt}] -- (41.3457,303.2216) -- node[host label] {A} (75.7306,303.2216) [sharp corners] -- (75.7306,215.175) -- cycle;
+\path[host background] (112.9106,215.175) [rounded corners={3pt}] -- (112.9106,303.2216) -- node[host label] {B} (140.6863,303.2216) [sharp corners] -- (140.6863,215.175) -- cycle;
+\path[host background] (159.7763,215.175) [rounded corners={3pt}] -- (159.7763,303.2216) -- node[host label] {C} (182.5113,303.2216) [sharp corners] -- (182.5113,215.175) -- cycle;
+% branches
+\path[branch] (31.8007,32.227) [rounded corners={1.5pt}] -- (150.2313,32.227) [sharp corners] -- (150.2313,68.837);
+\path[branch] (31.8007,32.227) [rounded corners={1.5pt}] -- (9.9132,32.227) [sharp corners] -- (9.9132,248.4765);
+\path[branch] (31.8007,4.4609) -- (31.8007,32.227) -- cycle;
+\path[branch] (9.9132,248.4765) -- (9.9132,282.6116) -- cycle;
+\path[transfer branch] (9.9132,248.4765) -- (47.7432,248.4765);\path[branch] (47.7432,248.4765) -- (47.7432,267.6116);
+\path[branch] (150.2313,68.837) [rounded corners={1.5pt}] -- (94.3206,68.837) [sharp corners] -- (94.3206,95.1334);
+\path[branch] (150.2313,68.837) [rounded corners={1.5pt}] -- (176.1738,68.837) [sharp corners] -- (176.1738,267.6116);
+\path[branch] (103.3656,158.705) [rounded corners={1.5pt}] -- (69.3331,158.705) [sharp corners] -- (69.3331,245.1202);
+\path[branch] (103.3656,158.705) [rounded corners={1.5pt}] -- (130.103,158.705) [sharp corners] -- (130.103,240.1433);
+\path[branch] (85.2756,193.87) [rounded corners={1.5pt}] -- (58.5382,193.87) [sharp corners] -- (58.5382,267.6116);
+\path[branch] (85.2756,193.87) [rounded corners={1.5pt}] -- (119.308,193.87) [sharp corners] -- (119.308,267.6116);
+\path[branch] (94.3206,118.985) [rounded corners={1.5pt}] -- (103.3656,118.985) [sharp corners] -- (103.3656,158.705);
+\path[branch] (94.3206,118.985) [rounded corners={1.5pt}] -- (85.2756,118.985) [sharp corners] -- (85.2756,193.87);
+\path[branch] (94.3206,95.1334) -- (94.3206,118.985) -- cycle;
+\path[branch] (69.3331,245.1202) -- (69.3331,267.6116) -- cycle;
+\path[branch] (130.103,240.1433) -- (130.103,267.6116) -- cycle;
+\path[transfer branch] (130.103,228.1433) -- (166.5413,228.1433);\path[branch] (166.5413,228.1433) -- (166.5413,267.61159999);
+% gene transfers
+% events
+\node[speciation] at (31.80071,32.227000000000004) {1, 2};
+\node[gain={black}{1, 2}] at (31.80071,4.46088) {};
+\node[transfer] at (9.91325,248.47652999999997) {\underline{1}, \underline{2}};
+\node[speciation] at (150.23129999999998,68.83699999999999) {1, 2};
+\node[speciation] at (103.36556999999999,158.70499999999998) {1, 2, 3};
+\node[speciation] at (85.27561,193.87) {2, 3};
+\node[duplication] at (94.32059,107.98499999999999) {1, \underline{2}, \underline{3}};
+\node[gain={black}{3}] at (94.32059,77.13337999999999) {};
+\node[extant={black}{1, 3}] at (69.33313999999999,267.61159999999995) {};
+\node[loss={black}{2}] at (69.33313999999999,245.12021999999996) {};
+\node[extant={black}{2, 3}] at (58.53816,267.61159999999995) {};
+\node[extant={black}{1, 2}] at (47.743179999999995,267.61159999999995) {};
+\node[extant={black}{1, 2}] at (130.10302,267.61159999999995) {};
+\node[transfer] at (130.10302,228.14329999999998) {1, 2 / 3};
+\node[extant={black}{2, 3}] at (119.30804,267.61159999999995) {};
+\node[extant={black}{3}] at (166.17377,267.61159999999) {};
+\node[extant={black}{1, 2}] at (176.54126,267.61159999999995) {};
+\end{tikzpicture}

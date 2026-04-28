@@ -45,7 +45,7 @@ Une adjacence \((a, b)\) entre deux embranchements de \(\gtrees\) est une assert
 \end{definition}
 
 Supposons que l’ensemble des adjacences entre les feuilles de \(\gtrees\) soit également connu.
-Une réconciliation d’adjacences de \(\gtrees\) avec \(S\) (voir \cref{figure:adj-rec}) est une réconciliation de chaque arbre de \(\gtrees\) avec \(S\) assorti d’un ensemble d’adjacences ancestrales menant aux adjacences entre les feuilles.
+Une réconciliation d’adjacences de \(\gtrees\) avec \(S\) (voir \cref{fig:reconciliation:adj-rec}) est une réconciliation de chaque arbre de \(\gtrees\) avec \(S\) assorti d’un ensemble d’adjacences ancestrales menant aux adjacences entre les feuilles.
 
 \begin{definition}[Réconciliation d’adjacences]\label{definition:adjrec}
     Soient \(\gtrees\) une forêt phylogénétique et \(S\) un arbre phylogénétique.
@@ -58,7 +58,7 @@ Une réconciliation d’adjacences de \(\gtrees\) avec \(S\) (voir \cref{figure:
 \begin{figure}[htb]
     \capstart
     \centering
-    \input{fig/02-adj-rec}
+    \input{fig/reconciliation/multiple/adj-rec}
     \caption{
         \emph{(Haut)}
         Forêt d’arbres phylogénétiques \(\gtrees = T_a \sqcup T_b \sqcup T_c\)
@@ -70,7 +70,7 @@ Une réconciliation d’adjacences de \(\gtrees\) avec \(S\) (voir \cref{figure:
         Chaque paire de nœuds adjacents est reliée par une ligne pointillée.
         La réconciliation des arbres avec \(S\) est indiquée par des étiquettes.
     }
-    \label{figure:adj-rec}
+    \label{fig:reconciliation:adj-rec}
 \end{figure}
 
 Un ensemble d’adjacences ancestrales implique des contraintes temporelles qui doivent être compatibles avec celles imposées par la topologie de \(\gtrees\).
@@ -140,22 +140,22 @@ Pour un nœud \(v \in \tnodes(\adjtree)\) tel que \(\exadj(v) = (a, b)\):
     \end{compactitemize}
 \end{compactitemize}
 
-La \cref{figure:adj-forest} donne un exemple de forêt réconciliée et de forêt d’adjacences correspondant à la réconciliation d’adjacences de la \cref{figure:adj-rec}.
+La \cref{fig:reconciliation:adj-forest} donne un exemple de forêt réconciliée et de forêt d’adjacences correspondant à la réconciliation d’adjacences de la \cref{fig:reconciliation:adj-rec}.
 
 \begin{figure}[htb]
     \capstart
     \centering
-    \input{fig/02-adj-forest}
+    \input{fig/reconciliation/multiple/adj-forest}
     \caption{
         \emph{(Haut)}
         Arbres réconciliés de \(T_a\), \(T_b\) et \(T_c\) avec \(S\)
         sous le modèle \(\recmodelDL\)
-        et selon la réconciliation représentée en \cref{figure:adj-rec}.
+        et selon la réconciliation représentée en \cref{fig:reconciliation:adj-rec}.
         \emph{(Bas)}
         Forêt d’adjacences représentant un scénario d’évolution à partir de trois adjacences ancestrales.
         L’étoile \(\star\) correspond à une scission de l’adjacence par perte d’une de ses extrémités.
     }
-    \label{figure:adj-forest}
+    \label{fig:reconciliation:adj-forest}
 \end{figure}
 
 Aucun algorithme général n’est connu pour les problèmes de \(\tuple{\recmodel\rmunit, \recmodel\rmadj}\)-parcimonie, et il a été conjecturé que le problème est NP-complet~\parencite{Boussau2020ReconcilingGeneTrees}.

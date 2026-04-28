@@ -20,19 +20,19 @@ Pour faciliter la définition, lorsque \(v\) correspond à une branche de \(S\),
     Une \emph{réconciliation} de \(T\) avec \(S\) est une application \(\rec : \tnodes(T) \onto \tnodes(S)\) qui étend \(\llmap\) de sorte qu’aucune paire de nœuds \((v, w) \in \tnodes(T)^2\) ne soit telle que \(v \tancsneq w\) et \(\rec(v) \tdescneq \rec(w)\).
 \end{definition}
 
-Deux applications \(\rec_1\) et \(\rec_2\) sont illustrées en \cref{figure:strict-rec}.
+Deux applications \(\rec_1\) et \(\rec_2\) sont illustrées en \cref{fig:reconciliation:free-rec}.
 Parmi elles, seule \(\rec_1\) est une réconciliation acceptable.
 En effet, \(\rec_2\) ne respecte pas la dernière condition de la définition, qui interdit aux réconciliations de \enquote{remonter dans le temps} par rapport à la topologie de \(S\).
 
-\begin{figure}[htb] % xx
+\begin{figure}[htb]
     \capstart
     \centering
-    \input{fig/01-strict-rec}
+    \input{fig/reconciliation/bilateral/strict-rec}
     \caption{
         Deux associations de la phylogénie \(T\) avec \(S\).
         Les associations entre embranchements sont représentées par des flèches et les associations entre feuilles sont indiquées implicitement en leur attribuant la même étiquette.
     }
-    \label{figure:strict-rec}
+    \label{fig:reconciliation:free-rec}
 \end{figure}
 
 Certaines unités dépendantes sont capables de migrer entre des hôtes coexistants.
@@ -47,19 +47,19 @@ Une réconciliation qui ne contient pas de telle branche est dite \emph{stricte}
     Sinon, \(\rec\) est dite \emph{libre}.
 \end{definition}
 
-Dans la \cref{figure:strict-rec}, la réconciliation \(\rec_1\) est une réconciliation stricte.
-La \cref{figure:free-rec} donne deux exemples de réconciliations libres.
+Dans la \cref{fig:reconciliation:free-rec}, la réconciliation \(\rec_1\) est une réconciliation stricte.
+La \cref{fig:reconciliation:free-rec} donne deux exemples de réconciliations libres.
 
-\begin{figure}[htb] % xy
+\begin{figure}[htb]
     \capstart
     \centering
-    \input{fig/01-free-rec}
+    \input{fig/reconciliation/bilateral/free-rec}
     \caption{
         Deux réconciliations libres des phylogénies \(T\) avec \(S\) et \(T'\) avec \(S'\).
         Par souci de lisibilité, \(\rec_4\) est représentée par des égalités d’étiquettes plutôt que par des flèches.
         Les branches marquées de pointillés correspondent à des changements d’hôtes.
     }
-    \label{figure:free-rec}
+    \label{fig:reconciliation:free-rec}
 \end{figure}
 
 Pour qu’une réconciliation puisse correspondre à une réalité évolutive, celle-ci doit respecter l’ordre partiel imposé par la topologie de l’arbre des hôtes.
@@ -80,21 +80,21 @@ Ces contraintes sont modélisées par un graphe d’ordre.
     }.
 \end{definition}
 
-Les graphes d’ordre de \(\rec_3\) et \(\rec_4\) sont donnés dans la \cref{figure:order-graph}.
+Les graphes d’ordre de \(\rec_3\) et \(\rec_4\) sont donnés dans la \cref{fig:reconciliation:order-graph}.
 Les arcs ajoutés pour chaque branche de changement d’hôte \((v, w)\) imposent que l’intersection entre les intervalles de temps de \(\tparent(\rec(v))\) à \(\rec(v)\) et de \(\tparent(\rec(w))\) à \(\rec(w)\) soit non-vide.
 Lorsque le graphe d’ordre \(\ograph\)\, d’une réconciliation est acyclique, un ordre sur les embranchements de \(S\) compatible simultanément avec sa topologie et avec les changements d’hôte peut être obtenu par tri topologique de \(\ograph\).
 Autrement, comme avec \(\ograph(\rec_4)\), ces contraintes d’ordres ne peuvent être satisfaites.
 
-\begin{figure}[htb] % xz
+\begin{figure}[htb]
     \capstart
     \centering
-    \input{fig/01-order-graph}
+    \input{fig/reconciliation/bilateral/order-graph}
     \caption{
         Graphes d’ordre des réconciliations \(\rec_3\) et \(\rec_4\).
         Les arcs transitifs sont omis.
         Le graphe \(\ograph(\rec_4)\) comporte un cycle orienté, marqué en rouge.
     }
-    \label{figure:order-graph}
+    \label{fig:reconciliation:order-graph}
 \end{figure}
 
 \begin{definition}[Réconciliation acyclique]\label{definition:rec-acyclic}
@@ -129,7 +129,7 @@ La réconciliation stricte qui associe chaque embranchement de \(T\) au plus ré
 
 Un modèle de réconciliation spécifie les types d’événements qui peuvent affecter, conjointement ou séparément, l’évolution des unités dépendantes et de leurs hôtes.
 Une interprétation d’une réconciliation sous un modèle donné est une combinaison d’événements du modèle qui explique ses associations dépendant--hôte.
-Ces interprétations sont représentées par des arbres réconciliés étiquetés par les événements choisis (voir exemples dans la \cref{figure:rec-trees}).
+Ces interprétations sont représentées par des arbres réconciliés étiquetés par les événements choisis (voir exemples dans la \cref{fig:reconciliation:rec-trees}).
 
 \begin{definition}[Arbre réconcilié]\label{definition:rectree}
     Soient \(T\) et \(S\) deux arbres, \(\rec\) une réconciliation de \(T\) avec \(S\), et \(\recmodel\) un ensemble de types d’événements.
@@ -157,10 +157,10 @@ Cette définition engendre une famille de problèmes d’optimisation combinatoi
 Même si les phylogénies \(T\) et \(S\) étudiées sont exemptes d’erreurs, les réconciliations les plus parcimonieuses ne correspondent pas nécessairement à des histoires complètes ou exactes des unités concernées, puisque l’évolution emprunte rarement le chemin le plus court.
 En revanche, cette méthode a l’avantage de sélectionner des réconciliations qui permettent d’expliquer les données observées en demandant le moins d’hypothèses supplémentaires.
 
-\begin{figure}[htb] % yx
+\begin{figure}[htb]
     \capstart
     \centering
-    \input{fig/01-rec-trees}
+    \input{fig/reconciliation/bilateral/rec-trees}
     \caption{
         Arbres réconciliés pour les réconciliations \(\rec_1\) et \(\rec_3\) sous les modèles duplication--perte~(\(\recmodelDL\)) et duplication--transfert--perte~(\(\recmodelDTL\)) respectivement.
         Chaque arbre est superposé sur la trame de la phylogénie des hôtes de sorte à refléter l’association des nœuds prescrite par la réconciliation.
@@ -169,7 +169,7 @@ En revanche, cette méthode a l’avantage de sélectionner des réconciliations
         chaque croix~{\showloss} une perte~(\(\evtL\))
         et chaque cercle~{\showspeciation} une codivergence~(\(\evtS\)).
     }
-    \label{figure:rec-trees}
+    \label{fig:reconciliation:rec-trees}
 \end{figure}
 
 \subsection{Modèles de réconciliation gènes--espèces}
@@ -185,7 +185,7 @@ Chaque nœud \(v \in \tnodes(\rectree)\) d’un arbre réconcilié sous ce modè
     \item si \(\evt(v) = \evtL\), alors \(v\) est une feuille;
     \item si \(\evt(v) = \evtS\), alors \(v\) et \(\exrec(v)\) sont des embranchements et \(\{\exrec(v\lchild), \exrec(v\rchild)\} = \{\exrec(v)\lchild, \exrec(v)\rchild\}\).
 \end{compactitemize}
-Un exemple d’interprétation d’une réconciliation sous le modèle \(\recmodelDL\) est donné dans la \cref{figure:rec-trees}.
+Un exemple d’interprétation d’une réconciliation sous le modèle \(\recmodelDL\) est donné dans la \cref{fig:reconciliation:rec-trees}.
 Les fonctions de coût considérées pour ce modèle fixent toujours \(\cost(\evtS) = 0\).
 Par conséquent, rechercher les réconciliations de coût minimal correspond à maximiser le nombre de codivergences entre \(T\) et \(S\).
 Ce choix est motivé par le fait que chaque événement~\(\evtS\) s’appuie sur la spéciation d’un hôte, un événement déjà postulé par l’arbre \(S\) donné en entrée.
@@ -199,7 +199,7 @@ Le problème de \(\recmodelDL\)-parcimonie est donc polynomial.
 \paragraph{Duplication--transfert--perte~\textup{\parencite{Tofigh2011SimultaneousIdentificationDuplications}}}
 Le modèle \(\recmodelDTL = \{\evtD, \evtT, \evtL, \evtS\}\) étend le modèle \(\recmodelDL\) pour y intégrer la possibilité de changements d’hôte et ainsi permettre d’interpréter des réconciliations libres.
 En plus des trois types d’événements définis précédemment, pour un embranchement \(v \in \tinner(\rectree)\) sous ce modèle, si \(\evt(v) = \evtT\), alors \(\exrec(v) = \exrec(v\lchild)\) et \(\exrec(v) \nottcomp \exrec(v\rchild)\), ou bien \(\exrec(v) = \exrec(v\rchild)\) et \(\exrec(v) \nottcomp \exrec(v\lchild)\).
-Un exemple d’interprétation d’une réconciliation sous le modèle \(\recmodelDTL\) est donné dans la \cref{figure:rec-trees}.
+Un exemple d’interprétation d’une réconciliation sous le modèle \(\recmodelDTL\) est donné dans la \cref{fig:reconciliation:rec-trees}.
 
 Contrairement au modèle \(\recmodelDL\), il peut exister plusieurs réconciliations optimales pour \(\recmodelDTL\) et la réconciliation \(\reclca\) n’en fait pas nécessairement partie.
 L’une des difficultés avec ce modèle est de garantir que les réconciliations calculées soient acycliques (voir \cref{definition:rec-acyclic}).
@@ -208,7 +208,7 @@ Cette contrainte rend NP-complet le problème de décision associé à la \(\rec
 % TODO: faire un lien avec le chapitre ADP
 
 Pour contourner cette difficulté, une version relâchée du problème est définie, \(\recmodelDTL\)-parcimonie\(\star\), dans laquelle les réconciliations cycliques sont acceptées.
-La réconciliation \(\rec_4\) de la \cref{figure:free-rec} est par exemple acceptable.
+La réconciliation \(\rec_4\) de la \cref{fig:reconciliation:free-rec} est par exemple acceptable.
 Cette modification confère au problème une sous-structure optimale : une solution pour le sous-arbre \(\subtree{T}{v}\) est toujours un assemblage de deux solutions pour \(\subtree{T}{v\lchild}\) et \(\subtree{T}{v\rchild}\).
 L’\cref{algo:dtl-parcimonie-star} exploite cette propriété pour résoudre efficacement le problème.
 
@@ -301,23 +301,23 @@ La phylogénie \(S\) est nécessairement incomplète puisqu’elle ne renseigne 
 Les embranchements ne menant qu’à des espèces absentes de cet échantillon sont donc manquants.
 Lorsque seules les réconciliations strictes sont considérées, les gènes évoluent en suivant les embranchements menant jusqu’aux feuilles présentes dans l’échantillon, et les embranchements manquants sont donc sans effet.
 Ceci n’est plus vrai dès lors que les réconciliations libres sont permises, comme pour le modèle \(\recmodelDTL\).
-En effet, il est alors possible qu’un gène évolue dans une partie de la phylogénie hors de l’échantillon pour être par la suite transféré vers un hôte échantillonné (voir exemple en \cref{figure:rec-dtlx}).
+En effet, il est alors possible qu’un gène évolue dans une partie de la phylogénie hors de l’échantillon pour être par la suite transféré vers un hôte échantillonné (voir exemple en \cref{fig:reconciliation:rec-dtlx}).
 
-\begin{figure}[htb] % yy
+\begin{figure}[htb]
     \capstart
     \centering
-    \input{fig/01-rec-dtlx}
+    \input{fig/reconciliation/bilateral/rec-dtlx}
     \caption{
         Deux interprétations alternatives de la même réconciliation sous les modèles \(\recmodelDL\) et \(\recmodelDTLx\) respectivement.
         La branche sur trame hachurée correspond à une partie non-échantillonnée de la phylogénie des hôtes.
     }
-    \label{figure:rec-dtlx}
+    \label{fig:reconciliation:rec-dtlx}
 \end{figure}
 
 Le modèle \(\recmodelDTLx\) adjoint un événement supplémentaire \(\evtTX\) au modèle \(\recmodelDTL\).
 Pour un embranchement \(v \in \tinner(\rectree)\) sous ce modèle, si \(\evt(v) = \evtTX\), alors \(\exrec(v) = \exrec(v\lchild)\) et \(\exrec(v) \tancs \exrec(v\rchild)\), ou bien \(\exrec(v) = \exrec(v\rchild)\) et \(\exrec(v) \tancs \exrec(v\lchild)\).
 Ce nouvel événement offre une alternative à l’insertion de séquences de spéciations suivies de pertes pour faire coïncider la topologie de \(\rectree\) avec \(S\).
-Il peut donc permettre de réduire le coût d’une réconciliation, comme dans le cas illustré en~\cref{figure:rec-dtlx}.
+Il peut donc permettre de réduire le coût d’une réconciliation, comme dans le cas illustré en~\cref{fig:reconciliation:rec-dtlx}.
 L’\cref{algo:dtl-parcimonie-star} peut être étendu pour le modèle \(\recmodelDTLx\), sans en modifier la complexité.
 Il suffit pour ce faire d’ajouter un cas pour chacune des \crefrange{algo:dtl-parcimonie-star:varspe}{algo:dtl-parcimonie-star:varhgtr} dans lesquels les termes en termes en \(\cost(\evtL) \cdot \hdots\) sont remplacés par l’invocation d’un événement \(\evtTX\).
 
