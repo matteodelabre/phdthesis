@@ -1,0 +1,194 @@
+%! TeX root = ./main.tex
+% vim: set spelllang=fr:
+\section{superrec2 --- Algorithmes de réconciliation segmentale}
+\programdetails{https://github.com/UdeM-LBIT/superrec2}{GPL v3.0}{Entre février~2021 et avril~2026, 4\,000 lignes de code}
+
+avec la contribution de Maël~\textsc{Charpentier} et Arnaud~\textsc{Grandisson}
+
+    A number of biological systems rely on sets of colocalized genes sharing a common evolutionary history.
+    Synesth (for \emph{SYNteny Evolution in SegmenTal Histories}) is a novel tool that enables the study of the evolution of such homologous genomic regions also called \emph{syntenies}.
+    The considered evolutionary model involves events that may include more than a single gene (segmental events): duplications, horizontal transfers, gains and losses.
+    The algorithm is based on a \emph{reconciliation} framework, based on comparing the topological differences between two trees.
+    In addition to the \emph{species tree}, the input of Synesth is a collection of syntenic regions, namely sets of genes, along with a \emph{synteny tree} (i.e. a tree whose leaves are labeled with the syntenies).
+    Through an algebraic dynamic programming scheme, Synesth is able to produce various kinds of outputs.
+    The user can choose to output one or all minimum-cost histories, if event costs are provided; otherwise, output Pareto-optimal event count vectors, along with one or all associated histories.
+    Visual representations of inferred histories and color-coded diagrams of cost parameter space, resulting from the Pareto-optimal vectors, are also provided.
+\textbf{Availability and implementation:} Synesth is implemented in Python. It is available under a GPL-3.0 license on GitHub (\url{https://github.com/UdeM-LBIT/superrec2}).
+
+\subsection{Introduction}
+
+% faire le lien avec d’autres outils/méthodes
+
+
+% explain the events set
+% explain why we consider cuts -> transposons
+% unsampled species
+
+% https://www.nature.com/articles/s41467-020-15149-4
+
+\subsection{Evolutionary Model}
+
+Syntenies are modeled as sets of gene families.
+A history is a rooted partially binary tree (i.e., with unary or binary internal nodes) representing the evolution of homologous syntenies (leaves) through a series of events on ancestral syntenies belonging to the ancestral species of the input species tree \(S\).
+For each node \(v\) of the history associated to a species~\(s\) and a synteny \(X\), the event can be any one of the following.
+% inclure les symboles qui représentent les événements
+\begin{itemize}
+    \item \textbf{Speciation:} \(v\) is a binary node whose two children belong to the two descending species of~\(s\) in \(S\) (hence \(s\) must be an internal node of \(S\)). Both children contain the synteny \(X\).
+    \item \textbf{Duplication:} \(v\) is a binary node where one of the children contains exactly \(X\) and the other contains a \emph{duplicated} subset of \(X\). Both children stay associated to \(s\).
+    \item \textbf{Cut:} the same as a duplication, but where the contents of \(X\) are split among the two children.
+    \item \textbf{Horizontal transfer:} \(v\) is a binary node where one of the children contains exactly \(X\) and stays associated to \(s\), while the other, called the \emph{resulting} child, contains a \emph{transferred} subset of \(X\) and is associated to a species different and \emph{separated} from~\(s\) (i.e. neither an ancestor nor a descendant of~\(s\)).
+    \item \textbf{Horizontal transfer--cut:} the same as a horizontal transfer, except the transferred subset is lost in the source species.
+    \item \textbf{Loss:} \(v\) is a unary node whose only child’s synteny is a strict subset of \(X\) and stays associated to \(s\).
+    A loss is \emph{complete} if its child has an empty synteny, and \emph{partial} otherwise.
+    \item \textbf{Gain:} \(v\) is a unary node where \(X\) is a strict subset of the only child’s synteny, and that child stays associated to \(s\).
+\end{itemize}
+
+Henceforth, we use the word ``transfer'' to refer to either a horizontal transfer or a horizontal transfer--cut event.
+
+A history \(H\) \emph{explicates} an input synteny tree \(T\) if \(T\) can be obtained from \(H\) by removing some nodes and edges (i.e., \(H\) extends \(T\), as formally defined in \cref{chap:synesth}).
+
+Note that, because of horizontal transfer events, not all such explicatory histories are biologically feasible.
+In particular, feasible histories should be \emph{acyclic}~\cite{Tofigh2011SimultaneousIdentificationDuplications}, i.e., there should be a time map \(t_S\) assigning a date (an integer) to each node of \(S\) while satisfying the following conditions.
+
+\begin{enumerate}
+    \item For each species \(s\) of \(S\) and its parent \(s_p\), \(t_S(s_p) < t_S(s)\).
+    \item For any two transfer events \(e_1\) and \(e_2\) of \(H\) going from species \(s_1\) to \(s_1'\) and \(s_2\) to \(s_2'\) and whose resulting children are \(e_1'\) and \(e_2'\) respectively, if the two transfers are successive (i.e., if \(e_1'\) is an ancestor of \(e_2'\)), then \(t_S(s_1) < t_S(s_2')\).
+\end{enumerate}
+
+However, this acyclicity condition is not strong enough to rule out all histories for which no consistent timings of its events exist.
+More specifically, a history \(H\) is said to be \emph{time-feasible} if there exists a time interval map \(t_S\) assigning an interval of dates to each node of \(S\) and a time map \(t_H\) assigning a date to each event of \(H\), satisfying the following conditions.
+
+\begin{enumerate}
+    \item For each species \(s\) of \(S\) and its parent \(s_p\), if \(t_S(s_p) = [t_1, t_2]\) and \(t_S(s) = [t_1', t_2']\), then \(t_2 < t_1'\).
+    \item For each event \(e\) of \(H\) and its parent \(e_p\), \(t_H(e_p) < t_H(e)\).
+    \item For each event \(e\) of \(H\) associated to a species \(s\), \(t_H(e) \in t_S(s)\).
+    \item For each transfer event \(e\) of \(H\) whose destination species is \(s_d\), \(t_H(e) \in t_S(s_d)\).
+\end{enumerate}
+
+As a consequence of conditions (3) and (4), if \(e\) is a transfer event from species \(s\) to \(s_d\), then it must be that \(t_S(s) \cap t_S(s_d) \neq \emptyset\).
+
+It is easy to see that any time map \(t_S\) satisfying the conditions of time-feasibility can be turned into a time map satisfying the acyclicity conditions.
+Hence any time-feasible history must be acyclic.
+
+This definition is adapted from the host--parasite model of~\cite{Ovadia2011CophylogenyReconstructionProblem}, but with no given \emph{a priori} constraints on the allowed dates for each of the two time maps.
+
+The problem solved by Synesth is that of finding the most likely time-feasible histories explicating undated synteny and species trees given as input.
+In addition, to allow for transfers to and from unsampled or extinct species, the input species tree is augmented by grafting an unsampled leaf on each edge of the original tree.
+
+\subsection{Methods}
+
+A possible way of selecting the most likely histories is to assign non-negative costs (or probabilities) to each event type and to select histories minimizing (or maximizing) the overall cost (or probability).
+Since speciations do not allow to meaningfully distinguish between histories, we give them a cost of zero.
+For computational reasons, we do not optimize the number of gains and also give them a cost of zero.
+Therefore, a cost must be assigned to only each of the five remaining events.
+
+Note that the resulting histories can vary significantly depending on the given costs.
+Alternatively, if costs are unknown, we may look for the so-called ``candidate'' histories for which there exists a cost setting making them optimal.
+As shown at the end of this section, this enables reducing the continuous space of possible costs to a finite list of cost settings.
+
+This brings us back to the concept of Pareto-optimality.
+Assigning to each history its five-dimensional event cost vector (i.e. a vector containing the count number of each event type), the candidates are those whose vector is not ``dominated'' by that of any other history.
+Formally, for two event vectors \(A =(a_i)_{i=1}^n\) and \(B = (b_i)_{i=1}^n\), we say that \(A\) \emph{dominates} \(B\) if \(a_i \leq b_i\) for all \(i \in \{1, ..., n\}\) and \(a_i < b_i\) for at least one \(i \in \{1, ..., n\}\).
+Non-dominated vectors are also called Pareto-optimal.
+
+\paragraph{Dynamic programming approach}
+The program implements the approach described in \cref{chap:synesth}, based on an inductive characterization of the exponential space of all Pareto-optimal histories.
+Using an algebraic dynamic programming framework, this allows to evaluate and optimize various recursively-defined functions over all histories in polynomial time, without having to traverse the whole history space.
+In order to be compatible with the approach, those functions must form a semiring structure; this is the case of the functions minimizing the history cost (using the \(\langle\min, +\rangle\) tropical semiring) or computing the Pareto-optimal event vectors~(using the semiring described by~\cite{LibeskindHadas2014ParetoOptimalPhylogenetic}).
+
+\paragraph{Removing redundant solutions}
+As with all reconciliation methods, the number of co-optimal histories for a given input can be prohibitively large.
+In addition to an interpretability problem, this poses a computational challenge, since it is not feasible to output them all.
+However, one can usually find several different histories which do not bear any significant biological differences one from the other.
+We seek to keep only one representative of those \emph{equivalent} histories in the solution set, for some given equivalence criteria.
+Those criteria should balance the reduction of the solution space size, with the additional time and space needed to compute them.
+In particular, since it is not feasible to generate all solutions before filtering them accordingly, those criteria should be compatible with the dynamic programming framework described above.
+
+We state our equivalence criteria on histories using \emph{rewriting rules}, each acting on part of a history tree and preserving the total number of events of each type.
+Given a set of such rules, two histories are considered to be equivalent if one can be transformed into the other by applying a sequence of those rules.
+%A set of histories is said to be \emph{irreducible} if no two histories of the set are equivalent.
+
+In addition to those already defined in~\cref{chap:synesth} concerning the placement of partial losses and gains, here we define two new rules applying to transfers and duplications.
+
+The first rule concerns the two possible placements of a transfer event above or below an ``invisible leaf'', i.e., a complete loss or a leaf belonging to an unsampled species.
+Define the distance of a transfer event as the number of nodes of the species tree on the path between its origin and its destination, and the transfer distance of a history as the total distance of all its transfers.
+To remove redundancies corresponding to that rule, it is sufficient to retain only the histories with minimal transfer distance.
+\emph{(complexity)}
+
+As for the second rule, it concerns the two possible placements of a duplication event above or below a leaf in an unsampled species (see Fig. X).
+For this rule, it is sufficient to retain only the histories with the minimum number of leaves belonging to unsampled species.
+\emph{(complexity)}
+
+\paragraph{Handling time-feasibility}
+It is not guaranteed that the histories output by the dynamic programming scheme are time-feasible or even acyclic.
+Indeed, the problem of finding most parsimonious acyclic histories is known to be NP-complete~\cite{Tofigh2011SimultaneousIdentificationDuplications}.
+
+However, it is still possible to efficiently check \emph{a posteriori} whether a given history is time-feasible, since it amounts to checking whether a system of linear inequalities has a solution.
+This is done by creating an auxiliary graph where the variables are nodes and the inequalities are edges between the nodes, then solving the shortest-path problem on this graph.
+If \(k\) and \(n\) are the number of nodes in the history and species trees respectively, there are \(O(k + n)\) nodes and edges in this auxiliary graph.
+Note that \(O(k + n) = O(k)\) if there are no unused species in the input species tree.
+Hence, using the Bellman--Ford algorithm, the time-feasibility of the history can be checked in time \(O(k^2)\).
+
+\paragraph{Command-line interface}
+Specifically, Synesth allows the user to (...) see Table~\ref{table:time-complexities}.
+
+\begin{itemize}
+    \item select histories by miminum overall cost, if costs are provided for each event type;
+    \item select histories ...
+\end{itemize}
+
+\paragraph{Graphical representation of histories}
+To help interpret the computed histories, Synesth provides a utility to generate graphical representations.
+In the generated diagrams (see figure XXX), the history tree is embedded into the species tree.
+The vertical axis represents time going from the ancestral species (up) to the extant species (down).
+Each event of the history is drawn along the branch of the corresponding species.
+
+All the branches of the history tree represent vertical transmission either inside the same species or to a descendant species, except for transfer branches, which should be represented as horizontal lines connecting co-existing species.
+To create this representation, it is necessary to have a time map for the history and the species tree.
+This is only possible if the history is time-feasible, in which case the aforementioned Bellman--Ford algorithm provides a time map satisfying the constraints.
+Otherwise, the utility uses as few edges going backwards in time as possible to nevertheless provide a representation of the infeasible history.
+
+Finally, to allow for a more convenient representation on large species tree, the utility allows the user to flip the horizontal and vertical axes of the diagram.
+
+% Computation parameters
+% -> Event costs, or Pareto mode
+% -> Compute single solution or all solutions
+% -> Binarizations
+% -> Parallelization
+
+\begin{table}[htb]
+\centering
+\caption{Time and space complexity of the various operating modes of Synesth, where \(m\) and \(n\) are the number of nodes in the input synteny tree and species tree respectively.\label{table:time-complexities}}%
+\small
+% \begin{tabular}{@{}lcc@{}}
+% \toprule
+% & \textbf{Minimum-cost} & \textbf{Pareto-optimal} \\
+% \midrule
+% \makecell[l]{\textbf{Optimal value and}\\\textbf{\# of solutions}} &
+%     \(\begin{aligned}
+%         \text{\emph{Time: }} & O(mn)\\[-.66em]
+%         \text{\emph{Space: }} & O(n\log m + m)
+%     \end{aligned}\) &
+%     \(\begin{aligned}
+%         &O((mn)^9 \log mn)\\[-.66em]
+%         &O(m^4n^5 \log m)
+%     \end{aligned}\) \\
+% \midrule
+% \textbf{Arbitrary solution} &
+%     \(\begin{aligned}
+%         \text{\emph{Time: }} & O(mn)\\[-.66em]
+%         \text{\emph{Space: }} & O(mn)
+%     \end{aligned}\) &
+%     \(\begin{aligned}
+%         O((mn)^9 \log mn)\\[-.66em]
+%         O((mn)^5)
+%     \end{aligned}\) \\
+% \botrule
+% \end{tabular}
+\end{table}
+
+\subsection{Results}
+
+% Simulations?
+% Performance graph
+% Solutions count graph

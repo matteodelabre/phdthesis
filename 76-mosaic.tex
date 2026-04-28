@@ -1,0 +1,18 @@
+%! TeX root = ./main.tex
+% vim: set spelllang=fr:
+\section{mosaic --- Visualisation des vecteurs de Pareto}
+\programdetails{https://github.com/matteodelabre/mosaic}{GPL v3.0}{Entre décembre~2023 et avril~2026, 200 lignes de code}
+
+The cost space is a five-dimensional space in which each dimension corresponds to the possible cost values for each event type.
+For a given input synteny and species tree, each point in this space represents the set of histories explicating the input and which are optimal with respect to the corresponding cost setting.
+Notice that the event vector of any such optimal history is necessarily one of the Pareto-optimal output by Synesth.
+
+Define the region of such a Pareto-optimal vector as the set of points (i.e., cost settings) which make the vector optimal with respect to the others.
+Since there is a finite number of such vectors, there is also a finite number of such regions.
+As shown by~\cite{LibeskindHadas2014ParetoOptimalPhylogenetic}, these regions are intersections of half-spaces and hence are convex polyhedrons.
+These regions cover the entire cost space, but do not form a partition as neighboring polyhedra are not disjoint.
+
+For visualization purposes, we reduce the five-dimensional space down to two dimensions, first by forcing the same cost for duplication and cut events and for transfer and transfer--cut events, and then by fixing the cost of one of the three remaining events to one (since the cost values are unit-less).
+This enables a convenient representation of the cost space as a color-coded diagram, each color representing a given region.
+For any given point of this diagram, its corresponding history set is the union of those of each region to which this point belongs.
+

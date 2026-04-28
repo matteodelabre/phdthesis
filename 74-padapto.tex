@@ -1,0 +1,137 @@
+%! TeX root = ./main.tex
+% vim: set spelllang=fr:
+\section{padapto --- Outils pour la programmation dynamique algébrique}
+\programdetails{https://github.com/matteodelabre/padapto}{GPL v3.0}{Entre mai~2025 et avril~2026, 1\,100 lignes de code}
+
+L’approche algébrique pour la programmation dynamique, présentée au \cref{chap:adp}, permet de développer des algorithmes d’optimisation combinatoire de manière modulaire.
+\emph{padapto} est une bibliothèque écrite dans le langage Python qui offre les outils nécessaires à l’adoption de cette technique pour la programmation d’algorithmes.
+
+Cette technique est fondée sur la séparation formelle entre la spécification de la structure inductive de l’espace des solutions considéré par l’algorithme et la définition des critères d’optimisation au travers d’une algèbre.
+Ces deux aspects sont reliés par la notion de signature, qui définit l’ensemble des opérateurs utilisés d’une part pour construire les solutions et d’autre part pour leur attribuer une valeur.
+
+Les modules suivants permettent de définir des signatures et des algèbres d’évaluation.
+Leur utilisation est illustrée dans le \cref{lst:logiciel:padapto-sig-alg}.
+\begin{itemize}
+    \item \textbf{\texttt{padapto.signature}} définit \texttt{Signature}, une classe de base permettant de déclarer la signature d’un problème (voir la \cref{sec:adp:eval}).
+        Cette classe prédéfinit deux opérateurs communs à toutes les signatures, l’opérateur d’arité zéro \texttt{null} et l’opérateur binaire \texttt{choose}, représentant respectivement l’absence de solution et le choix entre deux ensembles de solutions.
+    \item \textbf{\texttt{padapto.evaluation}} contient des fonctions pour définir des algèbres, notamment \texttt{count}, \texttt{trace}, \texttt{additive} et \texttt{boltzmann}, ainsi que des fonctions pour les combiner et les transformer (voir la \cref{sec:adp:alg-combin}), notamment \texttt{join}, \texttt{lex}, \texttt{power}, \texttt{group}, \texttt{limit} et \texttt{pareto}.
+\end{itemize}
+
+\begin{listing}[h]
+\small
+\begin{minipage}{.50\textwidth}
+\begin{minted}{python}
+
+
+
+@dataclass(frozen=True)
+class AlignSignature[T](Signature[T]):
+  unit: Callable[[], T]
+  match: Callable[[T, str, str], T]
+  delete: Callable[[T, str], T]
+  insert: Callable[[T, str], T]
+
+
+
+\end{minted}
+\end{minipage}\hfill%
+\begin{minipage}{.46\textwidth}
+\begin{minted}{python}
+counter = count(AlignSignature)
+min_unit = additive(
+  AlignSignature,
+  choose="min",
+  match=lambda sym1, sym2:
+    1 if sym1 != sym2 else 0,
+  delete=lambda _: 1,
+  insert=lambda _: 1)
+count_min = join(
+  cost=min_unit,
+  count=counter,
+) | lex("cost")
+\end{minted}
+\end{minipage}
+    \caption{
+        Définitions d’une signature et d’algèbres pour le problème d’alignement de séquences introduit dans l’\cref{ex:seq-align}.
+        (À gauche:) 
+        La signature ajoute aux opérateurs prédéfinis \texttt{null} et \texttt{choose} l’opérateur d’arité zéro \texttt{unit}, représentant un alignement vide, et les opérateurs unaires \texttt{match}, \texttt{delete} et \texttt{insert}, représentant les trois opérations possibles dans un alignement.
+        (À droite:)
+        L’algèbre \texttt{counter} dénombre les solutions de l’espace des solutions,
+        l’algèbre \texttt{min\_unit} calcule le meilleur coût d’un alignement en attribuant un coût unitaire à chaque opération,
+        tandis que \texttt{count\_min} combine les deux algèbres en dénombrant les solutions qui atteignent le coût minimum.
+        \label{lst:logiciel:padapto-sig-alg}
+    }
+\end{listing}
+
+Les algèbres ainsi définies peuvent être employées dans des algorithmes de programmation définis récursivement de haut en bas, itérativement de bas en haut, ou encore au travers de grammaires de structure comme présenté à la \cref{sec:adp:yield-gram}.
+
+\begin{itemize}
+    \item \textbf{\texttt{padapto.structure}} définit les modules nécessaires à l’implantation d’algorithmes sous la forme de grammaires.
+\end{itemize}
+
+\begin{listing}[p]
+\small
+\begin{minted}{python}
+@grammar
+class AlignGrammar[T](Grammar[T]):
+  alg: AlignSignature[T]
+
+  @predicate
+  def align(left: str, right: str) -> T:
+    return  # type: ignore
+
+  @clause(left=Empty(), right=Empty())
+  def _empty(self):
+    return self.alg.unit()
+
+  @clause(
+    left=chain(Item(Var("a")), Subseq(Var("X"))),
+    right=chain(Item(Var("b")), Subseq(Var("Y"))),
+  )
+  def _match(self, a: str, b: str, X: str, Y: str) -> T:
+    return self.alg.match(self.align(left=X, right=Y), a, b)
+
+  @clause(
+    left=chain(Item(Var("a")), Subseq(Var("X"))),
+    right=Var("Y"),
+  )
+  def _delete(self, a: str, X: str, Y: str) -> T:
+    return self.alg.delete(self.align(left=X, right=Y), a)
+
+  @clause(
+    left=Var("X"),
+    right=chain(Item(Var("b")), Subseq(Var("Y"))),
+  )
+  def _insert(self, b: str, X: str, Y: str) -> T:
+    return self.alg.insert(self.align(left=X, right=Y), b)
+\end{minted}
+    \caption{
+        Implantation de la grammaire de l’\cref{ex:seq-align} en Python en utilisant \emph{padapto}.
+        Une grammaire est une classe descendant de \texttt{Grammar} et décorée par \texttt{@grammar}.
+        La classe contient une méthode décorée par \texttt{@predicate} pour chaque \emph{prédicat} de la grammaire dont chaque argument correspond à une dimension du prédicat.
+        Elle contient également une méthode  pour chaque \emph{clause} de la grammaire.
+        Les clauses sont décorées avec \texttt{@clause} en donnant un motif de décomposition pour chacune des dimensions du prédicat associé.
+    }
+\end{listing}
+
+La classe représentant une grammaire doit être instanciée en lui donnant l’algèbre à utiliser.
+Chaque instance renferme les tables de mémoisation qui gardent en mémoire les résultats partiels des sous-problèmes.
+
+Les méthodes associées à chaque prédicat sont remplacées par une implémentation générée automatiquement qui suit le principe de l’\cref{alg:seq-yield-parser}.
+Lors de l’appel à un prédicat, cette méthode itère au travers des clauses correspondant au prédicat et au travers des décompositions possibles des entrées sur chaque dimension, puis collecte les résultats pour les stocker dans l’entrée associée de la table de mémoisation.
+
+Peu importe la manière dont la structure de l’espace des solutions est définie, il existe deux options pour y évaluer une algèbre.
+La première est de passer directement l’algèbre à l’algorithme, ce qui a pour but de produire une unique valeur correspondant au résultat de l’évaluation.
+Généralement, l’algèbre ne considère qu’une partie limitée de l’espace des solutions, ainsi une fois le résultat obtenu il n’y a plus assez d’informations pour parcourir d’autres solutions associées.
+L’autre option est d’utiliser une algèbre de traçage (voir la \cref{sec:adp:solution-spaces:trace}) pour extraire le circuit algébrique décrivant l’espace des solutions.
+Dans \emph{padapto}, la fonction \texttt{trace} du module \texttt{padapto.evaluation} permet de dériver automatiquement l’algèbre de traçage associée à une certaine signature.
+
+Une fois un circuit algébrique obtenu, il devient possible d’y effectuer diverses opérations sans devoir exécuter l’algorithme à nouveau.
+Par exemple, il est possible d’en extraire des solutions, par énumération ou par échantillonage uniforme ou de Boltzmann, d’y évaluer d’autres algèbres, ou de calculer les fréquences d’apparition de certains sommets (voir la \cref{sec:adp:solution-spaces}).
+Ces fonctions sont fournies par le module suivant.
+
+\begin{itemize}
+    \item \textbf{\texttt{padapto.circuit}} offre des fonctions pour manipuler des circuits algébriques. \texttt{serialize} et \texttt{unserialize} permettent de les convertir dans un format textuel, \texttt{render} permet de les afficher, \texttt{enumerate\_solutions} et \texttt{get\_solution} d’en énumérer les solutions, \texttt{eval}, \texttt{eval\_inside} et \texttt{eval\_outside} d’évaluer une algèbre, et \texttt{sample} d’en échantillonner des solutions selon une distribution définie par une algèbre.
+\end{itemize}
+
+La représentation et la manipulation de circuits algébriques, qui sont des graphes orientés acycliques, est faite au travers de la bibliothèque \emph{sowing} présentée précédemment.
