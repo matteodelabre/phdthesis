@@ -148,19 +148,21 @@
 }
 
 %% Algorithmes
-\RequirePackage[algochapter, plainruled, vlined, linesnumbered, french, onelanguage]{algorithm2e}
+\RequirePackage[plain]{algorithm}
+\RequirePackage[commentColor=black!60,endLComment={}]{algpseudocodex}
+\renewcommand{\mathellipsis}{.\kern.4pt.\kern.4pt.\kern.6pt}
+\renewcommand{\algorithmicindent}{.8em}
+\algrenewcommand{\alglinenumber}[1]{\color{gray}\scriptsize#1}
 
-\SetKwInput{KwIn}{Entrée}
-\SetKwInput{KwOut}{Sortie}
-\SetKwProg{Fn}{Fonction}{}{}
-
-\DontPrintSemicolon
-\SetNlSty{normalfont}{}{\enspace}
-
-%%% Style des noms d’algos
-\SetAlgoCaptionLayout{centerline}
-\setlength{\interspacetitleruled}{1ex}
-\setlength{\interspacealgoruled}{1ex}
+\tikzset{
+    algpxDefaultBox/.style={
+        fill=black!10,
+        draw=black!40,
+        inner xsep=1pt,
+        inner ysep=1.5pt,
+        rounded corners=2pt,
+    },
+}
 
 %% Dessin
 \RequirePackage{tikz}
@@ -174,173 +176,9 @@
 \usegdlibrary{trees}
 \usegdlibrary{phylogenetics}
 
-\RequirePackage{luacode}
-% Disable edge bending in rectangular phylogenetic layout
-% (so "rectangular phylograms" look like "straight phylograms",
-% but length are counted only vertically instead of diagonally)
-\begin{luacode*}
-    local maeusle = require 'pgf.gd.phylogenetics.Maeusle2012'
-    maeusle.bendEdge90Degree = function () end
-\end{luacode*}
-
-\tikzset{
-    separator rule/.style={
-        draw=black!25,
-    },
-    % Reconciliation edges
-    associate edge/.style={
-        draw, thick, #1,
-        shorten <=4pt, shorten >=3pt,
-        ->, >=Latex,
-    },
-    overlaid associate edge/.style={
-        draw, line width=4pt, white,
-        shorten <=8pt, shorten >=8pt,
-        postaction={associate edge=#1},
-    },
-    associate/.style={every edge/.style={associate edge=#1}},
-    overlaid associate/.style={every edge/.style={overlaid associate edge=#1}},
-    % Directed edges
-    directed edge/.style={
-        draw,
-        postaction={decorate},
-        decoration={
-            markings,
-            mark=at position 0.5 with {
-                \fill (2.5pt, 0) -- (-2.1pt, 2pt) -- (-2.1pt, -2pt) -- cycle;
-            },
-        },
-    },
-    directed/.style={every edge/.style={directed edge}},
-    marked directed edge/.style={
-        ultra thick, draw=marking,
-        shorten >=0.11pt, shorten <=0.11pt,
-        postaction={
-            directed edge, thin, black,
-            decoration={
-                markings,
-                mark=at position 0.5 with {
-                    \fill[marking, blend mode=darken]
-                        (3.7pt, 0) -- (-2.9pt, 3.2pt) -- (-2.9pt, -3.2pt) -- cycle;
-                    \fill[black]
-                        (2.5pt, 0) -- (-2.1pt, 2pt) -- (-2.1pt, -2pt) -- cycle;
-                },
-            },
-        },
-    },
-    marked directed/.style={every edge/.style={marked directed edge}},
-    marked edge/.style={
-        ultra thick, draw=marking,
-        shorten >=0.11pt, shorten <=0.11pt,
-        postaction={
-            draw, thin, black,
-        },
-    },
-    marked/.style={every edge/.style={marked edge}},
-    % Tree layout
-    /graph drawing/evolutionary unit length=.66cm,
-    /graph drawing/sibling distance=.4cm,
-    % Generic shapes
-    graph node/.style={
-        circle, draw, fill,
-        inner sep=1pt, outer sep=0pt,
-    },
-    hollow graph node/.style={
-        circle, draw,
-        inner sep=1pt, outer sep=0pt,
-        font={\bfseries\small},
-    },
-    % Event shapes
-    speciation/.style={
-        circle, draw, fill=white,
-        inner sep=3pt,
-    },
-    duplication/.style={
-        rectangle, draw, fill=white,
-        inner sep=4pt,
-    },
-    transfer/.style={
-        chamfered rectangle, draw, fill=white,
-        inner sep=2.5pt,
-    },
-    transfer edge/.style={dashed},
-    transfer edge cleft/.style={
-        ->, >=Latex,
-        bend left,
-    },
-    transfer edge cright/.style={
-        transfer edge cleft,
-        bend right,
-    },
-    loss/.style={
-        inner sep=2pt,
-        execute at end node={\textup{×}},
-    },
-    dependent/.style={
-        font=\small\itshape,
-    },
-    host/.style={
-        font=\small\bfseries,
-    },
-    % Reconciliation layout
-    host node/.style={
-        ellipse,
-        fill=#1!10,
-    },
-    host node/.default={black},
-    host leaf node/.style={
-        host node={#1},
-        inner sep=0pt,
-    },
-    host edge/.style={
-        fill=#1!5,
-    },
-    host edge/.default={black},
-    host edge terminal/.style={
-        host edge={#1},
-        rounded corners,
-    },
-    host edge unsampled/.style={
-        host edge terminal,
-        pattern={Lines[
-            distance=.125cm,
-            angle=30,
-            line width=.05cm,
-        ]},
-        pattern color=#1!5,
-    },
-    host edge unsampled/.default={black},
-    % Adjacencies
-    adjacency edge/.style={
-        draw, black, thick,
-        line cap=round,
-        dash pattern=on 0pt off 1.75\pgflinewidth,
-    },
-    adjacency/.style={every edge/.style={adjacency edge}},
-}
-
-\pgfdeclarelayer{hostnodes}
-\pgfdeclarelayer{hostedges}
-\pgfsetlayers{hostedges,hostnodes,main}
-
-\DeclareRobustCommand{\showspeciation}{\,\tikz[baseline=-.75ex] \node[speciation] {};\,}
-\DeclareRobustCommand{\showduplication}{\,\tikz[baseline=-.75ex] \node[duplication] {};\,}
-\DeclareRobustCommand{\showtransfer}{\,\tikz[baseline=-.75ex] \node[transfer] {};\,}
-\DeclareRobustCommand{\showloss}{\,×\,}
-
-\definecolor{color1}{HTML}{2E47D8}
-\definecolor{reccolor1}{HTML}{5960F5}
-\definecolor{color2}{HTML}{C82F30}
-\definecolor{reccolor2}{HTML}{E84D48}
-\definecolor{color3}{HTML}{2B9500}
-\definecolor{reccolor3}{HTML}{4DB028}
-\definecolor{color4}{HTML}{CE7112}
-\definecolor{reccolor4}{HTML}{EB8A2F}
-
-\colorlet{marking}{reccolor2!35}
-
-\definecolor{lightblue}{HTML}{0074D9}
-\definecolor{lightgreen}{HTML}{2ECC40}
+\RequirePackage{forest}
+\useforestlibrary{edges}
+\input{fig/defs}
 
 %% Diagrammes
 \RequirePackage{pgfplots}
@@ -350,9 +188,6 @@
 \RequirePackage{caption}
 \DeclareCaptionLabelFormat{oldstyle}{\textsc{\MakeLowercase{#1}} \oldstylenums{#2}}
 \captionsetup{labelformat=oldstyle, labelsep=endash, margin=2em}
-
-\renewcommand{\AlCapSty}[1]{\textsc{\MakeLowercase{\oldstylenums{#1}}}}
-\SetAlgoCaptionSeparator{--}
 
 % Liens et hyperliens
 
@@ -409,6 +244,9 @@
     \Crefname{table}{Tableau}{Tableaux}%
     \crefname{algorithm}{algorithme}{algorithmes}%
     \Crefname{algorithm}{Algorithme}{Algorithmes}%
+    \algrenewcommand{\algorithmicforall}{\textbf{pour chaque}}
+    \algrenewcommand{\algorithmicrequire}{\textbf{Entrée:}}
+    \algrenewcommand{\algorithmicensure}{\textbf{Sortie:}}
     \crefname{chapter}{chapitre}{chapitres}%
     \Crefname{chapter}{Chapitre}{Chapitres}%
     \crefname{enumi}{point}{points}%
@@ -448,6 +286,9 @@
     \Crefname{table}{Table}{Tables}%
     \crefname{algorithm}{algorithm}{algorithms}%
     \Crefname{algorithm}{Algorithm}{Algorithms}%
+    \algrenewcommand{\algorithmicforall}{\textbf{for each}}
+    \algrenewcommand{\algorithmicrequire}{\textbf{Input:}}
+    \algrenewcommand{\algorithmicensure}{\textbf{Output:}}
     \crefname{chapter}{chapter}{chapters}%
     \Crefname{chapter}{Chapter}{Chapters}%
     \crefname{enumi}{item}{items}%

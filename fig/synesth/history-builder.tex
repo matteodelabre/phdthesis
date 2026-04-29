@@ -1,0 +1,108 @@
+\sidecols{.49\textwidth}{.49\textwidth}{
+    \centering
+    \begin{tikzpicture}[
+        node distance=1.5cm and 1.2cm,
+        label distance=0cm,
+        node label/.style={font=\scriptsize},
+    ]
+        \coordinate[label={[node label]left:\(v\)}] (root) {};
+
+        \coordinate [
+            below left=of root,
+            label={[node label]left:\(v\leftChild\)},
+        ] (node-left) {};
+
+        \node [node label, below=.7cm of node-left]
+            (node-left-subtree)
+            {\(\subtree{\syntenyTree}{v\leftChild}\)};
+
+        \coordinate [
+            below right=of root,
+            label={[node label]right:\(v\rightChild\)},
+        ] (node-right) {};
+
+        \node [node label, below=.7cm of node-right]
+            (node-right-subtree)
+            {\(\subtree{\syntenyTree}{v\rightChild}\)};
+
+        \draw (root) edge (node-left);
+        \draw (root) edge (node-right);
+
+        \path[draw, fill=white] (node-left.south)
+            -- ([shift={(-.33, -.66)}]node-left.south)
+            -- ([shift={(.33, -.66)}]node-left.south)
+            -- cycle;
+
+        \path[draw, fill=white] (node-right.south)
+            -- ([shift={(-.33, -.66)}]node-right.south)
+            -- ([shift={(.33, -.66)}]node-right.south)
+            -- cycle;
+    \end{tikzpicture}
+    
+    \(\syntenyTree\)
+}{
+    \centering
+    \begin{tikzpicture}[
+        node distance=.4cm and .2cm,
+        label distance=0cm,
+        node label/.style={font=\scriptsize},
+    ]
+        \node[
+            speciation,
+            label={[node label]left:\(v\)},
+            label={[species label]right:\(\sigma\)},
+        ] (root) {\(X\)};
+
+        \node [
+            generic,
+            below left=of root,
+            label={[species label]right:\(\sigma\leftChild\)},
+        ] (path-left) {\(X\)};
+
+        \node [
+            generic,
+            below left=of path-left,
+            label={[node label]left:\(v\leftChild\)},
+            label={[species label]right:\(\gamma\leftChild\)},
+        ] (node-left) {\(Y\)};
+
+        \node [node label, below=.7cm of node-left]
+            (node-left-subtree)
+            {\(h(v\leftChild, Y, \gamma\leftChild)\)};
+
+        \node [
+            generic,
+            below right=of root,
+            label={[species label]right:\(\sigma\rightChild\)},
+        ] (path-right) {\(X\)};
+
+        \node [
+            generic,
+            below right=of path-right,
+            label={[node label]left:\(v\rightChild\)},
+            label={[species label]right:\(\gamma\rightChild\)},
+        ] (node-right) {\(Z\)};
+
+        \node [node label, below=.7cm of node-right]
+            (node-right-subtree)
+            {\(h(v\rightChild, Z, \gamma\rightChild)\)};
+
+        \draw (root) edge (path-left);
+        \draw (root) edge (path-right);
+
+        \draw[wavy edge] (path-left) edge (node-left);
+        \draw[wavy edge] (path-right) edge (node-right);
+
+        \path[draw, fill=white] (node-left.south)
+            -- ([shift={(-.33, -.66)}]node-left.south)
+            -- ([shift={(.33, -.66)}]node-left.south)
+            -- cycle;
+
+        \path[draw, fill=white] (node-right.south)
+            -- ([shift={(-.33, -.66)}]node-right.south)
+            -- ([shift={(.33, -.66)}]node-right.south)
+            -- cycle;
+    \end{tikzpicture}
+
+    \(\Hist\)
+}

@@ -1,3 +1,5 @@
+%! TeX root = ./main.tex
+% vim: set spelllang=en,fr:
 \selectlanguage{french}
 \chapter{Synesth: réconciliation segmentale avec hôtes non-échantillonnés}\label{chap:synesth}
 
@@ -173,7 +175,7 @@ fission of a synteny~(\enquote{\(\eventCut\)}),
 transfer of a duplicated or cut segment (resp. \enquote{\(\eventTrDup\)} or \enquote{\(\eventTrCut\)}),
 and gain or loss of a segment~(\enquote{\(\eventGain\)}, \enquote{\(\eventLoss\)}).
 Losses can be partial in the sense that only a subset of genes in a segment are lost.
-Evolutionary histories are sequences of such events, as formally defined below (see example in \cref{fig:synesth:ex-history}).
+Evolutionary histories are sequences of such events, as formally defined below (see example in \cref{fig:synesth:example}).
 
 \begin{definition}[Evolutionary history for syntenies]\label{def:synesth:hist}
     A history \(\Hist\) on a binary species tree \(\speciesTree\) is a tuple \(\tuple{H, \eventOf, \syntenyOf, \speciesOf}\), where \(H\) is a partially binary tree.
@@ -232,7 +234,7 @@ Evolutionary histories are sequences of such events, as formally defined below (
 \end{definition}
 
 Condition (4) excludes \emph{convergent gains}, i.e., histories where the same gene family is gained separately in different parts of the history.
-Moreover, as in~\textcite{Weiner2021ImprovedDuplicationTransfer}, we will allow for transfers from unsampled or extinct species by augmenting the species tree. For example, in \cref{fig:synesth:ex-history}, the synteny \(\{1,2\}\) in species \(A\) is the result of a transfer from an unsampled species.
+Moreover, as in~\textcite{Weiner2021ImprovedDuplicationTransfer}, we will allow for transfers from unsampled or extinct species by augmenting the species tree. For example, in \cref{fig:synesth:example}, the synteny \(\{1,2\}\) in species \(A\) is the result of a transfer from an unsampled species.
 In the following, unless specified otherwise, all histories are on \(\augS\), as formally defined below.
 
 \begin{definition}[Augmented species tree]\label{def:augmented-species}
@@ -248,129 +250,7 @@ Finally, notice that \cref{def:synesth:hist} does not require the species involv
 
 \begin{figure}[htb]
     \centering
-
-    % \sidecols{.4\textwidth}{.6\textwidth}{
-    %     \centering
-    %     \begin{forest}
-    %         forked edges,
-    %         for tree={
-    %             grow'=0,
-    %             s sep'+=.625cm,
-    %             l=.8em,
-    %             l sep=0pt,
-    %         },
-    %         before typesetting nodes={
-    %             delay={
-    %                 where content={}{coordinate}{},
-    %             },
-    %             where n children=0{
-    %                 tier=extant,
-    %                 label/.process={Ow{content}{right:#1}},
-    %                 content=,
-    %             }{},
-    %         },
-    %         [
-    %             [\subnode{synteny-1}{1, 2}]
-    %             [
-    %                 [
-    %                     [
-    %                         [\subnode{synteny-2}{2, 3}]
-    %                         [\subnode{synteny-3}{2, 3}]
-    %                     ]
-    %                     [
-    %                         [\subnode{synteny-4}{1, 3}]
-    %                         [
-    %                             [\subnode{synteny-5}{1, 2}]
-    %                             [\subnode{synteny-6}{3}]
-    %                         ]
-    %                     ]
-    %                 ]
-    %                 [\subnode{synteny-7}{1, 2}]
-    %             ]
-    %         ]
-    %     \end{forest}\hspace{2em}%
-    %     \begin{forest}
-    %         forked edges,
-    %         for tree={
-    %             grow=west,
-    %             s sep'+=.525cm,
-    %             l=.8em,
-    %             l sep=0pt,
-    %         },
-    %         extant leaf/.style={
-    %             tier=extant,
-    %         },
-    %         unsampled leaf/.style={
-    %             tier=unsampled,
-    %             edge=densely dotted,
-    %         },
-    %         before typesetting nodes={
-    %             delay={
-    %                 where content={}{coordinate}{},
-    %             },
-    %             where n children=0{
-    %                 label/.process={Ow{content}{left:\textbf{#1}}},
-    %                 content=,
-    %             }{},
-    %         },
-    %         [
-    %             [, unsampled leaf]
-    %             [
-    %                 [
-    %                     [
-    %                         [
-    %                             [\subnode{species-A}{A}, extant leaf]
-    %                             [, unsampled leaf]
-    %                         ]
-    %                         [
-    %                             [\subnode{species-B}{B}, extant leaf]
-    %                             [, unsampled leaf]
-    %                         ]
-    %                     ]
-    %                     [, unsampled leaf]
-    %                 ]
-    %                 [
-    %                     [\subnode{species-C}{C}, tier=extant]
-    %                     [, unsampled leaf]
-    %                 ]
-    %             ]
-    %         ]
-    %     \end{forest}
-    %     \begin{tikzpicture}[
-    %         overlay,
-    %         remember picture,
-    %         link/.style={
-    %             black!30, thick, dashed,
-    %             out=180,
-    %             in=0,
-    %             out distance=.35cm,
-    %             in distance=.35cm,
-    %         }
-    %     ]
-    %         \path[link] (species-A) edge (synteny-1.east);
-    %         \path[link] (species-A) edge (synteny-2.east);
-    %         \path[link] (species-B) edge (synteny-3.east);
-    %         \path[link] (species-A) edge (synteny-4.east);
-    %         \path[link] (species-B) edge (synteny-5.east);
-    %         \path[link] (species-C) edge (synteny-6.east);
-    %         \path[link] (species-C) edge (synteny-7.east);
-    %     \end{tikzpicture}
-
-    %     \(\syntenyTree\)
-    %     \hspace{6em}
-    %     \(\augS\)
-
-    %     (1)
-    % }{
-    %     \centering
-    %     {\small\input{img/history-example}}
-
-    %     \vspace{1ex}
-    %     \(\Hist\)
-        
-    %     (2)
-    % }
-    
+    \input{fig/synesth/example}
     \caption{
         (1)~A \emph{synteny tree} \(\syntenyTree\) (on the left) with an augmented \emph{species tree} \(\augS\) (on the right).
         Numbers represent single gene families and letters represent species.
@@ -383,21 +263,21 @@ Finally, notice that \cref{def:synesth:hist} does not require the species involv
         The synteny contents are written inside of each event, while the associated species is represented implicitly by the position of each event on top of the species tree.
         Duplicated or transferred genes are underlined, while fissions are represented by a separation in the synteny.
     }
-    \label{fig:synesth:ex-history}
+    \label{fig:synesth:example}
 \end{figure}
 
 \section{Explicatory histories and optimization problems}\label{sec:synesth:opt-probs}
 
 The goal of reconciliation is to infer histories which \emph{explicate} the topology of a synteny tree given a tree of the corresponding species.
 Such histories are extensions of the synteny tree that map all leaves to the appropriate species and syntenies without introducing new extant leaves.
-For example, in \cref{fig:synesth:ex-history} the history in~(2) explicates the trees in~(1).
+For example, in \cref{fig:synesth:example} the history in~(2) explicates the trees in~(1).
 
 \begin{definition}[Visible leaves]
     A leaf \(l\) of a history \(\Hist = \tuple{H, \eventOf, \syntenyOf, \speciesOf}\) is said to be \emph{visible} if \(\syntenyOf(l) \neq \emptyset\) and \(\speciesOf(l) \in \treeNodes(\speciesTree)\), and \emph{invisible} otherwise.
     The set of visible leaves of \(\Hist\) is denoted \(\visLeaves(\Hist)\).
 \end{definition}
 
-In the history depicted in \cref{fig:synesth:ex-history}, the only invisible leaf is the unnamed leaf in the cross-hatched region (representing an unsampled species). Notice that all losses in this history are partial losses; otherwise a full loss would also correspond to an invisible leaf.
+In the history depicted in \cref{fig:synesth:example}, the only invisible leaf is the unnamed leaf in the cross-hatched region (representing an unsampled species). Notice that all losses in this history are partial losses; otherwise a full loss would also correspond to an invisible leaf.
 
 The following is a formal definition of a history explicating a synteny and species tree given as input.
 
@@ -467,11 +347,11 @@ Now, given a vector of costs for each event type \(\eventCost = (\eventCost_\eve
 
 \begin{problem}{Minimum cost\label{prob:synesth:min-cost}}
     \probinput{A synteny tree \(\syntenyTree\), a species tree \(\speciesTree\), and a vector \(\eventCost \in (\setReal^+ \cup \{\infty\})^5\).}
-    \proboutput{The minimum cost \(\minCost(\syntenyTree, \speciesTree) = \min \{ \histCost(\Hist) \mid \Hist \in \solSpace(\syntenyTree, \speciesTree) \}\) of any history\\explicating \(\syntenyTree\) and \(\speciesTree\).}
+    \proboutput{The minimum cost \(\minCost(\syntenyTree, \speciesTree) = \min \{ \histCost(\Hist) \mid \Hist \in \solSpace(\syntenyTree, \speciesTree) \}\) of any history\newline explicating \(\syntenyTree\) and \(\speciesTree\).}
 \end{problem}
 
 Finally, we will call problems~\ref*{prob:synesth:all-vecs}' and~\ref*{prob:synesth:min-cost}' the versions of \cref{prob:synesth:all-vecs,prob:synesth:min-cost} where we additionally ask for one history corresponding to each returned optimal event vector (for \cref*{prob:synesth:all-vecs}') or one history for the returned minimum cost (for \cref*{prob:synesth:min-cost}').
-For example, \cref{fig:synesth:ex-history} shows in~(2) a possible solution for \cref*{prob:synesth:all-vecs}' for the synteny and species trees in~(1) for vector \((c_\eventDup = 1, c_\eventCut = 0, c_\eventTrDup = 1, c_\eventTrCut = 1, c_\eventLoss = 1)\), and for \cref*{prob:synesth:min-cost}' for cost \((\eventCost_\eventDup = 2, \eventCost_\eventCut = 2.5, \eventCost_\eventTrDup = 3, \eventCost_\eventTrCut = 3.5, \eventCost_\eventLoss = 1)\).
+For example, \cref{fig:synesth:example} shows in~(2) a possible solution for \cref*{prob:synesth:all-vecs}' for the synteny and species trees in~(1) for vector \((c_\eventDup = 1, c_\eventCut = 0, c_\eventTrDup = 1, c_\eventTrCut = 1, c_\eventLoss = 1)\), and for \cref*{prob:synesth:min-cost}' for cost \((\eventCost_\eventDup = 2, \eventCost_\eventCut = 2.5, \eventCost_\eventTrDup = 3, \eventCost_\eventTrCut = 3.5, \eventCost_\eventLoss = 1)\).
 
 \section{Generating all pareto-optimal histories}\label{sec:synesth:pareto-histories}
 
@@ -534,116 +414,7 @@ For example, in \cref{fig:synesth:history-builder},
 
 \begin{figure}[htb]
     \centering
-
-    % \sidecols{.5\textwidth}{.5\textwidth}{
-    %     \centering
-    %     \begin{tikzpicture}[
-    %         node distance=1.5cm and 1.2cm,
-    %         label distance=0cm,
-    %         node label/.style={font=\scriptsize},
-    %     ]
-    %         \coordinate[label={[node label]left:\(v\)}] (root) {};
-    
-    %         \coordinate [
-    %             below left=of root,
-    %             label={[node label]left:\(v\leftChild\)},
-    %         ] (node-left) {};
-    
-    %         \node [node label, below=.7cm of node-left]
-    %             (node-left-subtree)
-    %             {\(\subtree{\syntenyTree}{v\leftChild}\)};
-    
-    %         \coordinate [
-    %             below right=of root,
-    %             label={[node label]right:\(v\rightChild\)},
-    %         ] (node-right) {};
-    
-    %         \node [node label, below=.7cm of node-right]
-    %             (node-right-subtree)
-    %             {\(\subtree{\syntenyTree}{v\rightChild}\)};
-    
-    %         \draw (root) edge (node-left);
-    %         \draw (root) edge (node-right);
-    
-    %         \path[draw, fill=white] (node-left.south)
-    %             -- ([shift={(-.33, -.66)}]node-left.south)
-    %             -- ([shift={(.33, -.66)}]node-left.south)
-    %             -- cycle;
-    
-    %         \path[draw, fill=white] (node-right.south)
-    %             -- ([shift={(-.33, -.66)}]node-right.south)
-    %             -- ([shift={(.33, -.66)}]node-right.south)
-    %             -- cycle;
-    %     \end{tikzpicture}
-        
-    %     \(\syntenyTree\)
-    % }{
-    %     \centering
-    %     \begin{tikzpicture}[
-    %         node distance=.4cm and .2cm,
-    %         label distance=0cm,
-    %         node label/.style={font=\scriptsize},
-    %     ]
-    %         \node[
-    %             speciation,
-    %             label={[node label]left:\(v\)},
-    %             label={[species label]right:\(\sigma\)},
-    %         ] (root) {\(X\)};
-    
-    %         \node [
-    %             generic,
-    %             below left=of root,
-    %             label={[species label]right:\(\sigma\leftChild\)},
-    %         ] (path-left) {\(X\)};
-    
-    %         \node [
-    %             generic,
-    %             below left=of path-left,
-    %             label={[node label]left:\(v\leftChild\)},
-    %             label={[species label]right:\(\gamma\leftChild\)},
-    %         ] (node-left) {\(Y\)};
-    
-    %         \node [node label, below=.7cm of node-left]
-    %             (node-left-subtree)
-    %             {\(h(v\leftChild, Y, \gamma\leftChild)\)};
-    
-    %         \node [
-    %             generic,
-    %             below right=of root,
-    %             label={[species label]right:\(\sigma\rightChild\)},
-    %         ] (path-right) {\(X\)};
-    
-    %         \node [
-    %             generic,
-    %             below right=of path-right,
-    %             label={[node label]left:\(v\rightChild\)},
-    %             label={[species label]right:\(\gamma\rightChild\)},
-    %         ] (node-right) {\(Z\)};
-    
-    %         \node [node label, below=.7cm of node-right]
-    %             (node-right-subtree)
-    %             {\(h(v\rightChild, Z, \gamma\rightChild)\)};
-    
-    %         \draw (root) edge (path-left);
-    %         \draw (root) edge (path-right);
-    
-    %         \draw[wavy edge] (path-left) edge (node-left);
-    %         \draw[wavy edge] (path-right) edge (node-right);
-    
-    %         \path[draw, fill=white] (node-left.south)
-    %             -- ([shift={(-.33, -.66)}]node-left.south)
-    %             -- ([shift={(.33, -.66)}]node-left.south)
-    %             -- cycle;
-    
-    %         \path[draw, fill=white] (node-right.south)
-    %             -- ([shift={(-.33, -.66)}]node-right.south)
-    %             -- ([shift={(.33, -.66)}]node-right.south)
-    %             -- cycle;
-    %     \end{tikzpicture}
-    
-    %     \(\Hist\)
-    % }
-
+    \input{fig/synesth/history-builder}
     \caption{
         A history \(\Hist\) for a synteny tree \(\syntenyTree\) starting with a speciation at \(v = [X, \sigma]\), composed of two sub-histories \(h(v\leftChild, Y, \gamma\leftChild)\) and \(h(v\rightChild, Z, \gamma\rightChild)\)
         linked together by two paths (represented by wavy lines):
@@ -821,86 +592,86 @@ We next consider how to compute the set of histories \(\optPath([X, \sigma], [Y,
             In all cases, the histories end with a gain event if \(Y \not\subseteq X\).
     \end{itemize}
 
-%     \threecols{.25\textwidth}{.45\textwidth}{.25\textwidth}{
-%         \centering
-%         \begin{tikzpicture}[x=.8cm, y=.5cm]
-%             \node[sideways loss={black}{\(-(X - Y)\)}, label={[species label]left:\(\sigma\)}] (s0) at (0, 1) {};
-%             \node[speciation, label={[species label]left:\(\sigma\)}] (s1) at (0, 0) {};
-%             \node[speciation] (s2) at (0, -1) {};
-%             \coordinate (s3) at (0, -2);
-%             \node[extant gene={\(Y\)}, label={[species label]left:\(\gamma\)}] (l3) at (0, -3) {};
+    \threecols{.25\textwidth}{.45\textwidth}{.25\textwidth}{
+        \centering
+        \begin{tikzpicture}[x=.8cm, y=.5cm]
+            \node[sideways loss={black}{\(-(X - Y)\)}, label={[species label]left:\(\sigma\)}] (s0) at (0, 1) {};
+            \node[speciation, label={[species label]left:\(\sigma\)}] (s1) at (0, 0) {};
+            \node[speciation] (s2) at (0, -1) {};
+            \coordinate (s3) at (0, -2);
+            \node[extant gene={\(Y\)}, label={[species label]left:\(\gamma\)}] (l3) at (0, -3) {};
 
-%             \path (s0) edge[draw] (s1);
-%             \path (s1) edge[draw] (s2);
-%             \path (s2) edge[draw, dotted] (s3);
-%             \path (s3) edge[draw] (l3);
+            \path (s0) edge[draw] (s1);
+            \path (s1) edge[draw] (s2);
+            \path (s2) edge[draw, dotted] (s3);
+            \path (s3) edge[draw] (l3);
 
-%             \coordinate (l1) at (1, 0);
-%             \path (s1) edge[draw] node[pos=1, loss={black}{}] {} (l1);
-%             \coordinate (l2) at (1, -1);
-%             \path (s2) edge[draw, dashed] (l2);
+            \coordinate (l1) at (1, 0);
+            \path (s1) edge[draw] node[pos=1, loss={black}{}] {} (l1);
+            \coordinate (l2) at (1, -1);
+            \path (s2) edge[draw, dashed] (l2);
 
-%             \node[sideways gain={black}{\(+(Y - X)\)}] (p4) at (0, -2.5) {};
-%         \end{tikzpicture}
+            \node[sideways gain={black}{\(+(Y - X)\)}] (p4) at (0, -2.5) {};
+        \end{tikzpicture}
 
-%         \((P_0)\)
-%     }{
-%         \centering
-%         \begin{tikzpicture}[x=.3cm, y=.5cm]
-%             \node[transfer, label={[species label,xshift=1.5em]above left:\(\sigma = \sigma'\)}]
-%                 (s1) {\(X\)};
-%             \coordinate (l1) at (0, -1) {};
-%             \coordinate (s2) at (3, 0);
-%             \node[extant gene={\(Y\)}, label={[species label]right:\(\gamma\)}]
-%                 (l2) at (3, -1) {};
-%             \path (s1) edge[draw] node[pos=1, sideways loss={black}{}] {} (l1);
-%             \path (s2) edge[draw] (l2.center);
-%             \path (s1) edge[transfer branch, bend left=20] (s2);
-%         \end{tikzpicture}
-%         \begin{tikzpicture}[x=.3cm, y=.5cm]
-%             \node[speciation, label={[species label]left:\(\sigma\)}]
-%                 (s1) {\(X\)};
-%             \coordinate (l1) at (1, -1);
-%             \node[transfer, label={[species label]left:\(\sigma'\)}]
-%                 (s2) at (-1, -1) {\(X\)};
-%             \coordinate (l2) at (-2, -2);
-%             \coordinate (s3) at (1, -2.25);
-%             \node[extant gene={\(Y\)}, label={[species label]right:\(\gamma\)}]
-%                 (l3) at (1, -3) {};
+        \((P_0)\)
+    }{
+        \centering
+        \begin{tikzpicture}[x=.3cm, y=.5cm]
+            \node[transfer, label={[species label,xshift=1.5em]above left:\(\sigma = \sigma'\)}]
+                (s1) {\(X\)};
+            \coordinate (l1) at (0, -1) {};
+            \coordinate (s2) at (3, 0);
+            \node[extant gene={\(Y\)}, label={[species label]right:\(\gamma\)}]
+                (l2) at (3, -1) {};
+            \path (s1) edge[draw] node[pos=1, sideways loss={black}{}] {} (l1);
+            \path (s2) edge[draw] (l2.center);
+            \path (s1) edge[transfer branch, bend left=20] (s2);
+        \end{tikzpicture}
+        \begin{tikzpicture}[x=.3cm, y=.5cm]
+            \node[speciation, label={[species label]left:\(\sigma\)}]
+                (s1) {\(X\)};
+            \coordinate (l1) at (1, -1);
+            \node[transfer, label={[species label]left:\(\sigma'\)}]
+                (s2) at (-1, -1) {\(X\)};
+            \coordinate (l2) at (-2, -2);
+            \coordinate (s3) at (1, -2.25);
+            \node[extant gene={\(Y\)}, label={[species label]right:\(\gamma\)}]
+                (l3) at (1, -3) {};
 
-%             \path (s1) edge[draw] node[pos=1, sloped, loss={black}{}] {} (l1);
-%             \path (s1) edge[draw] (s2);
-%             \path (s3) edge[draw] node[pos=.4, sideways loss={black}{}, label={right:\tiny\(\scriptstyle- (X - Y)\)}] {} (l3);
-%             \path (s2) edge[draw] node[pos=1, sloped, rotate=180, loss={black}{}] {} (l2);
-%             \path (s2) edge[transfer branch, bend left=10] (s3);
-%         \end{tikzpicture}
+            \path (s1) edge[draw] node[pos=1, sloped, loss={black}{}] {} (l1);
+            \path (s1) edge[draw] (s2);
+            \path (s3) edge[draw] node[pos=.4, sideways loss={black}{}, label={right:\tiny\(\scriptstyle- (X - Y)\)}] {} (l3);
+            \path (s2) edge[draw] node[pos=1, sloped, rotate=180, loss={black}{}] {} (l2);
+            \path (s2) edge[transfer branch, bend left=10] (s3);
+        \end{tikzpicture}
 
-%         \vspace{1ex}
-%         \((P_1)\)
-%     }{
-%         \centering
+        \vspace{1ex}
+        \((P_1)\)
+    }{
+        \centering
 
-%         \begin{tikzpicture}[x=.3cm, y=.5cm]
-%             \node[transfer, label={[species label]above left:\(\sigma\)}]
-%                 (s1) {\(X\)};
-%             \node[sideways loss={black}{}] (l1) at (0, -1) {};
-%             \node[transfer, label={[species label]above:\(\sigma^*\)}]
-%                 (s2) at (3, 0) {\(X\)};
-%             \node[extant gene={\(X\)}, label={[species label, label distance=-.3em]left:\(\sigma^*\)}]
-%                 (l2) at (3, -1) {};
-%             \coordinate (s3) at (5, 0);
-%             \node[extant gene={\(Y\)}, label={[species label]right:\(\gamma\)}]
-%                 (l3) at (5, -1) {};
-%             \path (s1) edge[draw] (l1);
-%             \path (s2) edge[draw] (l2.center);
-%             \path (s1) edge[transfer branch, bend left=20] (s2);
-%             \path (s3) edge[draw] (l3.center);
-%             \path (s2) edge[transfer branch, bend left=25] (s3);
-%         \end{tikzpicture}%
+        \begin{tikzpicture}[x=.3cm, y=.5cm]
+            \node[transfer, label={[species label]above left:\(\sigma\)}]
+                (s1) {\(X\)};
+            \node[sideways loss={black}{}] (l1) at (0, -1) {};
+            \node[transfer, label={[species label]above:\(\sigma^*\)}]
+                (s2) at (3, 0) {\(X\)};
+            \node[extant gene={\(X\)}, label={[species label, label distance=-.3em]left:\(\sigma^*\)}]
+                (l2) at (3, -1) {};
+            \coordinate (s3) at (5, 0);
+            \node[extant gene={\(Y\)}, label={[species label]right:\(\gamma\)}]
+                (l3) at (5, -1) {};
+            \path (s1) edge[draw] (l1);
+            \path (s2) edge[draw] (l2.center);
+            \path (s1) edge[transfer branch, bend left=20] (s2);
+            \path (s3) edge[draw] (l3.center);
+            \path (s2) edge[transfer branch, bend left=25] (s3);
+        \end{tikzpicture}%
 
-%         \vspace{2ex}
-%         \((P_2)\)
-%     }
+        \vspace{2ex}
+        \((P_2)\)
+    }
 \end{theorem}
 \begin{proof}
     If \(\gamma\) is a strict ancestor of \(\sigma\), there can be no acyclic history leading from \((X, \sigma)\) to \((Y, \gamma)\), therefore \(\optPath((X, \sigma), (Y, \gamma)) = \emptyset\).
@@ -1162,7 +933,7 @@ Its fame is due to the development of the CRISPR-Cas~9 genome editing technology
 
 \begin{figure}[h]
     \centering
-    % \scalebox{.27}{\input{img/crispr-cas-scenario}}
+    \scalebox{.27}{\input{fig/synesth/crispr-cas-scenario}}
     \caption{Output of Synesth for the CRISPR-Cas Class 1 dataset, when asked for one minimum-cost history for event costs \(\eventCost(\eventLoss)=1\), \(\eventCost(\eventDup)=2\), \(\eventCost(\eventCut) = 2.5\), \(\eventCost(\eventTrDup)=4\) and \(\eventCost(\eventTrCut) = 4.5\).}
     \label{fig:synesth:crispr-sol}
 \end{figure}
@@ -1179,7 +950,7 @@ The resulting plot is given in \cref{fig:synesth:crispr-pareto}, in which each c
 
 \begin{figure}[h]
     \centering
-    \input{img/crispr-cas-pareto}
+    \input{fig/synesth/crispr-cas-pareto}
     \caption{The event cost landscape for the solutions returned by Synesth for Class~1 Cas gene synteny dataset (see text). The cost of a loss event is fixed to 1. For each color region, the legend shows a condensed event count vector of the form \((c_\eventDup + c_\eventCut, c_\eventTrDup + c_\eventTrCut, c_\eventLoss)\). “\(n\)” indicates the number of distinct minimal histories for any set of event costs in that region.}
     \label{fig:synesth:crispr-pareto}
 \end{figure}

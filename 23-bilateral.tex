@@ -212,7 +212,6 @@ La réconciliation \(\rec_4\) de la \cref{fig:reconciliation:free-rec} est par e
 Cette modification confère au problème une sous-structure optimale : une solution pour le sous-arbre \(\subtree{T}{v}\) est toujours un assemblage de deux solutions pour \(\subtree{T}{v\lchild}\) et \(\subtree{T}{v\rchild}\).
 L’\cref{algo:dtl-parcimonie-star} exploite cette propriété pour résoudre efficacement le problème.
 
-{
 \newcommand{\fndtl}{\mathrm{cost}}
 \newcommand{\varspe}{\mathrm{Spé_{LR}}}
 \newcommand{\varsperl}{\mathrm{Spé_{RL}}}
@@ -221,53 +220,53 @@ L’\cref{algo:dtl-parcimonie-star} exploite cette propriété pour résoudre ef
 \newcommand{\varhgtr}{\mathrm{Tra_R}}
 \newcommand{\varhgtlr}{\mathrm{Tra_{LR}}}
 
-\begin{algorithm}
-    \KwIn{Phylogénies \(T\) et \(S\);
-        association des feuilles \(\llmap : \tleavs(T) \onto \tleavs(S)\);
-        coûts \(\cost : \recmodelDTL \onto \nat\).}
-    \KwOut{Coût minimum d’une réconciliation de \(T\) avec \(S\) sous le modèle \(\recmodelDTL\).}
-    \medskip
-    \Fn{\(\fndtl(v, \sigma)\)}{\label{algo:dtl-parcimonie-star:fndtl:start}
-        \If{\(v \in \tleavs(T)\)}{
-            \Return \(0\) \textbf{si} \(\sigma = \llmap(v)\)\textbf{, sinon} \(\infty\) \;
-        }
-        \smallskip
-        \(\displaystyle\varspe \gets \min_{\sigma' \tdesc \sigma\lchild} \{
-            \fndtl(v\lchild, \sigma') + \cost(\evtL) \cdot \tdist(\sigma\lchild, \sigma')
-        \} + \min_{\sigma'' \tdesc \sigma\rchild} \{
-            \fndtl(v\rchild\kern1pt, \sigma'') + \cost(\evtL) \cdot \tdist(\sigma\rchild\kern1pt, \sigma'')
-        \}\)\;\label{algo:dtl-parcimonie-star:varspe}
-        \smallskip
-        \(\displaystyle\varsperl \gets \min_{\sigma' \tdesc \sigma\rchild} \{
-            \fndtl(v\lchild, \sigma') + \cost(\evtL) \cdot \tdist(\sigma\rchild\kern1pt, \sigma')
-        \} + \min_{\sigma'' \tdesc \sigma\lchild} \{
-            \fndtl(v\rchild\kern1pt, \sigma'') + \cost(\evtL) \cdot \tdist(\sigma\lchild, \sigma'')
-        \}\)\;\label{algo:dtl-parcimonie-star:varsperl}
-        \smallskip
-        \(\displaystyle\vardup \gets \cost(\evtD) + \min_{\sigma' \tdesc \sigma} \{
-            \fndtl(v\lchild, \sigma') + \cost(\evtL) \cdot \tdist(\sigma, \sigma')
-        \} + \min_{\sigma'' \tdesc \sigma} \{
-            \fndtl(v\rchild\kern1pt, \sigma'') + \cost(\evtL) \cdot \tdist(\sigma, \sigma'')
-        \}\)\;\label{algo:dtl-parcimonie-star:vardup}
-        \smallskip
-        \(\displaystyle\varhgt \gets \cost(\evtT) + \min_{\sigma' \nottcomp \sigma} \{
-            \fndtl(v\lchild, \sigma')
-        \} + \min_{\sigma'' \tdesc \sigma} \{
-            \fndtl(v\rchild\kern1pt, \sigma'') + \cost(\evtL) \cdot \tdist(\sigma, \sigma'')
-        \}\)\;\label{algo:dtl-parcimonie-star:varhgt}
-        \smallskip
-        \(\displaystyle\varhgtr \gets \cost(\evtT) + \min_{\sigma' \tdesc \sigma} \{
-            \fndtl(v\lchild, \sigma') + \cost(\evtL) \cdot \tdist(\sigma, \sigma')
-        \} + \min_{\sigma'' \nottcomp \sigma} \{
-            \fndtl(v\rchild\kern1pt, \sigma'')
-        \}\)\;\label{algo:dtl-parcimonie-star:varhgtr}
-        \Return \(\min(\varspe, \varsperl, \vardup, \varhgt, \varhgtr)\)\;
-    }\label{algo:dtl-parcimonie-star:fndtl:end}
-    \medskip
-    \Return \(\min_{\sigma \in \tnodes(S)}\fndtl(\troot(T), \sigma)\)
-    \caption{Algorithme récursif pour le problème de \(\recmodelDTL\)-parcimonie\(\star\).}
-    \label{algo:dtl-parcimonie-star}
-\end{algorithm}
+% \begin{algorithm}
+%     \KwIn{Phylogénies \(T\) et \(S\);
+%         association des feuilles \(\llmap : \tleavs(T) \onto \tleavs(S)\);
+%         coûts \(\cost : \recmodelDTL \onto \nat\).}
+%     \KwOut{Coût minimum d’une réconciliation de \(T\) avec \(S\) sous le modèle \(\recmodelDTL\).}
+%     \medskip
+%     \Fn{\(\fndtl(v, \sigma)\)}{\label{algo:dtl-parcimonie-star:fndtl:start}
+%         \If{\(v \in \tleavs(T)\)}{
+%             \Return \(0\) \textbf{si} \(\sigma = \llmap(v)\)\textbf{, sinon} \(\infty\) \;
+%         }
+%         \smallskip
+%         \(\displaystyle\varspe \gets \min_{\sigma' \tdesc \sigma\lchild} \{
+%             \fndtl(v\lchild, \sigma') + \cost(\evtL) \cdot \tdist(\sigma\lchild, \sigma')
+%         \} + \min_{\sigma'' \tdesc \sigma\rchild} \{
+%             \fndtl(v\rchild\kern1pt, \sigma'') + \cost(\evtL) \cdot \tdist(\sigma\rchild\kern1pt, \sigma'')
+%         \}\)\;\label{algo:dtl-parcimonie-star:varspe}
+%         \smallskip
+%         \(\displaystyle\varsperl \gets \min_{\sigma' \tdesc \sigma\rchild} \{
+%             \fndtl(v\lchild, \sigma') + \cost(\evtL) \cdot \tdist(\sigma\rchild\kern1pt, \sigma')
+%         \} + \min_{\sigma'' \tdesc \sigma\lchild} \{
+%             \fndtl(v\rchild\kern1pt, \sigma'') + \cost(\evtL) \cdot \tdist(\sigma\lchild, \sigma'')
+%         \}\)\;\label{algo:dtl-parcimonie-star:varsperl}
+%         \smallskip
+%         \(\displaystyle\vardup \gets \cost(\evtD) + \min_{\sigma' \tdesc \sigma} \{
+%             \fndtl(v\lchild, \sigma') + \cost(\evtL) \cdot \tdist(\sigma, \sigma')
+%         \} + \min_{\sigma'' \tdesc \sigma} \{
+%             \fndtl(v\rchild\kern1pt, \sigma'') + \cost(\evtL) \cdot \tdist(\sigma, \sigma'')
+%         \}\)\;\label{algo:dtl-parcimonie-star:vardup}
+%         \smallskip
+%         \(\displaystyle\varhgt \gets \cost(\evtT) + \min_{\sigma' \nottcomp \sigma} \{
+%             \fndtl(v\lchild, \sigma')
+%         \} + \min_{\sigma'' \tdesc \sigma} \{
+%             \fndtl(v\rchild\kern1pt, \sigma'') + \cost(\evtL) \cdot \tdist(\sigma, \sigma'')
+%         \}\)\;\label{algo:dtl-parcimonie-star:varhgt}
+%         \smallskip
+%         \(\displaystyle\varhgtr \gets \cost(\evtT) + \min_{\sigma' \tdesc \sigma} \{
+%             \fndtl(v\lchild, \sigma') + \cost(\evtL) \cdot \tdist(\sigma, \sigma')
+%         \} + \min_{\sigma'' \nottcomp \sigma} \{
+%             \fndtl(v\rchild\kern1pt, \sigma'')
+%         \}\)\;\label{algo:dtl-parcimonie-star:varhgtr}
+%         \Return \(\min(\varspe, \varsperl, \vardup, \varhgt, \varhgtr)\)\;
+%     }\label{algo:dtl-parcimonie-star:fndtl:end}
+%     \medskip
+%     \Return \(\min_{\sigma \in \tnodes(S)}\fndtl(\troot(T), \sigma)\)
+%     \caption{Algorithme récursif pour le problème de \(\recmodelDTL\)-parcimonie\(\star\).}
+%     \label{algo:dtl-parcimonie-star}
+% \end{algorithm}
 
 La fonction \(\fndtl(v, \sigma)\) (\crefrange{algo:dtl-parcimonie-star:fndtl:start}{algo:dtl-parcimonie-star:fndtl:end}) calcule le coût minimum d’une réconciliation de \(\subtree{T}{v}\) avec \(S\) de sorte que \(v\) soit associé à l’hôte \(\sigma\) donné.
 Pour ce faire, des appels récursifs sont utilisés pour obtenir le coût minimum de réconciliations de \(\subtree{T}{v\lchild}\) et \(\subtree{T}{v\rchild}\) avec \(S\) lorsque \(v\lchild\) et \(v\rchild\) sont associés à différents hôtes \(\sigma'\) et \(\sigma''\) de \(S\).

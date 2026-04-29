@@ -1,0 +1,352 @@
+\RequirePackage{luacode}
+% Disable edge bending in rectangular phylogenetic layout
+% (so "rectangular phylograms" look like "straight phylograms",
+% but length are counted only vertically instead of diagonally)
+\begin{luacode*}
+    local maeusle = require 'pgf.gd.phylogenetics.Maeusle2012'
+    maeusle.bendEdge90Degree = function () end
+\end{luacode*}
+
+\tikzset{
+    separator rule/.style={
+        draw=black!25,
+    },
+    % Reconciliation edges
+    associate edge/.style={
+        draw, thick, #1,
+        shorten <=4pt, shorten >=3pt,
+        ->, >=Latex,
+    },
+    overlaid associate edge/.style={
+        draw, line width=4pt, white,
+        shorten <=8pt, shorten >=8pt,
+        postaction={associate edge=#1},
+    },
+    associate/.style={every edge/.style={associate edge=#1}},
+    overlaid associate/.style={every edge/.style={overlaid associate edge=#1}},
+    % Directed edges
+    directed edge/.style={
+        draw,
+        postaction={decorate},
+        decoration={
+            markings,
+            mark=at position 0.5 with {
+                \fill (2.5pt, 0) -- (-2.1pt, 2pt) -- (-2.1pt, -2pt) -- cycle;
+            },
+        },
+    },
+    directed/.style={every edge/.style={directed edge}},
+    marked directed edge/.style={
+        ultra thick, draw=marking,
+        shorten >=0.11pt, shorten <=0.11pt,
+        postaction={
+            directed edge, thin, black,
+            decoration={
+                markings,
+                mark=at position 0.5 with {
+                    \fill[marking, blend mode=darken]
+                        (3.7pt, 0) -- (-2.9pt, 3.2pt) -- (-2.9pt, -3.2pt) -- cycle;
+                    \fill[black]
+                        (2.5pt, 0) -- (-2.1pt, 2pt) -- (-2.1pt, -2pt) -- cycle;
+                },
+            },
+        },
+    },
+    marked directed/.style={every edge/.style={marked directed edge}},
+    marked edge/.style={
+        ultra thick, draw=marking,
+        shorten >=0.11pt, shorten <=0.11pt,
+        postaction={
+            draw, thin, black,
+        },
+    },
+    marked/.style={every edge/.style={marked edge}},
+    % Tree layout
+    /graph drawing/evolutionary unit length=.66cm,
+    /graph drawing/sibling distance=.4cm,
+    % Generic shapes
+    graph node/.style={
+        circle, draw, fill,
+        inner sep=1pt, outer sep=0pt,
+    },
+    hollow graph node/.style={
+        circle, draw,
+        inner sep=1pt, outer sep=0pt,
+        font={\bfseries\small},
+    },
+    % Event shapes
+    speciation/.style={
+        circle, draw, fill=white,
+        inner sep=3pt,
+    },
+    duplication/.style={
+        rectangle, draw, fill=white,
+        inner sep=4pt,
+    },
+    transfer/.style={
+        chamfered rectangle, draw, fill=white,
+        inner sep=2.5pt,
+    },
+    transfer edge/.style={dashed},
+    transfer edge cleft/.style={
+        ->, >=Latex,
+        bend left,
+    },
+    transfer edge cright/.style={
+        transfer edge cleft,
+        bend right,
+    },
+    loss/.style={
+        inner sep=2pt,
+        execute at end node={\textup{×}},
+    },
+    dependent/.style={
+        font=\small\itshape,
+    },
+    host/.style={
+        font=\small\bfseries,
+    },
+    % Reconciliation layout
+    host node/.style={
+        ellipse,
+        fill=#1!10,
+    },
+    host node/.default={black},
+    host leaf node/.style={
+        host node={#1},
+        inner sep=0pt,
+    },
+    host edge/.style={
+        fill=#1!5,
+    },
+    host edge/.default={black},
+    host edge terminal/.style={
+        host edge={#1},
+        rounded corners,
+    },
+    host edge unsampled/.style={
+        host edge terminal,
+        pattern={Lines[
+            distance=.125cm,
+            angle=30,
+            line width=.05cm,
+        ]},
+        pattern color=#1!5,
+    },
+    host edge unsampled/.default={black},
+    % Adjacencies
+    adjacency edge/.style={
+        draw, black, thick,
+        line cap=round,
+        dash pattern=on 0pt off 1.75\pgflinewidth,
+    },
+    adjacency/.style={every edge/.style={adjacency edge}},
+}
+
+\colorlet{host background color}{black!15}
+
+\tikzset{
+    extant label/.style={
+        font={\strut\scriptsize},
+        inner xsep=0pt,
+        yshift=4pt,
+    },
+    species label/.style={
+        font={\bfseries\scriptsize\color{black!70}},
+    },
+    branch node/.style={
+        draw, fill=white,
+        outer sep=0pt, inner sep=0pt,
+        line width={0.5pt},
+        font={\scriptsize},
+    },
+    speciation/.style={
+        branch node, rectangle, rounded corners,
+        inner xsep=4pt,
+        inner ysep=2pt,
+        minimum width={8},
+        minimum height={8},
+    },
+    duplication/.style={
+        branch node, rectangle,
+        inner xsep=4pt,
+        inner ysep=2pt,
+        minimum width={8},
+        minimum height={8},
+    },
+    transfer/.style={
+        branch node, chamfered rectangle,
+        inner xsep=2pt,
+        minimum width={8},
+        minimum height={8},
+    },
+    generic/.style={
+        speciation,
+        densely dotted,
+    },
+    transfer branch/.style={
+        -Stealth,
+    },
+    gain/.style={
+        circle, inner sep=1.5pt,
+        fill=white, draw,
+        label={[%
+            font={\strut\scriptsize},
+            xshift=-2pt,
+            yshift=1pt,
+        ]right:\(\scriptstyle #1\)},
+    },
+    loss/.style={
+        draw, cross out,
+        line width={0.75pt},
+        inner sep=0pt,
+        outer sep=0pt,
+        minimum width={3},
+        minimum height={3},
+        label={[%
+            font={\strut\scriptsize},
+            xshift=-2pt,
+            yshift=1pt,
+        ]right:\(\scriptstyle #1\)},
+    },
+    extant gene/.style={
+        circle, fill,
+        outer sep=0pt, inner sep=0pt,
+        minimum width={3pt},
+        minimum height={3pt},
+        label={[extant label]below:#1},
+    },
+    circle node/.style={
+        circle, draw, fill,
+        outer sep=0pt, inner sep=1pt,
+    },
+    hollow circle node/.style={
+        circle node, fill=white,
+    },
+    plain edge/.style={every edge/.style={draw}},
+    dotted edge/.style={every edge/.style={draw, densely dotted}},
+    wavy edge/.style={every edge/.style={draw, decorate, decoration={snake, amplitude=.66pt, segment length=4pt}}},
+}
+\tikzset{
+    limit width/.style 2 args={
+        execute at begin node={\begin{varwidth}{#1}#2},
+        execute at end node={\end{varwidth}},
+    },
+    host background/.style={
+        fill=host background color,
+        draw=host background color,
+        line width={.01pt},
+    },
+    unsampled host background/.style={
+        pattern={Lines[angle=45, distance=3pt, line width=2pt]},
+        pattern color=host background color!50,
+    },
+    host label/.style={
+        font=\bfseries,
+        midway,
+        anchor=west,
+        limit width={12em}{\narrowragged},
+    },
+    branch/.style={
+        draw={#1},
+        line width={0.5pt},
+    },
+    transfer branch/.style={
+        branch={#1},
+        densely dashed,
+        -{Latex[length=0pt 8]},
+    },
+    event/.style={
+        draw={#1}, fill={host background color!20!white},
+        font={\color{#1}},
+        outer sep=0pt, inner xsep=0pt, inner ysep=2pt,
+        limit width={6em}{\narrowragged},
+        line width={0.5pt},
+    },
+    event/.default={black},
+    extant/.style 2 args={
+        circle, fill={#1},
+        outer sep=0pt, inner sep=0pt,
+        minimum size={3},
+        label={
+            [font={\color{#1}\vphantom{gb}},
+                label distance=4pt,
+                inner xsep=0pt, inner ysep=0pt,
+                outer xsep=0pt, outer ysep=0pt,
+                limit width={5em}{\narrowragged}]
+            right:#2
+        },
+    },
+    extant/.default={black}{},
+    speciation/.style={
+        event={#1}, rectangle, rounded corners,
+        inner xsep=4pt,
+        minimum width={8},
+        minimum height={8},
+    },
+    duplication/.style={
+        event={#1}, rectangle,
+        inner xsep=4pt,
+        minimum width={8},
+        minimum height={8},
+    },
+    transfer/.style={
+        event={#1}, chamfered rectangle,
+        chamfered rectangle sep={8 / 2.4},
+        inner xsep=2pt,
+        inner ysep=-1pt,
+        minimum width={8},
+        minimum height={8},
+    },
+    base gain/.style n args={4}{
+        draw={#1}, fill=black,
+        semicircle, inner sep=1pt,
+        shape border rotate={#3},
+        label={[%
+            font={\scriptsize\vphantom{gb}},
+            label distance=2pt,
+            inner xsep=0pt, inner ysep=0pt,
+            outer xsep=0pt, outer ysep=0pt,
+            limit width={4em}{\centering},
+        ]#4:#2},
+    },
+    gain/.style 2 args={base gain={#1}{#2}{90}{above}},
+    sideways gain/.style 2 args={base gain={#1}{#2}{0}{right}},
+    base loss/.style n args={4}{
+        draw={#1}, fill=black,
+        semicircle, inner sep=1pt,
+        shape border rotate={#3},
+        label={[%
+            font={\scriptsize\vphantom{gb}},
+            label distance=2pt,
+            inner xsep=0pt, inner ysep=0pt,
+            outer xsep=0pt, outer ysep=0pt,
+            limit width={6em}{\centering},
+        ]#4:#2},
+    },
+    loss/.style 2 args={base loss={#1}{#2}{270}{above}},
+    sideways loss/.style 2 args={base loss={#1}{#2}{180}{right}},
+}
+
+\pgfdeclarelayer{hostnodes}
+\pgfdeclarelayer{hostedges}
+\pgfsetlayers{hostedges,hostnodes,main}
+
+\DeclareRobustCommand{\showspeciation}{\,\tikz[baseline=-.75ex] \node[speciation] {};\,}
+\DeclareRobustCommand{\showduplication}{\,\tikz[baseline=-.75ex] \node[duplication] {};\,}
+\DeclareRobustCommand{\showtransfer}{\,\tikz[baseline=-.75ex] \node[transfer] {};\,}
+\DeclareRobustCommand{\showloss}{\,×\,}
+
+\definecolor{color1}{HTML}{2E47D8}
+\definecolor{reccolor1}{HTML}{5960F5}
+\definecolor{color2}{HTML}{C82F30}
+\definecolor{reccolor2}{HTML}{E84D48}
+\definecolor{color3}{HTML}{2B9500}
+\definecolor{reccolor3}{HTML}{4DB028}
+\definecolor{color4}{HTML}{CE7112}
+\definecolor{reccolor4}{HTML}{EB8A2F}
+
+\colorlet{marking}{reccolor2!35}
+
+\definecolor{lightblue}{HTML}{0074D9}
+\definecolor{lightgreen}{HTML}{2ECC40}

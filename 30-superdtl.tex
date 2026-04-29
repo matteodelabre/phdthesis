@@ -1,3 +1,5 @@
+%! TeX root = ./main.tex
+% vim: set spelllang=en,fr:
 \selectlanguage{french}
 \chapter{Réconciliation avec duplications, transferts, pertes et gains segmentaux}\label{chap:superdtl}
 
@@ -340,7 +342,7 @@ We denote by $H = \tuple{\treeH, \eventOf, \syntenyOf, \speciesOf}$
 such a history where $\treeH$ is the supporting partially binary tree and for each of its nodes $v$, $\eventOf(v)$ is the event, $\syntenyOf(v)$ is the synteny, and $\speciesOf(v)$ is the species to which $\syntenyOf(v)$ belongs. We have $\X =\{\syntenyOf(l) \: : \: l \in \LF(\treeH)\}$ (see \cref{fig:evol-history-example}, center). Note that for an internal node $v$ of $\treeH$, $\syntenyOf(v)$ is not necessarily in $\X$. In general, $x$ is not an onto function, as not all possible syntenies on $\F$ are required to be represented in the history.
 
 \begin{figure}[htb]
-    % \input{img/fig-evol-history-example}
+    \input{fig/superdtl/evol-history-example}
     \caption{
         (Left.) A synteny tree $T$ for the family $\syntenyFamily = \{\syntdisp{\{b\}}, \syntdisp{\{b,c\}}, \syntdisp{\{c\}}, \syntdisp{\{a\}}, \syntdisp{\{a,b\}}\}$ on the set of species $\speciesSet = \{\specdisp{X}, \specdisp{Y}, \specdisp{Z}\}$.
         Under each leaf $l$ are shown its associated synteny $x(l)$ and species $s(l)$.
@@ -599,9 +601,9 @@ Otherwise, we would not be able to compute $\speciesOf$ separately
 from $\syntenyOf$.
 
 \begin{figure}[htb]
-    % \input{img/fig-2-steps-ct-ex}
+    \input{fig/superdtl/2-steps-ct-ex}
     \caption{Two solutions for the same DTL Super-reconciliation problem input. (Left.) Solution obtained by first computing \(s\) to minimize duplications and HGTs (yielding one such event) and then labeling internal nodes to minimize losses (yielding 4~losses). (Right.) A more parsimonious solution with two HGTs and only two losses.}
-    \label{fig:2-steps-ct-ex}
+    \label{fig:superdtl:2-steps-ct-ex}
 \end{figure}
 
 Unfortunately, this two-steps method does not work for solving the $\eventDTL$ Super-reconciliation
@@ -612,7 +614,7 @@ $\speciesOf$ of an optimal $\eventDTL$
 Super-reconciliation $\supRec = \tuple{T, \syntenyOf, \speciesOf}$. In particular, changing a
 speciation node (inferred from $s^{\mathrm{DT}}$) to a $\eventHGT$
 event may lead to less losses, and thus to a better cost in
-total. \Cref{fig:2-steps-ct-ex} shows a counterexample of the
+total. \Cref{fig:superdtl:2-steps-ct-ex} shows a counterexample of the
 two-steps method for solving the $\eventDTL$ problem.
 
 \section{A dynamic programming algorithm for $\eventDTL$~super-reconciliation}\label{sec:superdtl:algo}
@@ -636,122 +638,122 @@ We therefore only need to consider two possibilities for $\syntenyOf(v)$. We def
 \Cref{alg:superdtl:cmin-rec,alg:superdtl:cstarmin-rec}, described below, provide a method for computing those two functions.
 
 \begin{algorithm}[htb!]
-    % \begin{algorithmic}
-    %     \Function{$\mathcal{C}$}{$v, \sigma$}
-    %         \If{$v \in \treeLeaves(\syntenyTree)$}
-    %             \State \textbf{return} $0$ \textbf{if} $\sigma = s(v)$ \textbf{else} $\infty$
-    %         \Else
-    %             \State $c \gets \infty$
-    %             \For{$\sigma',\sigma'' \in \treeNodes(\speciesTree)^2$}
-    %                 \State $\mathit{star_l} \gets \infty$ \textbf{if} $\syntenyLCAOf(v) \subseteq \syntenyLCAOf(v_l)$ \textbf{else} $0$
-    %                 \State $\mathit{star_r} \gets \infty$ \textbf{if} $\syntenyLCAOf(v) \subseteq \syntenyLCAOf(v_r)$ \textbf{else} $0$
-    %                 \State $\mathit{partial_l} \gets \subseqDist(\syntenyLCAOf(v), \syntenyLCAOf(v_l))$
-    %                 \State $\mathit{partial_r} \gets \subseqDist(\syntenyLCAOf(v), \syntenyLCAOf(v_r))$
-    %                 \If{$\eventLCA(\sigma,\sigma',\sigma'') = \eventSpe$}
-    %                     \State $c \gets \min\{c, \begin{aligned}[t]
-    %                         &\min\{\mathcal{C^\star}(v_l, \sigma') + \mathit{star_l},
-    %                              \mathcal{C}(v_l, \sigma') +
-    %                              \costLoss\times\mathit{partial_l}\}\ +\\
-    %                         &\min\{\mathcal{C^\star}(v_r, \sigma'') + \mathit{star_r},
-    %                              \mathcal{C}(v_r, \sigma'') +
-    %                              \costLoss\times\mathit{partial_r}\}\ +\\[-.25em]
-    %                         &\costLoss\times
-    %                         (\treeDist{\speciesTree}(\sigma, \sigma') +
-    %                         \treeDist{\speciesTree}(\sigma, \sigma'') - 2)\}
-    %                     \end{aligned}$
-    %                 \ElsIf{$\eventLCA(\sigma,\sigma',\sigma'') = \eventDup$}
-    %                     \State $c \gets \min\{c, \begin{aligned}[t]
-    %                         &\min\{
-    %                         \begin{aligned}[t]
-    %                             &\mathcal{C^\star}(v_l, \sigma') + \mathcal{C^\star}(v_r, \sigma'') + \mathit{star_l} + \mathit{star_r},\\
-    %                             &\mathcal{C}(v_l, \sigma') + \mathcal{C^\star}(v_r, \sigma'') + \mathit{star_r},\\
-    %                             &\mathcal{C^\star}(v_l, \sigma') + \mathcal{C}(v_r, \sigma'') + \mathit{star_l},\\
-    %                             &\mathcal{C}(v_l, \sigma') + \mathcal{C}(v_r, \sigma'')\ + \\
-    %                             &\qquad\costLoss\times\min\{\mathit{partial_l}, \mathit{partial_r}\}
-    %                             \}\ +
-    %                         \end{aligned}\\[-.25em]
-    %                         &\costDup + \costLoss\times
-    %                         (\treeDist{\speciesTree}(\sigma, \sigma') +
-    %                         \treeDist{\speciesTree}(\sigma, \sigma''))\}
-    %                     \end{aligned}$
-    %                 \ElsIf{$\eventLCA(\sigma,\sigma',\sigma'') = \eventHGT$}
-    %                     \State $\mathit{full} \gets \treeDist{\speciesTree}(\sigma, \sigma'')$ \textbf{if} $\sigma'$ is separated from $\sigma$ \textbf{else} $\treeDist{\speciesTree}(\sigma, \sigma')$
-    %                     \State \textbf{if} $\sigma'$ is separated from $\sigma$ \textbf{then} $\mathit{partial_l} \gets 0$
-    %                     \State \textbf{if} $\sigma''$ is separated from $\sigma$ \textbf{then} $\mathit{partial_r} \gets 0$
-    %                     \State $c \gets \min\{c, \begin{aligned}[t]
-    %                         &\min\{
-    %                         \begin{aligned}[t]
-    %                             &\mathcal{C^\star}(v_l, \sigma') + \mathcal{C^\star}(v_r, \sigma''),\\
-    %                             &\mathcal{C}(v_l, \sigma') + \mathcal{C^\star}(v_r, \sigma'') + \mathit{star_r} + \costLoss\times\mathit{partial_l},\\
-    %                             &\mathcal{C^\star}(v_l, \sigma') + \mathcal{C}(v_r, \sigma'') + \mathit{star_l} + \costLoss\times\mathit{partial_r},\\
-    %                             &\mathcal{C}(v_l, \sigma') + \mathcal{C}(v_r, \sigma'') + \costLoss
-    %                             \}\ +
-    %                         \end{aligned}\\[-.25em]
-    %                         &\costHGT + \costLoss\times\mathit{full}\}
-    %                     \end{aligned}$
-    %                 \EndIf
-    %             \EndFor
-    %             \State \textbf{return} $c$
-    %         \EndIf
-    %     \EndFunction
-    % \end{algorithmic}
+    \begin{algorithmic}
+        \Function{$\mathcal{C}$}{$v, \sigma$}
+            \If{$v \in \treeLeaves(\syntenyTree)$}
+                \State \Return $0$ \textbf{if} $\sigma = s(v)$ \textbf{else} $\infty$
+            \Else
+                \State $c \gets \infty$
+                \For{$\sigma',\sigma'' \in \treeNodes(\speciesTree)^2$}
+                    \State $\mathit{star_l} \gets \infty$ \textbf{if} $\syntenyLCAOf(v) \subseteq \syntenyLCAOf(v_l)$ \textbf{else} $0$
+                    \State $\mathit{star_r} \gets \infty$ \textbf{if} $\syntenyLCAOf(v) \subseteq \syntenyLCAOf(v_r)$ \textbf{else} $0$
+                    \State $\mathit{partial_l} \gets \subseqDist(\syntenyLCAOf(v), \syntenyLCAOf(v_l))$
+                    \State $\mathit{partial_r} \gets \subseqDist(\syntenyLCAOf(v), \syntenyLCAOf(v_r))$
+                    \If{$\eventLCA(\sigma,\sigma',\sigma'') = \eventSpe$}
+                        \State $c \gets \min\{c, \begin{aligned}[t]
+                            &\min\{\mathcal{C^\star}(v_l, \sigma') + \mathit{star_l},
+                                 \mathcal{C}(v_l, \sigma') +
+                                 \costLoss\times\mathit{partial_l}\}\ +\\
+                            &\min\{\mathcal{C^\star}(v_r, \sigma'') + \mathit{star_r},
+                                 \mathcal{C}(v_r, \sigma'') +
+                                 \costLoss\times\mathit{partial_r}\}\ +\\[-.25em]
+                            &\costLoss\times
+                            (\treeDist{\speciesTree}(\sigma, \sigma') +
+                            \treeDist{\speciesTree}(\sigma, \sigma'') - 2)\}
+                        \end{aligned}$
+                    \ElsIf{$\eventLCA(\sigma,\sigma',\sigma'') = \eventDup$}
+                        \State $c \gets \min\{c, \begin{aligned}[t]
+                            &\min\{
+                            \begin{aligned}[t]
+                                &\mathcal{C^\star}(v_l, \sigma') + \mathcal{C^\star}(v_r, \sigma'') + \mathit{star_l} + \mathit{star_r},\\
+                                &\mathcal{C}(v_l, \sigma') + \mathcal{C^\star}(v_r, \sigma'') + \mathit{star_r},\\
+                                &\mathcal{C^\star}(v_l, \sigma') + \mathcal{C}(v_r, \sigma'') + \mathit{star_l},\\
+                                &\mathcal{C}(v_l, \sigma') + \mathcal{C}(v_r, \sigma'')\ + \\
+                                &\qquad\costLoss\times\min\{\mathit{partial_l}, \mathit{partial_r}\}
+                                \}\ +
+                            \end{aligned}\\[-.25em]
+                            &\costDup + \costLoss\times
+                            (\treeDist{\speciesTree}(\sigma, \sigma') +
+                            \treeDist{\speciesTree}(\sigma, \sigma''))\}
+                        \end{aligned}$
+                    \ElsIf{$\eventLCA(\sigma,\sigma',\sigma'') = \eventHGT$}
+                        \State $\mathit{full} \gets \treeDist{\speciesTree}(\sigma, \sigma'')$ \textbf{if} $\sigma'$ is separated from $\sigma$ \textbf{else} $\treeDist{\speciesTree}(\sigma, \sigma')$
+                        \State \textbf{if} $\sigma'$ is separated from $\sigma$ \textbf{then} $\mathit{partial_l} \gets 0$
+                        \State \textbf{if} $\sigma''$ is separated from $\sigma$ \textbf{then} $\mathit{partial_r} \gets 0$
+                        \State $c \gets \min\{c, \begin{aligned}[t]
+                            &\min\{
+                            \begin{aligned}[t]
+                                &\mathcal{C^\star}(v_l, \sigma') + \mathcal{C^\star}(v_r, \sigma''),\\
+                                &\mathcal{C}(v_l, \sigma') + \mathcal{C^\star}(v_r, \sigma'') + \mathit{star_r} + \costLoss\times\mathit{partial_l},\\
+                                &\mathcal{C^\star}(v_l, \sigma') + \mathcal{C}(v_r, \sigma'') + \mathit{star_l} + \costLoss\times\mathit{partial_r},\\
+                                &\mathcal{C}(v_l, \sigma') + \mathcal{C}(v_r, \sigma'') + \costLoss
+                                \}\ +
+                            \end{aligned}\\[-.25em]
+                            &\costHGT + \costLoss\times\mathit{full}\}
+                        \end{aligned}$
+                    \EndIf
+                \EndFor
+                \State \Return $c$
+            \EndIf
+        \EndFunction
+    \end{algorithmic}
     \caption{Computing the value of $\dt{C}{v, \sigma}$}
     \label{alg:superdtl:cmin-rec}
 \end{algorithm}
 
 \begin{algorithm}[htb!]
-    % \begin{algorithmic}
-    %     \Function{$\mathcal{C^\star}$}{$v, \sigma$}
-    %         \If{$v \in \treeLeaves(\syntenyTree)$}
-    %             \textbf{return} $\infty$
-    %         \Else
-    %             \State $c \gets \infty$
-    %             \For{$\sigma',\sigma'' \in \treeNodes(\speciesTree)^2$}
-    %                 \If{$\eventLCA(\sigma,\sigma',\sigma'') = \eventSpe$}
-    %                     \State $c \gets \min\{c, \begin{aligned}[t]
-    %                         &\min\{\mathcal{C^\star}(v_l, \sigma'),
-    %                              \mathcal{C}(v_l, \sigma') + \costLoss\}\ +\\
-    %                         &\min\{\mathcal{C^\star}(v_r, \sigma''),
-    %                              \mathcal{C}(v_r, \sigma'') + \costLoss\}\ +\\[-.25em]
-    %                         &\costLoss\times
-    %                         (\treeDist{\speciesTree}(\sigma, \sigma') +
-    %                         \treeDist{\speciesTree}(\sigma, \sigma'') - 2)\}
-    %                     \end{aligned}$
-    %                 \ElsIf{$\eventLCA(\sigma,\sigma',\sigma'') = \eventDup$}
-    %                     \State $c \gets \min\{c, \begin{aligned}[t]
-    %                         &\min\{
-    %                         \begin{aligned}[t]
-    %                             &\mathcal{C^\star}(v_l, \sigma') + \mathcal{C^\star}(v_r, \sigma''),
-    %                             \mathcal{C}(v_l, \sigma') + \mathcal{C^\star}(v_r, \sigma''),\\
-    %                             &\mathcal{C^\star}(v_l, \sigma') + \mathcal{C}(v_r, \sigma''),
-    %                             \mathcal{C}(v_l, \sigma') + \mathcal{C}(v_r, \sigma'') + \costLoss
-    %                             \}
-    %                         \end{aligned}\\[-.25em]
-    %                         &+ \costDup + \costLoss\times
-    %                         (\treeDist{\speciesTree}(\sigma, \sigma') +
-    %                         \treeDist{\speciesTree}(\sigma, \sigma''))\}
-    %                     \end{aligned}$
-    %                 \ElsIf{$\eventLCA(\sigma,\sigma',\sigma'') = \eventHGT$}
-    %                     \State $\mathit{full} \gets \treeDist{\speciesTree}(\sigma, \sigma'')$ \textbf{if} $\sigma'$ is separated from $\sigma$ \textbf{else} $\treeDist{\speciesTree}(\sigma, \sigma')$
-    %                     \State $\mathit{partial_l} \gets 0$ \textbf{if} $\sigma'$ is separated from $\sigma$ \textbf{else} $1$
-    %                     \State $\mathit{partial_r} \gets 0$ \textbf{if} $\sigma''$ is separated from $\sigma$ \textbf{else} $1$
-    %                     \State $c \gets \min\{c, \begin{aligned}[t]
-    %                         &\min\{
-    %                         \begin{aligned}[t]
-    %                             &\mathcal{C^\star}(v_l, \sigma') + \mathcal{C^\star}(v_r, \sigma''),\\
-    %                             &\mathcal{C}(v_l, \sigma') + \mathcal{C^\star}(v_r, \sigma'') + \costLoss\times\mathit{partial_l},\\
-    %                             &\mathcal{C^\star}(v_l, \sigma') + \mathcal{C}(v_r, \sigma'') + \costLoss\times\mathit{partial_r},\\
-    %                             &\mathcal{C}(v_l, \sigma') + \mathcal{C}(v_r, \sigma'') + \costLoss
-    %                             \}\ +
-    %                         \end{aligned}\\[-.25em]
-    %                         &\costHGT + \costLoss\times\mathit{full}\}
-    %                     \end{aligned}$
-    %                 \EndIf
-    %             \EndFor
-    %             \State \textbf{return} $c$
-    %         \EndIf
-    %     \EndFunction
-    % \end{algorithmic}
+    \begin{algorithmic}
+        \Function{$\mathcal{C^\star}$}{$v, \sigma$}
+            \If{$v \in \treeLeaves(\syntenyTree)$}
+                \Return $\infty$
+            \Else
+                \State $c \gets \infty$
+                \For{$\sigma',\sigma'' \in \treeNodes(\speciesTree)^2$}
+                    \If{$\eventLCA(\sigma,\sigma',\sigma'') = \eventSpe$}
+                        \State $c \gets \min\{c, \begin{aligned}[t]
+                            &\min\{\mathcal{C^\star}(v_l, \sigma'),
+                                 \mathcal{C}(v_l, \sigma') + \costLoss\}\ +\\
+                            &\min\{\mathcal{C^\star}(v_r, \sigma''),
+                                 \mathcal{C}(v_r, \sigma'') + \costLoss\}\ +\\[-.25em]
+                            &\costLoss\times
+                            (\treeDist{\speciesTree}(\sigma, \sigma') +
+                            \treeDist{\speciesTree}(\sigma, \sigma'') - 2)\}
+                        \end{aligned}$
+                    \ElsIf{$\eventLCA(\sigma,\sigma',\sigma'') = \eventDup$}
+                        \State $c \gets \min\{c, \begin{aligned}[t]
+                            &\min\{
+                            \begin{aligned}[t]
+                                &\mathcal{C^\star}(v_l, \sigma') + \mathcal{C^\star}(v_r, \sigma''),
+                                \mathcal{C}(v_l, \sigma') + \mathcal{C^\star}(v_r, \sigma''),\\
+                                &\mathcal{C^\star}(v_l, \sigma') + \mathcal{C}(v_r, \sigma''),
+                                \mathcal{C}(v_l, \sigma') + \mathcal{C}(v_r, \sigma'') + \costLoss
+                                \}
+                            \end{aligned}\\[-.25em]
+                            &+ \costDup + \costLoss\times
+                            (\treeDist{\speciesTree}(\sigma, \sigma') +
+                            \treeDist{\speciesTree}(\sigma, \sigma''))\}
+                        \end{aligned}$
+                    \ElsIf{$\eventLCA(\sigma,\sigma',\sigma'') = \eventHGT$}
+                        \State $\mathit{full} \gets \treeDist{\speciesTree}(\sigma, \sigma'')$ \textbf{if} $\sigma'$ is separated from $\sigma$ \textbf{else} $\treeDist{\speciesTree}(\sigma, \sigma')$
+                        \State $\mathit{partial_l} \gets 0$ \textbf{if} $\sigma'$ is separated from $\sigma$ \textbf{else} $1$
+                        \State $\mathit{partial_r} \gets 0$ \textbf{if} $\sigma''$ is separated from $\sigma$ \textbf{else} $1$
+                        \State $c \gets \min\{c, \begin{aligned}[t]
+                            &\min\{
+                            \begin{aligned}[t]
+                                &\mathcal{C^\star}(v_l, \sigma') + \mathcal{C^\star}(v_r, \sigma''),\\
+                                &\mathcal{C}(v_l, \sigma') + \mathcal{C^\star}(v_r, \sigma'') + \costLoss\times\mathit{partial_l},\\
+                                &\mathcal{C^\star}(v_l, \sigma') + \mathcal{C}(v_r, \sigma'') + \costLoss\times\mathit{partial_r},\\
+                                &\mathcal{C}(v_l, \sigma') + \mathcal{C}(v_r, \sigma'') + \costLoss
+                                \}\ +
+                            \end{aligned}\\[-.25em]
+                            &\costHGT + \costLoss\times\mathit{full}\}
+                        \end{aligned}$
+                    \EndIf
+                \EndFor
+                \State \Return $c$
+            \EndIf
+        \EndFunction
+    \end{algorithmic}
     \caption{Computing the value of $\dt{C^\star}{v, \sigma}$}
     \label{alg:superdtl:cstarmin-rec}
 \end{algorithm}
@@ -826,7 +828,7 @@ Each of those species contains a Cas synteny. Taxonomical information of the 15 
 
 \begin{figure}[htb]
     \centering
-    % \includegraphics[width=\linewidth]{img/figure_synteny_species_tree.pdf}
+    \includegraphics[width=\linewidth]{fig/superdtl/crispr-trees}
     \caption{Cas gene syntenies for the 15 considered bacterial species. (Left.) Phylogeny of Class 1 CRISPR-Cas systems with subtypes names, as presented by~\textcite{Makarova2020EvolutionaryClassificationCRISPR} with our preprocessing of syntenies as described in the text. (Right.) The species tree based on the topology inferred by~\textcite{Coleman2021RootedPhylogenyResolves} with representation of the two major groups of bacteria, Terrabacteria and Gracilicutes. Lines represent the correspondence between the Cas genes syntenies and the species they belong to, illustrating the high incongruence between the topology of the synteny tree and that of the species tree.}
     \label{fig:superdtl:crispr-trees}
 \end{figure}
@@ -846,18 +848,18 @@ We tested different values for the $\delta = \tuple{\costDup, \costHGT, \costLos
 \begin{table}[h]
     \centering
     \setlength{\tabcolsep}{8pt}
-    % \begin{tabular}{>{\bfseries}cccccc}
-    % \toprule
-    %  {\bf $\costHGT$\textbackslash$\costDup$} & {\bf 1} & {\bf 1.5} & {\bf 2} & {\bf 2.5} & {\bf 3}\\
-    % \midrule
-    % 1 & 1376 & 1376 & 1376 & 1376 & 1376 \\ \midrule
-    % 2 & 132 & 132 & 132 & 132 & 132 \\ \midrule
-    % 3 & 112 & 60 & 60 & 60 & 60 \\ \midrule
-    % 4 & 32 & 32 & 32 & 32 & 48 \\ \midrule
-    % 5 & 288 & 288 & 320 & 32 & 32 \\ \midrule
-    % 6 & 320 & 288 & 288 & 288 & 288 \\
-    % \bottomrule
-    % \end{tabular}
+    \begin{tabular}{cccccc}
+    \toprule
+     {\bf $\costHGT$\textbackslash$\costDup$} & {\bf 1} & {\bf 1.5} & {\bf 2} & {\bf 2.5} & {\bf 3}\\
+    \midrule
+    1 & 1376 & 1376 & 1376 & 1376 & 1376 \\ \midrule
+    2 & 132 & 132 & 132 & 132 & 132 \\ \midrule
+    3 & 112 & 60 & 60 & 60 & 60 \\ \midrule
+    4 & 32 & 32 & 32 & 32 & 48 \\ \midrule
+    5 & 288 & 288 & 320 & 32 & 32 \\ \midrule
+    6 & 320 & 288 & 288 & 288 & 288 \\
+    \bottomrule
+    \end{tabular}
 
     \caption{Number of solutions obtained by Algorithm {\superdtl} for different values of $\delta = \tuple{\costDup, \costHGT, \costLoss}$, with $\costLoss = 1$.}
     \label{tab:superdtl:sol-count}
@@ -865,7 +867,7 @@ We tested different values for the $\delta = \tuple{\costDup, \costHGT, \costLos
 
 \begin{figure}[htbp]
     \centering%
-    % \scalebox{.66}{\input{img/fig-result-4-h4d2-v2}}%
+    \scalebox{.66}{\input{fig/superdtl/result-4-h4d2-v2}}%
     \caption{Representation of one of the 32 solutions inferred by Algorithm {\superdtl} reconstructing a DTL evolutionary history of the Class~1 Cas gene synteny dataset illustrated in \cref{fig:superdtl:crispr-trees}.
     Event costs set to $\costLoss=1$, $\costHGT=4$ and $\costDup\in\{1,1.5,2,2.5\}$ yield equal solutions.
     The red, blue, and green parts of the tree reflect the evolution of Cas synteny types IV, I, and III respectively.

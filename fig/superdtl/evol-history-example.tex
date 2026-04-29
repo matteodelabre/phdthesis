@@ -1,0 +1,213 @@
+\tikzset{
+    extant label/.style={
+        font={\strut\scriptsize},
+        inner xsep=0pt,
+        yshift=4pt,
+    },
+    species label/.style={
+        font=\bfseries\scriptsize,
+    },
+    branch node/.style={
+        draw, fill=white,
+        outer sep=0pt, inner sep=0pt,
+        line width={0.5pt},
+        font={\scriptsize},
+    },
+    speciation/.style={
+        branch node, rectangle, rounded corners,
+        inner xsep=4pt,
+        inner ysep=2pt,
+        minimum width={8},
+        minimum height={8},
+    },
+    duplication/.style={
+        branch node, rectangle,
+        inner xsep=4pt,
+        inner ysep=2pt,
+        minimum width={8},
+        minimum height={8},
+    },
+    horizontal gene transfer/.style={
+        branch node, chamfered rectangle,
+        inner xsep=2pt,
+        minimum width={8},
+        minimum height={8},
+    },
+}
+
+\begin{minipage}[b]{.29\textwidth}
+    \vspace*{0pt}
+    \centering
+    \begin{forest}
+        forked edges,
+        for tree={
+            s=14pt,
+            s sep=14pt,
+            l=24pt,
+            l sep=24pt,
+            if n children=0{
+                tier=extant,
+                shape=circle,
+                fill,
+                inner sep=0pt,
+                minimum size=3pt,
+            }{
+                shape=coordinate
+            },
+        }
+        [
+            [
+                [, label={[extant label]below:bc},
+                   label={[species label, yshift=-9pt]below:X}]
+                [, label={[extant label]below:c},
+                   label={[species label, yshift=-9pt]below:X}]
+            ]
+            [
+                [, label={[extant label]below:a},
+                   label={[species label, yshift=-9pt]below:Y}]
+                [
+                    [, label={[extant label]below:b},
+                       label={[species label, yshift=-9pt]below:X}]
+                    [, label={[extant label]below:ab},
+                       label={[species label, yshift=-9pt]below:Z}]
+                ]
+            ]
+        ]
+    \end{forest}
+\end{minipage}\hfill%
+\begin{minipage}[b]{.4\textwidth}
+    \vspace*{0pt}
+    \centering
+    \begin{tikzpicture}[
+        x={.55pt},
+        y={-.5pt},
+        species border/.style={
+            line width={1pt},
+            shorten <={-1pt / 2 + 0.05pt},
+            shorten >={-1pt / 2 + 0.05pt},
+        },
+        species label/.append style={
+            midway,
+            yshift=-8pt,
+        },
+        branch/.style={
+            line width={0.5pt},
+            preaction={
+                draw, white, -{},
+                line width={4pt},
+                shorten <={0.5pt},
+                shorten >={0.5pt},
+            },
+        },
+        transfer branch/.style={
+            branch,
+            -Stealth,
+        },
+        gain/.style={
+            circle, inner sep=1.5pt,
+            fill=white, draw,
+            label={[font={\strut\scriptsize},xshift=-2pt]right:#1},
+        },
+        loss/.style={
+            draw, cross out,
+            line width={0.75pt},
+            inner sep=0pt,
+            outer sep=0pt,
+            minimum width={3},
+            minimum height={3},
+            label={[font={\strut\scriptsize},xshift=-2pt]right:#1},
+        },
+        extant gene/.style={
+            circle, fill,
+            outer sep=0pt, inner sep=0pt,
+            minimum width={3pt},
+            minimum height={3pt},
+            label={[extant label]below:#1},
+        },
+    ]
+        % species
+        \draw[species border] (0,110.84) |- (65.949,10) -- (65.949,0);
+        \draw[species border] (168.772,57.78) |- (113.729,10) -- (113.729,0);
+        \draw[species border] (65.949,110.84) |- (65.949,42.5) -| (125.712,57.78);
+        \draw[species border] (0,110.84) -- (0,170.20595) -- node[species label] {X} (65.949,170.20595) -- (65.949,110.84);
+        \draw[species border] (93.729,128.34) |- (125.712,67.78) -- (125.712,57.78);
+        \draw[species border] (211.83255,110.84) |- (168.772,67.78) -- (168.772,57.78);
+        \draw[species border] (125.712,128.34) |- (125.712,100.28) -| (168.772,110.84);
+        \draw[species border] (93.729,128.34) -- (93.729,170.20595) -- node[species label] {Y} (125.712,170.20595) -- (125.712,128.34);
+        \draw[species border] (168.772,110.84) -- (168.772,170.20595) -- node[species label] {Z} (211.83255,170.20595) -- (211.83255,110.84);
+        % gene branches
+        \draw[branch] (89.839,26.25) -- (89.839,0);
+        \draw[branch] (41.466,110.84) |-
+            node[gain=c, pos=0.275] {} (89.839,26.25) -|
+            node[gain=a, pos=0.825] {} (147.242,57.78);
+        \draw[branch] (15.9915,149.272975) -- (15.9915,110.84);
+        \draw[branch] (41.466,127.09) -- (41.466,110.84);
+        \draw[branch] (32.9745,149.272975) |- (41.466,127.09) -| (49.9575,149.272975);
+        \draw[branch] (147.242,84.03) -- (147.242,57.78);
+        \draw[branch] (109.7205,128.34) |- node[loss=b, pos=0.05] {} (147.242,84.03) -| (190.30227499999998,110.84);
+        \draw[branch] (109.7205,149.272975) -- (109.7205,128.34);
+        \draw[branch] (190.30227499999998,127.09) -- (190.30227499999998,110.84);
+        \draw[branch] (190.30227499999998,149.272975) |- (190.30227499999998,127.09);
+        % gene transfers
+        \draw[transfer branch] (190.30227499999998,127.09) to[bend right=18] (15.9915,110.84);
+        % events
+        \node[speciation, label={[label distance=13pt, yshift=-3pt]above right:\scriptsize$\alpha$}]
+            at (89.839,26.25) {b};
+        \node[extant gene={b}] at (15.9915,149.272975) {};
+        \node[extant gene={bc}] at (32.9745,149.272975) {};
+        \node[extant gene={c}] at (49.9575,149.272975) {};
+        \node[duplication] at (41.466,127.09) {bc};
+        \node[speciation, label={[label distance=13pt, yshift=-3pt]above right:\scriptsize$\beta$}] at (147.242,84.03) {};
+        \node[extant gene={a}] at (109.7205,149.272975) {};
+        \node[extant gene={ab}] at (190.30227499999998,149.272975) {};
+        \node[horizontal gene transfer] at (190.30227499999998,127.09) {\phantom{-}};
+    \end{tikzpicture}
+\end{minipage}\hfill%
+\begin{minipage}[b]{.29\textwidth}
+    \vspace*{0pt}
+    \centering
+    \begin{forest}
+        forked edges,
+        for tree={
+            s=14pt,
+            s sep=14pt,
+            l=12pt,
+            l sep=12pt,
+            if n children=0{
+                tier=extant,
+                shape=circle,
+                fill,
+                inner sep=0pt,
+                minimum size=3pt,
+            }{},
+        }
+        [b, speciation, label={above right:\scriptsize$\alpha$}
+            [bc, duplication, label={above left:\scriptsize\textbf{X}},
+                inner xsep=8pt,
+                edge path'={(!u.west) |- (.child anchor)},
+                [, label={[extant label]below:bc},
+                   label={[species label, yshift=-9pt]below:X},
+                   edge path'={(!u.south|-.child anchor) -- (.child anchor)},]
+                [, label={[extant label]below:c},
+                   label={[species label, yshift=-9pt]below:X},
+                   edge path'={(!u.south|-.child anchor) -- (.child anchor)},]
+            ]
+            [, speciation, label={above right:\scriptsize$\beta$},
+                edge path'={(!u.east) |- (.child anchor)},
+                [, label={[extant label]below:a},
+                   label={[species label, yshift=-9pt]below:Y},
+                   edge path'={(!u.west) |- (.child anchor)},]
+                [\phantom{---}, horizontal gene transfer, label={above right:\scriptsize\textbf{Z}},
+                    inner xsep=4pt,
+                    edge path'={(!u.east) |- (.child anchor)},
+                    [, label={[extant label]below:b},
+                       label={[species label, yshift=-9pt]below:X},
+                       edge path'={(!u.south|-.child anchor) ++(-.1, 0) -- (.child anchor)},]
+                    [, label={[extant label]below:ab},
+                       label={[species label, yshift=-9pt]below:Z},
+                       edge path'={(!u.south|-.child anchor) ++(-.1, 0) -- (.child anchor)},]
+                ]
+            ]
+        ]
+    \end{forest}
+\end{minipage}

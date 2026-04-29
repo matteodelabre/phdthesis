@@ -1,5 +1,7 @@
+%! TeX root = ./main.tex
+% vim: set spelllang=en,fr:
 \selectlanguage{french}
-\chapter{Théorie unifiée de la programmation dynamique algébrique}
+\chapter{Théorie unifiée de la programmation dynamique algébrique}\label{chap:adp}
 
 La bioinformatique repose sur de nombreux algorithmes de programmation dynamique, qui permet de résoudre efficacement des problèmes d’optimisation combinatoire.
 La réconciliation phylogénétique, comme nous avons pu le voir dans les chapitres précédents, ne fait pas exception à cette règle.
@@ -17,7 +19,7 @@ Plusieurs résultats importants ont ainsi été redécouverts par plusieurs grou
 L’objet de ce chapitre est de contribuer à bâtir une telle ressource.
 Le chapitre suivant montre comment cette théorie peut s’appliquer au problème de la réconciliation segmentale.
 
-\newcommand{\Call}[2]{\textsc{#1}(#2)}
+% \newcommand{\Call}[2]{\textsc{#1}(#2)}
 
 % % vim: set spell spelllang=en:
 % \documentclass{article}
@@ -230,63 +232,63 @@ Using this notation, we can state the optimization problem as follows, \[
 \end{example}
 
 \begin{algorithm}[h]
-    % {\footnotesize
-    % \begin{minipage}[t]{.475\textwidth}
-    %     \begin{algorithmic}[1]
-    %         \Function{chain-min}{\((x_i, y_i)_{i=1}^n\)}
-    %             \State \(T(i, k) \gets \BoxedString{\infty} \textbf{ for all } i, k \in \{1, \ldots, n\}\)
-    %             \For{\(s\) \textbf{from} \(1\) \textbf{to} \(n\)}
-    %                 \For{\(i\) \textbf{from} \(1\) \textbf{to} \(n - s + 1\)}
-    %                     \State \(k \gets i + s - 1\)
-    %                     \If{\(i = k\)}
-    %                         \State \(T(i, k) \gets \BoxedString{0}\)
-    %                     \Else
-    %                         \State \(\displaystyle
-    %                             T(i, k) \gets
-    %                             \boxedmin_{i \leq j < k}\{
-    %                                 \begin{aligned}[t]
-    %                                     &T(i, j) \\[-1ex]
-    %                                     &\mathbin{\BoxedString{+}} T(j+1, k) \\[-1ex]
-    %                                     &\mathbin{\BoxedString{+}} x_i y_j y_k
-    %                                 \}
-    %                                 \end{aligned}
-    %                         \)
-    %                     \EndIf
-    %                 \EndFor
-    %             \EndFor
-    %             \vspace{.25ex}
-    %             \State \Return \(T(1, n)\)
-    %         \EndFunction
-    %     \end{algorithmic}
-    % \end{minipage}\hfill%
-    % \begin{minipage}[t]{.475\textwidth}
-    %     \begin{algorithmic}
-    %         \Function{chain-count}{\((x_i, y_i)_{i=1}^n\)}
-    %             \State \(T(i, k) \gets \BoxedString{0} \textbf{ for all } i, k \in \{1, \ldots, n\}\)
-    %             \For{\(s\) \textbf{from} \(1\) \textbf{to} \(n\)}
-    %                 \For{\(i\) \textbf{from} \(1\) \textbf{to} \(n - s + 1\)}
-    %                     \State \(k \gets i + s - 1\)
-    %                     \If{\(i = k\)}
-    %                         \State \(T(i, k) \gets \BoxedString{1}\)
-    %                     \Else
-    %                         \State \(\displaystyle
-    %                             T(i, k) \gets
-    %                             \boxedsum_{i \leq j < k}
-    %                                 \begin{aligned}[t]
-    %                                     &T(i, j) \\[-.75ex]
-    %                                     &\mathbin{\BoxedString{\times}} T(j + 1, k)
-    %                                 \end{aligned}
-    %                         \)
-    %                         \\[2ex]
-    %                     \EndIf
-    %                 \EndFor
-    %             \EndFor
-    %             \vspace{.25ex}
-    %             \State \Return \(T(1, n)\)
-    %         \EndFunction
-    %     \end{algorithmic}
-    % \end{minipage}
-    % \par}
+    {\footnotesize
+    \begin{minipage}[t]{.475\textwidth}
+        \begin{algorithmic}[1]
+            \Function{chain-min}{\((x_i, y_i)_{i=1}^n\)}
+                \State \(T(i, k) \gets \BoxedString{\infty} \textbf{ for all } i, k \in \{1, \ldots, n\}\)
+                \For{\(s\) \textbf{from} \(1\) \textbf{to} \(n\)}
+                    \For{\(i\) \textbf{from} \(1\) \textbf{to} \(n - s + 1\)}
+                        \State \(k \gets i + s - 1\)
+                        \If{\(i = k\)}
+                            \State \(T(i, k) \gets \BoxedString{0}\)
+                        \Else
+                            \State \(\displaystyle
+                                T(i, k) \gets
+                                \boxedmin_{i \leq j < k}\{
+                                    \begin{aligned}[t]
+                                        &T(i, j) \\[-1ex]
+                                        &\mathbin{\BoxedString{+}} T(j+1, k) \\[-1ex]
+                                        &\mathbin{\BoxedString{+}} x_i y_j y_k
+                                    \}
+                                    \end{aligned}
+                            \)
+                        \EndIf
+                    \EndFor
+                \EndFor
+                \vspace{.25ex}
+                \State \Return \(T(1, n)\)
+            \EndFunction
+        \end{algorithmic}
+    \end{minipage}\hfill%
+    \begin{minipage}[t]{.475\textwidth}
+        \begin{algorithmic}
+            \Function{chain-count}{\((x_i, y_i)_{i=1}^n\)}
+                \State \(T(i, k) \gets \BoxedString{0} \textbf{ for all } i, k \in \{1, \ldots, n\}\)
+                \For{\(s\) \textbf{from} \(1\) \textbf{to} \(n\)}
+                    \For{\(i\) \textbf{from} \(1\) \textbf{to} \(n - s + 1\)}
+                        \State \(k \gets i + s - 1\)
+                        \If{\(i = k\)}
+                            \State \(T(i, k) \gets \BoxedString{1}\)
+                        \Else
+                            \State \(\displaystyle
+                                T(i, k) \gets
+                                \boxedsum_{i \leq j < k}
+                                    \begin{aligned}[t]
+                                        &T(i, j) \\[-.75ex]
+                                        &\mathbin{\BoxedString{\times}} T(j + 1, k)
+                                    \end{aligned}
+                            \)
+                            \\[2ex]
+                        \EndIf
+                    \EndFor
+                \EndFor
+                \vspace{.25ex}
+                \State \Return \(T(1, n)\)
+            \EndFunction
+        \end{algorithmic}
+    \end{minipage}
+    \par}
     \caption{
         \emph{(Left:)} A dynamic programming solution to the problem of finding the least number of scalar operations needed to compute the product \(E = M_1\cdots M_n\) of matrices of sizes \((x_1, y_1)\) to \((x_n, y_n)\).
         \emph{(Right:)} A simple modification of the algorithm that returns the total number of possible bracketings for \(E\) instead.
@@ -325,7 +327,7 @@ Let us denote those generic operators by \(\algnull\), \(\algterm\), \(\algplus\
 Through those generic operators, the abstract algorithm describes the structure of the problem's solution space separately from any specific evaluation strategy.
 The following section is concerned with precisely characterizing which collections of operators may be given to the algorithm so that it yields valid results.
 
-\section{Evaluation algebras}
+\section{Evaluation algebras}\label{sec:adp:eval}
 
 Each combinatorial optimization problem can be associated with a signature describing the structure of its solution space.
 Evaluation algebras, introduced by \textcite{Giegerich2004DisciplineDynamicProgramming}, are the concrete sets of operators matching such signatures that describe how to attribute a value to each solution and how to choose between solutions based on this value.
@@ -926,7 +928,7 @@ In the specific case where the tuples have values ranging from \(0\) to \(n\) an
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Solution spaces}
+\section{Solution spaces}\label{sec:adp:solution-spaces}
 
 In most applications, simply computing the optimal score of a solution is not sufficient and one usually wants to construct optimal or near-optimal solutions.
 In the matrix chain multiplication example, knowing the least number of scalar operations needed to compute a multiplication is not particularly interesting as opposed to actually constructing an optimal bracketing.
@@ -1083,7 +1085,7 @@ In particular, a term of exponential length may be evaluated in polynomial time 
     See~\textcite[§10.7]{Savage2008ModelsOfComputation}.
 \end{proof}
 
-\subsection{Trace algebras}
+\subsection{Trace algebras}\label{sec:adp:solution-spaces:trace}
 
 Any dynamic programming algorithm implicitly corresponds to a family of algebraic circuits that generate the solutions term for each problem instance.
 These underlying circuits can be made explicit using what we call a \emph{trace algebra}.
@@ -1174,24 +1176,24 @@ This implies \(\prob_{\alg,v}(X) = 1\), confirming that \(\prob_{\alg,v}\) is a 
 This algorithm follows the recursive method of \textcite{Wilf1977UnifiedSettingSequencing} and its generalization by \textcite{Ponty2011CombinatorialFrameworkDesigning}.
 
 \begin{algorithm}
-    % \begin{algorithmic}[1]
-    %     \Require{%
-    %         \(\alg = \tup{A, F}\), a weighting algebra of signature \(\algsign\);\\
-    %         \(C = \tup{V, E, s}\), an algebraic circuit over \(\algsign\);\\
-    %         \(v \in V\), a vertex of \(C\)\\[-2ex]
-    %     }
-    %     \Ensure{A solution of \(C\) randomly sampled according to \(\prob_{\alg,v}\)\\[-2ex]}
-    %     \Function{sample}{\(\alg\), \(C\), \(v\)}
-    %         \State \textbf{let} \(v_1, \ldots, v_k\) be the successors of \(v\) in \(C\)
-    %         \If{\(v\) is a combination vertex of symbol \(f\)}
-    %             \State \textbf{let} \(f\) be the arity-\(k\) symbol and \(t\) be the outdomain element labeling \(v\)
-    %             \State \Return \(f_t(\Call{sample}{\alg, C, v_1}, \ldots, \Call{sample}{\alg, C, v_k)}\)
-    %         \Else
-    %             \State choose \(i \in \{1, ..., k\}\) with probability \(\algeval_\alg(\term(C_{v_i}))/\algeval_\alg(\term(C_v))\)
-    %             \State \Return \(\Call{sample}{\alg, C, v_i}\)
-    %         \EndIf
-    %     \EndFunction
-    % \end{algorithmic}
+    \begin{algorithmic}[1]
+        \Require{%
+            \(\alg = \tup{A, F}\), a weighting algebra of signature \(\algsign\);\\
+            \(C = \tup{V, E, s}\), an algebraic circuit over \(\algsign\);\\
+            \(v \in V\), a vertex of \(C\)\\[-2ex]
+        }
+        \Ensure{A solution of \(C\) randomly sampled according to \(\prob_{\alg,v}\)\\[-2ex]}
+        \Function{sample}{\(\alg\), \(C\), \(v\)}
+            \State \textbf{let} \(v_1, \ldots, v_k\) be the successors of \(v\) in \(C\)
+            \If{\(v\) is a combination vertex of symbol \(f\)}
+                \State \textbf{let} \(f\) be the arity-\(k\) symbol and \(t\) be the outdomain element labeling \(v\)
+                \State \Return \(f_t(\Call{sample}{\alg, C, v_1}, \ldots, \Call{sample}{\alg, C, v_k)}\)
+            \Else
+                \State choose \(i \in \{1, ..., k\}\) with probability \(\algeval_\alg(\term(C_{v_i}))/\algeval_\alg(\term(C_v))\)
+                \State \Return \(\Call{sample}{\alg, C, v_i}\)
+            \EndIf
+        \EndFunction
+    \end{algorithmic}
     \caption{
         Generic sampling algorithm for algebraic circuits.
         \label{alg:circ-sample}
@@ -1509,50 +1511,50 @@ This is a CYK-style algorithm generalized to MCFGs~\parencite[section~7.1]{Kallm
 The intermediate results are tabled for each input decomposition and for each predicate, keeping the size of the underlying algebraic circuit polynomial.
 
 \begin{algorithm}
-    % \begin{algorithmic}[1]
-    %     \Require{%
-    %         \(\gram = \tup{P, T, V, C, S}\), a sequential yield grammar of signature \(\algsign\);\\
-    %         \(\alg = \tup{A, F}\), an evaluation algebra of signature \(\algsign\); \\
-    %         \(L \in P\), a predicate of dimension \(\ell\);\\
-    %         \(I = \tup{I_1, \ldots, I_\ell}\) such that each \(I_i \in T^*\)\\[-2ex]
-    %     }
-    %     \Ensure{An element of \(A\)\\[-2ex]}
-    %     \Function{yield-parse}{\(\gram\), \(\alg\), \(L\), \(I\), \(M\)}
-    %         \If{\(\tup{L, I}\) is in \(M\)} \Return \(M(L, I)\)
-    %         \EndIf
-    %         \State \(M(L, I) \gets \algnull\)
-    %         \ForAll{clause \((L\left[\tau_1, \ldots, \tau_\ell\right] \rightarrow R) \in C\)}
-    %             % \State \textbf{let} \(p =
-    %                 % A\!\left[\alpha_1, \ldots, \alpha_\ell\right]
-    %                 % \rightarrow
-    %                 % f_t\!\left(
-    %                     % A_1\!\!\left[X_1^{(1)}, \ldots, X_{\ell_1}^{(1)}\right]\!,
-    %                     % \ldots,
-    %                     % A_k\!\!\left[X_1^{(k)}, \ldots, X_{\ell_k}^{(k)}\right]
-    %                 % \right)
-    %             % \)
-    %             \ForAll{set of matchings \(\tup{f_1, \ldots, f_\ell}\) of each \(I_i\) with \(\tau_i\)}
-    %             % possible splits of each \(I_i\) according to \(\alpha_i\) for \(1 \leq i \leq \ell\)}
-    %                 \State \(R' \gets R / f_1 / \cdots / f_\ell\)
-    %                 \Comment{all the holes in \(R'\) are now terminal}
-    %                 \ForAll{hole \(H[J_1, \ldots, J_k]\) in \(R'\)}
-    %                     % \State \(O_B \gets \Call{yield-parse}{G, M, B, \tup{J_1, \ldots, J_k}}\)
-    %                     \State \(R' \gets \text{replace } H[J_1, \ldots, J_k] \text{ in } R' \text{ with}\\
-    %                         \hspace*{1em}\Call{yield-parse}{\gram, \alg, H, \tup{J_1, \ldots, J_k}\!, M}\)
-    %                 % \State \(R \gets
-    %                     % f_t(
-    %                         % \Call{yield-parse}{G, A_1, I', T},
-    %                         % \ldots,
-    %                         % \Call{yield-parse}{G, A_k, I', T}
-    %                     % )
-    %                 % \)
-    %                 \EndFor
-    %                 \State \(M(L, I) \gets M(L, I) \algplus R'\)
-    %             \EndFor
-    %         \EndFor
-    %         \State \Return \(M(L, I)\)
-    %     \EndFunction
-    % \end{algorithmic}
+    \begin{algorithmic}[1]
+        \Require{%
+            \(\gram = \tup{P, T, V, C, S}\), a sequential yield grammar of signature \(\algsign\);\\
+            \(\alg = \tup{A, F}\), an evaluation algebra of signature \(\algsign\); \\
+            \(L \in P\), a predicate of dimension \(\ell\);\\
+            \(I = \tup{I_1, \ldots, I_\ell}\) such that each \(I_i \in T^*\)\\[-2ex]
+        }
+        \Ensure{An element of \(A\)\\[-2ex]}
+        \Function{yield-parse}{\(\gram\), \(\alg\), \(L\), \(I\), \(M\)}
+            \If{\(\tup{L, I}\) is in \(M\)} \Return \(M(L, I)\)
+            \EndIf
+            \State \(M(L, I) \gets \algnull\)
+            \ForAll{clause \((L\left[\tau_1, \ldots, \tau_\ell\right] \rightarrow R) \in C\)}
+                % \State \textbf{let} \(p =
+                    % A\!\left[\alpha_1, \ldots, \alpha_\ell\right]
+                    % \rightarrow
+                    % f_t\!\left(
+                        % A_1\!\!\left[X_1^{(1)}, \ldots, X_{\ell_1}^{(1)}\right]\!,
+                        % \ldots,
+                        % A_k\!\!\left[X_1^{(k)}, \ldots, X_{\ell_k}^{(k)}\right]
+                    % \right)
+                % \)
+                \ForAll{set of matchings \(\tup{f_1, \ldots, f_\ell}\) of each \(I_i\) with \(\tau_i\)}
+                % possible splits of each \(I_i\) according to \(\alpha_i\) for \(1 \leq i \leq \ell\)}
+                    \State \(R' \gets R / f_1 / \cdots / f_\ell\)
+                    \Comment{all the holes in \(R'\) are now terminal}
+                    \ForAll{hole \(H[J_1, \ldots, J_k]\) in \(R'\)}
+                        % \State \(O_B \gets \Call{yield-parse}{G, M, B, \tup{J_1, \ldots, J_k}}\)
+                        \State \(R' \gets \text{replace } H[J_1, \ldots, J_k] \text{ in } R' \text{ with}\\
+                            \hspace*{1em}\Call{yield-parse}{\gram, \alg, H, \tup{J_1, \ldots, J_k}\!, M}\)
+                    % \State \(R \gets
+                        % f_t(
+                            % \Call{yield-parse}{G, A_1, I', T},
+                            % \ldots,
+                            % \Call{yield-parse}{G, A_k, I', T}
+                        % )
+                    % \)
+                    \EndFor
+                    \State \(M(L, I) \gets M(L, I) \algplus R'\)
+                \EndFor
+            \EndFor
+            \State \Return \(M(L, I)\)
+        \EndFunction
+    \end{algorithmic}
     \caption{
         CYK-style parser for sequential yield grammars.
         \label{alg:seq-yield-parser}

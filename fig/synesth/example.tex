@@ -1,0 +1,121 @@
+\sidecols{.4\textwidth}{.5\textwidth}{
+    \centering
+    \begin{forest}
+        forked edges,
+        for tree={
+            grow'=0,
+            s sep'+=.625cm,
+            l=.8em,
+            l sep=0pt,
+        },
+        before typesetting nodes={
+            delay={
+                where content={}{coordinate}{},
+            },
+            where n children=0{
+                tier=extant,
+                label/.process={Ow{content}{right:#1}},
+                content=,
+            }{},
+        },
+        [
+            [\subnode{synteny-1}{1, 2}]
+            [
+                [
+                    [
+                        [\subnode{synteny-2}{2, 3}]
+                        [\subnode{synteny-3}{2, 3}]
+                    ]
+                    [
+                        [\subnode{synteny-4}{1, 3}]
+                        [
+                            [\subnode{synteny-5}{1, 2}]
+                            [\subnode{synteny-6}{3}]
+                        ]
+                    ]
+                ]
+                [\subnode{synteny-7}{1, 2}]
+            ]
+        ]
+    \end{forest}\hspace{2em}%
+    \begin{forest}
+        forked edges,
+        for tree={
+            grow=west,
+            s sep'+=.525cm,
+            l=.8em,
+            l sep=0pt,
+        },
+        extant leaf/.style={
+            tier=extant,
+        },
+        unsampled leaf/.style={
+            tier=unsampled,
+            edge=densely dotted,
+        },
+        before typesetting nodes={
+            delay={
+                where content={}{coordinate}{},
+            },
+            where n children=0{
+                label/.process={Ow{content}{left:\textbf{#1}}},
+                content=,
+            }{},
+        },
+        [
+            [, unsampled leaf]
+            [
+                [
+                    [
+                        [
+                            [\subnode{species-A}{A}, extant leaf]
+                            [, unsampled leaf]
+                        ]
+                        [
+                            [\subnode{species-B}{B}, extant leaf]
+                            [, unsampled leaf]
+                        ]
+                    ]
+                    [, unsampled leaf]
+                ]
+                [
+                    [\subnode{species-C}{C}, tier=extant]
+                    [, unsampled leaf]
+                ]
+            ]
+        ]
+    \end{forest}
+    \begin{tikzpicture}[
+        overlay,
+        remember picture,
+        link/.style={
+            black!30, thick, dashed,
+            out=180,
+            in=0,
+            out distance=.35cm,
+            in distance=.35cm,
+        }
+    ]
+        \path[link] (species-A) edge (synteny-1.east);
+        \path[link] (species-A) edge (synteny-2.east);
+        \path[link] (species-B) edge (synteny-3.east);
+        \path[link] (species-A) edge (synteny-4.east);
+        \path[link] (species-B) edge (synteny-5.east);
+        \path[link] (species-C) edge (synteny-6.east);
+        \path[link] (species-C) edge (synteny-7.east);
+    \end{tikzpicture}
+
+    \(\syntenyTree\)
+    \hspace{6em}
+    \(\augS\)
+
+    (1)
+}{
+    \centering
+    {\small\input{fig/synesth/example-history}}
+
+    \vspace{1ex}
+    \(\Hist\)
+    
+    (2)
+}
