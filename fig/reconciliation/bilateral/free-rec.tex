@@ -5,7 +5,7 @@
 
     \graph[phylogenetic tree layout, simple, nodes={font=\small\itshape}]{
         ttree[name=t1];
-        t1 l2s2 --[transfer edge] t1 l1s4;
+        t1 l2s2 --[transfer branch] t1 l1s4;
     };
     \node at (0, -2.3) {\(T\)};
 
@@ -41,7 +41,7 @@
                     t l2s2 / [
                         coordinate,
                         label={[host, reccolor4]right:γ},
-                        > transfer edge,
+                        > transfer branch,
                     ] -- {
                         t l1s6 / 4 -- {},
                         t l1s5 / 3 -- {},
@@ -56,7 +56,7 @@
                     t l2s1 / [
                         coordinate,
                         label={[host, reccolor4]left:β},
-                        > transfer edge,
+                        > transfer branch,
                     ] -- {
                         t l1s2 / 2 -- {},
                         t l1s1 / 1 -- {},

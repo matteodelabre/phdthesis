@@ -242,11 +242,17 @@
     \Crefname{property}{Propriété}{Propriétés}%
     \crefname{table}{tableau}{tableaux}%
     \Crefname{table}{Tableau}{Tableaux}%
+    \captionsetup[algorithm]{name=Algorithme}%
     \crefname{algorithm}{algorithme}{algorithmes}%
     \Crefname{algorithm}{Algorithme}{Algorithmes}%
     \algrenewcommand{\algorithmicforall}{\textbf{pour chaque}}
     \algrenewcommand{\algorithmicrequire}{\textbf{Entrée:}}
     \algrenewcommand{\algorithmicensure}{\textbf{Sortie:}}
+    \algrenewcommand{\algorithmicfunction}{\textbf{fonction}}
+    \algrenewcommand{\algorithmicreturn}{\textbf{retourner}}
+    \algrenewcommand{\algorithmicif}{\textbf{si}}
+    \algrenewcommand{\algorithmicthen}{\textbf{alors}}
+    \algrenewcommand{\algorithmicelse}{\textbf{sinon}}
     \crefname{chapter}{chapitre}{chapitres}%
     \Crefname{chapter}{Chapitre}{Chapitres}%
     \crefname{enumi}{point}{points}%
@@ -284,11 +290,17 @@
     \Crefname{property}{Property}{Properties}%
     \crefname{table}{table}{tables}%
     \Crefname{table}{Table}{Tables}%
+    \captionsetup[algorithm]{name=Algorithm}%
     \crefname{algorithm}{algorithm}{algorithms}%
     \Crefname{algorithm}{Algorithm}{Algorithms}%
     \algrenewcommand{\algorithmicforall}{\textbf{for each}}
     \algrenewcommand{\algorithmicrequire}{\textbf{Input:}}
     \algrenewcommand{\algorithmicensure}{\textbf{Output:}}
+    \algrenewcommand{\algorithmicfunction}{\textbf{function}}
+    \algrenewcommand{\algorithmicreturn}{\textbf{return}}
+    \algrenewcommand{\algorithmicif}{\textbf{if}}
+    \algrenewcommand{\algorithmicthen}{\textbf{then}}
+    \algrenewcommand{\algorithmicelse}{\textbf{else}}
     \crefname{chapter}{chapter}{chapters}%
     \Crefname{chapter}{Chapter}{Chapters}%
     \crefname{enumi}{item}{items}%

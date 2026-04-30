@@ -7,6 +7,8 @@
     maeusle.bendEdge90Degree = function () end
 \end{luacode*}
 
+\colorlet{host background color}{black!10}
+
 \tikzset{
     separator rule/.style={
         draw=black!25,
@@ -83,23 +85,18 @@
         rectangle, draw, fill=white,
         inner sep=4pt,
     },
-    transfer/.style={
-        chamfered rectangle, draw, fill=white,
-        inner sep=2.5pt,
-    },
-    transfer edge/.style={dashed},
-    transfer edge cleft/.style={
-        ->, >=Latex,
-        bend left,
-    },
-    transfer edge cright/.style={
-        transfer edge cleft,
-        bend right,
-    },
-    loss/.style={
-        inner sep=2pt,
-        execute at end node={\textup{×}},
-    },
+    % transfer/.style={
+    %     chamfered rectangle, draw, fill=white,
+    %     inner sep=2.5pt,
+    % },
+    % transfer edge/.style={
+    %     ->, >=Latex,
+    %     dashed,
+    % },
+    % loss/.style={
+        % inner sep=2pt,
+        % execute at end node={\textup{×}},
+    % },
     dependent/.style={
         font=\small\itshape,
     },
@@ -109,19 +106,17 @@
     % Reconciliation layout
     host node/.style={
         ellipse,
-        fill=#1!10,
+        fill=black!13,
     },
-    host node/.default={black},
     host leaf node/.style={
-        host node={#1},
+        host node,
         inner sep=0pt,
     },
     host edge/.style={
-        fill=#1!5,
+        fill=black!7,
     },
-    host edge/.default={black},
     host edge terminal/.style={
-        host edge={#1},
+        host edge,
         rounded corners,
     },
     host edge unsampled/.style={
@@ -131,9 +126,8 @@
             angle=30,
             line width=.05cm,
         ]},
-        pattern color=#1!5,
+        pattern color=host background color,
     },
-    host edge unsampled/.default={black},
     % Adjacencies
     adjacency edge/.style={
         draw, black, thick,
@@ -142,8 +136,6 @@
     },
     adjacency/.style={every edge/.style={adjacency edge}},
 }
-
-\colorlet{host background color}{black!15}
 
 \tikzset{
     extant label/.style={
@@ -174,41 +166,69 @@
         minimum width={8},
         minimum height={8},
     },
-    transfer/.style={
-        branch node, chamfered rectangle,
-        inner xsep=2pt,
-        minimum width={8},
-        minimum height={8},
+    % transfer/.style={
+    %     branch node, chamfered rectangle,
+    %     inner xsep=2pt,
+    %     minimum width={8},
+    %     minimum height={8},
+    % },
+    transfer/.code 2 args={
+        \pgfkeysalso{
+            event={#1},
+        }
+        \def\cmp{#2}\ifx\cmp\empty
+            \pgfkeysalso{
+                diamond,
+                inner sep=1.5pt,
+            }
+        \else
+            \pgfkeysalso{
+                chamfered rectangle,
+                chamfered rectangle sep={8 / 2.4},
+                inner xsep=2pt,
+                inner ysep=-1pt,
+                minimum width={8},
+                minimum height={8},
+                execute at begin node={#2},
+            }
+        \fi
     },
     generic/.style={
         speciation,
         densely dotted,
     },
     transfer branch/.style={
-        -Stealth,
+        branch={#1},
+        densely dashed,
+        -{Latex[length=0pt 8]},
     },
-    gain/.style={
-        circle, inner sep=1.5pt,
-        fill=white, draw,
-        label={[%
-            font={\strut\scriptsize},
-            xshift=-2pt,
-            yshift=1pt,
-        ]right:\(\scriptstyle #1\)},
+    invalid transfer branch/.style={
+        transfer branch={red!80!black},
+        out distance=20,
+        in distance=20,
     },
-    loss/.style={
-        draw, cross out,
-        line width={0.75pt},
-        inner sep=0pt,
-        outer sep=0pt,
-        minimum width={3},
-        minimum height={3},
-        label={[%
-            font={\strut\scriptsize},
-            xshift=-2pt,
-            yshift=1pt,
-        ]right:\(\scriptstyle #1\)},
-    },
+    % gain/.style={
+    %     circle, inner sep=1.5pt,
+    %     fill=white, draw,
+    %     label={[%
+    %         font={\strut\scriptsize},
+    %         xshift=-2pt,
+    %         yshift=1pt,
+    %     ]right:\(\scriptstyle #1\)},
+    % },
+    % loss/.style={
+    %     draw, cross out,
+    %     line width={0.75pt},
+    %     inner sep=0pt,
+    %     outer sep=0pt,
+    %     minimum width={3},
+    %     minimum height={3},
+    %     label={[%
+    %         font={\strut\scriptsize},
+    %         xshift=-2pt,
+    %         yshift=1pt,
+    %     ]right:\(\scriptstyle #1\)},
+    % },
     extant gene/.style={
         circle, fill,
         outer sep=0pt, inner sep=0pt,
@@ -251,11 +271,15 @@
         draw={#1},
         line width={0.5pt},
     },
-    transfer branch/.style={
-        branch={#1},
-        densely dashed,
-        -{Latex[length=0pt 8]},
+    loss branch/.style={
+        branch,
+        draw={black!40},
     },
+    % transfer branch/.style={
+        % branch={#1},
+        % densely dashed,
+        % -{Latex[length=0pt 8]},
+    % },
     event/.style={
         draw={#1}, fill={host background color!20!white},
         font={\color{#1}},
@@ -290,14 +314,14 @@
         minimum width={8},
         minimum height={8},
     },
-    transfer/.style={
-        event={#1}, chamfered rectangle,
-        chamfered rectangle sep={8 / 2.4},
-        inner xsep=2pt,
-        inner ysep=-1pt,
-        minimum width={8},
-        minimum height={8},
-    },
+    % transfer/.style={
+    %     event={#1}, chamfered rectangle,
+    %     chamfered rectangle sep={8 / 2.4},
+    %     inner xsep=2pt,
+    %     inner ysep=-1pt,
+    %     minimum width={8},
+    %     minimum height={8},
+    % },
     base gain/.style n args={4}{
         draw={#1}, fill=black,
         semicircle, inner sep=1pt,
@@ -326,6 +350,26 @@
     },
     loss/.style 2 args={base loss={#1}{#2}{270}{above}},
     sideways loss/.style 2 args={base loss={#1}{#2}{180}{right}},
+    loss/.code 2 args={
+        \pgfkeysalso{
+            draw={#1}, fill=black,
+            semicircle, inner sep=1pt,
+            shape border rotate={180+0},
+        }
+        \def\cmp{#2}\ifx\cmp\empty
+            \pgfkeysalso{draw={black!40}, fill={black!40}}
+        \else
+            \pgfkeysalso{
+                label={[%
+                    font={\scriptsize\vphantom{gb}},
+                    label distance=2pt,
+                    inner xsep=0pt, inner ysep=0pt,
+                    outer xsep=0pt, outer ysep=0pt,
+                    limit width={6em}{\narrowragged},
+                ]right:#2},
+            }
+        \fi
+    },
 }
 
 \pgfdeclarelayer{hostnodes}
@@ -335,7 +379,7 @@
 \DeclareRobustCommand{\showspeciation}{\,\tikz[baseline=-.75ex] \node[speciation] {};\,}
 \DeclareRobustCommand{\showduplication}{\,\tikz[baseline=-.75ex] \node[duplication] {};\,}
 \DeclareRobustCommand{\showtransfer}{\,\tikz[baseline=-.75ex] \node[transfer] {};\,}
-\DeclareRobustCommand{\showloss}{\,×\,}
+\DeclareRobustCommand{\showloss}{\,\tikz[baseline=-.75ex] \node[loss] {};\,}
 
 \definecolor{color1}{HTML}{2E47D8}
 \definecolor{reccolor1}{HTML}{5960F5}

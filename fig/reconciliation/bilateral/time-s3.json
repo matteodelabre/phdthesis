@@ -1,0 +1,1 @@
+{"host_tree": "((2,1)b,3)a;", "event_tree": "((w[&host=1,label=''],x[&host=2,label=''])[&host=b,kind=codiverge],((y[&host=3,label=''],z[&host=1,label=''])[&host=1,kind=diverge,transfer=True],[&host=2,kind=loss])[&host=b,kind=codiverge])[&host=b,kind=diverge];"}

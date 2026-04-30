@@ -5,19 +5,19 @@
     \begin{scope}[x=.5cm, y=.8cm]
         \graph[no placement, nodes={dependent}]{
             t1l4s1 / [duplication, y=-.16] -- {
-                t1l3s1 / [speciation, x=-.5, y=-1] -- {
-                    t1l2s1 / [speciation, x=-2.5, y=-2] -- {
+                t1l3s1 / [speciation, x=-.5, y=-1, outer sep=-.45pt] -- {
+                    t1l2s1 / [speciation, x=-2.5, y=-2, outer sep=-.8pt] -- {
                         t1l1s1 / 1 [x=-4, y=-3],
                         t1l1s2 / 2 [x=-1, y=-3],
                     },
                     t1l1s3 / 3 [x=2, y=-3],
                 },
-                t1l3s2 / [speciation, x=.5, y=-1] -- {
-                    t1l2s2 / [speciation, x=-1.5, y=-2] -- {
+                t1l3s2 / [speciation, x=.5, y=-1, outer sep=-.45pt] -- {
+                    t1l2s2 / [speciation, x=-1.5, y=-2, outer sep=-.8pt] -- {
                         t1l1s4 / 1 [x=-3, y=-3],
-                        t1l1s5 / [loss, x=0, y=-3],
+                        t1l1s5 / [loss, >loss branch, rotate=40, x=0, y=-3],
                     },
-                    t1l1s6 / [loss, x=3, y=-3],
+                    t1l1s6 / [loss, >loss branch, rotate=40, x=3, y=-3],
                 },
             },
         };
@@ -28,16 +28,16 @@
     %% Réconciliation DTL
     \begin{scope}[x=.5cm, y=.8cm, shift={(12, 0)}]
         \graph[no placement, nodes={dependent}]{
-            t2l4s1 / [speciation, x=0.5, y=-.16] -- {
-                t2l3s1 / [speciation, x=-.8, y=-.9] -- {
-                    t2l2s1 / [speciation, x=-2.25, y=-1.75] -- {
+            t2l4s1 / [speciation, x=0.5, y=-.16, outer sep=-.7pt] -- {
+                t2l3s1 / [speciation, x=-.8, y=-.9, outer sep=-.7pt] -- {
+                    t2l2s1 / [speciation, x=-2.25, y=-1.75, outer sep=-.7pt] -- {
                         t2l1s1 / 1 [x=-4, y=-3],
                         t2l1s2 / 2 [x=-.5, y=-3],
                     },
                     t2l1s3 / 3 [x=2, y=-3],
                 },
                 t2l3s2 / [transfer, x=3.75, y=-2.4] -- {
-                    t2l2s2 / [coordinate, x=-2.4, y=-2.6, > transfer edge cright] --
+                    t2l2s2 / [coordinate, x=-2.4, y=-2.4, > transfer branch] --
                         t2l1s4 / 1 [x=-3, y=-3],
                     t2l1sx / [coordinate, x=5, y=-3.3, > dotted],
                 },

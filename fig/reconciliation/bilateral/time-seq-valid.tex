@@ -1,0 +1,180 @@
+\tikzset{
+    x={(1pt,0)},
+    y={(0,-1pt)},
+    limit width/.style 2 args={
+        execute at begin node={\begin{varwidth}{#1}#2},
+        execute at end node={\end{varwidth}},
+    },
+    host background/.style={
+        fill=host background color,
+        draw=host background color,
+        line width={.01pt},
+    },
+    unsampled host background/.style={
+        preaction={fill=host background color},
+        draw=host background color,
+        pattern={Lines[angle=45, distance=3pt, line width=1.5pt]},
+        pattern color=white,
+    },
+    host label/.style={
+        font=\bfseries,
+        midway,
+        anchor=north,
+        limit width={12em}{\centering},
+    },
+    branch/.style={
+        draw={#1},
+        line width={0.5pt},
+    },
+    loss branch/.style={
+        branch,
+        draw={black!40},
+    },
+    transfer branch/.style={
+        branch={#1},
+        densely dashed,
+        -{Latex[length=0pt 8]},
+    },
+    invalid transfer branch/.style={
+        transfer branch={red!80!black},
+        out distance=20,
+        in distance=20,
+    },
+    event/.style={
+        draw={#1}, fill={host background color!50!white},
+        font={\color{#1}},
+        outer sep=0pt, inner xsep=0pt, inner ysep=2pt,
+        limit width={6em}{\narrowragged},
+        line width={0.5pt},
+    },
+    event/.default={black},
+    extant/.code 2 args={
+        \pgfkeysalso{
+            circle, fill={#1},
+            outer sep=0pt, inner sep=0pt,
+            minimum size={3},
+        }
+        \def\cmp{#2}\ifx\cmp\empty\else
+            \pgfkeysalso{
+                label={[%
+                    font={\color{#1}\vphantom{gb}},
+                    fill=host background color!35!white,
+                    rounded corners=2,
+                    label distance=2pt,
+                    inner xsep=2pt, inner ysep=1pt,
+                    outer xsep=0pt, outer ysep=0pt,
+                    limit width={6em}{\centering},
+                ]below:#2},
+            }
+        \fi
+    },
+    extant/.default={black}{},
+    unsampled/.style={
+        circle, fill={#1},
+        outer sep=0pt, inner sep=0pt,
+        minimum size={3},
+    },
+    unsampled/.default={black!40},
+    speciation/.style 2 args={
+        event={#1}, rectangle, rounded corners,
+        inner xsep=4pt,
+        minimum width={8},
+        minimum height={8},
+        execute at begin node={#2},
+    },
+    duplication/.style 2 args={
+        event={#1}, rectangle,
+        inner xsep=4pt,
+        minimum width={8},
+        minimum height={8},
+        execute at begin node={#2},
+    },
+    transfer/.code 2 args={
+        \pgfkeysalso{
+            event={#1},
+        }
+        \def\cmp{#2}\ifx\cmp\empty
+            \pgfkeysalso{
+                diamond,
+                inner sep=1.5pt,
+            }
+        \else
+            \pgfkeysalso{
+                chamfered rectangle,
+                chamfered rectangle sep={8 / 2.4},
+                inner xsep=2pt,
+                inner ysep=-1pt,
+                minimum width={8},
+                minimum height={8},
+                execute at begin node={#2},
+            }
+        \fi
+    },
+    gain/.code 2 args={
+        \pgfkeysalso{
+            draw={#1}, fill=black,
+            semicircle, inner sep=1pt,
+            shape border rotate={0},
+        }
+        \def\cmp{#2}\ifx\cmp\empty\else
+            \pgfkeysalso{
+                label={[%
+                    font={\scriptsize\vphantom{gb}},
+                    label distance=2pt,
+                    inner xsep=0pt, inner ysep=0pt,
+                    outer xsep=0pt, outer ysep=0pt,
+                    limit width={6em}{\narrowragged},
+                ]right:#2},
+            }
+        \fi
+    },
+    loss/.code 2 args={
+        \pgfkeysalso{
+            draw={#1}, fill=black,
+            semicircle, inner sep=1pt,
+            shape border rotate={180+0},
+        }
+        \def\cmp{#2}\ifx\cmp\empty
+            \pgfkeysalso{draw={black!40}, fill={black!40}}
+        \else
+            \pgfkeysalso{
+                label={[%
+                    font={\scriptsize\vphantom{gb}},
+                    label distance=2pt,
+                    inner xsep=0pt, inner ysep=0pt,
+                    outer xsep=0pt, outer ysep=0pt,
+                    limit width={6em}{\narrowragged},
+                ]right:#2},
+            }
+        \fi
+    },
+}
+% hosts
+\path[host background] (0.0,-13.0) [rounded corners={2pt}] to (0.0,1.0) to node[host label] {1} (16.8722,1.0) [sharp corners] to (16.8722,-13.0) -- cycle;
+\path[host background] (29.6222,-13.0) [rounded corners={2pt}] to (29.6222,1.0) to node[host label] {2} (44.6222,1.0) [sharp corners] to (44.6222,-13.0) -- cycle;
+\path[host background] (0.0,-6.5) [rounded corners={2pt}] to (0.0,-39.0) to (12.3722,-39.0) [sharp corners] to (12.3722,-51.0) to (34.1222,-51.0) [rounded corners={2pt}] to (34.1222,-39.0) to (44.6222,-39.0) [sharp corners] to (44.6222,-6.5) to (29.6222,-6.5) [rounded corners={2pt}] to (29.6222,-13.0) to (16.8722,-13.0) [sharp corners] to (16.8722,-6.5) -- cycle;
+\path[host background] (48.6222,-55.5) [rounded corners={2pt}] to (48.6222,1.0) to node[host label] {3} (63.6222,1.0) [sharp corners] to (63.6222,-55.5) -- cycle;
+\path[host background] (12.3722,-32.0) [rounded corners={2pt}] to (12.3722,-61.5) to (38.4972,-61.5) [sharp corners] to (38.4972,-65.5) to (44.4972,-65.5) [rounded corners={2pt}] to (44.4972,-61.5) to (63.6222,-61.5) [sharp corners] to (63.6222,-27.75) to (48.6222,-27.75) [rounded corners={2pt}] to (48.6222,-55.5) to (34.1222,-55.5) [sharp corners] to (34.1222,-32.0) -- cycle;
+% unsampled hosts
+% branches
+\path[branch] (19.6222,-20.25) [rounded corners={1.5pt}] to (34.1222,-20.25) [sharp corners] to (34.1222,-4.5);
+\path[loss branch] (19.6222,-20.25) [rounded corners={1.5pt}] to (12.3722,-20.25) [sharp corners] to (12.3722,-4.4361);
+\path[branch] (19.6222,-51.0) to (19.6222,-20.25);
+\path[branch] (26.8722,-31.75) [rounded corners={1.5pt}] to (5.4361,-31.75) [sharp corners] to (5.4361,-4.5);
+\path[branch] (26.8722,-31.75) [rounded corners={1.5pt}] to (40.1222,-31.75) [sharp corners] to (40.1222,-4.5);
+\path[branch] (26.8722,-39.0) to (26.8722,-31.75);
+\path[branch] (56.1222,-39.0) to (56.1222,-4.5);
+\path[transfer branch] (56.1222,-39.0) to (26.8722,-39.0);
+\path[branch] (56.1222,-51.0) to (56.1222,-39.0);
+\path[transfer branch] (56.1222,-51.0) to (19.6222,-51.0);
+% gene transfers
+% events
+\node[loss={black}{}] at (12.3722,-4.4361) {};
+\node[extant={black}{}] at (5.4361,-4.5) {};
+\node[extant={black}{}] at (34.1222,-4.5) {};
+\node[extant={black}{}] at (40.1222,-4.5) {};
+\node[speciation={black}{}] at (19.6222,-20.25) {};
+\node[speciation={black}{}] at (26.8722,-31.75) {};
+\node[extant={black}{}] at (56.1222,-4.5) {};
+\node[transfer={black}{}] at (56.1222,-39.0) {};
+\node[transfer={black}{}] at (56.1222,-51.0) {};
