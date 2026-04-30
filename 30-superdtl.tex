@@ -8,11 +8,11 @@
 Les travaux initiaux menés sur la réconciliation segmentale se limitaient à un modèle évolutif à base de spéciations et de duplications~\parencite{Delabre2020EvolutionSegmentalDuplications}.
 Au cours de l’année 2019--2020, Maher~\textsc{Mallem} a travaillé, sous la supervision de Nadia~\textsc{El-Mabrouk}, à étendre le modèle et l’algorithme associé afin de permettre l’inférence de transferts horizontaux.
 L’approche proposée souffrait d’une complexité algorithmique élevée puisqu’elle demandait une exploration exhaustive pour déterminer quels sommets seraient des sommets de transfert horizontal.
-Dans ce chapitre, je montre comment obtenir un algorithme de complexité polynomiale pour résoudre ce problème.
+Dans ce chapitre, nous montrons comment obtenir un algorithme de complexité polynomiale pour ce problème.
 
 L’approche initiale de \textcite{Delabre2020EvolutionSegmentalDuplications} reposait sur une méthodologie en deux étapes: premièrement la recherche d’une réconciliation optimale en ignorant le caractère segmental du problème, deuxièmement la minimisation des pertes segmentales en fixant les événements binaires identifiés à l’étape précédente.
 Nous verrons à la \cref{sec:superdtl:2steps} qu’il existe un contre-exemple empêchant l’extension de cette approche au cas impliquant des transferts horizontaux.
-Je parviens néanmoins au résultat annoncé en développant un algorithme de programmation dynamique combinant les deux étapes sur la base des résultats de \textcite{Tofigh2011SimultaneousIdentificationDuplications}.
+Nous parvenons néanmoins au résultat annoncé en développant un algorithme de programmation dynamique combinant les deux étapes sur la base des résultats de \textcite{Tofigh2011SimultaneousIdentificationDuplications}.
 
 Pour démontrer l’intérêt de cet algorithme, Yoann \textsc{Anselmetti} a réalisé une analyse de l’évolution des synténies d’un échantillon de systèmes CRISPR-Cas.
 Cette analyse préliminaire s’est révélée être alignée avec les hypothèses actuelles sur l’évolution de ces systèmes et a permis de proposer de nouvelles pistes.
@@ -24,12 +24,12 @@ Par ailleurs, la fonction de coût est rigide et considère avec le même poids 
 Deuxièmement, l’inférence suppose que l’échantillonage des espèces est complet et exclut la possibilité d’une interaction des synténies étudiées avec des espèces qui se sont par la suite éteintes ou qui n’ont pas été échantillonnées.
 Comme suggéré par l’une des personnes relectrices de l’article présenté ci-dessous, cette limite pourrait expliquer la séquence d’événements de pertes observée dans le scénario présenté à la \cref{fig:superdtl:crispr-scenario}.
 Troisièmement, les événements de gain sont toujours positionnés à l’ancêtre commun, en excluant de la fonction de minimisation le nombre de gains.
-Finalement, il existe une abondance de solutions optimales parmi lesquelles seule une arbitraire est tirée, ce qui est illustré par la \cref{tab:superdtl:sol-count}.
+Finalement, il existe une abondance de solutions optimales parmi lesquelles seule une arbitraire est tirée, ce qui est illustré par le \cref{tab:superdtl:sol-count}.
 Ces limites ont guidé la recherche qui est présentée aux chapitres suivants.
 
 % TODO: Migrate notations to notations.tex
 
-\newcommand{\superdtl}{\textsf{SuperDTL}}
+\newcommand{\superdtl}{SuperDTL}
 
 % Notations
 \newcommand{\taxa}{{\Sigma}}

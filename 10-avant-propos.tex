@@ -18,6 +18,7 @@ Un \emph{arbre phylogénétique} (ou \emph{phylogénie}) représente une hypoth�
 Comme un arbre généalogique, un arbre phylogénétique est composé d’une suite d’embranchements et de branches le long desquelles s’écoule le temps jusqu’à rejoindre les représentants contemporains.
 Chaque embranchement de l’arbre correspond à la divergence putative d’un ancêtre en plusieurs descendants libres d’évoluer indépendamment.
 Les causes possibles de telles divergences diffèrent selon les types d’unités étudiés; par exemple, les gènes se dupliquent, les cellules se divisent et les espèces subissent des spéciations.
+% TODO exemple en linguistique
 
 % Problème d’évolution hiérarchique
 L’évolution d’un gène ne dépend pas seulement des événements qui l’affectent directement, mais également de l’évolution de son espèce hôte.
@@ -39,34 +40,14 @@ L’un des axes de recherche du domaine au cours des deux dernières décennies 
 Différentes extensions du paradigme de réconciliation permettant de prendre en compte l’évolution conjointe de plusieurs unités ont ainsi été proposées.
 
 % Projet de recherche
-L’objectif général du projet de recherche présenté dans ce document consiste à contribuer au développement de ces méthodes de réconciliation multiple, notamment en ce qui concerne l’évolution de segments du génome fortement conservés appelés \emph{synténies}.
-Il s’agit d’identifier des compromis entre puissance de modélisation et complexité algorithmique.
-L’application de ces méthodes à un cas biologique est également considérée pour les synténies Cas des systèmes CRISPR-Cas.
+Le projet de recherche mené dans cette thèse s’inscrit dans cet axe de recherche par le développement de méthodes de \emph{réconciliation multiple} permettant l’étude de l’évolution de segments du génome fortement conservés appelés \emph{synténies}.
+La contribution consiste en l’identification de compromis entre puissance de modélisation et complexité algorithmique.
 
-% Plan du rapport
-Les deux premiers chapitres de ce rapport sont consacrés à une revue de la littérature pertinente.
-Dans le premier chapitre, une synthèse concernant les méthodes de réconciliation est présentée.
-Le deuxième chapitre expose les généralisations existantes de la réconciliation pour l’étude de l’évolution de multiples unités dépendantes organisées linéairement.
-Enfin, le dernier chapitre décrit les axes principaux du projet de recherche, en faisant état du travail déjà accompli et en dressant un échéancier prévisionnel.
-
-%%%%%%%%%%
-
-%Le concept de gène a été postulé dès~1865 par Mendel~\cite{Bateson1902MendelsPrinciplesHeredity}, mais sa compréhension s’est considérablement développée au cours du siècle suivant, notamment grâce aux découvertes en biologie moléculaire.
-%La seconde moitié du XX\textsuperscript{e} siècle a en effet vu l’élucidation de la structure et des fonctions de l’acide désoxyribonucléique (ADN).
-%Cette longue molécule, présente dans le noyau de chaque cellule, est porteuse de l’information du génome, qui se manifeste dans la séquence de nucléotides qui la composent.
-%Ces nucléotides se déclinent en quatre variétés qui diffèrent par leur base azotée : l’adénine~(A), la cytosine~(C), la guanine~(G) et la thymine~(T).
-%Chaque gène est caractérisé par un fragment unique de cette séquence, qui peut être vue comme une chaîne de caractères choisis parmi quatre lettres : A, C, G et T.
-%Avec le temps, cette séquence est soumise à des mutations à différentes échelles, qui sont filtrées par la sélection naturelle, et contribuent à l’évolution des gènes en plusieurs versions.
-
-%Pour ce faire, il peut être pertinent d’observer les similitudes et différences dans les caractères des espèces, dans les séquences d’ADN associées
-%Pour reconstruire ces histoires, nous nous appuyons sur diverses sources de données telles que les caractères des espèces ou les séquences ADN associées à des objets présents ou fossiles.
-%Le résultat est présenté sous la forme d’\emph{arbres phylogénétiques}, qui peuvent être comparés à des arbres généalogiques pour les objets étudiés.
-%Les feuilles de ces arbres correspondent aux objets observés, et les autres nœuds à des ancêtres.
-
-%Toutefois, contrairement aux études généalogiques, bien souvent en phylogénétique seules des informations sur des contemporains peuvent être obtenues.
-%Pour reconstruire des arbres, la technique consiste à fixer une façon d’évaluer la distance qui sépare deux éléments.
-%Une hypothèse de \emph{parcimonie} est ensuite faite, selon laquelle les éléments les moins distants sont supposés partager un ancêtre plus récent.
-%Le défi restant consiste alors à trouver un arbre qui reflète cette hypothèse, citons à cet effet les algorithmes de \emph{neighbor joining}, UPGMA, …~\cite{Semple2003Phylogenetics}.
-
-%Pour établir les liens entre les espèces, la phylogénétique s’est initialement fondée sur l’observation manuelle de leurs différences et similitudes morphologiques.
-%Depuis la seconde moitié du XX\textsuperscript{e}~siècle, elle bénéficie de l’apport de nouvelles sources de données — les séquences protéiques et géniques — et de la contribution des sciences mathématiques, statistiques et informatiques pour le traiter ces données.
+Le \cref{chap:reconciliation} contient une revue de la littérature pertinente qui synthétise les méthodes existantes en matière de réconciliation.
+Nous y introduisons l’approche de réconciliation segmentale qui est au centre de la recherche présentée par la suite.
+Dans le \cref{chap:superdtl}, nous apportons une première contribution en permettant l’inférence de tranferts horizontaux dans la réconciliation segmentale.
+Cette contribution est étendue au contexte d’espèces non-échantillonnées dans le \cref{chap:synesth}.
+Ces extensions nous amènent au besoin de mener une étude combinatoire approfondie de l’espace des solutions associés aux problèmes étudiés.
+Afin d’y parvenir, nous développons une théorie unifiée de la programmation dynamique algébrique dans le \cref{chap:adp}.
+Cette théorie est mise en pratique sur le problème de réconciliation segmentale dans le \cref{chap:adp-rec}.
+Finalement, les différents logiciels et programmes développés en support à la recherche menée dans cette thèse sont présentés dans le \cref{chap:logiciel}.
