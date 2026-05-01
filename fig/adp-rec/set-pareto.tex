@@ -1,42 +1,79 @@
 \begin{tikzpicture}
-\definecolor{c0}{HTML}{6F4C9B}
-\definecolor{c1}{HTML}{5568B8}
-\definecolor{c2}{HTML}{4D8AC6}
-\definecolor{c3}{HTML}{59A5A9}
-\definecolor{c4}{HTML}{69B190}
-\definecolor{c5}{HTML}{8CBC68}
-\definecolor{c6}{HTML}{BEBC48}
-\definecolor{c7}{HTML}{DDAA3C}
-\definecolor{c8}{HTML}{E78C35}
-\definecolor{c9}{HTML}{DA2222}
-\pgfplotsset{layers/mosaic/.define layer set={axis background,pre main,main,lines,marks,axis grid,axis ticks,axis lines,axis tick labels,axis descriptions,axis foreground}{/pgfplots/layers/standard}}
-\pgfplotsset{set layers=mosaic}
-\begin{axis}[clip mode=individual, legend style={legend pos=outer north east, cells={anchor=west, align=left}, nodes={scale=.75, transform shape}}, legend columns=4, grid=both, grid style={black, opacity=.15, dashed}, tick style={transparent}, xtick distance=1, ytick distance=1, enlargelimits=false, xlabel={\(\cost_\evLoss\)}, ylabel={\(\cost_\evGain\)}]
-\addplot[area legend, black, fill=c0!70!white, mark=none] coordinates { (1.0, 2.0) (3.0, 4.0) (5.0, 5.0) (5.0, 2.0) (1.0, 2.0) };
-\addlegendentry{(4, 5, 6)}
-\addplot[area legend, black, fill=c1!70!white, mark=none] coordinates { (0.0, 0.0) (0.0, 1.0) (1.0, 2.0) (5.0, 2.0) (5.0, 0.0) (0.0, 0.0) };
-\addlegendentry{(4, 6, 4)}
-\addplot[area legend, black, fill=c2!70!white, mark=none] coordinates { (3.0, 4.0) (3.0, 6.0) (4.0, 8.0) (5.0, 9.0) (5.0, 5.0) (3.0, 4.0) };
-\addlegendentry{(5, 3, 11)}
-\addplot[line legend, black, line width=2pt, line cap=round, postaction={draw, c0!70!white, line width=1.3pt}, on layer=lines] coordinates { (1.0, 2.0) (3.0, 4.0) };
-\addlegendentry{(5, 4, 7)}
-\addplot[line legend, black, line width=2pt, line cap=round, postaction={draw, c1!70!white, line width=1.3pt}, on layer=lines] coordinates { (4.0, 8.0) (5.0, 9.0) };
-\addlegendentry{(6, 2, 15)}
-\addplot[area legend, black, fill=c3!70!white, mark=none] coordinates { (1.0, 2.0) (1.0, 4.0) (3.0, 6.0) (3.0, 4.0) (1.0, 2.0) };
-\addlegendentry{(6, 3, 8)}
-\addplot[line legend, black, line width=2pt, line cap=round, postaction={draw, c2!70!white, line width=1.3pt}, on layer=lines] coordinates { (0.0, 1.0) (1.0, 2.0) };
-\addlegendentry{(6, 4, 6)\\(5, 5, 5)}
-\addplot[area legend, black, fill=c4!70!white, mark=none] coordinates { (3.0, 8.0) (3.0, 9.0) (5.0, 9.0) (4.0, 8.0) (3.0, 8.0) };
-\addlegendentry{(7, 1, 19)}
-\addplot[area legend, black, fill=c5!70!white, mark=none] coordinates { (1.0, 4.0) (1.0, 5.00000000000001) (2.0, 7.0) (3.0, 8.0) (4.0, 8.0) (3.0, 6.0) (1.0, 4.0) };
-\addlegendentry{(7, 2, 11)}
-\addplot[area legend, black, fill=c6!70!white, mark=none] coordinates { (0.0, 1.0) (0.0, 3.0) (1.0, 4.0) (1.0, 2.0) (0.0, 1.0) };
-\addlegendentry{(7, 3, 7)}
-\addplot[area legend, black, fill=c7!70!white, mark=none] coordinates { (2.0, 7.0) (2.0, 9.0) (3.0, 9.0) (3.0, 8.0) (2.0, 7.0) };
-\addlegendentry{(8, 1, 16)}
-\addplot[area legend, black, fill=c8!70!white, mark=none] coordinates { (0.0, 3.0) (0.0, 4.0) (1.0, 5.0) (1.0, 4.0) (0.0, 3.0) };
-\addlegendentry{(8, 2, 10)}
-\addplot[area legend, black, fill=c9!70!white, mark=none] coordinates { (0.0, 4.0) (0.0, 9.0) (2.0, 9.0) (2.0, 7.0) (1.0, 5.0) (0.0, 4.0) };
-\addlegendentry{(9, 1, 14)}
-\end{axis}
+    \definecolor{c0}{HTML}{6F4C9B}
+    \definecolor{c1}{HTML}{5568B8}
+    \definecolor{c2}{HTML}{4D8AC6}
+    \definecolor{c3}{HTML}{59A5A9}
+    \definecolor{c4}{HTML}{69B190}
+    \definecolor{c5}{HTML}{8CBC68}
+    \definecolor{c6}{HTML}{BEBC48}
+    \definecolor{c7}{HTML}{DDAA3C}
+    \definecolor{c8}{HTML}{E78C35}
+    \definecolor{c9}{HTML}{DA2222}
+    \pgfplotsset{layers/mosaic/.define layer set={axis background,pre main,main,lines,marks,axis grid,axis ticks,axis lines,axis tick labels,axis descriptions,axis foreground}{/pgfplots/layers/standard}}
+    \pgfplotsset{set layers=mosaic}
+    \begin{axis}[
+        width=7.5cm,
+        height=6.5cm,
+        clip mode=individual,
+        legend style={
+            anchor=west,
+            at={(1.1, 0.5)},
+            cells={anchor=west, align=left},
+            nodes={scale=.75, transform shape},
+            draw=none,
+            column sep=4pt,
+            /tikz/every column/.append style={column sep=4pt},
+        },
+        legend columns=3,
+        grid=both,
+        grid style={black, opacity=.15, dashed},
+        tick style={transparent},
+        xtick distance=1,
+        ytick distance=2,
+        enlargelimits=false,
+        xlabel={\(b_{\kern1pt\evtL}\)},
+        ylabel={\(b_\evtG\)},
+        area legend/.style={
+            legend image code/.code={
+                \draw [#1] (0cm,-0.15cm) rectangle (0.3cm,0.15cm);
+            }, 
+        },
+        short line legend/.style={
+            legend image code/.code={
+                \draw [mark repeat=2,mark phase=2,##1]
+                    plot coordinates {
+                        (0cm,0cm)
+                        (0.15cm,0cm)
+                        (0.3cm,0cm)
+                    };
+            },
+        }, 
+    ]
+    \addplot[area legend, black, fill=c0!70!white, mark=none] coordinates { (1.0, 2.0) (3.0, 4.0) (5.0, 5.0) (5.0, 2.0) (1.0, 2.0) };
+    \addlegendentry{\((4, 5, 6)\)\\\(n=1\)}
+    \addplot[area legend, black, fill=c1!70!white, mark=none] coordinates { (0.0, 0.0) (0.0, 1.0) (1.0, 2.0) (5.0, 2.0) (5.0, 0.0) (0.0, 0.0) };
+    \addlegendentry{\((4, 6, 4)\)\\\(n=1\)}
+    \addplot[area legend, black, fill=c2!70!white, mark=none] coordinates { (3.0, 4.0) (3.0, 6.0) (4.0, 8.0) (5.0, 9.0) (5.0, 5.0) (3.0, 4.0) };
+    \addlegendentry{\((5, 3, 11)\)\\\(n=1\)}
+    \addplot[short line legend, black, line width=2pt, line cap=round, postaction={draw, c0!70!white, line width=1.3pt}, on layer=lines] coordinates { (1.0, 2.0) (3.0, 4.0) };
+    \addlegendentry{\((5, 4, 7)\)\\\(n=3\)}
+    \addplot[short line legend, black, line width=2pt, line cap=round, postaction={draw, c1!70!white, line width=1.3pt}, on layer=lines] coordinates { (4.0, 8.0) (5.0, 9.0) };
+    \addlegendentry{\((6, 2, 15)\)\\\(n=2\)}
+    \addplot[area legend, black, fill=c3!70!white, mark=none] coordinates { (1.0, 2.0) (1.0, 4.0) (3.0, 6.0) (3.0, 4.0) (1.0, 2.0) };
+    \addlegendentry{\((6, 3, 8)\)\\\(n=1\)}
+    \addplot[short line legend, black, line width=2pt, line cap=round, postaction={draw, c2!70!white, line width=1.3pt}, on layer=lines] coordinates { (0.0, 1.0) (1.0, 2.0) };
+    \addlegendentry{\((6, 4, 6)\) et\\\((5, 5, 5)\)\\\(n=4\)}
+    \addplot[area legend, black, fill=c4!70!white, mark=none] coordinates { (3.0, 8.0) (3.0, 9.0) (5.0, 9.0) (4.0, 8.0) (3.0, 8.0) };
+    \addlegendentry{\((7, 1, 19)\)\\\(n=1\)}
+    \addplot[area legend, black, fill=c5!70!white, mark=none] coordinates { (1.0, 4.0) (1.0, 5.00000000000001) (2.0, 7.0) (3.0, 8.0) (4.0, 8.0) (3.0, 6.0) (1.0, 4.0) };
+    \addlegendentry{\((7, 2, 11)\)\\\(n=1\)}
+    \addplot[area legend, black, fill=c6!70!white, mark=none] coordinates { (0.0, 1.0) (0.0, 3.0) (1.0, 4.0) (1.0, 2.0) (0.0, 1.0) };
+    \addlegendentry{\((7, 3, 7)\)\\\(n=1\)}
+    \addplot[area legend, black, fill=c7!70!white, mark=none] coordinates { (2.0, 7.0) (2.0, 9.0) (3.0, 9.0) (3.0, 8.0) (2.0, 7.0) };
+    \addlegendentry{\((8, 1, 16)\)\\\(n=1\)}
+    \addplot[area legend, black, fill=c8!70!white, mark=none] coordinates { (0.0, 3.0) (0.0, 4.0) (1.0, 5.0) (1.0, 4.0) (0.0, 3.0) };
+    \addlegendentry{\((8, 2, 10)\)\\\(n=1\)}
+    \addplot[area legend, black, fill=c9!70!white, mark=none] coordinates { (0.0, 4.0) (0.0, 9.0) (2.0, 9.0) (2.0, 7.0) (1.0, 5.0) (0.0, 4.0) };
+    \addlegendentry{\((9, 1, 14)\)\\\(n=1\)}
+    \end{axis}
 \end{tikzpicture}

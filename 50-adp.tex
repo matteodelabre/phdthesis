@@ -17,115 +17,6 @@ Elle permet aussi, à terme, de concevoir des algorithmes de programmation dynam
 Les développements, relativement récents, reliés à la programmation dynamique algébrique sont toutefois rendus peu accessibles par l’absence d’une ressource présentant une théorie cohérente du domaine.
 Plusieurs résultats importants ont ainsi été redécouverts par plusieurs groupes d’auteurs distincts et isolés.
 L’objet de ce chapitre est de contribuer à bâtir une telle ressource.
-% Le chapitre suivant montre comment cette théorie peut s’appliquer au problème de la réconciliation segmentale.
-
-% \newcommand{\Call}[2]{\textsc{#1}(#2)}
-
-% % vim: set spell spelllang=en:
-% \documentclass{article}
-% \usepackage{amsmath}
-% \usepackage{amssymb}
-% \usepackage{amsthm}
-% \usepackage{thmtools}
-% \usepackage{mathtools}
-% \usepackage[plain]{algorithm}
-% \usepackage[commentColor=black!60,endLComment={}]{algpseudocodex}
-% \usepackage{bbold}
-% \usepackage{graphicx}
-% \usepackage{tikz}
-% \usepackage{csquotes}
-% \usetikzlibrary{arrows.meta}
-% \usepackage{enumitem}
-% \usepackage[sorting=ynt,maxcitenames=4,maxbibnames=4]{biblatex}
-% \addbibresource{biblio.bib}
-% \usepackage{booktabs}
-% \usepackage{wrapfig}
-% \usepackage{hyperref}
-% \usepackage[nameinlink,noabbrev]{cleveref}
-
-% \renewcommand{\paragraph}[1]{\addvspace{3ex plus1ex minus1ex}\noindent\emph{#1}\quad}
-
-% % spacing around math in italics
-% \mathtoolsset{mathic=true}
-
-% % algo
-% \renewcommand{\mathellipsis}{.\kern.4pt.\kern.4pt.\kern.6pt}
-% \renewcommand{\algorithmicindent}{.8em}
-% \algrenewcommand{\alglinenumber}[1]{\color{gray}\scriptsize#1}
-% \algrenewcommand{\algorithmicforall}{\textbf{for each}}
-% \algrenewcommand{\algorithmicrequire}{\textbf{Input:}}
-% \algrenewcommand{\algorithmicensure}{\textbf{Output:}}
-
-\tikzset{
-    algpxDefaultBox/.style={
-        fill=black!10,
-        draw=black!40,
-        inner xsep=1pt,
-        inner ysep=1.5pt,
-        rounded corners=2pt,
-    },
-}
-
-
-% diagrams
-\tikzset{
-    term/.style={
-        minimum size=.4cm,
-        inner sep=0pt,
-        outer sep=0pt,
-        outer xsep=.15cm,
-    },
-    node/.style={
-        circle,
-        minimum size=.4cm,
-        draw=black,
-        line width=#1,
-    },
-    node/.default={0.4pt},
-    plus/.style={
-        node={#1},
-        circle,
-        minimum size=.4cm,
-        draw=black,
-        line width=#1,
-        append after command={
-            (\tikzlastnode.north) edge[line width=#1] (\tikzlastnode.south)
-            (\tikzlastnode.east) edge[line width=#1] (\tikzlastnode.west)
-        },
-    },
-    plus/.default={0.4pt},
-    chosen plus/.style={plus=1.2pt},
-    times/.style={
-        circle,
-        minimum size=.4cm,
-        draw=black,
-        line width=#1,
-        append after command={
-            (\tikzlastnode.north east) edge[line width=#1] (\tikzlastnode.south west)
-            (\tikzlastnode.south east) edge[line width=#1] (\tikzlastnode.north west)
-        },
-    },
-    times/.default={0.4pt},
-    chosen times/.style={times=1.2pt},
-    outdomain/.style 2 args={
-        label={[%
-            inner sep=1pt,
-            outer sep=0pt,
-        ]#1:\small\(\scriptstyle #2\)},
-    },
-    arc/.style={->, >=Latex},
-    chosen arc/.style={arrows={-Latex[scale=.7]}, very thick},
-    outside node/.style 2 args={
-        node,
-        inner sep=0pt,
-        minimum size=4pt,
-        label={[%
-            inner xsep=2pt,
-            inner ysep=-1pt,
-            outer sep=0pt,
-        ]#1:\small\(\scriptstyle #2\)\strut},
-    },
-}
 
 \selectlanguage{english}
 \articlehat{
@@ -1149,8 +1040,6 @@ When the input circuit is redundant, this algorithm will list the same solution 
 
 In general, even optimal solution spaces can be exponentially large, hence instead of enumerating arbitrary solutions it may be more informative to draw a representative sample.
 
-\newcommand{\prob}{\mathrm{P}\!}
-
 \begin{definition}[Weighting algebras]
     An evaluation algebra \(\alg = \tup{A, F}\) of signature \(\algsign\)
     is a \emph{weighting algebra}
@@ -1233,8 +1122,6 @@ This algorithm follows the recursive method of \textcite{Wilf1977UnifiedSettingS
     %Using the construction of \cref{ex:construct-circ-optimal}, one can obtain a circuit encoding only the optimal solutions and perform uniform sampling among those.
 \end{example}
 
-\newcommand{\boltz}{\mathfrak{B}}
-
 \begin{example}[Boltzmann sampling]
     It may be desired to perform sampling not only among the optimal solutions, but also among the near-optimal ones.
     For example in RNA secondary structure prediction, the near-optimal solutions can prove very insightful~\parencite{McCaskill1990EquilibriumPartitionFunction}.
@@ -1269,8 +1156,6 @@ Let \(\prob_\alg(v \in x)\) denote the probability that a random solution \(x\) 
 Such a solution can be decomposed into a solution \(x_f\) whose root is \(v\) and a partial solution \(x_b\) such that \(x = x_b \circ x_f\).
 
 \(\prob_\alg(v \in x) = \prob_{\alg,\bar v}(x_{\bar v}) \times \prob_{\alg,v}(x_v)\)
-
-\newcommand{\back}{\mathrm{b}}
 
 Define \(\back_\alg(v)\) as the sum of weights of all partial solutions that end at \(v\).
 Then \(\back_\alg(v)\) can be computed~\cite{Ponty2011CombinatorialFrameworkDesigning} as
@@ -1328,14 +1213,6 @@ The structure of such problems can be described using \emph{sequential yield gra
 Intuitively, each \emph{predicate} of the grammar matches an interval of the input sequence and can be thought of as holding the set of partial solutions for the subproblem defined by that interval.
 Such an interval may be decomposed into further subproblems by partitioning it into subintervals using any \emph{clause} of the grammar that matches the predicate.
 Each clause is annotated with a symbol of the problem signature (see \cref{def:alg}); this symbol is applied to the partial solutions from the predicates on the right-hand side of the clause to construct solutions to the subproblem of the left-hand side.
-
-\newcommand{\gram}{\mathbf{G}}
-\newcommand{\gramnt}{\mathrm}
-\newcommand{\algsym}[1]{\mathrm{\operatorname{#1}}}
-\newcommand{\gramrew}{\Rightarrow}
-\newcommand{\gramRew}{\stackrel{*\,}{\gramrew}}
-\newcommand{\gramRewP}{\stackrel{+\,}{\gramrew}}
-\newcommand{\gramyield}{\gamma}
 
 \begin{example}[Matrix chain multiplication grammar]\label{ex:matrix-chain-gram}
     Recall that the matrix chain multiplication problem has the signature \(\{\algnull, \algplus, \algterm, \algtimes\}\).
@@ -1655,8 +1532,6 @@ where each tree has a distinguished root node,
 and where nodes can have an arbitrary number of children.
 Following \textcite{BruggemannKlein2001RegularTreeRegular}, we refer to such structures as \emph{hedges}.
 
-\newcommand{\hedges}{\mathcal{H}}
-
 \begin{definition}[Hedges]
     Let \(T\) be a set of terminals.
     The set \(\hedges(T)\) of \emph{hedges} on \(T\) is defined inductively as follows:
@@ -1904,8 +1779,6 @@ This matches the results from~\parencite{Jiang1995AlignmentTreesAlternative}.
 A natural way to decompose sets is through partitions.
 A multiset is similar to a sequence but without a specific order on its elements.
 Algebraically, they can be seen as sequences but where the concatenation operator is commutative.
-
-\newcommand{\multisets}{\mathcal{M}}
 
 Let \(T\) be a set of terminals. The set \(\multisets(T)\) of \emph{multisets} on \(T\) contains the empty multiset \(\emptyset\) containing no elements, the singleton set \(t\) for \(t \in T\).
 For any two multisets \(m\) and \(m'\), \(m\mid m'\) is the multiset containing the elements of \(m\) and the elements of \(m'\).

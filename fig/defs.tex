@@ -394,3 +394,63 @@
 
 \definecolor{lightblue}{HTML}{0074D9}
 \definecolor{lightgreen}{HTML}{2ECC40}
+
+% ADP diagrams
+\tikzset{
+    term/.style={
+        minimum size=.4cm,
+        inner sep=0pt,
+        outer sep=0pt,
+        outer xsep=.15cm,
+    },
+    node/.style={
+        circle,
+        minimum size=.4cm,
+        draw=black,
+        line width=#1,
+    },
+    node/.default={0.4pt},
+    plus/.style={
+        node={#1},
+        circle,
+        minimum size=.4cm,
+        draw=black,
+        line width=#1,
+        append after command={
+            (\tikzlastnode.north) edge[line width=#1] (\tikzlastnode.south)
+            (\tikzlastnode.east) edge[line width=#1] (\tikzlastnode.west)
+        },
+    },
+    plus/.default={0.4pt},
+    chosen plus/.style={plus=1.2pt},
+    times/.style={
+        circle,
+        minimum size=.4cm,
+        draw=black,
+        line width=#1,
+        append after command={
+            (\tikzlastnode.north east) edge[line width=#1] (\tikzlastnode.south west)
+            (\tikzlastnode.south east) edge[line width=#1] (\tikzlastnode.north west)
+        },
+    },
+    times/.default={0.4pt},
+    chosen times/.style={times=1.2pt},
+    outdomain/.style 2 args={
+        label={[%
+            inner sep=1pt,
+            outer sep=0pt,
+        ]#1:\small\(\scriptstyle #2\)},
+    },
+    arc/.style={->, >=Latex},
+    chosen arc/.style={arrows={-Latex[scale=.7]}, very thick},
+    outside node/.style 2 args={
+        node,
+        inner sep=0pt,
+        minimum size=4pt,
+        label={[%
+            inner xsep=2pt,
+            inner ysep=-1pt,
+            outer sep=0pt,
+        ]#1:\small\(\scriptstyle #2\)\strut},
+    },
+}

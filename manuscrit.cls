@@ -154,7 +154,7 @@
 \renewcommand{\algorithmicindent}{.8em}
 \algrenewcommand{\alglinenumber}[1]{\color{gray}\scriptsize#1}
 
-\tikzset{
+\tikzset{ % style des boîtes dessinées par algpseudocodex dans des algorithmes
     algpxDefaultBox/.style={
         fill=black!10,
         draw=black!40,
