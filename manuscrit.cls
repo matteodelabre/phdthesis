@@ -139,6 +139,7 @@
 
 %% Tables
 \RequirePackage{booktabs}
+\RequirePackage{multirow}
 
 %% Code
 \RequirePackage[section]{minted}

@@ -427,7 +427,7 @@ It is more useful when used as the foundation for other combinators.
 \end{lemma}
 % TODO: add proof?
 
-\subsubsection{Lexicographic choice}
+\subsubsection{Lexicographic choice}\label{sec:adp:alg-combin:lex}
 
 Consider the case where an evaluation and selection scheme has been designed for a given problem in the form of a monotonic evaluation algebra \(\alg\), and one not only wants to compute the optimal value of a solution but also to retrieve information about the set of optimal solutions, for instance their multiplicity.
 Given an evaluation algebra \(\algb\) that computes the desired characteristic, the lexicographic choice combinator automatically combines \(\alg\) and \(\algb\) so as to compute the value of \(\algb\) over all solutions of optimal value according to \(\alg\).
@@ -1061,7 +1061,7 @@ Moreover, taking \(X\) as the set of all solutions of \(C_v\), we have \(\sum_{x
 because \(C\) is non-redundant and \(\algplus\) corresponds to addition.
 This implies \(\prob_{\alg,v}(X) = 1\), confirming that \(\prob_{\alg,v}\) is a valid probability distribution.
 
-\Cref{alg:circ-sample} gives a generic and efficient method to sample a solution from a solution space encoded as a circuit \(C\) according to a probability distribution defined by an algebra \(\alg\).
+\Cref{alg:adp:circ-sample} gives a generic and efficient method to sample a solution from a solution space encoded as a circuit \(C\) according to a probability distribution defined by an algebra \(\alg\).
 This algorithm follows the recursive method of \textcite{Wilf1977UnifiedSettingSequencing} and its generalization by \textcite{Ponty2011CombinatorialFrameworkDesigning}.
 
 \begin{algorithm}
@@ -1085,11 +1085,11 @@ This algorithm follows the recursive method of \textcite{Wilf1977UnifiedSettingS
     \end{algorithmic}
     \caption{
         Generic sampling algorithm for algebraic circuits.
-        \label{alg:circ-sample}
+        \label{alg:adp:circ-sample}
     }
 \end{algorithm}
 
-\begin{theorem}[Validity of~\cref{alg:circ-sample}]
+\begin{theorem}[Validity of~\cref{alg:adp:circ-sample}]
     Let \(\alg\) be a weighting algebra and \(C\) be an algebraic circuit both on the same signature \(\algsign\).
     For any vertex \(v\) of \(C\),
     \(\Call{\emph{sample}}{\alg, C, v}\) produces a subcircuit~\(x\) of \(C_v\) with probability \(\prob_{\alg,v}(x)\).
@@ -1122,7 +1122,7 @@ This algorithm follows the recursive method of \textcite{Wilf1977UnifiedSettingS
     %Using the construction of \cref{ex:construct-circ-optimal}, one can obtain a circuit encoding only the optimal solutions and perform uniform sampling among those.
 \end{example}
 
-\begin{example}[Boltzmann sampling]
+\begin{example}[Boltzmann sampling]\label{ex:adp:space-enum-sample:boltz}
     It may be desired to perform sampling not only among the optimal solutions, but also among the near-optimal ones.
     For example in RNA secondary structure prediction, the near-optimal solutions can prove very insightful~\parencite{McCaskill1990EquilibriumPartitionFunction}.
     One way to do this would be to use the algebra combinators from~\cref{sec:adp:alg-combin:sort} as in~\cref{ex:construct-circ-optimal} to build a circuit containing optimal solutions and near-optimal solutions within a fixed bound of the optimal value.
@@ -1139,10 +1139,10 @@ This algorithm follows the recursive method of \textcite{Wilf1977UnifiedSettingS
     \(\algplus = +\)
     and, for any combination operator \(f\),
     \(f^{\boltz(\alminplus)}_t(x_1, \ldots, x_k) = e^{-c(t)/T} \prod_{i=1}^k{x_k}\).
-    This algebra turns \(\alminplus\) into a weighting algebra that assigns to each solution its Boltzmann weight and therefore it can be used inside~\cref{alg:circ-sample} to perform Boltzmann sampling.
+    This algebra turns \(\alminplus\) into a weighting algebra that assigns to each solution its Boltzmann weight and therefore it can be used inside~\cref{alg:adp:circ-sample} to perform Boltzmann sampling.
 \end{example}
 
-\subsection{Outside solutions}
+\subsection{Outside solutions}\label{sec:adp:space-enum-sample:outside}
 
 Often, a single solution or sample of solutions does not give a complete picture of the solution space.
 Given an algebraic circuit, another interesting metric is: what is the probability that a given node appears in a randomly selected solution?

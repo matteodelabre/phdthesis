@@ -142,9 +142,51 @@ Cette complexité correspond à celle de l’algorithme développé par ZZZ (Exa
 
 \subsection{Résultats}
 
-% espaces des réconciliations
+L’application de la grammaire \(\gramrec\) sur l’entrée à gauche de la \cref{fig:adp-rec:rec-input} engendre un certain espace de solutions représenté sous la forme d’un circuit algébrique sur lequel différentes algèbres peuvent être appliquées.
+Ce circuit algébrique correspond au \emph{graphe de réconciliation} étudié notamment par \textcite{Scornavacca2013RepresentingSetReconciliations,Wang2022EfficientlySparseListing}.
+L’\cref{alg:adp:circ-sample} pour l’échantillonage de solutions appliqué à ce graphe correspond exactement à celui développé par \textcite{Bansal2013ReconciliationRevisitedHandling} spécifiquement pour le problème de réconciliation.
 
-% TODO: Figures/résultats, illustration de l’espace des solutions, référence à MF Sagot et autre article espace des solutions, afficher les supports, discuter de Boltzmann/Pareto
+\begin{figure}[p]
+    \capstart
+    \centering
+    \input{fig/adp-rec/rec-input}
+    \caption{
+        \emph{(Gauche.)} Exemple d’instance \((T, S)\) du problème de \(\recmodelDTLx\)-parcimonie.
+        \emph{(Droite.)} Unique solution optimale pour un coût de \(\cost(\evtD) = 2\), \(\cost(\evtT) = 3\), \(\cost(\evtL) = 1\) et \(\cost(\evtTX) = \infty\).
+        Voir les légendes des \cref{fig:reconciliation:strict-rec,fig:reconciliation:rec-trees} pour les explications de lecture.
+        \label{fig:adp-rec:rec-input}
+    }
+\end{figure}
+
+En utilisant l’algèbre~\(\alminplus_e\) avec un coût de \(\cost(\evtD) = 2\), \(\cost(\evtT) = 3\), \(\cost(\evtL) = 1\) et \(\cost(\evtTX) = \infty\), nous obtenons un nombre coût minimal de~10.
+En combinant cette algèbre avec l’algèbre de traçage \(\altrace(\algsignrec)\) via le combinateur lexicographique décrit à la \cref{sec:adp:alg-combin:lex}, il est possible de construire la solution atteignant ce coût présentée à droite de la \cref{fig:adp-rec:rec-input}.
+En construisant une algèbre de Pareto, nous pouvons obtenir le diagramme de la \cref{fig:adp-rec:set-pareto}, qui montre qu’il existe plusieurs autres solutions optimales potentielles en faisant varier les différents paramètres de coûts.
+
+\begin{figure}[H]
+    \capstart
+    \centering
+    \input{fig/adp-rec/rec-pareto}
+    \caption{
+        Mosaïque des régions d’optimalité des coûts selon trois dimensions: nombre d’événements de duplication, de transfert et de perte.
+        Le diagramme montre la tranche de l’espace des coûts pour \(\cost(\evtL) = 1\).
+        La région \((2,1,3)\) contient la solution de la \cref{fig:adp-rec:rec-input}.
+        \label{fig:adp-rec:rec-pareto}
+    }
+\end{figure}
+
+\begin{table}[p]
+    \capstart
+    \centering
+    \scalebox{.95}{\input{fig/adp-rec/rec-supports}}
+    \caption{
+        Probabilité d’occurrence des événements dans un scénario moyen de la distribution de Boltzmann avec température \(T=1\) pour l’entrée et les coûts de la \cref{fig:adp-rec:rec-input}.
+        Le tableau indique la probabilité que chaque sommet de \(T\) soit assigné à un type d’événement \(\evtS\), \(\evtD\) ou \(\evtT\) et associé à un hôte de l’arbre~\(S\).
+        \label{fig:adp-rec:rec-supports}
+    }
+\end{table}
+
+Finalement, il est possible d’échantillonner des solutions quasioptimales en construisant une algèbre de Boltzmann comme décrit à la \cref{ex:adp:space-enum-sample:boltz}.
+De cet ensemble peuvent être calculées efficacement les probabilités que chaque embranchement soit assigné à un événement donné ou à un hôte donné dans une solution moyenne (voir \cref{fig:adp-rec:rec-supports}) via le calcul des contributions externes introduit à la \cref{sec:adp:space-enum-sample:outside}, généralisant ainsi l’approche développée par~\textcite{Nguyen2013SupportMeasuresEstimate}.
 
 \section{Parcimonie de groupes}\label{sec:adp-rec:set}
 
@@ -303,7 +345,7 @@ Cependant, il est aisé de déterminer un exemple de contenu pour une telle solu
 
 L’application de la grammaire \(\gramset\) sur l’entrée à gauche de la \cref{fig:adp-rec:set-example} engendre un certain espace de solutions sur lequel différentes algèbres peuvent être appliquées.
 En utilisant l’algèbre~\(\alminplus_{\cost_\evtG,\cost_\evtL}\) avec un coût unitaire, nous obtenons un nombre d’événements minimal de~8.
-En combinant cette algèbre avec l’algèbre de traçage \(\altrace(\algsignrec)\) via le combinateur lexicographique décrit à la \cref{sec:adp:alg-combin:lex}, il est possible de construire la solution atteignant ce coût présentée à droite de la \cref{fig:adp-rec:set-example}.
+En combinant cette algèbre avec l’algèbre de traçage \(\altrace(\algsignset)\) via le combinateur lexicographique décrit à la \cref{sec:adp:alg-combin:lex}, il est possible de construire la solution atteignant ce coût présentée à droite de la \cref{fig:adp-rec:set-example}.
 
 L’utilisation d’un coût affine fixant le coût d’ouverture des gains et des pertes à \(b_\evtL = b_\evtG = 3\) et leur coût d’extension à \(a_\evtL = a_\evtG = 1\) donne la solution présentée à gauche de la \cref{fig:adp-rec:set-solutions}.
 En construisant une algèbre de Pareto, nous pouvons obtenir le diagramme de la \cref{fig:adp-rec:set-pareto}, qui montre qu’il existe plusieurs autres solutions optimales potentielles en faisant varier les différents paramètres de coûts.
@@ -327,12 +369,12 @@ Cet ensemble peuvent être caractérisés en calculant l’espérance de la tail
 \begin{figure}[p]
     \capstart
     \centering
-    \scalebox{1}{\input{fig/adp-rec/set-pareto}}
+    \input{fig/adp-rec/set-pareto}
     \caption{
         Mosaïque des régions d’optimalité des coûts selon trois dimensions: nombre d’événements de perte, nombre d’événements de gain et nombre d’unités perdues.
         Ceci correspond à des coûts affines de la forme \(\cost_\evtG(n) = n + b_\evtG\) et \(\cost_\evtL(n) = a \cdot n + b_\evtL\).
         Le diagramme montre la tranche de l’espace des coûts pour \(a = 1\).
-        La région \((5,3,11)\) correspond à un coût unitaire et l’unique solution optimale pour ce coût est celle illustrée dans la \cref{fig:adp-rec:set-example}.
+        La région \((5,3,11)\) inclut le coût unitaire et l’unique solution optimale pour ce coût est celle illustrée dans la \cref{fig:adp-rec:set-example}.
         La solution de la \cref{fig:adp-rec:set-solutions} est l’unique optimale dans la région \((4, 5, 6)\).
         Les régions \((7,1,19)\), \((8,1,16)\) et \((9,1,14)\) contiennent les trois solutions qui placent tous les gains à la racine avec \(7\), \(8\) ou \(9\) événements de perte.
     }
@@ -499,3 +541,13 @@ Cette règle se manifeste dans le produit ci-dessus au niveau des clauses \label
 
 Notons que sans l’altération de ces deux clauses, le produit des deux grammaires présenterait peu d’intérêt puisqu’il serait équivalent à optimiser de manière entièrement indépendante d’une part les événements de réconciliation bilatérale et d’autre part les événements segmentaux.
 Ainsi, une des pistes de recherche pour systématiser les produits de grammaires pourrait consister à rechercher un opérateur qui a exactement pour conséquence d’engendrer un espace de solutions qui permet de parcourir le produit cartésien des ensembles de solutions respectifs des deux grammaires initiales. 
+
+\section{Discussion}
+
+Dans le contexte de la réconciliation phylogénétique, il s’est écoulé plusieurs années entre le premier algorithme de programmation dynamique pour la réconciliation avec transfert horizontaux par \textcite{Hallett2004SimultaneousIdentificationDuplications}, limité à l’obtention d’une unique solution optimale arbitraire pour un coût fixé, et les travaux de \textcite{Scornavacca2013RepresentingSetReconciliations} sur l’analyse de l’ensemble des solutions optimales, de \textcite{Bansal2013ReconciliationRevisitedHandling} sur l’échantillonage uniforme des solutions, de \textcite{Donati2015EfficientTreeReconciliation} sur leur énumération, de \textcite{LibeskindHadas2014ParetoOptimalPhylogenetic} sur l’obtention de solutions Pareto-optimales indépendamment des coûts, ou plus récemment de \textcite{Wang2022EfficientlySparseListing} sur l’énumération de classes d’équivalences.
+
+Dans ce chapitre, nous avons démontré que l’utilisation des méthodes de programmation dynamique algébrique introduites au chapitre précédent permet de réaliser directement ce type d’analyse avancée sur l’espace des réconciliations.
+Ainsi, l’approche algébrique a le potentiel d’accélérer la recherche menée sur les algorithmes d’optimisation combinatoire en généralisant les algorithmes développés sur des problèmes spécialisés et en permettant de les appliquer aisément à une variété de problèmes.
+
+Finalement, nous avons également montré comment un algorithme pour le problème de réconciliation segmentale peut être obtenu par la composition de deux algorithmes résolvant de manière indépendante deux aspects du problème.
+D’autres travaux restent à mener dans cette direction afin d’obtenir une construction formelle de cette composition.

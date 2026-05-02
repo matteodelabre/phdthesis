@@ -1,0 +1,58 @@
+%! TeX root = ../../main.tex
+% vim: set spelllang=fr:
+\begin{tikzpicture}
+    \begin{scope}[xscale=-1]
+        \graph[
+            phylogenetic tree layout,
+            nodes={font=\small\bfseries},
+            evolutionary unit length=1cm,
+        ]{
+            s1 / [coordinate, label={[yshift=2pt]left:\(s_1\)}] -- {
+                s2 / [coordinate, label={left:\(s_2\)}] -- {
+                    1,
+                    2,
+                },
+                s3 / [coordinate, label={right:\(s_3\)}] -- {
+                    3,
+                    4,
+                },
+            },
+        };
+        \node at (0, -2.8) {\(S\)};
+    \end{scope}
+
+    \begin{scope}[shift={(-4.25,0)},xscale=-1]
+        \graph[
+            phylogenetic tree layout,
+            nodes={font=\small\itshape},
+            evolutionary unit length=.5cm,
+        ]{
+            t1 / [coordinate, label={[yshift=2pt]left:\(t_1\)}] -- {
+                t2 / [coordinate, label={left:\(t_2\)}] -- {
+                    t3 / [coordinate, label={left:\(t_3\)}] -- {
+                        t4 / [coordinate, label={left:\(t_4\)}] -- {
+                            l1s4 / 1,
+                            l1s3 / 3,
+                        },
+                        l2s4 / 2 [> length=2],
+                    },
+                    l2s6 / 4 [> length=3],
+                },
+                t5 / [coordinate, label={right:\(t_5\)}] -- {
+                    l1s2 / 1 [> length=3],
+                    t6 / [coordinate, label={right:\(t_6\)}] -- {
+                        l1s1 / 4 [> length=2],
+                        l1s0 / 4 [> length=2],
+                    },
+                },
+            },
+        };
+        \node at (.2, -2.8) {\(T\)};
+    \end{scope}
+
+    \draw[separator rule] (2, -2.9) -- ++(0, 3);
+
+    \begin{scope}[shift={(3,-2.6)}]
+        \input{fig/adp-rec/rec-solution-best}
+    \end{scope}
+\end{tikzpicture}
