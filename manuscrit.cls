@@ -395,7 +395,7 @@
 
     \vspace{1ex}
     \personref{\@jurypres}\\
-    Présidente
+    Présidente rapporteuse
 
     \personref{\@jurydirec}\\
     Directrice de recherche

@@ -37,7 +37,6 @@ Le problème de réconciliation segmentale peut être vu comme une combinaison d
 Dans ce chapitre, nous montrons que l’approche algébrique présentée précédemment permet de rendre cette intuition précise et concrète.
 Nous faisons indépendamment un traitement algébrique de chacun des deux problèmes dans les \cref{sec:adp-rec:bilateral,sec:adp-rec:set} puis montrons comment combiner leurs solutions pour résoudre la réconciliation segmentale dans la \cref{sec:adp-rec:both}.
 
-\newpage
 \section{Réconciliation bilatérale}\label{sec:adp-rec:bilateral}
 
 \newcommand{\algsignrec}{\algsign_{\mathrm{rec}}}
@@ -103,24 +102,23 @@ Les clauses de la grammaire sont
 \begin{subequations}
 \begin{align}
     \gRec[t(), v()] &\rightarrow \evLeaf_{t,v}
-    \qquad\text{\itshape\small (seulement lorsque \(\llmap(t) = v\))}\\
+    \qquad\text{\itshape\small (seulement lorsque \(\llmap(t) = v\))} \label{eq:adp-rec:bilateral-grammar-leaf}\\[2ex]
     \gRec[(T') \mid (T''), (S_L)(S_R)] &\rightarrow
         \evSpe_{t,v}(\gRecPath[(T'), (S_L), 0], \gRecPath[(T''), (S_R), 0]) \label{eq:adp-rec:bilateral-grammar-spe} \\
     \gRec[(T_L)(T_R), S] &\rightarrow
         \evDup_{t,v}(\gRecPath[(T_L), S, 0], \gRecPath[(T_R), S, 0]) \label{eq:adp-rec:bilateral-grammar-dup} \\
     \gRec[(T') \mid (T''), S] &\rightarrow
-        \evTr_{t,v}(\gRecOut[(T'), S], \gRecPath[(T''), S, 0]) \label{eq:adp-rec:bilateral-grammar-tr} \\[1ex]
+        \evTr_{t,v}(\gRecOut[(T'), S], \gRecPath[(T''), S, 0]) \label{eq:adp-rec:bilateral-grammar-tr} \\[2ex]
     \gRecPath[T, (S') \mid S'', N] &\rightarrow \gRecPath[T, S', N+1] \label{eq:adp-rec:bilateral-grammar-path-down}\\
-    \gRecPath[T, S, N] &\rightarrow \evSkip_N(\gRec[T, S]) \label{eq:adp-rec:bilateral-grammar-path-end}\\[1ex]
+    \gRecPath[T, S, N] &\rightarrow \evSkip_N(\gRec[T, S]) \label{eq:adp-rec:bilateral-grammar-path-end}\\
     \gRecIn[T, (S') \mid S''] &\rightarrow \gRecIn[T, S'] \label{eq:adp-rec:bilateral-grammar-in-down}\\
-    \gRecIn[T, S] &\rightarrow \gRec[T, S] \label{eq:adp-rec:bilateral-grammar-in-end}\\[1ex]
+    \gRecIn[T, S] &\rightarrow \gRec[T, S] \label{eq:adp-rec:bilateral-grammar-in-end}\\[2ex]
     \gRecOut[T, S \text{ frère de } S'] &\rightarrow
         \gRecIn[T, S'] \label{eq:adp-rec:bilateral-grammar-out-side}\\
     \gRecOut[T, S \text{ parent de } P] &\rightarrow
         \gRecOut[T, P] \label{eq:adp-rec:bilateral-grammar-out-up}
 \end{align}
 \end{subequations}}%
-
 Les clauses \labelcref{eq:adp-rec:bilateral-grammar-spe,eq:adp-rec:bilateral-grammar-dup,eq:adp-rec:bilateral-grammar-tr} agissent au niveau des embranchements de l’arbre \(T\) pour y insérer des événements de cospéciation, duplication ou transfert.
 Pour rappel, la notation \((T')\mid(T'')\) indique que \(T'\) et \(T''\) sont les deux enfants du sommet actuel dans n’importe quel ordre, alors que la notation \((T_L)(T_R)\) indique que l’ordre des enfants est conservé.
 
@@ -268,20 +266,23 @@ La grammaire utilise trois prédicats définis ainsi:
 \end{compactitemize}
 L’ensemble des solutions est constitué des termes dérivés de \(\gBranch[T, |\geneFamilySet|, 0]\), où \(T\) est l’arbre d’entrée et \(\geneFamilySet\) l’ensemble de toutes les unités.
 Les clauses de la grammaire sont:
+{\allowdisplaybreaks
 \begin{subequations}
 \begin{align}
-    &\gSplit[(), 0, 0] \rightarrow \evLeaf \\[1ex]
-    &\gSplit[(T_L)(T_R), G_L + G_R, L]\label{eq:adp-rec:set-split-inner}\\\nonumber
-    \rightarrow\ &\evSplit_{G_L, G_R, L}(
-    \begin{aligned}[t]
-        &\gBranch[T_L, G_L, L + |\xlca(T_R)| - G_R + |\xmin(T) - \xmin(T_L)|], \\
-        &\gBranch[T_R, G_R, L + |\xlca(T_L)| - G_L + |\xmin(T) - \xmin(T_R)|])
-    \end{aligned}\\
-    &\text{\itshape\small (seulement lorsque \(|\xlca(T_L)| \ge G_L\) and \(|\xlca(T_R)| \ge G_R\))}\nonumber\\[1ex]
-    &\gBranch[T, G, L_H + L_D] \rightarrow \evLoss_{L_H}(\gBranch'[T, G, L_D]) \label{eq:adp-rec:set-split-loss}\\
-    &\gBranch'[T, G_H + G_D, L] \rightarrow \evGain_{G_H}(\gSplit[T, G_D, L]). \label{eq:adp-rec:set-split-gain}
+    \gSplit[(), 0, 0] &\rightarrow \evLeaf \label{eq:adp-rec:set-split-leaf} \\[2ex]
+    \begin{aligned}
+        &\gSplit[(T_L)(T_R), G_L + G_R, L] \\
+        \rightarrow\ & \evSplit_{G_L, G_R, L}(
+            \begin{aligned}[t]
+                &\gBranch[T_L, G_L, L + |\xlca(T_R)| - G_R + |\xmin(T) - \xmin(T_L)|], \\
+                &\gBranch[T_R, G_R, L + |\xlca(T_L)| - G_L + |\xmin(T) - \xmin(T_R)|])
+            \end{aligned} \\
+        &\text{\itshape\small (seulement lorsque \(|\xlca(T_L)| \ge G_L\) and \(|\xlca(T_R)| \ge G_R\))}
+    \end{aligned} \span \label{eq:adp-rec:set-split-inner}\\[2ex]
+    \gBranch[T, G, L_H + L_D] &\rightarrow \evLoss_{L_H}(\gBranch'[T, G, L_D]) \label{eq:adp-rec:set-split-loss}\\
+    \gBranch'[T, G_H + G_D, L] &\rightarrow \evGain_{G_H}(\gSplit[T, G_D, L]). \label{eq:adp-rec:set-split-gain}
 \end{align}
-\end{subequations}
+\end{subequations}}%
 La clause \labelcref{eq:adp-rec:set-split-inner} s’applique à chaque embranchement de \(T\).
 Chacune des \(G\) unités qui restent à gagner à un certain embranchement peuvent être gagnés dans le sous-arbre gauche ou dans le sous-arbre droit, d’où la division en \(G = G_L + G_R\).
 Il faut toutefois s’assurer qu’il y ait suffisamment de gains \(G_L\) et \(G_R\) disponibles pour satisfaire le nombre \(|\xlca(T_L)|\) et \(|\xlca(T_R)|\) d’unités à gagner de chaque côté.
@@ -338,9 +339,163 @@ Cet ensemble peuvent être caractérisés en calculant l’espérance de la tail
     \label{fig:adp-rec:set-pareto}
 \end{figure}
 
-% TODO: Figures/résultats, illustration de l’espace des solutions, référence à MF Sagot et autre article espace des solutions, afficher les supports, discuter de Boltzmann/Pareto
+\section{Réconciliation segmentale}\label{sec:adp-rec:both}
 
-\clearpage
-\section{Combinaison}\label{sec:adp-rec:both}
+\newcommand{\gramseq}{\gram_{\mathrm{seq}}}
+\newcommand{\gRecSplit}{\mathrm{RecSplit}}
+\newcommand{\gRecPathBranch}{\mathrm{RecBranch}^{\downarrow}}
+\newcommand{\gRecInBranch}{\mathrm{RecBranch}^{\ast}}
+\newcommand{\gRecOutBranch}{\mathrm{RecBranch}^{\curvearrowright}}
+\newcommand{\gRecBranchEnd}{\mathrm{RecBranch}'}
 
-...
+Le problème de réconciliation segmentale tel qu’introduit à la \cref{sec:reconciliation:multiple:segmental} peut être vu comme demandant de résoudre simultanément le problème de réconciliation bilatérale et de parcimonie d’ensembles en respectant certaines contraintes supplémentaires.
+Nous proposons pour ce faire de combiner les grammaires \(\gramrec\) et \(\gramset\) en une grammaire \(\gramseq\).
+Au meilleur de nos connaissances, il n’existe présentement pas de méthode générale permettant de combiner des grammaires de structures et davantage de recherche est requise dans cette direction.
+Dans la suite, nous réalisons donc une construction ad-hoc dont des principes plus généraux pourront être tirés ultérieurement.
+
+Intuitivement, cette combinaison est réalisée en prenant le produit cartésien des prédicats et des règles des deux grammaires.
+Chaque paire de prédicats ainsi obtenue agit sur les dimensions \(T\), \(S\) et \(N\) de \(\gramrec\) et sur les dimensions \(T\), \(G\) et \(L\) de \(\gramset\), la dimension \(T\) étant partagée entre les deux grammaires.
+Chaque paire de clauses est combinée lorsque les motifs de leurs têtes sont compatibles sur les dimensions qu’elles partagent.
+Les corps des clauses sont combinés de manière ad-hoc.
+Les clauses résultantes sont présentées ci-dessous et dans le \cref{tab:adp-rec:product}.
+{\allowdisplaybreaks
+\begin{subequations}
+\begin{align}
+    \gRecSplit[t(), v(), 0, 0] &\rightarrow \evLeaf_{t,v}
+    \qquad\text{\itshape\small (seulement lorsque \(\llmap(t) = v\))} \label{eq:adp-rec:comb-grammar-leaf}\\[2ex]
+    \begin{aligned}
+        &\gRecSplit[(T') \mid (T''), (S_L)(S_R), G_L + G_R, L] \\
+        \rightarrow\ & \evSpe_{t,v,G_L,G_R,L}(
+            \begin{aligned}[t]
+                &\gRecPathBranch[(T'), (S_L), 0, G_L, L + |\xlca(T_R)| - G_R + |\xmin(T) - \xmin(T_L)|], \\
+                &\gRecPathBranch[(T''), (S_R), 0, G_R, L + |\xlca(T_L)| - G_L + |\xmin(T) - \xmin(T_R)|])
+            \end{aligned} \\[-2ex]
+        \intertext{\hspace*{3em}\itshape\small (seulement lorsque \(|\xlca(T_L)| \ge G_L\) and \(|\xlca(T_R)| \ge G_R\))}
+    \end{aligned} \span \label{eq:adp-rec:comb-grammar-spe} \\[1ex]
+    \begin{aligned}
+        &\gRecSplit[(T') \mid (T''), S, G_L + G_R, L] \\
+        \rightarrow\ & \evDup_{t,v,G_L,G_R,L}(
+            \begin{aligned}[t]
+                &\gRecPathBranch[(T'), S, 0, G_L, 0], \\
+                &\gRecPathBranch[(T''), S, 0, G_R, L + |\xlca(T_L)| - G_L + |\xmin(T) - \xmin(T_R)|])
+            \end{aligned} \\[-2ex]
+        \intertext{\hspace*{3em}\itshape\small (seulement lorsque \(|\xlca(T_L)| \ge G_L\) and \(|\xlca(T_R)| \ge G_R\))}
+    \end{aligned} \span \label{eq:adp-rec:comb-grammar-dup} \\[1ex]
+    \begin{aligned}
+        &\gRecSplit[(T') \mid (T''), S, G_L + G_R, L] \\
+        \rightarrow\ & \evTr_{t,v,G_L,G_R,L}(
+            \begin{aligned}[t]
+                &\gRecOutBranch[(T'), S, 0, G_L, 0], \\
+                &\gRecPathBranch[(T''), S, 0, G_R, L + |\xlca(T_L)| - G_L + |\xmin(T) - \xmin(T_R)|])
+            \end{aligned} \\[-2ex]
+        \intertext{\hspace*{3em}\itshape\small (seulement lorsque \(|\xlca(T_L)| \ge G_L\) and \(|\xlca(T_R)| \ge G_R\))}
+    \end{aligned} \span \label{eq:adp-rec:comb-grammar-tr} \\[1ex]
+    \gRecPathBranch[T, (S') \mid S'', N, G, L]
+        &\rightarrow \gRecPathBranch[T, S', N+1, G, L] \label{eq:adp-rec:comb-grammar-path-down} \\
+    \gRecPathBranch[T, S, N, G, L_H + L_D]
+        &\rightarrow \evSkip_N(\evLoss_{L_H}(\gRecBranchEnd[T, S, G, L_D])) \label{eq:adp-rec:comb-grammar-path-end} \\[2ex]
+    \gRecInBranch[T, (S') \mid S'', G, L] &\rightarrow \gRecInBranch[T, S', G, L] \label{eq:adp-rec:comb-grammar-in-down} \\
+    \gRecInBranch[T, S, G, L] &\rightarrow \evLoss_{L_H}(\gRecBranchEnd[T, S, G, L_D]) \label{eq:adp-rec:comb-grammar-in-end} \\[2ex]
+    \gRecOutBranch[T, S \text{ frère de } S', G, L] &\rightarrow \gRecInBranch[T, S', G, L] \label{eq:adp-rec:comb-grammar-out-side} \\
+    \gRecOutBranch[T, S \text{ parent de } P, G, L] &\rightarrow \gRecOutBranch[T, P, G, L] \label{eq:adp-rec:comb-grammar-out-up} \\
+    \gRecBranchEnd[T, S, G_H + G_D, L] &\rightarrow \evGain_{G_H}(\gRecSplit[T, S, G_D, L]) \label{eq:adp-rec:comb-grammar-gain}
+\end{align}
+\end{subequations}}
+
+\begin{table}[h]
+    \capstart
+    \centering
+    \begin{tabular}{ccccccccccc}
+        \toprule
+        & \textbf{\ref{eq:adp-rec:bilateral-grammar-leaf}}
+        & \textbf{\ref{eq:adp-rec:bilateral-grammar-spe}}
+        & \textbf{\ref{eq:adp-rec:bilateral-grammar-dup}}
+        & \textbf{\ref{eq:adp-rec:bilateral-grammar-tr}}
+        & \textbf{\ref{eq:adp-rec:bilateral-grammar-path-down}}
+        & \textbf{\ref{eq:adp-rec:bilateral-grammar-path-end}}
+        & \textbf{\ref{eq:adp-rec:bilateral-grammar-in-down}}
+        & \textbf{\ref{eq:adp-rec:bilateral-grammar-in-end}}
+        & \textbf{\ref{eq:adp-rec:bilateral-grammar-out-side}}
+        & \textbf{\ref{eq:adp-rec:bilateral-grammar-out-up}}
+        \\
+        \midrule
+        \textbf{\ref{eq:adp-rec:set-split-leaf}}
+        & \ref{eq:adp-rec:comb-grammar-leaf}
+        & ---
+        & ---
+        & ---
+        & ---
+        & ---
+        & ---
+        & ---
+        & ---
+        & ---
+        \\
+        \midrule
+        \textbf{\ref{eq:adp-rec:set-split-inner}}
+        & ---
+        & \ref{eq:adp-rec:comb-grammar-spe}
+        & \ref{eq:adp-rec:comb-grammar-dup}\textsuperscript{*}
+        & \ref{eq:adp-rec:comb-grammar-tr}\textsuperscript{*}
+        & ---
+        & ---
+        & ---
+        & ---
+        & ---
+        & ---
+        \\
+        \midrule
+        \textbf{\ref{eq:adp-rec:set-split-loss}}
+        & ---
+        & ---
+        & ---
+        & ---
+        & \ref{eq:adp-rec:comb-grammar-path-down}
+        & \ref{eq:adp-rec:comb-grammar-path-end}
+        & \ref{eq:adp-rec:comb-grammar-in-down}
+        & \ref{eq:adp-rec:comb-grammar-in-end}
+        & ---
+        & ---
+        \\
+        \midrule
+        \textbf{\ref{eq:adp-rec:set-split-gain}}
+        & ---
+        & ---
+        & ---
+        & ---
+        & ---
+        & \ref{eq:adp-rec:comb-grammar-gain}
+        & ---
+        & \ref{eq:adp-rec:comb-grammar-gain}
+        & ---
+        & ---
+        \\
+        \midrule
+        \emph{(boucle)}
+        & ---
+        & ---
+        & ---
+        & ---
+        & ---
+        & ---
+        & ---
+        & ---
+        & \ref{eq:adp-rec:comb-grammar-out-side}
+        & \ref{eq:adp-rec:comb-grammar-out-up}
+        \\
+        \bottomrule
+    \end{tabular}
+    \caption{
+        Paires de clauses des grammaires \(\gramrec\) (\ref{eq:adp-rec:bilateral-grammar-leaf} à \ref{eq:adp-rec:bilateral-grammar-out-up}) et \(\gramset\) (\ref{eq:adp-rec:set-split-leaf} à \ref{eq:adp-rec:set-split-gain}) combinées pour former les clauses de la grammaire \(\gramseq\).
+        Dans les clauses \labelcref{eq:adp-rec:comb-grammar-dup,eq:adp-rec:comb-grammar-tr} marquées d’une astérisque, l’un des deux arguments \(L\) a été remplacé par un~0.
+        La dernière rangée correspond à un produit avec une clause bouclante \(\gBranch[T, G, L] \rightarrow \gBranch[T, G, L]\) nécessaire pour faire apparaître les clauses \labelcref{eq:adp-rec:comb-grammar-out-side} et \labelcref{eq:adp-rec:comb-grammar-out-up}.
+        \label{tab:adp-rec:product}
+    }
+\end{table}
+
+Dans le modèle de réconciliation segmentale, les événements de duplication et de transfert sont segmentaux, c’est-à-dire qu’ils affectent seulement un sous-ensemble du groupe original.
+Cela signifie qu’une quantité arbitraire d’unités peuvent disparaître sur l’une des deux branches sortantes (dans le cas du transfert, sur la branche menant à l’espèce séparée) et ce sans nécessiter d’événement de perte.
+Cette règle se manifeste dans le produit ci-dessus au niveau des clauses \labelcref{eq:adp-rec:comb-grammar-dup,eq:adp-rec:comb-grammar-tr} dans lesquelles, comparativement à la clause \labelcref{eq:adp-rec:set-split-inner} dont elles sont issues, la dimension \(L\) a été fixée à 0, ce qui implique que toutes les unités appartenant à l’ensemble \(\xout(v)\) sont automatiquement perdues sans déclencher d’événement de perte.
+
+Notons que sans l’altération de ces deux clauses, le produit des deux grammaires présenterait peu d’intérêt puisqu’il serait équivalent à optimiser de manière entièrement indépendante d’une part les événements de réconciliation bilatérale et d’autre part les événements segmentaux.
+Ainsi, une des pistes de recherche pour systématiser les produits de grammaires pourrait consister à rechercher un opérateur qui a exactement pour conséquence d’engendrer un espace de solutions qui permet de parcourir le produit cartésien des ensembles de solutions respectifs des deux grammaires initiales. 
