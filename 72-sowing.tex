@@ -3,23 +3,23 @@
 \section{sowing --- Manipulation de graphes orientés acycliques}
 \programdetails{https://github.com/UdeM-LBIT/sowing}{GPL v3.0}{Entre mai~2023 et avril~2026, 1\,400 lignes de code}
 
-\emph{sowing} est une bibliothèque écrite dans le langage Python offrant une structure de données persistante permettant de représenter, construire, traverser, modifier et serialiser efficacement des arbres, des forêts et, plus généralement, tout graphe orienté acyclique.
+\emph{sowing} est une bibliothèque écrite dans le langage Python offrant une structure de données persistante permettant de représenter, construire, traverser, modifier et sérialiser efficacement des arbres, des forêts et, plus généralement, tout graphe orienté acyclique.
 Les avantages liés à l’utilisation d’une telle structure de données sont multiples:
 \begin{compactitemize}
     \item les sous-graphes communs peuvent être réutilisés, réduisant ainsi l’empreinte mémoire, sans toutefois risquer de bogues reliés à la modification d’un fragment partagé;
     \item les graphes peuvent être passés d’une fonction ou d’un fil d’exécution à un autre sans nécessiter de copie;
-    \item les graphes peuvent être hachés, ce qui leur permet d’être utilisés comme éléments d’autres structures de données comme des dictionnaires ou des ensembles;
-    \item l’absence d’effets de bords permet d’adopter un style de programmation plus fonctionnel, facilitant le raisonnement sur les programmes produits.
+    \item les graphes peuvent être hachés, ce qui leur permet d’être utilisés comme éléments d’autres structures de données, comme des dictionnaires ou des ensembles;
+    \item l’absence d’effets de bord permet d’adopter un style de programmation plus fonctionnelle, facilitant le raisonnement sur les programmes produits.
 \end{compactitemize}
 
-Les graphes sont représentés sous leur forme récursive habituelle: la classe \texttt{Node} représente un sommet, incluant les données qui lui sont attachées, et les arcs sortants vers les successeurs du sommets, à leur tour représentés par des instances de \texttt{Node}.
-Dans les graphes orientés acycliques qui ne sont pas des graphes, les sommets ayant plusieurs prédécesseurs sont représentés faisant pointer plusieurs sommets vers le même objet en mémoire.
+Les graphes sont représentés sous leur forme récursive habituelle: la classe \texttt{Node} représente un sommet, incluant les données qui lui sont attachées, et les arcs sortants vers les successeurs du sommet, à leur tour représentés par des instances de \texttt{Node}.
+Dans les graphes orientés acycliques qui ne sont pas des graphes, les sommets ayant plusieurs prédécesseurs sont représentés en faisant pointer plusieurs sommets vers le même objet en mémoire.
 Les forêts peuvent être représentées avec la classe \texttt{Hedge}, qui leur attache un sommet artificiel faisant office de racine.
 
 Un \emph{curseur} peut être créé à partir de n’importe quel sommet.
 Ce curseur permet de se déplacer librement dans le graphe en gardant trace du contexte autour du sommet actuel.
 Grâce à cette structure, il est possible de réaliser des modifications locales de l’arbre ou du graphe en temps constant, malgré le caractère immuable de la structure (voir le \cref{lst:logiciel:sowing-ex} pour un exemple).
-Cette structure utilise est basée sur le principe du \emph{zipper} introduit par \textcite{Huet1997Zipper}.
+Cette structure est basée sur le principe du \emph{zipper} introduit par \textcite{Huet1997Zipper}.
 
 \begin{listing}[h]
 \begin{minted}{python}
@@ -55,7 +55,7 @@ Les fonctionnalités de \emph{sowing} sont réparties entre plusieurs modules.
         Cette structure permet également de réaliser les opérations suivantes en temps constant: vérifier si deux sommets sont ancêtres l’un de l’autre, calculer la distance entre deux sommets et identifier le plus récent ancêtre commun ou \emph{lca} de deux sommets.
         Cette structure est basée sur un prétraitement en temps linéarithmique décrit par \textcite{Bender2000LcaProblemRevisited}.
     \item \textbf{\texttt{sowing.traversal}} fournit des itérateurs permettant de traverser une structure d’arbre ou de graphe orienté acyclique selon différents ordres: en profondeur préfixe ou postfixe, en ordre topologique ou en ordre de Euler.
-        Les fonctions \texttt{fold} et \texttt{map} permettent de modifier un arbre en temps linéaire suivant n’importe lequel de ces ordre de parcours.
+        Les fonctions \texttt{fold} et \texttt{map} permettent de modifier un arbre en temps linéaire suivant n’importe lequel de ces ordres de parcours.
     \item \textbf{\texttt{sowing.repr}} permet de charger ou de sérialiser des arbres et
         des graphes orientés acycliques dans plusieurs formats: Newick \parencite{Felsenstein1986NewickTreeFormat}, JSON ou DOT (Graphviz).
     \item \textbf{\texttt{sowing.comb.binary}} permet d’énumérer les binarisations d’un arbre sans considérer l’ordre des successeurs des différents sommets.

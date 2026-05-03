@@ -3,14 +3,15 @@
 \selectlanguage{french}
 \chapter{Théorie unifiée de la programmation dynamique algébrique}\label{chap:adp}
 
-La bioinformatique repose sur de nombreux algorithmes de programmation dynamique permettant de résoudre efficacement des problèmes d’optimisation combinatoire.
+La bio-informatique repose sur de nombreux algorithmes de programmation dynamique permettant de résoudre efficacement des problèmes d’optimisation combinatoire.
 La réconciliation phylogénétique, comme nous avons pu le voir dans les chapitres précédents, ne fait pas exception à cette règle.
 Plusieurs défis sont reliés à la conception de tels algorithmes.
-D’une part, il existe souvent un grand nombre (exponentiel) de solutions optimales à un problème donné, parfois accomagné d’un certain nombre de paramètres qui doivent être déterminés pour exécuter l’algorithme.
-Cette réalité amène des besoins algorithmiques supplémentaires : énumération et échantillonnage de solutions représentatives, caractérisation des solutions proches de l’optimal, calcul de statistiques sur ces solutions, exploration efficace des paramètres.
+D’une part, il existe souvent un grand nombre (exponentiel) de solutions optimales à un problème donné, parfois accompagné d’un certain nombre de paramètres qui doivent être déterminés pour exécuter l’algorithme.
+Cette réalité amène des besoins algorithmiques supplémentaires : énumération et échantillonnage de solutions représentatives, caractérisation des solutions proches de l’optimalité, calcul de statistiques sur ces solutions et exploration efficace des paramètres.
 D’autre part, les algorithmes conçus sont de plus en plus techniques, requérant plusieurs parfois plusieurs pages d’équations pour être décrits et encore davantage pour être démontrés corrects.
 
-L’approche \emph{algébrique} de la programmation dynamique, popularisée par \textcite{Giegerich2004DisciplineDynamicProgramming} dans le domaine de la bioinformatique, vise à offrir un niveau d’abstraction plus élevé afin de faciliter le développement de nouveaux algorithmes.
+L’approche \emph{algébrique} de la programmation dynamique, popularisée par
+\textcite{Giegerich2004DisciplineDynamicProgramming} dans le domaine de la bio-informatique, vise à offrir un niveau d’abstraction plus élevé afin de faciliter le développement de nouveaux algorithmes.
 Cette abstraction permet de résoudre les questions d’analyse de l’espace des solutions d’une manière générique qui peut par la suite être appliquée à tous les problèmes.
 Elle permet aussi, à terme, de concevoir des algorithmes de programmation dynamique complexes en les séparant en sous-tâches plus élémentaires, permettant ainsi de leur appliquer l’un des principes fondamentaux de l’informatique.
 
@@ -40,7 +41,7 @@ L’objet de ce chapitre est de contribuer à bâtir une telle ressource.
     Because the recursive problem decomposition becomes independent of any particular scoring scheme, new questions can be addressed by simply swapping the scoring scheme.
     These schemes, which correspond to algebraic structures known as semirings, can be constructed by combining building blocks reusable across various problems.
     %%%% TODO: grammars
-    Many principles and results of algebraic dynamic programming have been independently discovered by multiple researchers over the last decades.
+    Many principles and results of algebraic dynamic programming have been independently discovered by multiple researchers over the last few decades.
     The main goal of this work is to present these results in a unified and approachable way.
     It is accompanied by a Python library named \emph{padapto}\footnote{Available at \url{https://github.com/matteodelabre/padapto}.} that implements the concepts described herein.
     We also highlight some open problems of interest in the field.
@@ -60,7 +61,7 @@ Additionally, to be efficient, it requires the presence of \emph{overlapping sub
 Dynamic programming has been used successfully on a wide range of problems in fields including operations research, natural language processing, and computational biology.
 In computational biology, problems such as secondary structure prediction, sequence alignment and phylogenetic reconciliation are among the well-known examples that have been solved using this approach.
 
-However, designing a dynamic programming algorithm is often an arduous task and the result is usually highly tailored to the problem at hand.
+However, designing a dynamic programming algorithm is often an arduous task, and the result is usually highly tailored to the problem at hand.
 In many papers, such algorithms are presented in the form of complex recurrences in which the decomposition into subproblems is interleaved with the scoring and selection schemes.
 For simplicity, such presentations focus on computing only the score of an optimal object, whereas most use cases require recovering additional information about these solutions.
 In practice, solution recovery is most often accomplished by adding bookkeeping to the recurrences, coupled with a backtracing procedure, further obscuring the algorithm.
@@ -78,7 +79,7 @@ In practice, solution recovery is most often accomplished by adding bookkeeping 
 
 Over the years, researchers have sought to systematize dynamic programming and to pinpoint conditions under which it is applicable.
 A central idea, formulated as early as~\citeyear{Helman1985ComprehensiveModelDynamic} by~\textcite{Helman1985ComprehensiveModelDynamic}, is to strictly separate \emph{structure}, the recursive decomposition of problems into subproblems, from \emph{evaluation}, the computation of a score for each solution and the selection between multiple solutions.
-This separation reveals that many problems exhibit the same underlying structure and that their algorithms only differ by their evaluation schemes.
+This separation reveals that many problems exhibit the same underlying structure and that their algorithms only differ in their evaluation schemes.
 It also enables treating structures and evaluation schemes as mathematical objects in their own right, allowing automatic extension and combination of existing algorithms in a declarative style.
 In particular, recovering information on solutions becomes considerably easier than with the usual backtracing approach.
 This idea was popularized by, among others,
@@ -88,8 +89,8 @@ and \textcite{Huang2008AdvancedDynamicProgramming} in natural language processin
 We refer to these families of approaches under the name \emph{algebraic dynamic programming}.
 
 In this paper, we aim to give a coherent and approachable view on the current state of algebraic dynamic programming, synthesizing the results of the field using unified terminology and notation.
-In particular, our presentation of \emph{algebra combinators} subsumes many similar formulations found in the litterature.
-We take particular care to study the time and space complexities associated to these combinators.
+In particular, our presentation of \emph{algebra combinators} subsumes many similar formulations found in the literature.
+We take particular care to study the time and space complexities associated with these combinators.
 We end by stating some open problems of interest in the field.
 
 \section{Motivating example}
@@ -267,7 +268,7 @@ We state a slight generalization of these definitions here, using the vocabulary
 
 % TODO: Why property E5? (absorbant). Give intuition like with E1-E4
 
-Intuitively, \(\algnull\) corresponds to the absence of solutions while \(\algplus\) represents a way to choose between two sets of solutions, hence it is called the \emph{choice} operator.
+Intuitively, \(\algnull\) corresponds to the absence of solutions, while \(\algplus\) represents a way to choose between two sets of solutions, hence it is called the \emph{choice} operator.
 The other operators represent either elementary solutions or ways to combine multiple sets of solutions and are therefore called \emph{combination} operators.
 The outdomain of an operator may hold additional problem-specific data.
 
@@ -296,8 +297,8 @@ This connection between optimal substructure and distributivity has been extensi
         \bottomrule
     \end{tabular}
     \par}
-    \caption[Commonly-used semirings]{
-        Commonly-used semirings.
+    \caption[Commonly used semirings]{
+        Commonly used semirings.
         \label{tab:common-algebras}
     }
 \end{table}
@@ -340,7 +341,7 @@ Dynamic programming is applicable when this order relation satisfies a condition
 \end{definition}
 
 In most cases, the order used for optimization is closely connected to the choice operator of the algebra.
-For example, in the tropical algebra where \(\min\) is the choice operator, it is natural to optimize over the \(\le\) order on the numbers.
+For example, with the tropical algebra, where \(\min\) is the choice operator, it is natural to optimize over the \(\le\) order on the numbers.
 When using this so-called \emph{natural} order, monotonicity is actually just distributivity in disguise~\parencite{Huang2008AdvancedDynamicProgramming}.
 
 \begin{definition}[Idempotency]
@@ -356,7 +357,7 @@ When using this so-called \emph{natural} order, monotonicity is actually just di
     This is a direct consequence of distributivity.
 \end{proof}
 
-For brevity, we will say that an algebra \(\alg\) is totally-ordered when its natural order \(\le^\alg\) is total, and monotonic (or strictly monotonic) when \(\le^\alg\) is monotonic (or strictly monotonic) in \(\alg\).
+For brevity, we will say that an algebra \(\alg\) is totally ordered when its natural order \(\le^\alg\) is total, and monotonic (or strictly monotonic) when \(\le^\alg\) is monotonic (or strictly monotonic) in \(\alg\).
 
 % Note that any such idempotent evaluation algebra forms a \emph{bounded semilattice}, since any pair \(x, y \in A\) has a greatest lower bound \(x \algplus y\), and the neutral element \(\algnull\) is the semilattice's greatest element since \(x \le \algnull\) for all \(x \in A\).
 
@@ -376,7 +377,7 @@ For brevity, we will say that an algebra \(\alg\) is totally-ordered when its na
 \end{example}
 
 \begin{example}[Other optimization algebras and their associated order]
-    All the semirings of \cref{tab:common-algebras}, except the counting semiring, are conservative and therefore totally-ordered and monotonic.
+    All the semirings of \cref{tab:common-algebras}, except the counting semiring, are conservative and therefore totally ordered and monotonic.
     For example, the natural order \(\le_\alminplus\) of the tropical semiring \(\alminplus\) is the usual total order on \(\nat\) extended with \(\infty\), its greatest element.
     Hence \(\le^\alminplus\) is monotonic in \(\alminplus\), which translates to \enquote{if \(a \le^\alminplus b\), then \(a + c \le^\alminplus b + c\) for any \(c\)}.
     For the semiring \(\alprod^{\nat} = \tup{\natex, \{\algnull, \algplus, \algunit, \algtimes\}}\)
@@ -388,7 +389,7 @@ For brevity, we will say that an algebra \(\alg\) is totally-ordered when its na
 \subsection{Algebra combinators}\label{sec:adp:alg-combin}
 
 In many problems, it is desirable to combine multiple optimization criteria or to simultaneously compute multiple characteristics on the set of solutions.
-For example, in a shortest path problem such as routing on a map, one could seek paths that simultaneously minimize the travelled distance and the fuel use.
+For example, in a shortest path problem, such as routing on a map, one could seek paths that simultaneously minimize the travelled distance and the fuel use.
 
 Using the \emph{algebra combinators} described in this section, complex computational goals can be specified by declaratively combining simple evaluation algebras constructed and validated independently from each other.
 These generic operators, acting on algebras that share the same signature, formalize and generalize the \emph{products} described in~\parencite{Sauthoff2013BellmansGapLanguage}.
@@ -431,12 +432,12 @@ It is more useful when used as the foundation for other combinators.
 
 \subsubsection{Lexicographic choice}\label{sec:adp:alg-combin:lex}
 
-Consider the case where an evaluation and selection scheme has been designed for a given problem in the form of a monotonic evaluation algebra \(\alg\), and one not only wants to compute the optimal value of a solution but also to retrieve information about the set of optimal solutions, for instance their multiplicity.
+Consider the case where an evaluation and selection scheme has been designed for a given problem in the form of a monotonic evaluation algebra \(\alg\), and one not only wants to compute the optimal value of a solution but also seeks to retrieve information about the set of optimal solutions, for instance their multiplicity.
 Given an evaluation algebra \(\algb\) that computes the desired characteristic, the lexicographic choice combinator automatically combines \(\alg\) and \(\algb\) so as to compute the value of \(\algb\) over all solutions of optimal value according to \(\alg\).
 This combinator therefore replaces all the backtracing techniques that are traditionally used to achieve similar goals.
 
 \begin{definition}[Lexicographic choice combinator]
-    Let \(\bar\alg = \tup{\bar A, F}\) be the direct product of \(n\) evaluation algebras \(\alg_1 \times \ldots \times \alg_n\) and \(i\) be an index in \(\{1, \ldots, n\}\) such that \(\alg_i\) is totally-ordered and strictly monotonic.
+    Let \(\bar\alg = \tup{\bar A, F}\) be the direct product of \(n\) evaluation algebras \(\alg_1 \times \ldots \times \alg_n\) and \(i\) be an index in \(\{1, \ldots, n\}\) such that \(\alg_i\) is totally ordered and strictly monotonic.
     The \emph{lexicographic choice} algebra on~\(i\), denoted by \(\bar\alg \mid \allex{i}\), is the algebra \(\bar\alg' = \tup{\bar A, F'}\) defined as
     \vspace{-1ex}
     \begin{align*}
@@ -458,18 +459,18 @@ This combinator therefore replaces all the backtracing techniques that are tradi
     Consider again the matrix chain multiplication problem and its minimum cost algebra \(\alminplus'\) defined in~\cref{ex:matrix-chain-algb}.
     %The tropical algebra~\(\alminplus\) gives the least number of scalar operations required to compute the product of several matrices, while
     The counting algebra~\(\alcount\) gives the total number of possible bracketings for the product expression.
-    Using the lexicographic choice combinator, one can obtain the algebra \(\alminplus' \times \alcount \mid \allex{1}\) that gives tuples \(\tup{m, c}\) where \(m\) is the value of an optimal solution and \(c\) is the number such optimal solutions.
+    Using the lexicographic choice combinator, one can obtain the algebra \(\alminplus' \times \alcount \mid \allex{1}\) that gives tuples \(\tup{m, c}\) where \(m\) is the value of an optimal solution and \(c\) is the number of such optimal solutions.
     By passing this algebra to the generic algorithm, the more general problem of finding the number of optimal solutions can be solved efficiently.
     Notably, this does not require any modification to the abstract algorithm or to the algebras~\(\alminplus'\) and~\(\alcount\), which may be designed separately and combined declaratively.
 \end{example}
 
 \begin{example}[Multiobjective optimization]
-    In a given problem, one may design multiple optimization criteria in the form of multiple evaluation algebras, say for example \(\alminplus_1\), \(\alminplus_2\), and \(\alminplus_3\).
+    In a given problem, one may design multiple optimization criteria in the form of multiple evaluation algebras, say, for example \(\alminplus_1\), \(\alminplus_2\), and \(\alminplus_3\).
     The lexicographic choice combinator can be used to automatically combine these algebras and their underlying criteria.
     For example, \(\alminplus_1 \times \alminplus_2 \times \alminplus_3 \mid \allex{3, 1}\) gives tuples \(\tup{a_1, a_2, a_3}\), minimizing first on \(a_3\), then in case of equality on \(a_1\), and finally on \(a_2\).
 \end{example}
 
-This combinator was independently discovered multiple times and therefore goes by various names.
+This combinator was independently discovered multiple times and, therefore, goes by various names.
 It is called
 the \enquote{product operation} by~\textcite{Steffen2005VersatileDeclarativeDynamic},
 the \enquote{\texttt{View} semiring} by~\textcite{Erwig2021ExplainableDynamicProgramming},
@@ -477,12 +478,12 @@ the \enquote{\(\Delta\)-product} by~\textcite{Baril2026NewPerspectivesSemiring},
 and \enquote{tupling} by~\textcite{Little2024PolymorphicDynamicProgramming}.
 It was also described as early as~\citeyear{Goodman1999SemiringParsing} by~\textcite{Goodman1999SemiringParsing} in the specific case of the Viterbi semiring.
 The name \emph{lexicographic}, used by~\textcite{Saule2015ParetoOptimizationAlgebraic}, is due to the following observation:
-given a lexicographic choice algebra \(\bar\alg = \prod_{i=1}^n \alg_i \mid \allex{d_1, \ldots, d_\ell}\), where each \(\alg_{d_i}\) is a totally-ordered strictly monotonic algebra, the sum \(\algplus^{\bar\alg}_{s \in S}{\,s}\) of a set of tuples \(S\) is the sum of all the lowest elements of \(S\) in lexicographic order, that is, where~\(\alg_{d_1}\) is minimized first, then \(\alg_{d_2}\) in case of equality on \(d_1\), etc.
+given a lexicographic choice algebra \(\bar\alg = \prod_{i=1}^n \alg_i \mid \allex{d_1, \ldots, d_\ell}\), where each \(\alg_{d_i}\) is a totally ordered strictly monotonic algebra, the sum \(\algplus^{\bar\alg}_{s \in S}{\,s}\) of a set of tuples \(S\) is the sum of all the lowest elements of \(S\) in lexicographic order, that is, where~\(\alg_{d_1}\) is minimized first, then \(\alg_{d_2}\) in case of equality on \(d_1\), etc.
 
 \begin{lemma}[Validity]
     If \((\alg_i)_{i=1}^n\) are evaluation algebras
     and all \(\alg_{d_i}\) for \(i \in \{d_1, \ldots, d_\ell\}\)
-    are totally-ordered and strictly monotonic,
+    are totally ordered and strictly monotonic,
     then \(\bar\alg' = \prod_{i=1}^n \alg_i \mid \allex{d_1, \ldots, d_\ell}\)
     is a valid evaluation algebra.
 \end{lemma}
@@ -500,7 +501,7 @@ given a lexicographic choice algebra \(\bar\alg = \prod_{i=1}^n \alg_i \mid \all
     \(f^{\alg_1}(a_1, b_1) = f^{\alg_2}(a_1, c_1)\) on one hand
     and \(\tup{b_1, b_2} \mathbin{\algplus^{\bar\alg'}} \tup{c_1, c_2} = \tup{b_1, b_2 \algplus^{\alg_2} c_2}\)
     on the other hand.
-    These imply in turn that \(L = \tup{f^{\alg_1}(a_1, b_1), f^{\alg_2}(a_2, b_2) \mathbin{\algplus^{\alg_2}} f^{\alg_2}(a_2, c_2)}\)
+    These imply, in turn, that \(L = \tup{f^{\alg_1}(a_1, b_1), f^{\alg_2}(a_2, b_2) \mathbin{\algplus^{\alg_2}} f^{\alg_2}(a_2, c_2)}\)
     and \(R = \tup{f^{\alg_1}(a_1, b_1), f^{\alg_2}(a_2, b_2 \algplus^{\alg_2} c_2)}\).
     We conclude by the distributivity of \(\alg_2\).
 
@@ -514,7 +515,7 @@ As noted by \textcite{Morin1982MonotonicityPrincipleOptimality} and \textcite{St
     Consider again the evaluation algebra \(\alprod^{\nat} = \tup{\natex, \{\algnull, \algplus, \algunit, \algtimes\}}\)
     with \(\algnull = +\infty\), \(\algplus = \min\), \(\algunit = 1\), and \(\algtimes = \times\),
     which is monotonic but not strictly so.
-    Taking for instance the tropical semiring \(\alminplus\),
+    Taking, for instance, the tropical semiring \(\alminplus\),
     the lexicographic algebra \(\alprod^{\nat} \times \alminplus \mid \allex{1}\) fails the distributivity property,
     % Taking for instance the term algebra \(\alterm\) of the set \(\{\algnull, \algplus, a, b, c\}\),
     % the lexicographic algebra \(\alprod^\nat \times \alterm \mid \allex{1}\) fails the distributivity property:
@@ -531,7 +532,7 @@ As noted by \textcite{Morin1982MonotonicityPrincipleOptimality} and \textcite{St
     \end{align*}
 \end{example}
 
-In practice, when the monotonicity condition is met without the strict condition, the optimal value is computed accurately but the characteristics computed about the optimal solutions may be incomplete (in the last example, the second dimension only provides an upper bound on the actual value).
+In practice, when the monotonicity condition is met without the strict condition, the optimal value is computed accurately, but the characteristics computed about the optimal solutions may be incomplete (in the last example, the second dimension only provides an upper bound on the actual value).
 
 Note that the time and space complexities of \(\bar\alg'\) are the same as \(\bar\alg\).
 
@@ -539,7 +540,7 @@ Note that the time and space complexities of \(\bar\alg'\) are the same as \(\ba
 
 It is often needed to compute information about more than one solution at a time.
 For example, one may want to consider all of the optimal solutions to a problem, the \(m\) best solutions, or all solutions within a given percentage of the optimal value.
-The powerset combinator transforms singly-valued algebras into algebras that keep track of multiple solutions values.
+The powerset combinator transforms singly-valued algebras into algebras that keep track of multiple solution values.
 Let us start by introducing some notation regarding multisets.
 
 \begin{definition}[Multisets]
@@ -550,7 +551,7 @@ Let us start by introducing some notation regarding multisets.
     % The \emph{support} (or underlying set) of \(M\), denoted by \(\setof(M)\), is the set \(\{e \mid e \in M\}\) of elements appearing at least once in \(M\).
     The sum of two multisets~\(A\) and~\(B\), denoted by \(A \madd B\), is the multiset such that \(\mult_{A \madd B}(e) = \mult_A(e) + \mult_B(e)\).
     The product of \(A\) and \(B\), denoted by \(A \mmul B\), is the multiset of tuples \(\tup{a, b}\) such that \(\mult_{A \mmul B}(\tup{a, b}) = \mult_A(a) \times \mult_B(b)\).
-    Similarly to the Cartesian product, this operation generalizes to the product of \(n\) multisets, giving a multiset of tuples of dimension \(n\) each.
+    Similar to the Cartesian product, this operation generalizes to the product of \(n\) multisets, giving a multiset of tuples of dimension \(n\) each.
     The multipowerset of a set~\(A\), denoted by~\(\nat^A\), is the set of all multisets containing elements of~\(A\).
     By contrast, the usual powerset of \(A\) is denoted by~\(2^A\).
     Finally, \(\mset{f(e) \mid e \gets M}\) is the multiset obtained by evaluating \(f(e)\) for each element \(e\) of \(M\), preserving the cardinality of the original multiset.
@@ -569,8 +570,8 @@ Let us start by introducing some notation regarding multisets.
 \end{definition}
 
 The effect of the powerset combinator is to collect the values of the original algebras on all possible solutions, keeping any duplicates that may arise.
-The original choice operator is replaced by the multiset sum operator and the combination operators evaluate the original algebra on the product of all multisets.
-However, since the size of these multisets usually grow exponentially with respect to the circuit size, this combinator is only useful on small instances or when used with another combinator that limits the size of the sets.
+The original choice operator is replaced by the multiset sum operator, and the combination operators evaluate the original algebra on the product of all multisets.
+However, since the size of these multisets usually grows exponentially with respect to the circuit size, this combinator is only useful on small instances or when used with another combinator that limits the size of the sets.
 
 \begin{lemma}[Validity]
     For any algebra \(\alg\), \(\nat^\alg\) is a valid evaluation algebra.
@@ -613,7 +614,7 @@ However, since the size of these multisets usually grow exponentially with respe
 
 \subsubsection{Group}
 
-While the powerset combinator yields an algebra of multisets, there is often a need to remove duplicates and to aggregate equal values together.
+While the powerset combinator yields an algebra of multisets, there is often a need to remove duplicates and to aggregate equal values.
 
 \begin{definition}[Projection]
     Given a tuple \(x = \tup{x_i}_{i=1}^n\) and a family of indices \(D = \{d_1, \ldots, d_\ell\} \subseteq \{1, \ldots, n\}\), the projection of \(x\) on \(D\) is \(x_D = \tup{x_{d_i}}_{i=1}^\ell\).
@@ -723,7 +724,7 @@ Furthermore, the set of all tuples containing elements of a set \(A\) is denoted
 
 \begin{definition}[Sort, limit and bound combinators]
     Given an \(\alg\)-set valued algebra \(\alg'\),
-    where \(\alg\) is a totally-ordered algebra with natural order \(\le^\alg\),
+    where \(\alg\) is a totally ordered algebra with natural order \(\le^\alg\),
     the \emph{sorted} algebra of \(\alg'\), denoted by \(\alg^* = \alg' \mid \alsort = \tup{A^*, F^*}\), is defined such that
     \begin{align*}
         f_{\alg^*}(x_1, \ldots, x_k) &= \tsort_{\le^\alg}(f_{\alg'}(\msetof(x_1), \ldots, \msetof(x_k))),
@@ -766,7 +767,7 @@ For limited, depends on \(m\).
 
 While the lexicographic choice combinator can be useful for multiobjective optimization, there is not always a clear ordering between the multiple criteria.
 For example, when computing the best route between two places, one may want to minimize both the travelled distance and the amount of fuel used, without a set preference between the two.
-In such cases, of course, multiple values may be deemed optimal, as for instance there is no order between the tuples \(\tup{2, 3}\) and \(\tup{3, 2}\).
+In such cases, of course, multiple values may be deemed optimal as, for instance, there is no order between the tuples \(\tup{2, 3}\) and \(\tup{3, 2}\).
 
 \begin{definition}[Pareto fronts]
     Let \((\alg_i)_{i=1}^n\) be a family of \(n\) idempotent evaluation algebras and \(\le^{\alg_i}\) be their respective natural orders.
@@ -844,7 +845,7 @@ A single solution can be represented as a composition of combination operators w
 \begin{example}\label{ex:abstract-problem}
     Consider an artificial problem of signature \(\algsign = \{\algnull, \algplus, \algtimes, a, b, c\}\) in which \(\algtimes : A^2 \rightarrow A\) and \(a\), \(b\), and \(c\) are constants.
     Suppose that an instance of this problem has the three solutions \(s_1 = a \algtimes b\), \(s_2 = a \algtimes (b \algtimes a)\), and \(s_3 = a \algtimes (b \algtimes c)\).
-    The solution space for this instance could then be expressed as \(s^* = s_1 \algplus s_2 \algplus s_3\).
+    The solution space of this instance could then be expressed as \(s^* = s_1 \algplus s_2 \algplus s_3\).
     Let \(\alminplus^{\rel}\) be the tropical algebra over \(\relex\), with \(a = 2\), \(b = 3\), and \(c = -5\).
     Under this algebra, \(\algeval_{\alminplus^{\rel}}(s_1) = 5\), \(\algeval_{\alminplus^{\rel}}(s_2) = 7\), \(\algeval_{\alminplus^{\rel}}(s_3) = 0\), and \(\algeval_{\alminplus^{\rel}}(s^*) = 0\).
     The distributivity property allows us to factor \(s^*\) into \(a \algtimes (b \algplus (b \algtimes a) \algplus (b \algtimes c))\), and further into \(a \algtimes (b \algplus (b \algtimes (a \algplus c)))\).
@@ -857,16 +858,16 @@ A single solution can be represented as a composition of combination operators w
 \subsection{Algebraic circuits}
 
 In general, the term encoding the solution space of a given problem instance may be of exponential length with respect to the input size.
-A dynamic programming algorithm can be seen as a method to evaluate this term under a given algebra using asymptotically less operations, taking advantage of distributivity and overlapping subproblems to allow optimal solutions to be found in reasonable (hopefully polynomial) time.
+A dynamic programming algorithm can be seen as a method to evaluate this term under a given algebra using asymptotically fewer operations, taking advantage of distributivity and overlapping subproblems to allow optimal solutions to be found in reasonable (hopefully polynomial) time.
 This process can be modelled through algebraic circuits that provide short representations of potentially large solution spaces.
 
 \begin{definition}[Algebraic circuits]
     \label{def:alg-circuits}%
     An \emph{algebraic circuit} over a signature \(\algsign\) is a directed acyclic graph \(C = \tup{V, E, s}\) with a single source vertex \(s \in V\).
-    Each vertex \(v \in V\) is labeled with a symbol \(f \in \algsign\).
-    Those labeled with \(f = \algplus\) are the \emph{choice vertices},
-    which have arbitrary outdegree.
-    The others are the \emph{combination vertices}, which, if \(f\) has arity~\(k\) and outdomain~\(T\), have outdegree~\(k\) and are labeled with an element \(t \in T\).
+    Each vertex \(v \in V\) is labelled with a symbol \(f \in \algsign\).
+    Those labelled with \(f = \algplus\) are the \emph{choice vertices},
+    which have an arbitrary outdegree.
+    The others are the \emph{combination vertices}, which, if \(f\) has arity~\(k\) and outdomain~\(T\), have outdegree~\(k\) and are labelled with an element \(t \in T\).
     The \emph{size} of~\(C\) is the number of vertices in \(V\).
 
     The \emph{subcircuit} of \(C\) rooted at a vertex \(v\), denoted \(C_v\), is the circuit obtained by removing from \(C\) all vertices that are not reachable from \(v\).
@@ -876,19 +877,19 @@ This process can be modelled through algebraic circuits that provide short repre
     If \(f\) is nullary, let \(\term(C_v) = f_t\).
     Otherwise, denoting by \(v_1, \ldots, v_k\) the \(k\) successor vertices of \(v\), let \(\term(C_v) = f_t(\term(C_{v_1}), \ldots, \term(C_{v_k}))\).
 
-    A \emph{solution} of \(C\) is obtained by selecting a single outgoing edge from each choice vertex and by removing all the choice vertices and replacing them by their unique successor.
+    A \emph{solution} of \(C\) is obtained by selecting a single outgoing edge from each choice vertex and by removing all the choice vertices and replacing them with their unique successor.
     A circuit is \emph{non-redundant} if all of its solutions generate distinct terms.
 \end{definition}
 
 \begin{example}[Matrix chain multiplication circuits]\label{ex:matrix-chain-sig}
-    The five solutions to the four-matrices instance from \cref{ex:matrix-chain-intro} can be written as \begin{align*}
+    The five solutions to the four-matrix instance from \cref{ex:matrix-chain-intro} can be written as \begin{align*}
         b_1 &= \algterm_{5,10} \algtimes (\algterm_{10,3} \algtimes (\algterm_{3,7} \algtimes \algterm_{7,7})), \\
         b_2 &= \algterm_{5,10} \algtimes ((\algterm_{10,3} \algtimes \algterm_{3,7}) \algtimes \algterm_{7,7}), \\
         b_3 &= (\algterm_{5,10} \algtimes \algterm_{10,3}) \algtimes (\algterm_{3,7} \algtimes \algterm_{7,7}), \\
         b_4 &= (\algterm_{5,10} \algtimes (\algterm_{10,3} \algtimes \algterm_{3,7})) \algtimes \algterm_{7,7}, \\
         b_5 &= ((\algterm_{5,10} \algtimes \algterm_{10,3}) \algtimes \algterm_{3,7}) \algtimes \algterm_{7,7},
     \end{align*}
-    which yields the solutions term \(S = \algsum_{1\le i\le 5}b_i\).
+    which yields the solution term \(S = \algsum_{1\le i\le 5}b_i\).
     This is the term computed by the abstract algorithm for matrix chain multiplication derived from \cref{alg:matrix-chain-algo}.
     \Cref{fig:circuit-matrix-mult} shows a non-redundant circuit that generates \(S\), with the solution corresponding to \(b_3\) highlighted in bold.
 \end{example}
@@ -981,7 +982,7 @@ In particular, a term of exponential length may be evaluated in polynomial time 
 
 \subsection{Trace algebras}\label{sec:adp:solution-spaces:trace}
 
-Any dynamic programming algorithm implicitly corresponds to a family of algebraic circuits that generate the solutions term for each problem instance.
+Any dynamic programming algorithm implicitly corresponds to a family of algebraic circuits that generate the solution term for each problem instance.
 These underlying circuits can be made explicit using what we call a \emph{trace algebra}.
 
 \begin{definition}[Trace algebras]
@@ -1001,13 +1002,13 @@ These underlying circuits can be made explicit using what we call a \emph{trace 
     \]
     or, more precisely,
     as taking the union of the circuits \(a_1\) to \(a_k\),
-    adding a new vertex \(s\) of symbol \(f\) labeled by \(t\),
+    adding a new vertex \(s\) of symbol \(f\) labelled by \(t\),
     connecting \(s\) to the source of each of the circuits \(a_1\) to \(a_k\),
     and using \(s\) as the source of the newly created circuit.
 \end{definition}
 
 The algebraic circuit in \cref{fig:circuit-matrix-mult} is the circuit obtained by feeding the trace algebra to the matrix chain multiplication \cref{alg:matrix-chain-algo}.
-In general, while the solutions term for this problem is of length \(\Theta(4^n / n^{3/2})\), the algorithm produces circuits of size \(\Theta(n^3)\) and evaluates them in space \(\Theta(n^2)\).
+In general, while the solution term of this problem is of length \(\Theta(4^n / n^{3/2})\), the algorithm produces circuits of size \(\Theta(n^3)\) and evaluates them in space \(\Theta(n^2)\).
 
 The trace algebra can also be used jointly with the combinators from \cref{sec:adp:alg-combin} to automatically construct circuits that represent optimal subsets of the solution space.
 
@@ -1024,11 +1025,11 @@ The trace algebra can also be used jointly with the combinators from \cref{sec:a
 This connection between algebraic circuits and dynamic programming was explicitly noted by \textcite{Jukna2015LowerBoundsTropical} in the context of tropical semirings.
 Algebraic circuits also correspond to the \emph{AND/OR graphs} as studied by \textcite{Gnesi1981DynamicProgrammingGraph} and~\textcite{Wang2021GeneralFrameworkEnumerating}, where OR vertices correspond to choice vertices and AND vertices to combination vertices.
 An equivalent formulation using \emph{forward-hypergraphs (F-graphs)} was also proposed by~\textcite{Ponty2011CombinatorialFrameworkDesigning} in which combination vertices correspond to directed hyperedges and solutions correspond to paths in the hypergraph.
-All of these formulations generalize the original concept of \emph{combinatorial families} introduced by~\textcite{Wilf1977UnifiedSettingSequencing} that was restricted to linear objects since it did not allow for combination vertices.
+All of these formulations generalize the original concept of \emph{combinatorial families} introduced by~\textcite{Wilf1977UnifiedSettingSequencing} that was restricted to linear objects, since it did not allow for combination vertices.
 
 \subsection{Enumerating and sampling solutions}\label{sec:adp:space-enum-sample}
 
-Apart from evaluation of algebras, the short representation of solution spaces as algebraic circuits also enable efficient algorithms to extract information about the solutions.
+Apart from evaluation of algebras, the short representation of solution spaces as algebraic circuits also enables efficient algorithms to extract information about the solutions.
 We are interested in particular in: enumerating some or all of the solutions encoded by the circuit, counting the total number of solutions in the set, and uniformly sampling solutions from the set.
 
 As noted in~\textcite{Wilf1977UnifiedSettingSequencing,Wang2021GeneralFrameworkEnumerating}, there is a polynomial-delay and polynomial-space algorithm that enumerates all the solutions of a given algebraic circuit.
@@ -1041,7 +1042,7 @@ When the input circuit is redundant, this algorithm will list the same solution 
     This may be done using a simple depth-first search procedure.
 \end{proof}
 
-In general, even optimal solution spaces can be exponentially large, hence instead of enumerating arbitrary solutions it may be more informative to draw a representative sample.
+In general, even optimal solution spaces can be exponentially large, hence, instead of enumerating arbitrary solutions, it may be more informative to draw a representative sample.
 
 \begin{definition}[Weighting algebras]
     An evaluation algebra \(\alg = \tup{A, F}\) of signature \(\algsign\)
@@ -1079,7 +1080,7 @@ This algorithm follows the recursive method of \textcite{Wilf1977UnifiedSettingS
         \Function{sample}{\(\alg\), \(C\), \(v\)}
             \State \textbf{let} \(v_1, \ldots, v_k\) be the successors of \(v\) in \(C\)
             \If{\(v\) is a combination vertex of symbol \(f\)}
-                \State \textbf{let} \(f\) be the arity-\(k\) symbol and \(t\) be the outdomain element labeling \(v\)
+                \State \textbf{let} \(f\) be the arity-\(k\) symbol and \(t\) be the outdomain element labelling \(v\)
                 \State \Return \(f_t(\Call{sample}{\alg, C, v_1}, \ldots, \Call{sample}{\alg, C, v_k)}\)
             \Else
                 \State choose \(i \in \{1, ..., k\}\) with probability \(\algeval_\alg(\term(C_{v_i}))/\algeval_\alg(\term(C_v))\)
@@ -1120,7 +1121,7 @@ This algorithm follows the recursive method of \textcite{Wilf1977UnifiedSettingS
 % TODO: complexity
 
 \begin{example}[Uniform sampling]
-    If \(\alcount\) is a counting algebra for the problem at hand, then \(\Call{sample}{\alcount, C, s}\) produces a uniformly-sampled solution from the non-redundant circuit \(C\).
+    If \(\alcount\) is a counting algebra for the problem at hand, then \(\Call{sample}{\alcount, C, s}\) produces a uniformly sampled solution from the non-redundant circuit \(C\).
     This is because, by definition of \(\alcount\), \(\algeval_\alcount(\term(x)) = 1\) for any solution subcircuit \(x\) and \(\algeval_\alcount(\term(C))\) is the total number of solutions.
     In practice, when \(C\) encodes the complete solution space, this amounts to selecting a random solution without any optimality criterion.
     %Using the construction of \cref{ex:construct-circ-optimal}, one can obtain a circuit encoding only the optimal solutions and perform uniform sampling among those.
@@ -1143,7 +1144,7 @@ This algorithm follows the recursive method of \textcite{Wilf1977UnifiedSettingS
     \(\algplus = +\)
     and, for any combination operator \(f\),
     \(f^{\boltz(\alminplus)}_t(x_1, \ldots, x_k) = e^{-c(t)/T} \prod_{i=1}^k{x_k}\).
-    This algebra turns \(\alminplus\) into a weighting algebra that assigns to each solution its Boltzmann weight and therefore it can be used inside~\cref{alg:adp:circ-sample} to perform Boltzmann sampling.
+    This algebra turns \(\alminplus\) into a weighting algebra that assigns its Boltzmann weight to each solution, and therefore it can be used inside~\cref{alg:adp:circ-sample} to perform Boltzmann sampling.
 \end{example}
 
 \subsection{Outside solutions}\label{sec:adp:space-enum-sample:outside}
@@ -1151,7 +1152,7 @@ This algorithm follows the recursive method of \textcite{Wilf1977UnifiedSettingS
 Often, a single solution or sample of solutions does not give a complete picture of the solution space.
 Given an algebraic circuit, another interesting metric is: what is the probability that a given node appears in a randomly selected solution?
 This question can be asked under any weighting algebra.
-For example, in the context of sequence alignment, this allows to compute a probability matrix giving the probability that any two symbols are aligned.
+For example, in the context of sequence alignment, this enables computing a probability matrix giving the probability that any two symbols are aligned.
 
 A partial solution is a term that contains a single hole \(\square\) or, equivalently, a solution circuit that contains a distinguished leaf.
 Such a partial solution \(x\) can be \emph{composed} with a solution \(y\) by replacing \(\square\) with \(y\) in \(x\), resulting in a solution denoted \(x \circ y\).
@@ -1184,16 +1185,16 @@ This enables computing \(\prob_\alg(v \in x)\) as follows
 
 % see error in original Gotoh algo: http://www.sciencedirect.com/science/article/pii/S0092824086900108
 
-At their core, dynamic programming algorithms are based on families of algebraic circuits that succinctly encode the solution space for each possible instance (see for example the circuit presented in \cref{fig:circuit-matrix-mult} for an instance of the matrix multiplication problem).
+At their core, dynamic programming algorithms are based on families of algebraic circuits that succinctly encode the solution space for each possible instance (see, for example, the circuit presented in \cref{fig:circuit-matrix-mult} for an instance of the matrix multiplication problem).
 In the previous section, we presented a theory of evaluation algebras as descriptions of how the solutions to a combinatorial problem can be scored and selected efficiently through such circuits.
-Up to here, these circuits were constructed using ad-hoc algorithms such as the abstract algorithm derived from \cref{alg:matrix-chain-algo}.
+Up to here, these circuits were constructed using ad hoc algorithms such as the abstract algorithm derived from \cref{alg:matrix-chain-algo}.
 As pointed out by~\textcite{Giegerich2004DisciplineDynamicProgramming},
 deriving such algorithms is error-prone and repetitive, since one has to handle explicitly
 tabling intermediate results,
 manually managing indices when recursively decomposing the input,
 and choosing an appropriate traversal order for the input.
 
-Multiple formalisms have been developed to replace such ad-hoc algorithms by executable declarative descriptions, notably based on grammatical descriptions: through
+Multiple formalisms have been developed to replace such ad hoc algorithms by executable declarative descriptions, notably based on grammatical descriptions: through
 multi-tape S-attributed grammars~\parencite{Lefebvre1996GrammarBasedUnificationSeveral},
 context-free grammars~\parencite{Giegerich2004DisciplineDynamicProgramming} (under the name of \enquote{yield grammars}),
 multiple context-free grammars~\parencite{Riechert2016AlgebraicDynamicProgramming},
@@ -1212,7 +1213,7 @@ Our goal in this section is to develop a formalism unifying these approaches.
 
 Sequence problems are problems whose input is 
 a sequence, string, or array.
-The structure of such problems can be described using \emph{sequential yield grammars} that decompose a set of input sequences to construct an associated solutions term called the \emph{yield parse}.
+The structure of such problems can be described using \emph{sequential yield grammars} that decompose a set of input sequences to construct an associated solution term called the \emph{yield parse}.
 
 Intuitively, each \emph{predicate} of the grammar matches an interval of the input sequence and can be thought of as holding the set of partial solutions for the subproblem defined by that interval.
 Such an interval may be decomposed into further subproblems by partitioning it into subintervals using any \emph{clause} of the grammar that matches the predicate.
@@ -1229,10 +1230,10 @@ Each clause is annotated with a symbol of the problem signature (see \cref{def:a
     \end{align}
     On the left-hand side, each predicate is followed by a sequence of symbols between square brackets, either terminals (here, \((n, m)\) is a terminal representing a single matrix from the input) or variables (uppercase letters).
     These symbol sequences indicate into how many subintervals the predicate’s interval must be partitioned.
-    Each of these symbols appears exactly once in the right-hand side, indicating to which predicate the corresponding subinterval is ``sent''.
+    Each of these symbols appears exactly once on the right-hand side, indicating to which predicate the corresponding subinterval is ``sent''.
 
     The two clauses of the grammar give the two choices that can be made at each step of the algorithm:
-    \cref{ex:matrix-chain-gram:eq1} corresponds to extracting a matrix of dimension \(n \times m\) from the input,
+    \cref{ex:matrix-chain-gram:eq1} corresponds to extracting a matrix of dimensions \(n \times m\) from the input,
     while \cref{ex:matrix-chain-gram:eq2} corresponds to decomposing the input into two subsequences and applying the \(\algtimes\) operator to the result.
     For example, for the input \((5, 10), (10, 3), (3, 7), (7, 7)\),
     a possible derivation is \begin{align*}
@@ -1277,7 +1278,7 @@ The dimension of the start predicate corresponds to the number of tapes.
     \(\{\algnull, \algplus, \algunit, \algsym{sub}, \algsym{ins}, \algsym{del}\}\).
     The unary combination operators \(\algsym{sub}_{\alpha,\beta}\), of outdomain \(\Sigma^2\), and \(\algsym{ins}_\beta\) and \(\algsym{del}_\alpha\), of outdomain \(\Sigma\), represent the corresponding operations, while \(\algunit\) represents the empty series of operations.
     % Under this signature, \(\algsym{sub}_{\text{a},\text{a}}(\algsym{del}_{\text{b}}(\algsym{sub}_{\text{c},\text{d}}(\algsym{ins}_{\text{e}}(\algunit))))\) represents one of the series of operations turning \(S = \text{abc}\) into \(T = \text{ade}\).
-    The problem structure is described by the following grammar that uses a single two-dimensional predicate \(\gramnt{S}\).
+    The problem structure is described by the following grammar, that uses a single two-dimensional predicate \(\gramnt{S}\).
     \begin{align*}
         \gramnt{S}[\varepsilon, \varepsilon] &\rightarrow
             \algunit \\
@@ -1494,7 +1495,7 @@ The intermediate results are tabled for each input decomposition and for each pr
     % in practice, substrings of the input may be stored as a triple (i, j, k) where k is the input index, i and j form an interval of the input. each triple uses O(log n) space and can be created in constant time
 \end{proof}
 
-Since each problem is described by a fixed grammar \(\gram\), \(|\gram|\) and \(|P|\) are asymptotically-negligible complexity parameters.
+Since each problem is described by a fixed grammar \(\gram\), \(|\gram|\) and \(|P|\) are asymptotically negligible complexity parameters.
 The width and dimension of~\(\gram\), however, are exponential parameters.
 Hence, when designing a grammar, one must strive to make these two values as low as possible.
 For example, when \(\gram\) is context-free and in CNF, i.e., when \(\dim G = 1\) and \(\width G \le 1\),
@@ -1513,7 +1514,7 @@ Therefore, the complexity of the algorithm derived from the grammar in \cref{ex:
 \subsection{General yield grammars}
 
 In this section, we turn to dynamic programming on more general input types: trees and forests, sets and multisets, and natural numbers.
-Each of these types is treated separately, however it is straightforward to mix different types on multiple tapes of the same input.
+Each of these types is treated separately, however, it is straightforward to mix different types on multiple tapes of the same input.
 To handle other data types, the question of interest is what are the natural and efficient ways an input of that type can be decomposed.
 For sequences, decomposition as a concatenation of subsequences captures a wide array of algorithms and the number of such subsequences is bounded by \(\bigo(n^2)\).
 
@@ -1542,7 +1543,7 @@ Following \textcite{BruggemannKlein2001RegularTreeRegular}, we refer to such str
     The set \(\hedges(T)\) of \emph{hedges} on \(T\) is defined inductively as follows:
     \begin{itemize}
         \item \(\varepsilon \in \hedges(T)\) is the empty hedge containing no nodes;
-        \item if \(t \in T\) is a terminal and \(h\) is a hedge, then \(t(h) \in \hedges(T)\) is the hedge constructed by attaching a root node labeled with \(t\) to the roots of \(h\);
+        \item if \(t \in T\) is a terminal and \(h\) is a hedge, then \(t(h) \in \hedges(T)\) is the hedge constructed by attaching a root node labelled with \(t\) to the roots of \(h\);
         \item if \(h\) and \(h'\) are two hedges, then \(hh' \in \hedges(T)\) is the hedge obtained by concatenating the roots of \(h\) to the roots of \(h'\).
     \end{itemize}
     As shorthand, we write \(t(\varepsilon)\) simply as \(t\) to represent a single leaf node.
@@ -1563,7 +1564,7 @@ Note that hedges generalize sequences, since any sequence can be seen as a hedge
 Yield grammars can be generalized to hedges by using \emph{hedge patterns}.
 
 \begin{definition}[Patterns, matchings, and yield grammars on hedges]
-    Given a set of variables \(V\) disjoint from \(T\), a \emph{hedge pattern} is an element \(\pi \in \hedges(T \cup V)\) such that all nodes labeled with elements of \(V\) are leaves.
+    Given a set of variables \(V\) disjoint from \(T\), a \emph{hedge pattern} is an element \(\pi \in \hedges(T \cup V)\) such that all nodes labelled with elements of \(V\) are leaves.
     A \emph{matching} of \(\tau \in \hedges(T)\) under \(\pi\) is an assignment \(f : V \rightarrow \hedges(T)\) of the variables in \(\pi\) such that \(\tau = \pi/f\).
     Note that a variable may be substituted for any hedge, including a hedge that contains multiple trees.
 
@@ -1672,10 +1673,10 @@ Other definitions and results from the previous subsection carry over accordingl
     and similarly projecting on the second dimension yields \(T\).
     See \cref{fig:hedges} for an example input and a possible corresponding alignment.
 
-    Once again, the signature for this problem is
+    Once again, the signature of this problem is
     \(\{\algnull, \algplus, \algunit, \algsym{sub}, \algsym{ins}, \algsym{del}\}\).
     However, the \(\algsym{sub}\), \(\algsym{ins}\), and \(\algsym{del}\) operators are binary instead of unary.
-    The value \(\algsym{sub}_{\alpha,\beta}(L, R)\) represents an alignment hedge whose first root is a node labeled with \((\alpha,\beta)\) with children \(L\) and siblings \(R\).
+    The value \(\algsym{sub}_{\alpha,\beta}(L, R)\) represents an alignment hedge whose first root is a node labelled with \((\alpha,\beta)\) with children \(L\) and siblings \(R\).
     The problem structure is described by the following hedge yield grammar.
     \begin{align*}
         \gramnt{S}[\varepsilon, \varepsilon] &\rightarrow \algunit \\
@@ -1756,10 +1757,10 @@ Adapting \cref{alg:seq-yield-parser} for hedge patterns results in the following
 
     When computing a given table entry, for each clause \(C\), each hedge interval in \(I\) is matched with the corresponding hedge pattern in \(C\) by splitting it into as many hedge subintervals as there are variables in the pattern.
     This decomposition may be performed by recursively walking both the pattern and the input interval and applying the same logic as with sequences when a variable is encountered.
-    The total number of split points to consider is at most \(\width\gram\), and each split point is in an interval of length up to \(\deg\gram\), hence the number of decompositions along a given dimension is \(\bigo((\deg I)^{\width\gram})\).
+    The total number of split points to consider is at most \(\width\gram\), and each split point is in an interval of length up to \(\deg\gram\), hence, the number of decompositions along a given dimension is \(\bigo((\deg I)^{\width\gram})\).
 \end{proof}
 
-Following this result, the time complexity from using the hedge yield grammar of~\cref{ex:for-align} is \(\bigo(n^2(\deg I)^3)\) since \(\dim\gram = 2\) and \(\width\gram = 1\).
+Following this result, the time complexity for using the hedge yield grammar of~\cref{ex:for-align} is \(\bigo(n^2(\deg I)^3)\) since \(\dim\gram = 2\) and \(\width\gram = 1\).
 This bound can be tightened by noticing that, in all cases, at least one of the two dimensions contains a right-maximal hedge interval, i.e., a hedge interval that contains a node followed by all of its siblings.
 There are only \(\bigo(n)\) such intervals, as it is not necessary to specify its length.
 Hence, the size of the generated circuit stays in \(\bigo(|P|n^2\deg{I})\) and the time complexity is only \(\bigo(n^2(\deg I)^2)\).
@@ -1882,11 +1883,11 @@ extend matching to \(A + B\) patterns, where \(A\) and \(B\) sum to the input
 The formalism presented in this subsection is technically less general than the one introduced by \textcite{Berkemer2017AlgebraicDynamicProgramming}.
 However, all grammars from their paper can be reframed in the restricted definitions presented here.
 In the paper, the hedge intervals are not restricted to intervals on a single level of the input but may span multiple levels.
-This increases the complexity as there may be up to \(\bigo(n^2)\) such intervals instead of \(\bigo(n\deg I)\).
+This increases the complexity, as there may be up to \(\bigo(n^2)\) such intervals instead of \(\bigo(n\deg I)\).
 It is not clear whether this increased generality is required to solve dynamic programming problems on hedges.
 
 When compared to ICOREs~\parencite{Giegerich2014ModelingDynamicProgramming}, the formalism is also less general.
-ICOREs may be converted to yield grammars, however the resulting clauses are not always linear.
+ICOREs may be converted to yield grammars, however, the resulting clauses are not always linear.
 The core signature corresponds to our grammar signature.
 In an ICORE, a rewrite system is provided for each dimension of the input, and the rules are inverted when compared to the current formalism.
 ICOREs use the \(\sim\) symbol to explicitly represent the sequence or hedge concatenation operators, which are implicit here.
@@ -2008,7 +2009,7 @@ Transformations of grammars
 Algebraic dynamic programming is based on the central idea that, in dynamic programming algorithms, the descriptions of the solution space structure and of the evaluation schemes for these solutions should be strictly separated.
 This allows treating both sides as mathematical objects in their own right.
 Many authors have noticed that the evaluation schemes admissible for dynamic programming correspond to algebraic structures called semirings.
-In this paper, we presented a unifying formalism that encompasses a sizeable portion of the existing body of literature on such evaluation algebras.
+In this paper, we presented a unifying formalism that encompasses a sizable portion of the existing body of literature on such evaluation algebras.
 We also presented a set of algebra combinators that may be used to automatically create new algebras from existing ones, generalizing existing similar operators.
 
 As we have noted, the time efficiency of a dynamic programming algorithm is linked to the size of the circuits it produces.
@@ -2020,7 +2021,7 @@ Regarding space complexity, the amount of memory needed for the evaluation of an
 This correspondence underlies the space complexity upper bound of \Cref{lem:algebraic-circuit-eval}.
 In general, finding the pebbling number of a circuit is a known PSPACE-complete problem.
 But it is still interesting to prove upper bounds for some families of circuits.
-Indeed, some unexpected space optimization tricks have been found for some dynamic programming algorithms over the years (see for example Hirschberg’s algorithm for string alignment), and it may be worthwhile to generalize them.
+Indeed, some unexpected space optimization tricks have been found for some dynamic programming algorithms over the years (see, for example, Hirschberg’s algorithm for string alignment), and it may be worthwhile to generalize them.
 
 Algebraic dynamic programming has been implemented in multiple systems, most notably 
 ADPfusion~\parencite{Siederdissen2012SneakingConcatmap}

@@ -7,10 +7,10 @@
 
 Les travaux initiaux menés sur la réconciliation segmentale se limitaient à un modèle évolutif à base de spéciations et de duplications~\parencite{Delabre2020EvolutionSegmentalDuplications}.
 Au cours de l’année 2019--2020, Maher~\textsc{Mallem} a travaillé, sous la supervision de Nadia~\textsc{El-Mabrouk}, à étendre le modèle et l’algorithme associé afin de permettre l’inférence de transferts horizontaux.
-L’approche proposée souffrait d’une complexité algorithmique élevée puisqu’elle demandait une exploration exhaustive pour déterminer quels sommets seraient des sommets de transfert horizontal.
+L’approche proposée souffrait d’une complexité algorithmique élevée, puisqu’elle demandait une exploration exhaustive pour déterminer quels sommets seraient des sommets de transfert horizontal.
 Dans ce chapitre, nous montrons comment obtenir un algorithme de complexité polynomiale pour ce problème.
 
-L’approche initiale de \textcite{Delabre2020EvolutionSegmentalDuplications} reposait sur une méthodologie en deux étapes: premièrement la recherche d’une réconciliation optimale en ignorant le caractère segmental du problème, deuxièmement la minimisation des pertes segmentales en fixant les événements binaires identifiés à l’étape précédente.
+L’approche initiale de \textcite{Delabre2020EvolutionSegmentalDuplications} reposait sur une méthodologie en deux étapes: premièrement, la recherche d’une réconciliation optimale en ignorant le caractère segmental du problème, et deuxièmement, la minimisation des pertes segmentales en fixant les événements binaires identifiés à l’étape précédente.
 Nous verrons à la \cref{sec:superdtl:2steps} qu’il existe un contre-exemple empêchant l’extension de cette approche au cas impliquant des transferts horizontaux.
 Nous parvenons néanmoins au résultat annoncé en développant un algorithme de programmation dynamique combinant les deux étapes sur la base des résultats de \textcite{Tofigh2011SimultaneousIdentificationDuplications}.
 
@@ -20,10 +20,10 @@ J’ai été en charge de la programmation de l’algorithme ayant permis ces an
 
 Les résultats obtenus doivent toutefois être lus dans le contexte de plusieurs limites dont souffre la méthode présentée.
 Premièrement, son application demande l’estimation de probabilités d’occurrence de chacun des événements modélisés et ces probabilités ont une grande influence sur les solutions produites.
-Par ailleurs, la fonction de coût est rigide et considère avec le même poids toutes les pertes quelle que soit leur taille.
-Deuxièmement, l’inférence suppose que l’échantillonage des espèces est complet et exclut la possibilité d’une interaction des synténies étudiées avec des espèces qui se sont par la suite éteintes ou qui n’ont pas été échantillonnées.
+Par ailleurs, la fonction de coût est rigide et considère avec le même poids toutes les pertes, quelles que soient leurs tailles.
+Deuxièmement, l’inférence suppose que l’échantillonnage des espèces est complet et exclut la possibilité d’une interaction des synténies étudiées avec des espèces qui se sont par la suite éteintes ou qui n’ont pas été échantillonnées.
 Comme suggéré par l’une des personnes relectrices de l’article présenté ci-dessous, cette limite pourrait expliquer la séquence d’événements de pertes observée dans le scénario présenté à la \cref{fig:superdtl:crispr-scenario}.
-Troisièmement, les événements de gain sont toujours positionnés à l’ancêtre commun, en excluant de la fonction de minimisation le nombre de gains.
+Troisièmement, les événements de gain sont toujours positionnés au niveau de l’ancêtre commun, en excluant de la fonction de minimisation le nombre de gains.
 Finalement, il existe une abondance de solutions optimales parmi lesquelles seule une arbitraire est tirée, ce qui est illustré par le \cref{tab:superdtl:sol-count}.
 Ces limites ont guidé la recherche qui est présentée aux chapitres suivants.
 
@@ -180,7 +180,7 @@ Ces limites ont guidé la recherche qui est présentée aux chapitres suivants.
 \section{Introduction}
 
 The incongruence between the tree of a given gene family and the phylogenetic tree of the corresponding species can be explained through \emph{reconciliation} (an embedding of the gene tree into the species tree) by the fact that genes have been subject to events changing their occurrence in genomes, typically gene duplications~(D) and gene losses~(L)~\parencite{Goodman1979FittingGeneLineage}.
-The standard parsimony criteria used to choose among all possible reconciliations
+The standard parsimony criterion used to choose among all possible reconciliations
 is to minimize the number of duplications (D distance) and losses (DL distance) induced by the reconciliation.
 This can be computed in linear time by LCA-mapping~\parencite{Goodman1979FittingGeneLineage,Zhang1997MirkinMuchnikSmith,Zmasek2001SimpleAlgorithmInfer}.
 
@@ -189,11 +189,11 @@ In this case, the parsimony problem consists in finding a minimum scenario of du
 The problem of finding a most parsimonious acyclic DTL scenario has been shown NP-hard, becoming polynomial when the acyclicity requirement is relaxed~\parencite{Bansal2012EfficientAlgorithmsReconciliation,Tofigh2011SimultaneousIdentificationDuplications}.
 
 Although used successfully for many years, one of the major drawbacks of the reconciliation model is that gene families are considered to evolve independently from one another.
-While some work has been done on inferring the evolution of co-localized genes (such as operons in bacteria or paralogons), also called \emph{syntenic groups of genes} (or simply \emph{syntenies})~\parencite{Berard2012EvolutionGeneNeighborhoods,Duchemin2017DecostarReconstructingAncestral}, adjusting the computation of the evolutionary cost to favour co-evolution events---hence grouping individual events into single segmental ones~\parencite{Duchemin2017PhylogenyDependenciesDependencies}---or inferring the minimum number of \enquote{duplication episodes} defined as sets of single duplications mapped to the same node in the species tree~\parencite{Dondi2019ReconcilingMultipleGenes,Paszek2018EfficientAlgorithmsGenomic}, none of these methods explicitly seek for an evolutionary scenario minimizing segmental duplication, loss and HGT events (see a recent review by~\textcite{ElMabrouk2021PredictingEvolutionSynteniesan}).
+While some work has been done on inferring the evolution of co-localized genes (such as operons in bacteria or paralogons), also called \emph{syntenic groups of genes} (or simply \emph{syntenies})~\parencite{Berard2012EvolutionGeneNeighborhoods,Duchemin2017DecostarReconstructingAncestral}, adjusting the computation of the evolutionary cost to favour co-evolution events---hence grouping individual events into single segmental ones~\parencite{Duchemin2017PhylogenyDependenciesDependencies}---or inferring the minimum number of \enquote{duplication episodes} defined as sets of single duplications mapped to the same node in the species tree~\parencite{Dondi2019ReconcilingMultipleGenes,Paszek2018EfficientAlgorithmsGenomic}, none of these methods explicitly seek an evolutionary scenario minimizing segmental duplication, loss and HGT events (see a recent review by~\textcite{ElMabrouk2021PredictingEvolutionSynteniesan}).
 
-The first attempt to generalize the reconciliation approach to a set of gene trees was described by~\textcite{Delabre2020EvolutionSegmentalDuplications}. Given a set of gene families grouped into ordered syntenies (i.e., ordered groups of genes), a gene tree for each gene family and a species tree, the \emph{DL~Super-reconciliation} problem was defined as finding an evolutionary scenario for the syntenies agreeing with the individual gene trees, whilst minimizing the number of segmental duplications and losses. The problem admits a solution only in the case of \enquote{consistent} gene trees and gene orders. It was shown that the associated decision problem is NP-hard, and that a two-steps method on the synteny tree (obtained as a supertree of the gene trees), first assigning an event labeling from the LCA-mapping and then inferring ancestral syntenies and losses, leads to an optimal solution. Moreover, ignoring gene orders, a polynomial-time algorithm exists for the second step.
+The first attempt to generalize the reconciliation approach to a set of gene trees was described by~\textcite{Delabre2020EvolutionSegmentalDuplications}. Given a set of gene families grouped into ordered syntenies (i.e., ordered groups of genes), a gene tree for each gene family and a species tree, the \emph{DL~Super-reconciliation} problem was defined as finding an evolutionary scenario for the syntenies agreeing with the individual gene trees, whilst minimizing the number of segmental duplications and losses. The problem admits a solution only in the case of \enquote{consistent} gene trees and gene orders. It was shown that the associated decision problem is NP-hard, and that a two-step method on the synteny tree (obtained as a supertree of the gene trees), first assigning an event labelling from the LCA-mapping and then inferring ancestral syntenies and losses, leads to an optimal solution. Moreover, ignoring gene orders, a polynomial-time algorithm exists for the second step.
 
-In this paper, we describe DTL Super-reconciliation, generalizing the model to handle HGT and gene gain events. We restrict the problem to the unordered case, where syntenies are defined as unordered groups of genes. We introduce the evolutionary model in \cref{sec:superdtl:evol-his} and the formal optimization problem in \cref{sec:superdtl:opt-problem}. We show in \cref{sec:superdtl:2steps} that the two-steps method for solving the DL Super-reconciliation problem does not apply in this case, then present a polynomial-time dynamic programming algorithm for DTL Super-reconciliation in \cref{sec:superdtl:algo}. Finally, in \cref{sec:superdtl:crispr,sec:superdtl:results}, we apply our algorithm to CRISPR-associated (Cas) gene syntenies. These genes are part of CRISPR-Cas systems, one of its members (CRISPR-Cas9) well-known as currently the most reliable and accurate molecular scissor technology for genome editing. The inferred evolutionary scenario leads to an interesting explanation of the diversification of this system into its different types, which opens the door to further investigations.
+In this paper, we describe DTL Super-reconciliation, generalizing the model to handle HGT and gene gain events. We restrict the problem to the unordered case, where syntenies are defined as unordered groups of genes. We introduce the evolutionary model in \cref{sec:superdtl:evol-his} and the formal optimization problem in \cref{sec:superdtl:opt-problem}. We show in \cref{sec:superdtl:2steps} that the two-step method for solving the DL Super-reconciliation problem does not apply in this case, then present a polynomial-time dynamic programming algorithm for DTL Super-reconciliation in \cref{sec:superdtl:algo}. Finally, in \cref{sec:superdtl:crispr,sec:superdtl:results}, we apply our algorithm to CRISPR-associated (Cas) gene syntenies. These genes are part of CRISPR-Cas systems, one of its members (CRISPR-Cas9) well-known as currently the most reliable and accurate molecular scissor technology for genome editing. The inferred evolutionary scenario leads to an interesting explanation of the diversification of this system into its different types, which opens the door to further investigations.
 
 \section{Preliminary definitions}
 
@@ -368,7 +368,7 @@ Let $I = \tuple{\X, \F, T ,
 
 Note that an \emph{$\eventE$-Reconciliation} is defined as an
 $\eventE$-Super-reconciliation but on an instance $\tuple{\Gamma, T, \Sigma, S}$.
-The next lemma, which will be required later for a simple inference of the event labeling from the species labeling, directly follows from \cref{def:superdtl:evol-model,def:superdtl:super-rec}.
+The next lemma, which will be required later for a simple inference of the event labelling from the species labelling, directly follows from \cref{def:superdtl:evol-model,def:superdtl:super-rec}.
 
 \begin{lemma}[Synteny and species trees coincide]\label{lem:superdtl:synt-spe-coincide}
     Let $I = \tuple{\X, \F, T , \Sigma, S}$ and $\supRec = \tuple{T, \eventOf, \syntenyOf, \speciesOf}$ be a $\eventDTLG$ Super-reconciliation for $I$ (i.e. a Super-recon\-ci\-lia\-tion on the set of events $\eventE = \{\eventSpe, D, T, L, G\}$\/). Then $\speciesOf$ satisfies the following conditions: (1) neither $\speciesOf(v_l)$ nor $\speciesOf(v_r)$ is a strict ancestor of $\speciesOf(v)$ (i.e. each one can either be a descendant of $\speciesOf(v)$ or be separated from it in the case of HGTs); (2) at least one of $\speciesOf(v_l)$ or $\speciesOf(v_r)$ is a descendant of $\speciesOf(v)$.
@@ -537,7 +537,7 @@ We next introduce a way to assign a cost to a Super-reconciliation which, as we 
 Searching for a most parsimonious history is therefore equivalent to searching in the smaller space of super-reconciliations.
 Finally, the following definition makes the link between the values of the $\speciesOf$ mapping and the evolutionary events at the internal nodes of a Super-reconciliation.
 
-\begin{definition}[Min-event labeling]\label{def:superdtl:interpretation}
+\begin{definition}[Min-event labelling]\label{def:superdtl:interpretation}
     Given $I=\tuple{\X, \F, T , \Sigma, S}$, an internal node $v$ of $\syntenyTree$, and three species $\sigma$, $\sigma'$, $\sigma''$ of $S$, we define the \emph{min-event} function $\eventLCA(\sigma, \sigma', \sigma'')$, used to label $v$ if $\speciesOf(v) = \sigma$, $\speciesOf(v_l) = \sigma'$, and $\speciesOf(v_r) = \sigma''$, as follows:
     \begin{itemize}
         \item If $\sigma$ is an ancestor of both \(\sigma'\) and \(\sigma''\), then
@@ -553,9 +553,9 @@ Finally, the following definition makes the link between the values of the $\spe
     Additionally, given a mapping $s$ from $\treeNodes(\syntenyTree)$ to $\treeNodes(\speciesTree)$, we define $\eventLCA_s$ so that for any internal node $v$ of $\syntenyTree$, $\eventLCA_s(v) = \eventLCA(s(v), s(v_l), s(v_r))$.
 \end{definition}
 
-The following lemma shows that the min-event labeling leads to the most parsimonious Super-reconciliation.
+The following lemma shows that the min-event labelling leads to the most parsimonious Super-reconciliation.
 
-\begin{lemma}[Min-event labeling is optimal]\label{lem:superdtl:event-labeling}
+\begin{lemma}[Min-event labelling is optimal]\label{lem:superdtl:event-labeling}
     Let $\supRec = \tuple{T, \eventOf, \syntenyOf, \speciesOf}$ and
 $\supRecLCA = \tuple{T, \eventLCA_s, \syntenyOf, \speciesOf}$ be two
 DTL Super-reconciliations for $I=\tuple{\X, \F, T , \Sigma, S}$. Then,
@@ -569,14 +569,14 @@ $\costOf{\delta}(\supRecLCA) \leq \costOf{\delta}(\supRec)$.
     However, in that case, replacing $\eventDup$ back with $\eventSpe$ would save two full losses at the cost of adding at most one partial loss, which cannot lead to a more costly Super-reconciliation since speciations have a null cost and $\costDup, \costLoss \geq 0$.
 \end{proof}
 
-It follows that event labeling can be ignored, as it can be directly inferred from the species mapping. Therefore, from now on, a Super-reconciliation will be simply designed as a triplet $\tuple{T, \syntenyOf, \speciesOf}$. We are now ready to formally define the considered optimization problem.
+It follows that event labelling can be ignored, as it can be directly inferred from the species mapping. Therefore, from now on, a Super-reconciliation will be simply designed as a triplet $\tuple{T, \syntenyOf, \speciesOf}$. We are now ready to formally define the considered optimization problem.
 
 \begin{problem}{$\delta$-Super-Reconciliation\label{prob:superdtl:main}}
     \probinput{An input $I = \tuple{\X, \F, T , \Sigma, S}$.}
     \proboutput{A Super-reconciliation $\supRec = \tuple{T, \syntenyOf, \speciesOf}$ for $I$ minimizing $\costOf{\delta}(\supRec)$.}
 \end{problem}
 
-\section{A two-steps method}\label{sec:superdtl:2steps}
+\section{A two-step method}\label{sec:superdtl:2steps}
 
 Finding a DL Reconciliation of a gene tree with a species tree is a classical
 problem~\parencite{Fitch1970DistinguishingHomologousAnalogous,Goodman1979FittingGeneLineage,Guigo1996ReconstructionAncientMolecular,Page1994MapsTreesCladistic}.
@@ -602,15 +602,15 @@ from $\syntenyOf$.
 \begin{figure}[htb]
     \capstart
     \input{fig/superdtl/2-steps-ct-ex}
-    \caption[Counter-example to the two-steps approach for solving SuperDTL]{
+    \caption[Counter-example to the two-step approach for solving SuperDTL]{
         Two solutions for the same DTL Super-reconciliation problem input.
-        \emph{(Left.)} Solution obtained by first computing \(s\) to minimize duplications and HGTs (yielding one such event) and then labeling internal nodes to minimize losses (yielding 4~losses).
+        \emph{(Left.)} Solution obtained by first computing \(s\) to minimize duplications and HGTs (yielding one such event) and then labelling internal nodes to minimize losses (yielding 4~losses).
         \emph{(Right.)} A more parsimonious solution with two HGTs and only two losses.
         \label{fig:superdtl:2-steps-ct-ex}
     }
 \end{figure}
 
-Unfortunately, this two-steps method does not work for solving the $\eventDTL$ Super-reconciliation
+Unfortunately, this two-step method does not work for solving the $\eventDTL$ Super-reconciliation
 problem. In fact, for a given input $I = \tuple{\Gamma, T, \Sigma,
   S}$, the mapping $s^{\mathrm{DT}}$ from $T$ to $S$ allowing to
 minizime the duplication and loss cost is not necessarily the mapping
@@ -619,7 +619,7 @@ Super-reconciliation $\supRec = \tuple{T, \syntenyOf, \speciesOf}$. In particula
 speciation node (inferred from $s^{\mathrm{DT}}$) to a $\eventHGT$
 event may lead to less losses, and thus to a better cost in
 total. \Cref{fig:superdtl:2-steps-ct-ex} shows a counterexample of the
-two-steps method for solving the $\eventDTL$ problem.
+two-step method for solving the $\eventDTL$ problem.
 
 \section{A dynamic programming algorithm for $\eventDTL$~super-reconciliation}\label{sec:superdtl:algo}
 
@@ -769,7 +769,7 @@ We therefore only need to consider two possibilities for $\syntenyOf(v)$. We def
     First, note that both algorithms terminate even though they are mutually recursive, since any call to $\mathcal{C}(v, \sigma)$ or $\mathcal{C}^\star(v, \sigma)$ calls $\mathcal{C}$ and $\mathcal{C}^\star$ only on $v_l$ and $v_r$.
     We proceed by structural induction to prove correctness.
     Let $v$ be a leaf of~$\syntenyTree$.
-    Leaves cannot be labeled by any synteny or mapped to any species other than the ones specified in the problem input, therefore $\dt{C}{v, \speciesOf(v)} = 0 = \mathcal{C}(v, \speciesOf(v))$, $\dt{C}{v, \sigma} = \infty = \mathcal{C}(v, \sigma)$ for any $\sigma \neq \speciesOf(v)$, and $\dt{C^\star}{v, \sigma} = \infty = \mathcal{C}^\star(v, \sigma)$ for any $\sigma \in \treeNodes(\speciesTree)$.
+    Leaves cannot be labelled by any synteny or mapped to any species other than the ones specified in the problem input, therefore $\dt{C}{v, \speciesOf(v)} = 0 = \mathcal{C}(v, \speciesOf(v))$, $\dt{C}{v, \sigma} = \infty = \mathcal{C}(v, \sigma)$ for any $\sigma \neq \speciesOf(v)$, and $\dt{C^\star}{v, \sigma} = \infty = \mathcal{C}^\star(v, \sigma)$ for any $\sigma \in \treeNodes(\speciesTree)$.
 
     Now, let $v$ be an internal node and assume that for any $\sigma \in \treeNodes(\speciesTree)$, $\mathcal{C}^\star(v_l, \sigma) = \dt{C^\star}{v_l, \sigma}$, $\mathcal{C}^\star(v_r, \sigma) = \dt{C^\star}{v_r, \sigma}$, $\mathcal{C}(v_l, \sigma) = \dt{C}{v_l, \sigma}$, and $\mathcal{C}(v_r, \sigma) = \dt{C}{v_r, \sigma}$.
     Let $\sigma$ be any node of the species tree.

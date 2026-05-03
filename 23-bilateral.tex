@@ -65,7 +65,7 @@ La \cref{fig:reconciliation:free-rec} donne deux exemples de réconciliations li
 \subsection{Arbres réconciliés et modèles de réconciliation}
 
 Un modèle de réconciliation spécifie les types d’événements qui peuvent affecter, conjointement ou séparément, l’évolution des unités dépendantes et de leurs hôtes.
-Une interprétation d’une réconciliation sous un modèle donné est une combinaison d’événements du modèle qui explique ses associations dépendant--hôte.
+Une interprétation d’une réconciliation sous un modèle donné est une combinaison d’événements du modèle qui explique ses associations dépendant-hôte.
 Ces interprétations sont représentées par des arbres réconciliés étiquetés par les événements choisis (voir exemples dans la \cref{fig:reconciliation:rec-trees}).
 
 \begin{definition}[Arbre réconcilié]\label{definition:rectree}
@@ -99,7 +99,7 @@ En revanche, cette méthode a l’avantage de sélectionner des réconciliations
     \centering
     \input{fig/reconciliation/bilateral/rec-trees}
     \caption[Deux exemples d’arbres réconciliés]{
-        Arbres réconciliés pour les réconciliations \(\rec_1\) et \(\rec_3\) sous les modèles duplication--perte~(\(\recmodelDL\)) et duplication--transfert--perte~(\(\recmodelDTL\)) respectivement.
+        Arbres réconciliés pour les réconciliations \(\rec_1\) et \(\rec_3\) sous les modèles duplication-perte~(\(\recmodelDL\)) et duplication-transfert-perte~(\(\recmodelDTL\)) respectivement.
         Chaque arbre est superposé sur la trame de la phylogénie des hôtes de sorte à refléter l’association des nœuds prescrite par la réconciliation.
         Chaque cercle~{\showspeciation} représente un événement de codivergence~(\(\evtS\)),
         chaque carré~{\showduplication} une duplication~(\(\evtD\)),
@@ -109,7 +109,7 @@ En revanche, cette méthode a l’avantage de sélectionner des réconciliations
     \label{fig:reconciliation:rec-trees}
 \end{figure}
 
-\paragraph{Modèle duplication--perte~\textup{\parencite{Goodman1979FittingGeneLineage,Page1994MapsTreesCladistic}}}
+\paragraph{Modèle duplication-perte~\textup{\parencite{Goodman1979FittingGeneLineage,Page1994MapsTreesCladistic}}}
 Ce modèle comporte trois types d’événements \(\recmodelDL = \{\evtD, \evtL, \evtS\}\).
 La divergence d’un gène s’explique par une duplication~(\(\evtD\)) ou par une spéciation de son hôte~(\(\evtS\)), et l’absence d’un gène dans une espèce descendante s’explique par une perte~(\(\evtL\)).
 Chaque nœud \(v \in \tnodes(\rectree)\) d’un arbre réconcilié sous ce modèle est tel que:
@@ -123,12 +123,12 @@ Les fonctions de coût considérées pour ce modèle fixent habituellement \(\co
 Par conséquent, rechercher les réconciliations de coût minimal correspond à maximiser le nombre de codivergences entre \(T\) et \(S\).
 Ce choix est motivé par le fait que chaque événement~\(\evtS\) s’appuie sur la spéciation d’un hôte, un événement déjà postulé par l’arbre \(S\) donné en entrée.
 
-\paragraph{Duplication--transfert--perte~\textup{\parencite{Tofigh2011SimultaneousIdentificationDuplications}}}
+\paragraph{Duplication-transfert-perte~\textup{\parencite{Tofigh2011SimultaneousIdentificationDuplications}}}
 Le modèle \(\recmodelDTL = \{\evtD, \evtT, \evtL, \evtS\}\) étend le modèle \(\recmodelDL\) pour y intégrer la possibilité de changements d’hôte et ainsi permettre d’interpréter des réconciliations libres.
 En plus des trois types d’événements définis précédemment, pour un embranchement \(v \in \tinner(\rectree)\) sous ce modèle, si \(\evt(v) = \evtT\), alors \(\exrec(v) = \exrec(v\lchild)\) et \(\exrec(v) \nottcomp \exrec(v\rchild)\), ou bien \(\exrec(v) = \exrec(v\rchild)\) et \(\exrec(v) \nottcomp \exrec(v\lchild)\).
 Un exemple d’interprétation d’une réconciliation sous le modèle \(\recmodelDTL\) est donné dans la \cref{fig:reconciliation:rec-trees}.
 
-\paragraph{Espèces non-échantillonnées~\textup{\parencite{Szoelloesi2013LateralGeneTransfer,Weiner2021ImprovedDuplicationTransfer}}}
+\paragraph{Espèces non échantillonnées~\textup{\parencite{Szoelloesi2013LateralGeneTransfer,Weiner2021ImprovedDuplicationTransfer}}}
 La phylogénie \(S\) est nécessairement incomplète puisqu’elle ne renseigne que sur les espèces hôtes des gènes de~\(T\).
 Les embranchements ne menant qu’à des espèces absentes de cet échantillon sont donc manquants.
 % Lorsque seules les réconciliations strictes sont considérées, les gènes évoluent en suivant les embranchements menant jusqu’aux feuilles présentes dans l’échantillon, et de tels embranchements manquants sont donc sans effet.
@@ -143,7 +143,7 @@ Cet événement supplémentaire offre une alternative à l’insertion de séque
     \input{fig/reconciliation/bilateral/rec-dtlx}
     \caption[Interprétations alternatives de la même réconciliation sous deux modèles]{
         Deux interprétations alternatives de la même réconciliation sous les modèles \(\recmodelDL\) et \(\recmodelDTLx\).
-        La branche sur trame hachurée correspond à une partie non-échantillonnée de la phylogénie des hôtes.
+        La branche sur trame hachurée correspond à une partie non échantillonnée de la phylogénie des hôtes.
     }
     \label{fig:reconciliation:rec-dtlx}
 \end{figure}
@@ -152,7 +152,7 @@ Cet événement supplémentaire offre une alternative à l’insertion de séque
 Des extensions de la réconciliation pour prendre en compte le \emph{tri incomplet de lignées}~(ILS) ont été proposées par \textcite{Rasmussen2012UnifiedModelingGene,Wu2013MostParsimoniousReconciliation,Chan2017InferringIncompleteLineage}.
 Ce phénomène se produit lorsque des spéciations rapprochées dans le temps font que les espèces émergentes héritent de sous-ensembles d’unités distincts.
 Comme alternative aux modèles de type \(\recmodelDL\), \textcite{Goodman1979FittingGeneLineage} ont proposé un modèle intégrant la possibilité pour un gène d’être activé ou désactivé par un mécanisme de régulation, ce qui permet de limiter l’inférence de pertes superflues (voir également le modèle \(\recmodelDTLx\) décrit ci-dessus).
-Enfin, la datation de la phylogénie des hôtes, imposant une contrainte supplémentaire sur les changements d’hôtes, peut être intégrée aux modèles autorisant ce type d’événements~\parencite{Tofigh2011SimultaneousIdentificationDuplications}.
+Enfin, la datation de la phylogénie des hôtes, imposant une contrainte supplémentaire sur les changements d’hôtes, peut être intégrée aux modèles autorisant ce type d’événement~\parencite{Tofigh2011SimultaneousIdentificationDuplications}.
 
 \subsection{Cohérence temporelle}
 
@@ -176,8 +176,8 @@ Ces contraintes peuvent être formalisées comme suit.
 
 Remarquons qu’il est possible de vérifier si un arbre réconcilié est temporellement cohérent en temps \(\bigo((|\tnodes(\rectree)| + |\tnodes(S)|)^2)\) en utilisant l’algorithme de \textsc{Bellman--Ford} pour déterminer si un tel ordre existe \parencite[section~22.4]{Cormen2022IntroductionAlgorithms}.
 
-Par exemple, la réconciliation \(\rec_3\) de la \cref{fig:reconciliation:free-rec} est temporellement cohérente de par l’interprétation donnée dans la \cref{fig:reconciliation:rec-trees}.
-Pour certaines réconciliations comme celle illustrée dans la \cref{fig:reconciliation:time-cons}, il peut exister des interprétations cohérentes et d’autres incohérentes.
+Par exemple, la réconciliation \(\rec_3\) de la \cref{fig:reconciliation:free-rec} est temporellement cohérente en raison de l’interprétation donnée dans la \cref{fig:reconciliation:rec-trees}.
+Pour certaines réconciliations, comme celle illustrée dans la \cref{fig:reconciliation:time-cons}, il peut exister des interprétations cohérentes et d’autres incohérentes.
 
 \begin{figure}[htb]
     \capstart
@@ -246,7 +246,7 @@ Le calcul de~\(\reclca\) demande seulement un temps et espace linéaires en la t
 Le problème de \(\recmodelDL\)-parcimonie est donc polynomial.
 
 Contrairement au modèle \(\recmodelDL\), il peut exister plusieurs réconciliations optimales pour \(\recmodelDTL\) et la réconciliation \(\reclca\) n’en fait pas nécessairement partie.
-Une contrainte naturelle pour ce problème est de ne considérer que les réconciliations temporellement cohérentes.
+Une contrainte naturelle pour ce problème est de ne prendre en considération que les réconciliations temporellement cohérentes.
 Cependant, cette contrainte rend le problème de décision associé NP-complet, comme démontré par \textcite{Tofigh2011SimultaneousIdentificationDuplications} par réduction du problème du sous-graphe acyclique maximal.
 
 Pour contourner cette difficulté, dans la suite, nous permettrons les réconciliations incohérentes.
@@ -334,7 +334,7 @@ Il suffit pour ce faire d’ajouter un cas pour chacune des lignes~3 à~7 dans l
 
 La réconciliation bilatérale permet l’étude de l’évolution conjointe d’unités dépendantes et de leurs hôtes.
 Les algorithmes décrits dans la section précédente permettent d’obtenir de l’information sur ces relations évolutives à partir des phylogénies respectives des unités et des hôtes.
-Sous certains modèles d’évolution tels que le modèle~\(\recmodelDTL\), plusieurs solutions distinctes peuvent toutefois être optimales au sens du critère de parcimonie.
+Sous certains modèles d’évolution, tels que le modèle~\(\recmodelDTL\), plusieurs solutions distinctes peuvent toutefois être optimales au sens du critère de parcimonie.
 Par ailleurs, l’exécution de ces algorithmes est dépendante des coûts fixés pour chaque type d’événement, et la variation de ces coûts modifie les solutions optimales.
 Il n’est donc pas suffisant d’analyser une seule solution retournée par un seul paramétrage d’algorithme.
 Pour une analyse pertinente, l’espace des solutions doit être exploré pour quantifier dans quelle mesure ces solutions s’accordent sur les différentes parties du scénario inféré~\parencite[voir][]{Doyon2009SpaceGeneSpeciesTrees,Weiner2021ImprovedDuplicationTransfer}.
@@ -345,4 +345,4 @@ La réconciliation peut fournir un critère permettant d’améliorer ces phylog
 Par exemple, la réconciliation peut être utilisée pour inférer un arbre d’espèces inconnu à partir d’un ensemble d’arbres de plusieurs familles de gènes~\parencite[voir][p.~72--73]{Guigo1996ReconstructionAncientMolecular,Page1994MapsTreesCladistic}.
 Le problème sous-jacent étant NP-complet~\parencite{Ma2000GeneTreesSpecies}, cette application de la réconciliation s’appuie sur des heuristiques.
 Dans certains cas, notamment en cas d’incertitudes dans sa construction, la phylogénie des unités dépendantes peut comporter des polytomies, c’est-à-dire des embranchements ayant plus de deux descendants.
-La réconciliation peut alors être utilisée comme un critère pour \emph{résoudre} ces polytomies, en recherchant l’arbre binaire résultant en un score de réconciliation moindre~\parencite{Lafond2016EfficientNonBinary}.
+La réconciliation peut alors être utilisée comme un critère pour \emph{résoudre} ces polytomies en recherchant l’arbre binaire aboutissant à un score de réconciliation moindre~\parencite{Lafond2016EfficientNonBinary}.

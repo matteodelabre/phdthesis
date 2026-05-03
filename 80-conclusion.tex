@@ -12,11 +12,11 @@ L’une des méthodes permettant d’intégrer l’interdépendance entre les un
 
 Dans cette thèse, nous avons démontré que le modèle de réconciliation segmentale peut être étendu avec succès pour prendre en compte la possibilité de transferts horizontaux entre les hôtes.
 Ceci nous a notamment permis d’appliquer cette méthode à l’évolution des systèmes CRISPR-Cas dans les bactéries.
-Bien que la complexité algorithmique de la méthode développée soit raisonnable, cette extension du modèle a fait apparaître l’existence de très nombreuses solutions co-optimales qui nuisent à l’interprétabilité des solutions produites.
+Bien que la complexité algorithmique de la méthode développée soit raisonnable, cette extension du modèle a fait apparaître l’existence de très nombreuses solutions cooptimales qui nuisent à l’interprétabilité des solutions produites.
 
 Afin de réaliser une étude systématique de cet espace étendu des solutions, nous avons adopté une approche algébrique des techniques de programmation dynamique utilisées pour la conception des algorithmes.
 Nous avons pour ce faire présenté une théorie unifiée de la programmation dynamique algébrique démontrant comment des questions transversales concernant des problèmes d’optimisation combinatoire peuvent être traitées de manière générique.
-Cette théorie a été mise en pratique sur le problème de réconciliation segmentale, nous laissant notamment envisager le potentiel de développement accéléré de nouveau algorithmes dans le futur de par la combinaison d’algorithmes existants.
+Cette théorie a été mise en pratique sur le problème de réconciliation segmentale, nous laissant notamment envisager le potentiel de développement accéléré de nouveaux algorithmes dans le futur par la combinaison d’algorithmes existants.
 
 L’accès à ces outils algébriques devrait permettre de réaliser une validation plus approfondie des modèles développés dans cette thèse.
 Des travaux futurs devront ainsi être réalisés pour mesurer quelle proportion des scénarios réels peuvent être recouvrés par le modèle et valider si la réconciliation segmentale permet effectivement d’obtenir des scénarios qualitativement meilleurs que la réconciliation bilatérale ou la réconciliation d’adjacences et, si oui, dans quelles circonstances.
@@ -27,11 +27,11 @@ Plusieurs extensions supplémentaires des méthodes développées ici pourraient
 L’évolution des groupes ou des synténies n’est pas nécessairement arborescente car les groupes peuvent se scinder et se fusionner au long de leur histoire.
 Ainsi, la réconciliation segmentale pourrait être étendue sur des réseaux phylogénétiques, c’est-à-dire des structures phylogénétiques contenant des cycles non dirigés.
 Des travaux ont déjà été menés pour étendre la réconciliation bilatérale aux réseaux et pourront être étendus en ce sens \parencite{Chan2024EfficientAlgorithmReconciliation}.
-Les méthodes développées ici concernent spécifiquement l’évolution de groupes d’unités sans prendre en compte leur potentiel ordonnancement linéaire par exemple le long d’un génome.
-La complexité algorithmique du problème associé à la réconciliation segmentale ordonnée reste ouverte au meilleur de notre connaissance.
+Les méthodes développées ici concernent spécifiquement l’évolution de groupes d’unités sans prendre en compte leur potentiel ordonnancement linéaire, par exemple le long d’un génome.
+La complexité algorithmique du problème associé à la réconciliation segmentale ordonnée reste ouverte autant que nous le sachions.
 Une autre piste potentielle pourrait être d’ordonner les groupes d’une réconciliation segmentale \emph{a posteriori}, après avoir optimisé les événements non ordonnés.
 
 Finalement, plusieurs directions de recherche peuvent être envisagées en lien avec la programmation dynamique algébrique.
 La notion de produit de grammaires envisagée au \cref{chap:adp-rec} reste encore à développer et les premiers résultats obtenus par \textcite{Siederdissen2015ProductGrammarsAlignment} en la matière restent limités à certaines formes de grammaires.
-L’obtention d’un opérateur de produit général pourrait permettre de réaliser des avancées algorithmiques par exemple en ce qui concerne la réconciliation multilatérale~\cref{Menet2022PhylogeneticReconciliation}.
+L’obtention d’un opérateur de produit général pourrait permettre de réaliser des avancées algorithmiques, par exemple en ce qui concerne la réconciliation multilatérale~\parencite{Menet2022PhylogeneticReconciliation}.
 Le développement de méthodes de spécification d’algorithmes sur les graphes généraux, par exemple au travers de leur décomposition arborescente, pourrait également permettre le développement d’algorithmes pour la réconciliation segmentale étendue aux réseaux.

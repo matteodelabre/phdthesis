@@ -3,7 +3,7 @@
 \section{superrec2 --- Algorithmes de réconciliation segmentale}\label{sec:logiciel:superrec2}
 \programdetails{https://github.com/UdeM-LBIT/superrec2}{GPL v3.0}{Entre février~2021 et avril~2026, 4\,000 lignes de code}
 
-Le logiciel \emph{superrec2}, implanté en Python, a servi de banc d’essai pour le développement et l’application des différents algorithmes de réconciliation segmentale présentés dans ce manuscrit.
+Le logiciel \emph{superrec2}, implanté en Python, a servi de banc d’essai pour la mise au point et l’application des différents algorithmes de réconciliation segmentale présentés dans ce manuscrit.
 À ce titre, plusieurs problèmes adjacents y sont résolus en plus de l’implantation des algorithmes en tant que tels:
 
 \begin{compactitemize}
@@ -15,10 +15,10 @@ Le logiciel \emph{superrec2}, implanté en Python, a servi de banc d’essai pou
 Le module \textbf{\texttt{superrec2.render}} et le programme de ligne de commande \textbf{\texttt{superrec2 draw}} permettent de charger un scénario de réconciliation bilatérale ou segmentale et d’en générer une représentation visuelle suivant les conventions adoptées dans les figures \cref{fig:reconciliation:rec-trees,fig:reconciliation:rec-dtlx,fig:reconciliation:time-cons,fig:evol-history-example,fig:superdtl:2-steps-ct-ex,fig:superdtl:crispr-scenario,fig:synesth:example,fig:synesth:crispr-sol,fig:adp-rec:rec-input,fig:adp-rec:syn-solution-best}.
 Pour ce faire, les événements de l’arbre réconcilié doivent être disposés le long de l’arbre des hôtes en s’assurant qu’un espace suffisant soit réservé pour chacun.
 Le programme produit un fragment de document {\LaTeX} qui génère le diagramme en s’intégrant dans un document.
-D’autres programmes existent pour la visualisation de scénarios de réconciliation (voir \cite{Menet2022PhylogeneticReconciliation} pour une revue récente des différentes options) mais au meilleur de notre connaissance aucun ne permet la visualisation de réconciliations segmentales.
+D’autres programmes existent pour la visualisation de scénarios de réconciliation (voir \cite{Menet2022PhylogeneticReconciliation} pour une revue récente des différentes options) mais, autant que nous le sachions, aucun ne permet la visualisation de réconciliations segmentales.
 
 Lorsque le scénario est temporellement cohérent (voir \cref{definition:rec-time-consistent}), le programme s’assure de positionner les événements de sorte que tous les transferts horizontaux soient représentés par des arcs réellement horizontaux.
-Sinon, le programme tente par une approche vorace de représenter ainsi le plus de transferts possibles et marque en rouge ceux pour lesquels il n’y est pas parvenu.
+Sinon, le programme tente par une approche vorace de représenter ainsi le plus de transferts possible et marque en rouge ceux pour lesquels il n’y est pas parvenu.
 Cette partie du programme a été écrite en collaboration avec Arnaud~\textsc{Grandisson}.
 
 Le module \textbf{\texttt{superrec2.compute}} et le programme de ligne de commande \texttt{\textbf{superrec2 reconcile}} permettent d’exécuter l’algorithme décrit au \cref{chap:adp-rec}.

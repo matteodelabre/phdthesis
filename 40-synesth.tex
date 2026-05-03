@@ -1,7 +1,7 @@
 %! TeX root = ./main.tex
 % vim: set spelllang=en,fr:
 \selectlanguage{french}
-\chapter{Synesth: réconciliation segmentale avec hôtes non-échantillonnés}\label{chap:synesth}
+\chapter{Synesth: réconciliation segmentale avec hôtes non échantillonnés}\label{chap:synesth}
 
 L’une des limites de la méthode proposée au chapitre précédent est qu’elle ignore les interactions possibles entre les unités étudiées et des hôtes qui ne feraient pas partie de l’échantillon choisi, par exemple s’ils appartiennent à une lignée qui s’est éteinte depuis lors.
 Dans le contexte de la réconciliation avec transferts horizontaux, de telles interactions sont possibles: une unité pourrait être transférée d’un hôte \(A\), ancêtre d’un hôte échantillonné, vers un hôte \(B\) inconnu, puis à nouveau transféré vers un descendant \(C \tdesc A\).
@@ -95,7 +95,7 @@ Pour ce faire, nous procéderons à une étude combinatoire de l’espace des r�
     We present Synesth, the most comprehensive and flexible tool for tree reconciliation allowing for segmental events --- involving multiple genes --- including duplications, transfers, fissions, and transient events going through unsampled species.
     We examine the combinatorial properties of this extended tree reconciliation model and study various associated optimization problems related to various granularities of the solution space.
     First, the infinite set of histories is reduced to a finite but exponential set of Pareto-optimal event histories (in terms of counts of each event type), then to a polynomial set of Pareto-optimal event vectors, eventually ending with minimum event cost histories given an event cost function. An inductive algebraic characterization of the output using a different algebra for each space granularity leads to efficient dynamic programming algorithms, ultimately ending with an \(O(mn)\) time-complexity algorithm for computing a minimum event-cost history (\(m\) and \(n\): number of nodes of the two trees).
-    This time complexity matches that of the fastest algorithms for classical (i.e. without syntenies and associated events) reconciliation with transfers.
+    This time complexity matches that of the fastest algorithms for classical (i.e., without syntenies and associated events) reconciliation with transfers.
     We show how Synesth can be applied for inferring Pareto-optimal evolutionary scenarios of CRISPR-Cas systems in a set of bacterial genomes.
     An implementation of the algorithm is available at: \url{https://github.com/UdeM-LBIT/superrec2/tree/algo2024}.
 
@@ -105,22 +105,22 @@ Pour ce faire, nous procéderons à une étude combinatoire de l’espace des r�
 \section{Introduction}
 
 A \emph{gene/species trees reconciliation} is an embedding of a gene tree into a species tree explicating the topological difference between the two trees through a sequence of events shaping the gene family inside the species tree.
-Gene/species tree reconciliation has been widely studied since the 80s~\parencite{Goodman1979FittingGeneLineage}, first focusing on duplication~(D) and loss~(L) events and then extending to horizontal gene transfers~(T)~\parencite{Bansal2012EfficientAlgorithmsReconciliation,Donati2015EfficientTreeReconciliation,Tofigh2011SimultaneousIdentificationDuplications} and other events such as hybridization or incomplete lineage sorting (review in~\textcite{ElMabrouk2019GeneFamilyEvolution}). One of the major drawbacks of classical reconciliation is that gene families are considered separately from one another, which is not appropriate for genes organized in \emph{syntenies}, i.e. colocalized genes likely evolving together through segmental events.
+Gene/species tree reconciliation has been widely studied since the 80s~\parencite{Goodman1979FittingGeneLineage}, first focusing on duplication~(D) and loss~(L) events and then extending to horizontal gene transfers~(T)~\parencite{Bansal2012EfficientAlgorithmsReconciliation,Donati2015EfficientTreeReconciliation,Tofigh2011SimultaneousIdentificationDuplications} and other events such as hybridization or incomplete lineage sorting (review in~\textcite{ElMabrouk2019GeneFamilyEvolution}). One of the major drawbacks of classical reconciliation is that gene families are considered separately from one another, which is not appropriate for genes organized in \emph{syntenies}, i.e., co-localized genes likely evolving together through segmental events.
 
-Although some work has been done to infer the evolution of adjacencies~\parencite{Duchemin2017DecostarReconstructingAncestral}, group individual events into segmental ones~\parencite{Duchemin2017PhylogenyDependenciesDependencies}, or minimize \enquote{duplication episodes}~\parencite{Dondi2019ReconcilingMultipleGenes,Paszek2018EfficientAlgorithmsGenomic}, none of these methods are intended to explicitly look for evolutionary scenarios minimizing segmental events. We presented the first algorithm generalizing reconciliation to synteny trees (i.e. with leaves representing syntenies rather than single genes) and segmental events for the DL distance in~\textcite{Delabre2020EvolutionSegmentalDuplications} and extended it to horizontal transfers with \emph{SuperDTL} in~\textcite{Anselmetti2022ReconciliationSegmentalDuplication}.
+Although some work has been done to infer the evolution of adjacencies~\parencite{Duchemin2017DecostarReconstructingAncestral}, group individual events into segmental ones~\parencite{Duchemin2017PhylogenyDependenciesDependencies}, or minimize \enquote{duplication episodes}~\parencite{Dondi2019ReconcilingMultipleGenes,Paszek2018EfficientAlgorithmsGenomic}, none of these methods are intended to explicitly look for evolutionary scenarios minimizing segmental events. We presented the first algorithm generalizing reconciliation to synteny trees (i.e., with leaves representing syntenies rather than single genes) and segmental events for the DL distance in~\textcite{Delabre2020EvolutionSegmentalDuplications} and extended it to horizontal transfers with \emph{SuperDTL} in~\textcite{Anselmetti2022ReconciliationSegmentalDuplication}.
 
 Here, we present Synesth (for \emph{SYNteny Evolution in SegmenTal Histories}), an extended reconciliation model accounting for fissions whereby part of a synteny is detached to another locus or species, in addition to losses, gains, duplications and transfers.
-Moreover, as the choice of the species included in a study, or equivalently the absence of species which are not chosen, unsampled or extinct, has a serious impact on the output of a reconciliation algorithm~\parencite{Jacox2016EcceteraComprehensiveGene,Szoelloesi2013LateralGeneTransfer,Weiner2021ImprovedDuplicationTransfer}, we account for transfers going through unsampled species. 
+Moreover, as the choice of the species included in a study, or equivalently the absence of species that are not chosen, unsampled or extinct, has a serious impact on the output of a reconciliation algorithm~\parencite{Jacox2016EcceteraComprehensiveGene,Szoelloesi2013LateralGeneTransfer,Weiner2021ImprovedDuplicationTransfer}, we account for transfers going through unsampled species. 
 
 Among the infinite space of possible histories explicating the evolution of a synteny tree inside a species tree both given as input, we are interested in selecting the most likely ones.
 A possible way is by assigning costs (or probabilities) to event types and selecting histories minimizing (resp. maximizing) the overall cost (resp. probability).
 The resulting histories can vary significantly depending on the costs, which are usually challenging to determine and strongly depend on the taxa under study~\parencite{LibeskindHadas2014ParetoOptimalPhylogenetic,David2011RapidEvolutionaryInnovation}.
-Instead, our goal here is to provide a landscape of possible histories independently of costs, before eventually choosing a solution for a particular choice of costs.
+Instead, our goal here is to provide a landscape of possible histories independent of costs, before eventually choosing a solution for a particular choice of costs.
 
 We subdivide the space of histories by formally defining nested classes.
 First, the space is reduced to a finite but exponential set of Pareto-optimal histories (in terms of counts of each event type), then to a polynomial set of Pareto-optimal vectors, eventually ending with minimum-cost solutions.
 We develop efficient and exact algorithms using an algebraic dynamic programming approach with a different algebra for each class.
-The inductive characterization of Pareto-optimal histories given in \cref{sec:synesth:pareto-histories} leads to a polynomial-time dynamic programming algorithm to output all Pareto-optimal vectors (\cref{sec:synesth:pareto-vectors}) and ultimately to an \(\bigo(mn)\) time-complexity algorithm (\(m\) and \(n\): number of nodes of the two trees) to output a minimum event cost history (\Cref{sec:synesth:min-cost-histories}), matching time complexity of the fastest algorithms for classical DTL reconciliation~\parencite{Weiner2021ImprovedDuplicationTransfer}.
+The inductive characterization of Pareto-optimal histories given in \cref{sec:synesth:pareto-histories} leads to a polynomial-time dynamic programming algorithm to output all Pareto-optimal vectors (\cref{sec:synesth:pareto-vectors}) and ultimately to an \(\bigo(mn)\) time-complexity algorithm (\(m\) and \(n\): number of nodes of the two trees) to output a minimum event cost history (\Cref{sec:synesth:min-cost-histories}), matching the time complexity of the fastest algorithms for classical DTL reconciliation~\parencite{Weiner2021ImprovedDuplicationTransfer}.
 
 In \cref{sec:synesth:results}, we apply Synesth to CRISPR-associated (Cas) gene syntenies.
 Taking advantage of previous work~\parencite{LibeskindHadas2022TreeReconciliationMethods,LibeskindHadas2014ParetoOptimalPhylogenetic}, we output a comprehensive representation of the solution landscape comprised of \enquote{cost regions}, such that any two event cost assignments within the same region lead to the same histories.
@@ -142,7 +142,7 @@ Notice that a node \(v\) is both an ancestor and a descendant of itself; wheneve
 We denote by \(\treeEdges(T)\) the set of edges of \(T\), each represented by a pair of nodes \(\treeEdge{\parentOf(v)}{v}\).
 For any two nodes \(v\) and \(v'\) of \(T\), there exists a unique path from \(v\) to \(v'\) that we denote \(\treePath[T]{v}{v'} \subseteq \treeEdges(T)\).
 The distance between \(v\) and \(v'\) is defined as \(\treeDist[T]{v}{v'} = |\treePath[T]{v}{v'}|\).
-Given a node \(v\) of \(T\), \(\subtree{T}{v}\) is the \emph{subtree} of \(T\) rooted at \(v\) (i.e. containing only the descendants of \(v\)).
+Given a node \(v\) of \(T\), \(\subtree{T}{v}\) is the \emph{subtree} of \(T\) rooted at \(v\) (i.e., containing only the descendants of \(v\)).
 The \emph{lowest common ancestor}~(LCA) of a subset \(V\) of nodes, denoted \(\LCA_T(V)\), is the ancestor of all nodes in \(V\) which is the most distant from the root.
 
 A tree~\(T'\) is said to be an \emph{extension} of a tree~\(T\) if~\(T'\) can be obtained from~\(T\) by a sequence of operations among:
@@ -158,7 +158,7 @@ If all internal nodes are unary or binary, then the tree is \emph{partially bina
 
 If \(\geneFamilySet\) is a set of gene families, then a \emph{synteny} on \(\geneFamilySet\) is a subset~\(X \subseteq \geneFamilySet\) representing a group of genes assumed to have jointly evolved.
 Notice that we ignore the relative order of genes in the genomic region, as well as the physical distance between genes and regions.
-The genes of a synteny are considered to all belong to different gene families (i.e. repeated gene families inside a synteny are forbidden),
+The genes of a synteny are considered to all belong to different gene families (i.e., repeated gene families inside a synteny are forbidden),
 therefore a gene is simply identified by the family \(\Gamma \in \F\) it belongs to.
 
 A \emph{species tree} on a set \(\taxa\) of species is a tree \(S\) with a bijection \(\speciesOf : \treeLeaves(S) \rightarrow \Sigma\).
@@ -179,9 +179,9 @@ Evolutionary histories are sequences of such events, as formally defined below (
 
 \begin{definition}[Evolutionary history for syntenies]\label{def:synesth:hist}
     A history \(\Hist\) on a binary species tree \(\speciesTree\) is a tuple \(\tuple{H, \eventOf, \syntenyOf, \speciesOf}\), where \(H\) is a partially binary tree.
-    Each node \(v \in \treeNodes(H)\) is labeled with a species \(\speciesOf(v) \in \treeNodes(\speciesTree)\) and a synteny (i.e. a set of gene families) \(\syntenyOf(v)\).
-    Each internal node is additionally labeled with an event \(\eventOf(v) \in \allEvents = \{\eventSpe,\allowbreak \eventDup,\allowbreak \eventCut,\allowbreak \eventTrDup,\allowbreak \eventTrCut,\allowbreak \eventGain,\allowbreak \eventLoss\}\) acting on \(\syntenyOf(v)\) and \(\speciesOf(v)\).
-    These labelings satisfy the following conditions:
+    Each node \(v \in \treeNodes(H)\) is labelled with a species \(\speciesOf(v) \in \treeNodes(\speciesTree)\) and a synteny (i.e., a set of gene families) \(\syntenyOf(v)\).
+    Each internal node is additionally labelled with an event \(\eventOf(v) \in \allEvents = \{\eventSpe,\allowbreak \eventDup,\allowbreak \eventCut,\allowbreak \eventTrDup,\allowbreak \eventTrCut,\allowbreak \eventGain,\allowbreak \eventLoss\}\) acting on \(\syntenyOf(v)\) and \(\speciesOf(v)\).
+    These labellings satisfy the following conditions:
     \begin{enumerate}
         \item\label{def:synesth:hist-spe}
             If \(\eventOf(v) = \eventSpe\),
@@ -261,7 +261,7 @@ Finally, notice that \cref{def:synesth:hist} does not require the species involv
         The history tree is represented on top of the species tree drawn in gray in the background.
         The cross-hatched background represents a part of the history taking place in an unsampled lineage (corresponding to the edge to its left in \(\augS\)).
         Events are represented as follows: \enquote{\(\eventSpe\)} by ovals, \enquote{\(\eventDup\)} and \enquote{\(\eventCut\)} by rectangles, \enquote{\(\eventTrDup\)} and \enquote{\(\eventTrCut\)} by diamonds, \enquote{\(\eventLoss\)} by right half-circles and \enquote{\(\eventGain\)} by left half-circles.
-        The synteny contents are written inside of each event, while the associated species is represented implicitly by the position of each event on top of the species tree.
+        The synteny contents are written inside each event, while the associated species is represented implicitly by the position of each event on top of the species tree.
         Duplicated or transferred genes are underlined, while fissions are represented by a separation in the synteny.
         \label{fig:synesth:example}
     }
@@ -269,7 +269,7 @@ Finally, notice that \cref{def:synesth:hist} does not require the species involv
 
 \section{Explicatory histories and optimization problems}\label{sec:synesth:opt-probs}
 
-The goal of reconciliation is to infer histories which \emph{explicate} the topology of a synteny tree given a tree of the corresponding species.
+The goal of reconciliation is to infer histories that \emph{explicate} the topology of a synteny tree given a tree of the corresponding species.
 Such histories are extensions of the synteny tree that map all leaves to the appropriate species and syntenies without introducing new extant leaves.
 For example, in \cref{fig:synesth:example} the history in~(2) explicates the trees in~(1).
 
@@ -296,7 +296,7 @@ The following is a formal definition of a history explicating a synteny and spec
     The set of all such histories is denoted by \(\solSpace(\syntenyTree, \speciesTree)\).
 \end{definition}
 
-Condition (3) excludes histories introducing new visible leaves. With condition (4), we exclude locally cyclic solutions. This condition is a necessary, but not sufficient, condition for acyclicity. Imposing a full acyclicity condition would lead to computationally-intractable problems~\parencite{Tofigh2011SimultaneousIdentificationDuplications}.
+Condition (3) excludes histories introducing new visible leaves. With condition (4), we exclude locally cyclic solutions. This condition is a necessary, but not sufficient, condition for acyclicity. Imposing a full acyclicity condition would lead to computationally intractable problems~\parencite{Tofigh2011SimultaneousIdentificationDuplications}.
 
 As for conditions (5) and (6), they are introduced to avoid redundant histories : two histories with the same events, but with gains and losses distributed differently on branches. More precisely, condition (5) requires sifting gains down and merging them until they are the parent of a synteny tree node; conversely, condition (6) requires sifting losses up and merging them until they are the child of a synteny tree node.
 
@@ -354,14 +354,14 @@ Now, given a vector of costs for each event type \(\eventCost = (\eventCost_\eve
 Finally, we will call problems~\ref*{prob:synesth:all-vecs}' and~\ref*{prob:synesth:min-cost}' the versions of \cref{prob:synesth:all-vecs,prob:synesth:min-cost} where we additionally ask for one history corresponding to each returned optimal event vector (for \cref*{prob:synesth:all-vecs}') or one history for the returned minimum cost (for \cref*{prob:synesth:min-cost}').
 For example, \cref{fig:synesth:example} shows in~(2) a possible solution for \cref*{prob:synesth:all-vecs}' for the synteny and species trees in~(1) for vector \((c_\eventDup = 1, c_\eventCut = 0, c_\eventTrDup = 1, c_\eventTrCut = 1, c_\eventLoss = 1)\), and for \cref*{prob:synesth:min-cost}' for cost \((\eventCost_\eventDup = 2, \eventCost_\eventCut = 2.5, \eventCost_\eventTrDup = 3, \eventCost_\eventTrCut = 3.5, \eventCost_\eventLoss = 1)\).
 
-\section{Generating all pareto-optimal histories}\label{sec:synesth:pareto-histories}
+\section{Generating all Pareto-optimal histories}\label{sec:synesth:pareto-histories}
 
 We start by addressing \cref{prob:synesth:all-hists}, which asks to enumerate the \(\minSolSpace\) set.
 This can be done inductively by building up histories from the extant leaves of the synteny tree up to its root.
 This result is the basis for the dynamic programming formulations introduced for the other problems in the upcoming sections.
 
-In the next two definitions, we introduce the notion of partial histories and a composition operator which is then used to build complete histories (see \cref{fig:synesth:history-builder}).
-In the following, a node \(v\) of a history such that \(\syntenyOf(v) = X\) and \(\speciesOf(v) = \sigma\) is denoted \(\makeNode{X, \sigma}\), or \(\makeNode{e, X, \sigma}\) if the event \(e \in \allEvents\) associated to \(v\) is known.
+In the next two definitions, we introduce the notion of partial histories and a composition operator that is then used to build complete histories (see \cref{fig:synesth:history-builder}).
+In the following, a node \(v\) of a history such that \(\syntenyOf(v) = X\) and \(\speciesOf(v) = \sigma\) is denoted \(\makeNode{X, \sigma}\), or \(\makeNode{e, X, \sigma}\) if the event \(e \in \allEvents\) associated with \(v\) is known.
 If \(A\), \(B\) and \(C\) are three such nodes, we write \((A, B)C\) to refer to the binary tree with root \(C\) and \(A\) and \(B\) as leaves.
 
 \begin{definition}[Partial histories]
@@ -396,7 +396,7 @@ If \(A\), \(B\) and \(C\) are three such nodes, we write \((A, B)C\) to refer to
     and \(\Hist' = \tuple{H', \eventOf', \syntenyOf', \speciesOf'}\) are two histories 
     such that there exists a leaf \(l \in \treeLeaves(H)\) with \(\syntenyOf(l) = \syntenyOf(\rootOf(H'))\) and \(\speciesOf(l) = \speciesOf(\rootOf(H'))\),
     then we define their \emph{composition} \(\Hist_1 \otimes \Hist_2\) as the history obtained by replacing \(l\) with \(\rootOf(H')\) in \(H\) and merging \(\syntenyOf\) with \(\syntenyOf'\), and \(\speciesOf\) with \(\speciesOf'\).
-    When applied on two \emph{sets} of histories, this operation is defined as taking the cartesian product of the two sets and composing each obtained history pair together.
+    When applied on two \emph{sets} of histories, this operation is defined as taking the Cartesian product of the two sets and composing each obtained history pair together.
 
     For any \(e \in \allEvents\), \(X, Y, Y', Z, Z' \subseteq \geneFamilySet\) and \(\sigma, \gamma\leftChild, \gamma\leftChild', \gamma\rightChild, \gamma\rightChild' \in \treeNodes(\augS)\) we define:
     \begin{align*}
@@ -539,7 +539,7 @@ In the following, we use \(A \oplus B\) for \(\min(A \cup B)\).
             Without loss of generality (w.l.o.g.), assume that \(Z' = X\).
             We should have \(Y' \subseteq X \cap Y\)
             as otherwise we would have at least one additional event in the path between \(v\) and \(v_l\)
-            for loosing \(Y' - (X \cap Y)\),
+            for losing \(Y' - (X \cap Y)\),
             contradicting the minimality of \(\Hist\).
             Hence \(Y' = X \cap Y\).
 
@@ -587,9 +587,9 @@ We next consider how to compute the set of histories \(\optPath([X, \sigma], [Y,
             For \(\Hist \in P_\eventTrCut^{\mathrm{Right}}\), \(\syntenyOf(v\conservChild) = \emptyset\) and there is a partial loss at \(v\targetChild\) if \(X \not\subseteq Y\).
         \item \(P_2 = \emptyset\) if \(\sigma \separ \gamma\) and \(X \subseteq Y\), or if \(\sigma \in \treeLeaves(\augS)\).
             Otherwise, \(P_2 = P^\eventTrDup_\eventTrDup \oplus P^\eventTrCut_\eventTrDup \oplus P^\eventTrCut_\eventTrCut\).
-            Each of the three sets \(P^{e}_{e'}\) contain histories made up of two consecutive transfers \(v\) and \(v'\) such that \(\eventOf(v) = e\) and \(\eventOf(v') = e'\).
+            Each of the three sets \(P^{e}_{e'}\) contains histories made up of two consecutive transfers \(v\) and \(v'\) such that \(\eventOf(v) = e\) and \(\eventOf(v') = e'\).
             The histories of \(P^\eventTrDup_\eventTrDup\) and \(P^\eventTrCut_\eventTrDup\) are such that \(\speciesOf(v') \in \treeLeaves(\augS)\).
-            In \(P^\eventTrCut_\eventTrDup\) and \(P^\eventTrCut_\eventTrCut\), the first cut \(v\) is complete (i.e. with an empty leaf).
+            In \(P^\eventTrCut_\eventTrDup\) and \(P^\eventTrCut_\eventTrCut\), the first cut \(v\) is complete (i.e., with an empty leaf).
             In \(P^\eventTrCut_\eventTrCut\) if \(X \not\subseteq Y\) then \(\speciesOf(v) \in \treeLeaves(\augS)\), otherwise the second cut \(v'\) is complete if \(\speciesOf(v) \notin \treeLeaves(\augS)\).
             In all cases, the histories end with a gain event if \(Y \not\subseteq X\).
     \end{itemize}
@@ -735,7 +735,7 @@ We next consider how to compute the set of histories \(\optPath([X, \sigma], [Y,
     \end{itemize}
 \end{proof}
 
-The set of all possible histories \(\minSolSpace(\syntenyTree, \speciesTree)\) can then be computed as the union of assignments of the root to all possible syntenies and species, starting with a path from an empty synteny (i.e. an initial gain).
+The set of all possible histories \(\minSolSpace(\syntenyTree, \speciesTree)\) can then be computed as the union of assignments of the root to all possible syntenies and species, starting with a path from an empty synteny (i.e., an initial gain).
 In other words, \[\minSolSpace(\syntenyTree, \speciesTree) = \bigoplus_{\substack{X \subseteq \geneFamilySet\\\sigma \in \treeNodes(\augS)}}{\optPath([\emptyset, \sigma], [X, \sigma]) \otimes h(\rootOf(\syntenyTree), X, \sigma))}.\]
 
 Hence, using \cref{thm:synesth:minimal-history,thm:synesth:minimal-paths}, one can derive a dynamic programming algorithm to solve \cref{prob:synesth:all-hists}.
@@ -767,12 +767,12 @@ Due to the exponential size of the set of solutions, the time complexity of that
 
 We now address \cref{prob:synesth:all-vecs}.
 Given a synteny tree \(\syntenyTree = \tuple{T, \syntenyOf, \speciesOf}\) on a species tree~\(\speciesTree\),
-similarly to the way \(h(v, X, \sigma)\) was previously used to compute \(\minSolSpace(\syntenyTree, \speciesTree)\), we define \(\Lambda(v, X, \sigma)\) for computing \(\minVecSet(\syntenyTree, \speciesTree)\)
+similar to the way \(h(v, X, \sigma)\) was previously used to compute \(\minSolSpace(\syntenyTree, \speciesTree)\), we define \(\Lambda(v, X, \sigma)\) for computing \(\minVecSet(\syntenyTree, \speciesTree)\)
 as \(\Lambda(v, X, \sigma) = \{\eventVec(\Hist) \mid \Hist \in h(v, X, \sigma)\}\).
 
 We can adapt the formulation of \cref{thm:synesth:minimal-history} to compute \(\Lambda(v, X, \sigma)\) using the following algebra of Pareto vectors: \begin{itemize}
     \item Replace \(A \oplus B\) by the union of vectors from \(A\) and \(B\), followed by retaining only the Pareto-optimal ones;
-    \item Replace \(A \otimes B\) by an operation which sums the pairs of vectors from \(A\) and \(B\), followed by retaining the Pareto-optimal ones;
+    \item Replace \(A \otimes B\) by an operation that sums the pairs of vectors from \(A\) and \(B\), followed by retaining the Pareto-optimal ones;
     \item The base cases are replaced with \(\{(0, 0, 0, 0, 0, 0)\}\) and~\(\emptyset\).
 \end{itemize}
 
@@ -812,10 +812,10 @@ First, let us show that it is sufficient to place the gain event for each gene f
         (potentially merging it with other gains).
     Then \(\eventVec(\Hist') \preceq \eventVec(\Hist)\) since we only potentially removed losses from \(\Hist\) and the number of gains is not part of the event vector.
     Let \(\Hist^*\) be the history obtained after repeating this process for each \(\geneFamily \in X - f(v, X)\).
-    Clearly \(\Hist^* \in h(v, f(v, X), \sigma)\), hence \(\eventOf(\Hist^*) \in \Lambda(v, f(v, X), \sigma)\) and \(\eventVec(\Hist^*) \preceq \eventVec(\Hist)\).
+    Clearly, \(\Hist^* \in h(v, f(v, X), \sigma)\), hence \(\eventOf(\Hist^*) \in \Lambda(v, f(v, X), \sigma)\) and \(\eventVec(\Hist^*) \preceq \eventVec(\Hist)\).
 \end{proof}
 
-In a similar way to lemma~5 from \textcite{Delabre2020EvolutionSegmentalDuplications}, we now show that only two synteny contents have to be tried at each step of the recurrence as any synteny larger than the minimal required gene families (as formally defined below) leads to the same set of optimal event vectors.
+In a similar way to lemma~5 from \textcite{Delabre2020EvolutionSegmentalDuplications}, we now show that only two synteny contents have to be tried at each step of the recurrence, as any synteny larger than the minimal required gene families (as formally defined below) leads to the same set of optimal event vectors.
 
 \begin{definition}[Minimal synteny contents]
     For any \(v \in \treeNodes(T)\), we define \begin{align*}
@@ -907,7 +907,7 @@ Using the recurrence from~\cref{thm:synesth:minimal-history} adapted to use the 
 
 We finally address \cref{prob:synesth:min-cost}.
 Let \(\syntenyTree = \tuple{T, \syntenyOf, \speciesOf}\) be a synteny tree on a species tree~\(\speciesTree\) and \(\eventCost \in (\setReal^+ \cup \{\infty\})^5\) be an event cost vector.
-Similarly to the way \(h(v, X, \sigma)\) and \(\Lambda(v, X, \sigma)\) were previously used to compute \(\minSolSpace(\syntenyTree, \speciesTree)\) and \(\minVecSet(\syntenyTree, \speciesTree)\), we define \(c(v, X, \sigma) = \{\histCost(\Hist) \mid \Hist \in h(v, X, \sigma)\}\) to compute \(\minCost(\syntenyTree, \speciesTree)\).
+Similar to the way \(h(v, X, \sigma)\) and \(\Lambda(v, X, \sigma)\) were previously used to compute \(\minSolSpace(\syntenyTree, \speciesTree)\) and \(\minVecSet(\syntenyTree, \speciesTree)\), we define \(c(v, X, \sigma) = \{\histCost(\Hist) \mid \Hist \in h(v, X, \sigma)\}\) to compute \(\minCost(\syntenyTree, \speciesTree)\).
 
 We can again adapt the formulation of \cref{thm:synesth:minimal-history} to compute \(\Lambda(v, X, \sigma)\) using the so-called \enquote{min-plus} or \enquote{tropical} algebra: \begin{itemize}
     \item Replace \(A \oplus B\) by taking the minimum of the two values;
@@ -931,7 +931,7 @@ Notice that \cref{lem:gains-lca-vec,lem:synesth:2choices-contents} still apply, 
 \section{Results}\label{sec:synesth:results}
 
 The CRISPR–Cas module is an adaptive system used by prokaryotes to defend against invading viruses and plasmids. 
-Its fame is due to the development of the CRISPR-Cas~9 genome editing technology, which is one of the most reliable and accurate “molecular scissors”. An important part of a CRISPR-Cas system is an operon of associated Cas genes playing various roles in the defense machinery. As the microbial function of CRISPR-Cas systems highly depends on the syntenic organization of Cas genes, elucidating the evolution of these syntenies is crucial.
+Its fame is due to the development of the CRISPR-Cas~9 genome editing technology, which is one of the most reliable and accurate “molecular scissors”. An important part of a CRISPR-Cas system is an operon of associated Cas genes playing various roles in the defence machinery. As the microbial function of CRISPR-Cas systems highly depends on the syntenic organization of Cas genes, elucidating the evolution of these syntenies is crucial.
 
 \begin{figure}[h]
     \capstart
@@ -943,15 +943,15 @@ Its fame is due to the development of the CRISPR-Cas~9 genome editing technology
     }
 \end{figure}
 
-In \cref{chap:superdtl}, taking the CRISPR-Cas classification of Class~1 from \textcite{Makarova2020EvolutionaryClassificationCRISPR} as the synteny tree, and considering a dataset of 15 bacterial species as well as the species tree topology inferred in \textcite{Coleman2021RootedPhylogenyResolves}, we recovered an evolutionary scenario which is broadly consistent with that of \textcite{Koonin2022EvolutionaryPlasticityFunctional} with the CRISPR-Cas emergence inferred at the root of Terrabacteria. However, some inconsistencies were observed. For example, in the Proteobacteria subtree, the \emph{SuperDTL} algorithm inferred an unlikely scenario with an ancestral synteny duplication before the LCA of \emph{Shewanella putrefaciens}, \emph{Vibrio crassostreae}, \emph{Yersinia pseudotuberculosis}, and  \emph{Escherichia coli} resulting in a succession of three consecutive full synteny losses along the branch to \emph{E. coli}.
+In \cref{chap:superdtl}, taking the CRISPR-Cas classification of Class~1 from \textcite{Makarova2020EvolutionaryClassificationCRISPR} as the synteny tree, and considering a dataset of 15 bacterial species as well as the species tree topology inferred in \textcite{Coleman2021RootedPhylogenyResolves}, we recovered an evolutionary scenario that is broadly consistent with that of \textcite{Koonin2022EvolutionaryPlasticityFunctional} with the CRISPR-Cas emergence inferred at the root of Terrabacteria. However, some inconsistencies were observed. For example, in the Proteobacteria subtree, the \emph{SuperDTL} algorithm inferred an unlikely scenario with an ancestral synteny duplication before the LCA of \emph{Shewanella putrefaciens}, \emph{Vibrio crassostreae}, \emph{Yersinia pseudotuberculosis}, and  \emph{Escherichia coli} resulting in a succession of three consecutive full synteny losses along the branch to \emph{E. coli}.
 
 We used Synesth with the same event costs for Loss, Dup and TrDup, and setting costs for \(\eventCut\) and \(\eventTrCut\)
 such that \((\eventCost_\eventDup, \eventCost_\eventCut, \eventCost_\eventTrDup, \eventCost_\eventTrCut, \eventCost_\eventLoss) = (2, 2.5, 4, 4.5, 1)\).
 Almost the same history was obtained, but with the above unlikely scenario replaced by a speciation (on the branch separating the ancestor of \emph{Geobacter sulfurreducens} to the LCA of \emph{Thioalkalivibrio} and \emph{Shewanella putrefaciens}) copying the ancestral synteny to an unsampled species, which is later transferred back to \emph{E. coli} (see Figure~\ref{fig:synesth:crispr-sol}).
 
-Choosing the appropriate event cost is one of the main challenge of tree reconciliation. 
+Choosing the appropriate event cost is one of the main challenges of tree reconciliation. 
 To visualize the set of Pareto-optimal vectors computed as explained before, we use a similar approach as developed by \textcite{LibeskindHadas2014ParetoOptimalPhylogenetic}, to display a summary of the solution space with loss events normalized to cost 1, and the other cost events varying in a given range. In order to represent the solutions in a 2D plot, we set an equal cost for \(\eventDup\) and \(\eventCut\) and for \(\eventTrDup\) and \(\eventTrCut\), and we represent a solution by the condensed event cost vector \(c_\eventDup + c_\eventCut, c_\eventTrDup + c_\eventTrCut, c_\eventLoss)\).
-The resulting plot is given in \cref{fig:synesth:crispr-pareto}, in which each color-coded region corresponds to a set of event costs that give rise to exactly the same set of minimal histories.
+The resulting plot is given in \cref{fig:synesth:crispr-pareto}, in which each colour-coded region corresponds to a set of event costs that give rise to exactly the same set of minimal histories.
 
 \begin{figure}[h]
     \capstart
@@ -960,7 +960,7 @@ The resulting plot is given in \cref{fig:synesth:crispr-pareto}, in which each c
     \caption[Event cost landscape for the set of solutions to the CRISPR-Cas dataset]{
         The event cost landscape for the solutions returned by Synesth for Class~1 Cas gene synteny dataset (see text).
         The cost of a loss event is fixed to 1.
-        For each color region, the legend shows a condensed event count vector of the form \((c_\eventDup + c_\eventCut, c_\eventTrDup + c_\eventTrCut, c_\eventLoss)\).
+        For each colour region, the legend shows a condensed event count vector of the form \((c_\eventDup + c_\eventCut, c_\eventTrDup + c_\eventTrCut, c_\eventLoss)\).
         “\(n\)” indicates the number of distinct minimal histories for any set of event costs in that region.
         \label{fig:synesth:crispr-pareto}
     }
@@ -976,12 +976,12 @@ Taking advantage of this flexibility, future extensions of this work may address
 
 Moreover, further extensions of the model are required, such as accounting for gene orders in syntenies or considering segmental gains as an additional parameter for selecting Pareto optimal histories.
 However, probably the most questionable limitation of the model is the absence of synteny fusions, while synteny fissions are allowed, favouring large syntenies up to the root of the tree.
-Note however that including fusions, as well as including tandem duplications (duplications inside a given synteny) will require adding reticulated nodes.
+Note, however, that including fusions, as well as including tandem duplications (duplications inside a given synteny) will require adding reticulated nodes.
 It will be interesting to see whether our dynamic programming scheme can be generalized to such phylogenetic networks, or if it makes the problem NP-hard, in which case tree decomposition methods may be explored~\parencite{Scornavacca2022TreewidthBasedAlgorithms}.
 
 Another important challenge not addressed in this paper is how to obtain an input synteny tree.
 In fact, phylogenetic methods rather output sets of gene trees, one for each gene family.
 If the individual gene trees are \enquote{consistent}, i.e., with no contradictory phylogenetic information, then a tree displaying them all can be obtained.
 However, even in this case, there may be an exponential number of such supertrees.
-In~\textcite{Delabre2020EvolutionSegmentalDuplications}, the suggested solution was to test each possible supertree, and retain the one leading to the most parsimonious reconciliation.
+In~\textcite{Delabre2020EvolutionSegmentalDuplications}, the suggested solution was to test each possible supertree and to retain the one leading to the most parsimonious reconciliation.
 An alternative would be to simultaneously construct and reconcile a supertree with a given species tree. This opens the door to interesting future investigations.

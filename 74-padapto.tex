@@ -111,12 +111,12 @@ class AlignGrammar[T](Grammar[T]):
 \end{listing}
 
 Chaque classe représentant une grammaire, telle que celle définie dans le \cref{lst:logiciel:padapto-gram}, peut être instanciée en lui donnant une algèbre à utiliser.
-Chaque instance ainsi créée renferme les tables de mémoisation qui gardent en mémoire les résultats partiels des sous-problèmes.
+Chaque instance ainsi créée renferme les tables de mémoïsation qui gardent en mémoire les résultats partiels des sous-problèmes.
 
 Les méthodes associées à chaque prédicat sont remplacées par une implémentation générée automatiquement qui suit le principe de l’\cref{alg:seq-yield-parser}.
-Lors de l’appel à un prédicat, cette méthode itère au travers des clauses correspondant au prédicat et au travers des décompositions possibles des entrées sur chaque dimension, puis collecte les résultats pour les stocker dans l’entrée associée de la table de mémoisation.
+Lors de l’appel à un prédicat, cette méthode itère au travers des clauses correspondant au prédicat et au travers des décompositions possibles des entrées sur chaque dimension, puis collecte les résultats pour les stocker dans l’entrée associée de la table de mémoïsation.
 
 Peu importe la manière dont la structure de l’espace des solutions est définie, il existe deux options pour y évaluer une algèbre.
 La première est de passer directement l’algèbre à l’algorithme ou la grammaire, ce qui a pour effet de produire une unique valeur correspondant au résultat de l’évaluation.
-Généralement, l’algèbre ne considère qu’une partie limitée de l’espace des solutions, ainsi une fois le résultat obtenu il n’y a plus assez d’informations pour parcourir d’autres solutions associées.
+Généralement, l’algèbre ne considère qu’une partie limitée de l’espace des solutions, ainsi, une fois le résultat obtenu, il n’y a plus assez d’informations pour parcourir d’autres solutions associées.
 L’autre option est d’utiliser une algèbre de traçage pour extraire le circuit algébrique décrivant l’espace des solutions.

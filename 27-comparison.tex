@@ -13,12 +13,12 @@ Chaque racine de cette forêt correspond au gain d’une adjacence qui se propag
 L’objectif est de minimiser le nombre de racines, c’est-à-dire le nombre de gains d’adjacences.
 Le statut de complexité du problème est encore inconnu, quoiqu’il ait été conjecturé NP-complet, mais un algorithme polynomial existe lorsque les réconciliations individuelles sont fixées en avance.
 La modélisation à l’échelle des adjacences impose des limites sur les événements pouvant être pris en compte, puisqu’elle exclut les événements qui affectent simultanément plus de deux unités.
-Par ailleurs, un résultat optimal peut comporter des structures non-linéaires, dans lesquelles une unité est voisine de trois autres ou plus, incompatibles avec les structures linéaires ou circulaires des génomes.
+Par ailleurs, un résultat optimal peut comporter des structures non linéaires, dans lesquelles une unité est voisine d’au moins trois autres, incompatibles avec les structures linéaires ou circulaires des génomes.
 
 La super-réconciliation propose un paradigme similaire, basé sur l’évolution de segments joignant un nombre quelconque d’unités.
 Cette extension permet de modéliser des événements segmentaux affectant plusieurs unités.
 De la même façon que pour DeCo, l’objectif algorithmique est de construire un arbre dans lequel chaque nœud rassemble des segments de nœuds issus de réconciliations individuelles.
-La structure reconstruite ici est un arbre et non une forêt car tous les segments sont supposés dériver d’un segment ancestral unique.
+La structure reconstruite ici est un arbre et non une forêt, car il est supposé que tous les segments dérivent d’un segment ancestral unique.
 Le problème d’optimisation combinatoire associé est NP-complet dans sa version générale, lorsque la topologie de l’arbre de synténies est inconnue.
 Si la topologie est fixée, la complexité est inconnue dans la déclinaison du problème avec des segments, et polynomiale dans sa déclinaison avec des groupes.
 

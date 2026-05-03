@@ -28,7 +28,7 @@ L’un des objectifs de la recherche dans ces domaines est donc la mise au point
 Pour ce faire, un niveau intermédiaire peut être intégré dans le modèle de réconciliation bilatéral, entre les gènes et les espèces, afin de modéliser l’évolution à l’échelle génomique.
 Dans la suite, nous comparons deux approches existantes fondées sur cette idée selon leur capacité de modélisation et leur complexité algorithmique.
 
-\subsection{Reconciliation d’adjacences}
+\subsection{Réconciliation d’adjacences}
 
 L’organisation linéaire d’un ensemble d’unités peut être représentée par un ensemble d’adjacences entre des paires d’unités.
 Par exemple, un génome \(\{(a, b, c), (d, e)\}\) formé de deux chromosomes et cinq gènes correspond aux trois adjacences \(\{(a, b), (b, c), (d, e)\}\).
@@ -92,7 +92,7 @@ Par ailleurs, pour qu’elles puissent correspondre à une structure biologique 
     Les adjacences de \(\adjset\) sont \emph{linéaires} si chaque \(v \in \tnodes(\gtrees)\) apparaît dans au plus deux adjacences.
 \end{definition}
 
-Comme pour les réconciliation bilatérales, le choix d’un modèle d’évolution permet d’interpréter une réconciliation d’adjacences.
+Comme pour les réconciliations bilatérales, le choix d’un modèle d’évolution permet d’interpréter une réconciliation d’adjacences.
 Un tel modèle spécifie non seulement les événements qui affectent individuellement les unités dépendantes, mais aussi ceux qui touchent leurs adjacences.
 Une interprétation est représentée par une forêt d’adjacences.
 
@@ -162,7 +162,7 @@ Aucun algorithme général n’est connu pour les problèmes de \(\tuple{\recmod
 Lorsque la forêt réconciliée est calculée en amont, le problème qui consiste à calculer la forêt d’adjacences optimale sous l’hypothèse d’une forêt réconciliée est résolu en temps polynomial par un algorithme de programmation dynamique.
 Cet algorithme est détaillé notamment par \textcite{Duchemin2017DecostarReconstructingAncestral} pour le modèle \(\recmodelDTLx\) et est implémenté dans le programme DeCoSTAR.
 
-Puisque les adjacences sont reconstruites séparément les unes des autres, cet algorithme peut retourner un ensemble d’adjacences non-linéaire (voir \cref{definition:adjrec-lin}).
+Puisque les adjacences sont reconstruites séparément les unes des autres, cet algorithme peut retourner un ensemble d’adjacences non linéaire (voir \cref{definition:adjrec-lin}).
 Une étape de linéarisation peut être réalisée en post-traitement, mais le problème de linéarisation est NP-complet en général~\parencite{Manuch2012LinearizationAncestralMultichromosomal}.
 La non-linéarité d’un résultat optimal peut permettre de déceler des incohérences dans les données d’entrée~\parencite{Tannier2020AncestralGenomeOrganization}.
 
@@ -225,9 +225,7 @@ Formellement, pour un nœud \(v \in \tnodes(\segtree)\) de la forêt de synténi
         \(\evt(x_i) = \evtL\).
 \end{compactitemize}
 
-Le problème d’optimisation combinatoire associé à la super-réconciliation est similaire au problème de
-\(\tuple{\recmodel\rmunit, \recmodel\rmadj}\)-parcimonie
-défini précédemment, à ceci près que la sortie attendue est une forêt de synténies au lieu d’adjacences.
+Le problème d’optimisation combinatoire associé à la super-réconciliation s’apparente au problème de \(\tuple{\recmodel\rmunit, \recmodel\rmadj}\)-parcimonie défini précédemment, à ceci près que la sortie attendue est une forêt de synténies au lieu d’adjacences.
 Ce problème se décline en une \enquote{grande} version, dans laquelle la topologie de la forêt et le contenu de ses synténies doivent être inférés simultanément, et une \enquote{petite} version dans laquelle la topologie est fixée.
 
 Dans l’article, une restriction du problème d’optimisation est étudiée dans laquelle la forêt de synténies est composée d’un seul arbre et tous les segments dérivent d’un unique segment ancestral.

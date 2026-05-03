@@ -42,7 +42,7 @@ Nous faisons indépendamment un traitement algébrique de chacun des deux probl�
 \newcommand{\algsignrec}{\algsign_{\mathrm{rec}}}
 
 Dans le problème de \(\recmodelDTLx\)-parcimonie pour la réconciliation bilatérale présenté à la \cref{sec:reconciliation:bilateral}, l’entrée est composée d’un arbre d’unités \(T\) et d’un arbre d’hôtes \(S\) ainsi qu’une application \(\llmap : \tleavs(T) \onto \tleavs(S)\) associant chaque unité actuelle de \(T\) à son hôte de \(S\).
-L’objectif est d’identifier les réconciliations qui possèdent les interprétations les plus parcimionieuses, c’est-à-dire les extensions de \(T\) étiquetées par des événements du modèle qui utilisent le moins d’événements possible pour expliquer l’entrée.
+L’objectif est d’identifier les réconciliations qui possèdent les interprétations les plus parcimonieuses, c’est-à-dire les extensions de \(T\) étiquetées par des événements du modèle qui utilisent le moins d’événements possible pour expliquer l’entrée.
 
 \subsection{Algèbres d’évaluation}
 
@@ -127,14 +127,14 @@ Les clauses \labelcref{eq:adp-rec:bilateral-grammar-path-down,eq:adp-rec:bilater
 Finalement, les clauses \labelcref{eq:adp-rec:bilateral-grammar-out-side,eq:adp-rec:bilateral-grammar-out-up} permettent de traverser les hôtes séparés d’un certain sommet à partir du principe récursif selon lequel un sommet séparé de \(v\) est soit un descendant d’un frère de~\(v\) soit un sommet séparé du parent de \(v\).
 Ce principe a été employé par \textcite{Bansal2012EfficientAlgorithmsReconciliation} dans le contexte de la réconciliation afin de réduire la complexité de l’algorithme de réconciliation par un facteur \(|\tnodes(S)|\).
 
-Nous conjecturons que cette grammaire est non-ambigüe et qu’elle est canonique pour le problème de \(\recmodelDTLx\)-parcimonie dans le sens où chaque interprétation possible d’une réconciliation pour une entrée donnée est énumérée exactement une fois.
+Nous conjecturons que cette grammaire est non ambigüe et qu’elle est canonique pour le problème de \(\recmodelDTLx\)-parcimonie dans le sens où chaque interprétation possible d’une réconciliation pour une entrée donnée est énumérée exactement une fois.
 
 Grâce à l’\cref{alg:seq-yield-parser}, cette grammaire correspond automatiquement à un algorithme de programmation dynamique.
 Sa complexité en temps est \(\bigo(nmd)\)\footnote{Cette complexité ne prend en compte que le temps de construction du circuit algébrique associé à une certaine entrée. Selon l’algèbre utilisée pour évaluer ce circuit, la complexité pourrait être plus élevée. Dans le cas où seul le coût minimum d’une solution ou la construction d’une solution arbitraire atteignant ce coût est recherché, la complexité reste inchangée.}, où \(n\) et \(m\) sont les tailles de \(T\) et \(S\) et \(d\) est la profondeur de \(S\), en vertu du \cref{thm:adp:gram-hedge-complex}.
 Cette complexité est proche de la meilleure complexité connue pour le problème de réconciliation bilatérale \parencite{Weiner2021ImprovedDuplicationTransfer}, à un facteur \(d\) près.
 
 Ce facteur peut toutefois être éliminé en supprimant le paramètre \(N\) du prédicat \(\gRecPath\), en insérant à la place un événement \(\evSkip_1\) à chaque application de la clause \labelcref{eq:adp-rec:bilateral-grammar-path-down}, et en insérant une clause séparée pour inférer les événements \(\evtTX\).
-Cependant, cette transformation rend la grammaire non-canonique, puisqu’il existe alors toujours deux solutions partielles connectant deux sommets de~\(T\), l’une empruntant une série d’événements \(\evSkip\) et l’autre empruntant la nouvelle clause pour les événements \(\evtTX\).
+Cependant, cette transformation rend la grammaire non canonique, puisqu’il existe alors toujours deux solutions partielles connectant deux sommets de~\(T\), l’une empruntant une série d’événements \(\evSkip\) et l’autre empruntant la nouvelle clause pour les événements \(\evtTX\).
 
 Il est possible d’étendre cette grammaire pour résoudre le problème de binarisation d’un arbre \(T\) contenant des polytomies de sorte à minimiser le coût de réconciliation \(\recmodelDTLx\) associé.
 La complexité de l’algorithme résultant, en vertu du théorème XXX, est YYY, c’est-à-dire qu’il est FPT dans le degré maximum de l’arbre des unités.
@@ -158,8 +158,8 @@ L’\cref{alg:adp:circ-sample} pour l’échantillonage de solutions appliqué �
     }
 \end{figure}
 
-En utilisant l’algèbre~\(\alminplus_e\) avec un coût de \(\cost(\evtD) = 2\), \(\cost(\evtT) = 3\), \(\cost(\evtL) = 1\) et \(\cost(\evtTX) = \infty\), nous obtenons un nombre coût minimal de~10.
-En combinant cette algèbre avec l’algèbre de traçage \(\altrace(\algsignrec)\) via le combinateur lexicographique décrit à la \cref{sec:adp:alg-combin:lex}, il est possible de construire la solution atteignant ce coût présentée à droite de la \cref{fig:adp-rec:rec-input}.
+En utilisant l’algèbre~\(\alminplus_e\) avec un coût de \(\cost(\evtD) = 2\), \(\cost(\evtT) = 3\), \(\cost(\evtL) = 1\) et \(\cost(\evtTX) = \infty\), nous obtenons un coût minimal de~10.
+En combinant cette algèbre avec l’algèbre de traçage \(\altrace(\algsignrec)\) grâce au combinateur lexicographique décrit à la \cref{sec:adp:alg-combin:lex}, il est possible de construire la solution atteignant ce coût présentée à droite de la \cref{fig:adp-rec:rec-input}.
 En construisant une algèbre de Pareto, nous pouvons obtenir le diagramme de la \cref{fig:adp-rec:set-pareto}, qui montre qu’il existe plusieurs autres solutions optimales potentielles en faisant varier les différents paramètres de coûts.
 
 \begin{figure}[H]
@@ -186,7 +186,7 @@ En construisant une algèbre de Pareto, nous pouvons obtenir le diagramme de la 
 \end{table}
 
 Finalement, il est possible d’échantillonner des solutions quasioptimales en construisant une algèbre de Boltzmann comme décrit à la \cref{ex:adp:space-enum-sample:boltz}.
-De cet ensemble peuvent être calculées efficacement les probabilités que chaque embranchement soit assigné à un événement donné ou à un hôte donné dans une solution moyenne (voir \cref{fig:adp-rec:rec-supports}) via le calcul des contributions externes introduit à la \cref{sec:adp:space-enum-sample:outside}, généralisant ainsi l’approche développée par~\textcite{Nguyen2013SupportMeasuresEstimate}.
+De cet ensemble peuvent être calculées efficacement les probabilités que chaque embranchement soit assigné à un événement donné ou à un hôte donné dans une solution moyenne (voir \cref{fig:adp-rec:rec-supports}) au travers du calcul des contributions externes introduit à la \cref{sec:adp:space-enum-sample:outside}, généralisant ainsi l’approche développée par~\textcite{Nguyen2013SupportMeasuresEstimate}.
 
 \section{Parcimonie de groupes}\label{sec:adp-rec:set}
 
@@ -282,7 +282,7 @@ Cette signature permet, pour deux fonctions de coûts \(\cost_\evtG\) et \(\cost
 Comme précédemment, cette algèbre peut être adaptée en algèbre de Boltzmann ou de Pareto.
 
 Notons que les fonctions \(\cost_\evtG\) et \(\cost_\evtL\) peuvent être arbitraires.
-Un coût linéaire, c’est-à-dire \(\cost_e(n) = a_e \cdot n\), rend ce problème équivalent à la parcimonie de Dollo individuelle puisque les unités sont alors considérées comme évoluant indépendamment.
+Un coût linéaire, c’est-à-dire \(\cost_e(n) = a_e \cdot n\), rend ce problème équivalent à la parcimonie de Dollo individuelle, puisque les unités sont alors considérées comme évoluant indépendamment.
 Inversement, un coût unitaire, c’est-à-dire \(\cost_e(n) = 1\) si \(n \ge 1\) et \(0\) sinon, rend ce problème équivalent à celui utilisé pour les pertes par \textcite{Delabre2020EvolutionSegmentalDuplications} et dans les \cref{chap:superdtl,chap:synesth}.
 Les fonctions de coût concaves, par exemple un coût affine de \(\cost_e(n) = a_e \cdot n + b_e\) si \(n \ge 1\) et \(0\) sinon, sont plus intéressantes car elles prennent en compte la dépendance entre les unités étudiées sans toutefois accorder un poids égal à tous les événements quel que soit le nombre d’unités gagnées ou perdues, ce qui a tendance à regrouper beaucoup d’événements ensemble.
 Dans la suite, \(b\) est appelé le coût d’ouverture et \(a\) le coût d’extension des gains ou des pertes.
@@ -304,7 +304,7 @@ La troisième dimension \(L\) représente le nombre d’unités de l’ensemble 
 La grammaire utilise trois prédicats définis ainsi:
 \begin{compactitemize}
     \item \(\gSplit[T, G, L]\) représente les solutions dont la racine est \(T\) et en dessous de laquelle il reste à gagner \(G\) unités et à en perdre \(L\);
-    \item \(\gBranch[T, G, L]\) et \(\gBranch'[T, G, L]\) représentent les solutions qui ajoutent des événements unaires de perte et gain au dessus de \(T\).
+    \item \(\gBranch[T, G, L]\) et \(\gBranch'[T, G, L]\) représentent les solutions qui ajoutent des événements unaires de perte et gain au-dessus de \(T\).
 \end{compactitemize}
 L’ensemble des solutions est constitué des termes dérivés de \(\gBranch[T, |\geneFamilySet|, 0]\), où \(T\) est l’arbre d’entrée et \(\geneFamilySet\) l’ensemble de toutes les unités.
 Les clauses de la grammaire sont:
@@ -332,26 +332,26 @@ Chacune des \(L\) unités qui sont issues de l’ensemble \(\xout(T)\) sont par 
 
 Les clauses \labelcref{eq:adp-rec:set-split-loss,eq:adp-rec:set-split-gain} introduisent respectivement une perte et un gain d’un nombre d’unités au plus égal à la valeur courante de \(L\) ou de \(G\).
 
-Nous conjecturons que cette grammaire est non-ambigüe et qu’elle est canonique pour le problème de parcimonie de groupes, c’est-à-dire que chaque scénario est énuméré exactement une fois, en considérant uniquement la taille des groupes et non leur contenu exact.
+Nous conjecturons que cette grammaire est non ambigüe et qu’elle est canonique pour le problème de parcimonie de groupes, c’est-à-dire que chaque scénario est énuméré exactement une fois, en considérant uniquement la taille des groupes et non leur contenu exact.
 
 Grâce à l’\cref{alg:seq-yield-parser}, cette grammaire correspond automatiquement à un algorithme de programmation dynamique.
 Sa complexité en temps est \(\bigo(nf^3)\), où \(n\) est la taille de \(T\) et \(f\) le nombre d’unités dans \(\geneFamilySet\), en vertu du \cref{thm:adp:gram-hedge-complex}.
 Le fait de séparer les deux clauses \labelcref{eq:adp-rec:set-split-loss,eq:adp-rec:set-split-gain} est nécessaire pour conserver une complexité en \(f^3\) au lieu de \(f^4\).
 
-Les solutions de l’espace de solutions ainsi décrit ne décrivent pas directement le contenu des groupes ancestraux mais seulement leurs tailles respectives.
+Les solutions de l’espace de solutions ainsi décrit ne décrivent pas directement le contenu des groupes ancestraux, mais seulement leurs tailles respectives.
 Cependant, il est aisé de déterminer un exemple de contenu pour une telle solution en se basant sur les contenus des ensembles \(\xmin(v)\), \(\xin(v)\) et \(\xout(v)\).
 
 \subsection{Résultats}
 
 L’application de la grammaire \(\gramset\) sur l’entrée à gauche de la \cref{fig:adp-rec:set-example} engendre un certain espace de solutions sur lequel différentes algèbres peuvent être appliquées.
 En utilisant l’algèbre~\(\alminplus_{\cost_\evtG,\cost_\evtL}\) avec un coût unitaire, nous obtenons un nombre d’événements minimal de~8.
-En combinant cette algèbre avec l’algèbre de traçage \(\altrace(\algsignset)\) via le combinateur lexicographique décrit à la \cref{sec:adp:alg-combin:lex}, il est possible de construire la solution atteignant ce coût présentée à droite de la \cref{fig:adp-rec:set-example}.
+En combinant cette algèbre avec l’algèbre de traçage \(\altrace(\algsignset)\) grâce au combinateur lexicographique décrit à la \cref{sec:adp:alg-combin:lex}, il est possible de construire la solution atteignant ce coût présentée à droite de la \cref{fig:adp-rec:set-example}.
 
 L’utilisation d’un coût affine fixant le coût d’ouverture des gains et des pertes à \(b_\evtL = b_\evtG = 3\) et leur coût d’extension à \(a_\evtL = a_\evtG = 1\) donne la solution présentée à gauche de la \cref{fig:adp-rec:set-solutions}.
 En construisant une algèbre de Pareto, nous pouvons obtenir le diagramme de la \cref{fig:adp-rec:set-pareto}, qui montre qu’il existe plusieurs autres solutions optimales potentielles en faisant varier les différents paramètres de coûts.
 
 Finalement, il est possible d’échantillonner des solutions quasioptimales en construisant une algèbre de Boltzmann comme décrit à la \cref{ex:adp:space-enum-sample:boltz}.
-Cet ensemble peuvent être caractérisés en calculant l’espérance de la taille des groupes ancestraux via le calcul des contributions externes introduit à la \cref{sec:adp:space-enum-sample:outside}, comme présenté à droite de la \cref{fig:adp-rec:set-solutions}.
+Cet ensemble peut être caractérisé en calculant l’espérance de la taille des groupes ancestraux au travers du calcul des contributions externes introduit à la \cref{sec:adp:space-enum-sample:outside}, comme présenté à droite de la \cref{fig:adp-rec:set-solutions}.
 
 \begin{figure}[p]
     \capstart
@@ -393,12 +393,12 @@ Cet ensemble peuvent être caractérisés en calculant l’espérance de la tail
 Le problème de réconciliation segmentale tel qu’introduit à la \cref{sec:reconciliation:multiple:segmental} peut être vu comme demandant de résoudre simultanément le problème de réconciliation bilatérale et de parcimonie d’ensembles en respectant certaines contraintes supplémentaires.
 Nous proposons pour ce faire de combiner les grammaires \(\gramrec\) et \(\gramset\) en une grammaire \(\gramseq\).
 Au meilleur de nos connaissances, il n’existe présentement pas de méthode générale permettant de combiner des grammaires de structures et davantage de recherche est requise dans cette direction.
-Dans la suite, nous réalisons donc une construction ad-hoc dont des principes plus généraux pourront être tirés ultérieurement.
+Dans la suite, nous réalisons donc une construction ad hoc dont des principes plus généraux pourront être tirés ultérieurement.
 
 Intuitivement, cette combinaison est réalisée en prenant le produit cartésien des prédicats et des règles des deux grammaires.
 Chaque paire de prédicats ainsi obtenue agit sur les dimensions \(T\), \(S\) et \(N\) de \(\gramrec\) et sur les dimensions \(T\), \(G\) et \(L\) de \(\gramset\), la dimension \(T\) étant partagée entre les deux grammaires.
 Chaque paire de clauses est combinée lorsque les motifs de leurs têtes sont compatibles sur les dimensions qu’elles partagent.
-Les corps des clauses sont combinés de manière ad-hoc.
+Les corps des clauses sont combinés de manière ad hoc.
 Les clauses résultantes sont présentées ci-dessous et dans le \cref{tab:adp-rec:product}.
 {\allowdisplaybreaks
 \begin{subequations}
@@ -529,21 +529,21 @@ Les clauses résultantes sont présentées ci-dessous et dans le \cref{tab:adp-r
     \end{tabular}
     \caption[Paires de clauses des grammaires \(\gramrec\) et \(\gramset\) combinées pour former \(\gramseq\)]{
         Paires de clauses des grammaires \(\gramrec\) (\ref{eq:adp-rec:bilateral-grammar-leaf} à \ref{eq:adp-rec:bilateral-grammar-out-up}) et \(\gramset\) (\ref{eq:adp-rec:set-split-leaf} à \ref{eq:adp-rec:set-split-gain}) combinées pour former les clauses de la grammaire \(\gramseq\).
-        Dans les clauses \labelcref{eq:adp-rec:comb-grammar-dup,eq:adp-rec:comb-grammar-tr} marquées d’une astérisque, l’un des deux arguments \(L\) a été remplacé par un~0.
+        Dans les clauses \labelcref{eq:adp-rec:comb-grammar-dup,eq:adp-rec:comb-grammar-tr} marquées d’un astérisque, l’un des deux arguments \(L\) a été remplacé par un~0.
         La dernière rangée correspond à un produit avec une clause bouclante \(\gBranch[T, G, L] \rightarrow \gBranch[T, G, L]\) nécessaire pour faire apparaître les clauses \labelcref{eq:adp-rec:comb-grammar-out-side} et \labelcref{eq:adp-rec:comb-grammar-out-up}.
         \label{tab:adp-rec:product}
     }
 \end{table}
 
 Dans le modèle de réconciliation segmentale, les événements de duplication et de transfert sont segmentaux, c’est-à-dire qu’ils affectent seulement un sous-ensemble du groupe original.
-Cela signifie qu’une quantité arbitraire d’unités peuvent disparaître sur l’une des deux branches sortantes (dans le cas du transfert, sur la branche menant à l’espèce séparée) et ce sans nécessiter d’événement de perte.
+Cela signifie qu’une quantité arbitraire d’unités peuvent disparaître sur l’une des deux branches sortantes (dans le cas du transfert, sur la branche menant à l’espèce séparée), et ce, sans nécessiter d’événement de perte.
 Cette règle se manifeste dans le produit ci-dessus au niveau des clauses \labelcref{eq:adp-rec:comb-grammar-dup,eq:adp-rec:comb-grammar-tr} dans lesquelles, comparativement à la clause \labelcref{eq:adp-rec:set-split-inner} dont elles sont issues, la dimension \(L\) a été fixée à 0, ce qui implique que toutes les unités appartenant à l’ensemble \(\xout(v)\) sont automatiquement perdues sans déclencher d’événement de perte.
 
-Notons que sans l’altération de ces deux clauses, le produit des deux grammaires présenterait peu d’intérêt puisqu’il serait équivalent à optimiser de manière entièrement indépendante d’une part les événements de réconciliation bilatérale et d’autre part les événements segmentaux.
+Notons que sans l’altération de ces deux clauses, le produit des deux grammaires présenterait peu d’intérêt, puisqu’il serait équivalent à optimiser de manière entièrement indépendante d’une part les événements de réconciliation bilatérale et d’autre part les événements segmentaux.
 Ainsi, une des pistes de recherche pour systématiser les produits de grammaires pourrait consister à rechercher un opérateur qui a exactement pour conséquence d’engendrer un espace de solutions qui permet de parcourir le produit cartésien des ensembles de solutions respectifs des deux grammaires initiales.
 
 En employant la grammaire \(\gramseq\) ainsi construite et des algèbres d’évaluation définies de manière similaire aux sections précédentes, il est possible de résoudre le problème de réconciliation segmentale.
-Par exemple, l’instance obtenue en combinant les exemples des deux sections précédentes possède quatre solutions optimales dont l’une est présentée à la \cref{fig:adp-rec:syn-solution-best}.
+Par exemple, l’instance obtenue en combinant les exemples des deux sections précédentes possède quatre solutions optimales, dont l’une est présentée à la \cref{fig:adp-rec:syn-solution-best}.
 Comparativement à la solution de la \cref{fig:adp-rec:rec-input}, cette solution emploie quatre événements de transfert et un de duplication, au lieu d’un seul transfert et deux duplications.
 Ces événements permettent en retour d’économiser certains événements de gains et de pertes par rapport à la solution de la \cref{fig:adp-rec:set-solutions}.
 
@@ -562,7 +562,7 @@ Ces événements permettent en retour d’économiser certains événements de g
 
 \section{Discussion}
 
-Dans le contexte de la réconciliation phylogénétique, il s’est écoulé plusieurs années entre le premier algorithme de programmation dynamique pour la réconciliation avec transfert horizontaux par \textcite{Hallett2004SimultaneousIdentificationDuplications}, limité à l’obtention d’une unique solution optimale arbitraire pour un coût fixé, et les travaux de \textcite{Scornavacca2013RepresentingSetReconciliations} sur l’analyse de l’ensemble des solutions optimales, de \textcite{Bansal2013ReconciliationRevisitedHandling} sur l’échantillonage uniforme des solutions, de \textcite{Donati2015EfficientTreeReconciliation} sur leur énumération, de \textcite{LibeskindHadas2014ParetoOptimalPhylogenetic} sur l’obtention de solutions Pareto-optimales indépendamment des coûts, ou plus récemment de \textcite{Wang2022EfficientlySparseListing} sur l’énumération de classes d’équivalences.
+Dans le contexte de la réconciliation phylogénétique, il s’est écoulé plusieurs années entre le premier algorithme de programmation dynamique pour la réconciliation avec transferts horizontaux par \textcite{Hallett2004SimultaneousIdentificationDuplications}, limité à l’obtention d’une unique solution optimale arbitraire pour un coût fixé, et les travaux de \textcite{Scornavacca2013RepresentingSetReconciliations} sur l’analyse de l’ensemble des solutions optimales, de \textcite{Bansal2013ReconciliationRevisitedHandling} sur l’échantillonage uniforme des solutions, de \textcite{Donati2015EfficientTreeReconciliation} sur leur énumération, de \textcite{LibeskindHadas2014ParetoOptimalPhylogenetic} sur l’obtention de solutions Pareto-optimales indépendamment des coûts, ou plus récemment de \textcite{Wang2022EfficientlySparseListing} sur l’énumération de classes d’équivalences.
 
 Dans ce chapitre, nous avons démontré que l’utilisation des méthodes de programmation dynamique algébrique introduites au chapitre précédent permet de réaliser directement ce type d’analyse avancée sur l’espace des réconciliations.
 Ainsi, l’approche algébrique a le potentiel d’accélérer la recherche menée sur les algorithmes d’optimisation combinatoire en généralisant les algorithmes développés sur des problèmes spécialisés et en permettant de les appliquer aisément à une variété de problèmes.
