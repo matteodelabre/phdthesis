@@ -5,19 +5,33 @@
 \addcontentsline{toc}{chapter}{Conclusion}
 \markboth{\textsc{conclusion}}{}
 
-\paragraph{Complexité algorithmique du problème de super-réconciliation}
-Le problème d’optimisation combinatoire lié à la super-réconciliation de segments a été démontré NP-complet dans sa grande version.
-La question de la complexité algorithmique de la petite version, c’est-à-dire lorsque la topologie de l’arbre de synténies est fixée à l’avance, est encore ouverte.
-Mes résultats préliminaires actuels sur cette question montreraient que le problème est NP-complet en général, mais qu’un algorithme polynomial existerait lorsque l’ordre de la synténie ancestrale est également fixé en avance.
-Je prévois de soumettre à publication les résultats obtenus au cours de l’hiver~2023.
+La réconciliation phylogénétique permet d’étudier de manière comparée l’évolution d’unités dépendantes à celle de leurs hôtes, par exemple celle de familles de gènes comparée à celle d’espèces.
+Parmi les méthodes existantes de réconciliation, la plupart supposent une évolution indépendante des différentes unités qui peuvent coexister dans un hôte.
+Cette hypothèse est invalidée notamment pour certains gènes dont l’organisation dans le génome rend leurs fonctions, et donc leur évolution, interdépendantes.
+L’une des méthodes permettant d’intégrer l’interdépendance entre les unités à la réconciliation est la réconciliation segmentale.
 
-\paragraph{Extensions supplémentaires de la super-réconciliation}
-L’applicabilité de la super-réconciliation à des données réelles est encore limitée par le spectre restreint d’événements qui y sont modélisés.
-En particulier, la super-réconciliation de segments ne permet pas de prendre en compte les événements de scission ou de fusion de segments, ni les événements de duplication en tandem.
-L’ajout des événements de scission et de fusion permettrait de modéliser les réarrangements et les transferts horizontaux intégrant leur matériel à l’intérieur d’une synténie existante.
-Cette extension représenterait toutefois un saut important de complexité du modèle.
-La dernière année du projet, entre l’été~2023 et l’été~2024, sera consacrée à l’étude des possibilités dans ce domaine.
+Dans cette thèse, nous avons démontré que le modèle de réconciliation segmentale peut être étendu avec succès pour prendre en compte la possibilité de transferts horizontaux entre les hôtes.
+Ceci nous a notamment permis d’appliquer cette méthode à l’évolution des systèmes CRISPR-Cas dans les bactéries.
+Bien que la complexité algorithmique de la méthode développée soit raisonnable, cette extension du modèle a fait apparaître l’existence de très nombreuses solutions co-optimales qui nuisent à l’interprétabilité des solutions produites.
 
-\paragraph{Validation des modèles à l’aide de simulations}
-Enfin, un objectif transversal du projet est la validation de la capacité des modèles étudiés à reconstruire des scénarios adéquats.
-Nous souhaitons tirer profit des simulateurs existants afin de générer de tester les algorithmes sur des données synthétiques et de d’étudier l’influence des différents paramètres sur la qualité des résultats.
+Afin de réaliser une étude systématique de cet espace étendu des solutions, nous avons adopté une approche algébrique des techniques de programmation dynamique utilisées pour la conception des algorithmes.
+Nous avons pour ce faire présenté une théorie unifiée de la programmation dynamique algébrique démontrant comment des questions transversales concernant des problèmes d’optimisation combinatoire peuvent être traitées de manière générique.
+Cette théorie a été mise en pratique sur le problème de réconciliation segmentale, nous laissant notamment envisager le potentiel de développement accéléré de nouveau algorithmes dans le futur de par la combinaison d’algorithmes existants.
+
+L’accès à ces outils algébriques devrait permettre de réaliser une validation plus approfondie des modèles développés dans cette thèse.
+Des travaux futurs devront ainsi être réalisés pour mesurer quelle proportion des scénarios réels peuvent être recouvrés par le modèle et valider si la réconciliation segmentale permet effectivement d’obtenir des scénarios qualitativement meilleurs que la réconciliation bilatérale ou la réconciliation d’adjacences et, si oui, dans quelles circonstances.
+Ces travaux pourront notamment s’appuyer sur les simulateurs existants permettant de générer des données synthétiques.
+Cette validation permettra de tirer des conclusions biologiques plus certaines sur l’évolution des systèmes dépendants.
+
+Plusieurs extensions supplémentaires des méthodes développées ici pourraient être bénéfiques.
+L’évolution des groupes ou des synténies n’est pas nécessairement arborescente car les groupes peuvent se scinder et se fusionner au long de leur histoire.
+Ainsi, la réconciliation segmentale pourrait être étendue sur des réseaux phylogénétiques, c’est-à-dire des structures phylogénétiques contenant des cycles non dirigés.
+Des travaux ont déjà été menés pour étendre la réconciliation bilatérale aux réseaux et pourront être étendus en ce sens \parencite{Chan2024EfficientAlgorithmReconciliation}.
+Les méthodes développées ici concernent spécifiquement l’évolution de groupes d’unités sans prendre en compte leur potentiel ordonnancement linéaire par exemple le long d’un génome.
+La complexité algorithmique du problème associé à la réconciliation segmentale ordonnée reste ouverte au meilleur de notre connaissance.
+Une autre piste potentielle pourrait être d’ordonner les groupes d’une réconciliation segmentale \emph{a posteriori}, après avoir optimisé les événements non ordonnés.
+
+Finalement, plusieurs directions de recherche peuvent être envisagées en lien avec la programmation dynamique algébrique.
+La notion de produit de grammaires envisagée au \cref{chap:adp-rec} reste encore à développer et les premiers résultats obtenus par \textcite{Siederdissen2015ProductGrammarsAlignment} en la matière restent limités à certaines formes de grammaires.
+L’obtention d’un opérateur de produit général pourrait permettre de réaliser des avancées algorithmiques par exemple en ce qui concerne la réconciliation multilatérale~\cref{Menet2022PhylogeneticReconciliation}.
+Le développement de méthodes de spécification d’algorithmes sur les graphes généraux, par exemple au travers de leur décomposition arborescente, pourrait également permettre le développement d’algorithmes pour la réconciliation segmentale étendue aux réseaux.
