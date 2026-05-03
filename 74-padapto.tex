@@ -17,13 +17,9 @@ Leur utilisation est illustrée dans le \cref{lst:logiciel:padapto-sig-alg}.
     \item \textbf{\texttt{padapto.evaluation}} contient des fonctions pour définir des algèbres, notamment \texttt{count}, \texttt{trace}, \texttt{additive} et \texttt{boltzmann}, ainsi que des fonctions pour les combiner et les transformer (voir la \cref{sec:adp:alg-combin}), notamment \texttt{join}, \texttt{lex}, \texttt{power}, \texttt{group}, \texttt{limit} et \texttt{pareto}.
 \end{itemize}
 
-\begin{listing}[h]
+\begin{listing}[htb]
 \small
-\begin{minipage}{.50\textwidth}
 \begin{minted}{python}
-
-
-
 @dataclass(frozen=True)
 class AlignSignature[T](Signature[T]):
   unit: Callable[[], T]
@@ -31,31 +27,15 @@ class AlignSignature[T](Signature[T]):
   delete: Callable[[T, str], T]
   insert: Callable[[T, str], T]
 
-
-
-\end{minted}
-\end{minipage}\hfill%
-\begin{minipage}{.46\textwidth}
-\begin{minted}{python}
 counter = count(AlignSignature)
-min_unit = additive(
-  AlignSignature,
-  choose="min",
-  match=lambda sym1, sym2:
-    1 if sym1 != sym2 else 0,
-  delete=lambda _: 1,
-  insert=lambda _: 1)
-count_min = join(
-  cost=min_unit,
-  count=counter,
-) | lex("cost")
+min_unit = additive(AlignSignature, choose="min",
+  match=lambda sym1, sym2: 1 if sym1 != sym2 else 0,
+  delete=lambda _: 1, insert=lambda _: 1)
+count_min = join(cost=min_unit, count=counter) | lex("cost")
 \end{minted}
-\end{minipage}
-    \caption{
+    \caption[Définitions d’une signature et d’algèbres avec la bibliothèque \emph{padapto}]{
         Définitions d’une signature et d’algèbres pour le problème d’alignement de séquences introduit dans l’\cref{ex:seq-align}.
-        (À gauche:) 
         La signature ajoute aux opérateurs prédéfinis \texttt{null} et \texttt{choose} l’opérateur d’arité zéro \texttt{unit}, représentant un alignement vide, et les opérateurs unaires \texttt{match}, \texttt{delete} et \texttt{insert}, représentant les trois opérations possibles dans un alignement.
-        (À droite:)
         L’algèbre \texttt{counter} dénombre les solutions de l’espace des solutions,
         l’algèbre \texttt{min\_unit} calcule le meilleur coût d’un alignement en attribuant un coût unitaire à chaque opération,
         tandis que \texttt{count\_min} combine les deux algèbres en dénombrant les solutions qui atteignent le coût minimum.
@@ -63,10 +43,25 @@ count_min = join(
     }
 \end{listing}
 
-Les algèbres ainsi définies peuvent être employées dans des algorithmes de programmation définis récursivement de haut en bas, itérativement de bas en haut, ou encore au travers de grammaires de structure comme présenté à la \cref{sec:adp:yield-gram}.
+La fonction \texttt{trace} du module \texttt{padapto.evaluation} permet de dériver automatiquement l’algèbre de traçage (voir la \cref{sec:adp:solution-spaces:trace}) associée à une certaine signature.
+Cette algèbre construit automatiquement les circuits algébriques représentant les espaces de solutions associés à chaque instance d’un problème.
+
+Une fois un circuit algébrique obtenu, il devient possible d’y effectuer diverses opérations sans devoir exécuter l’algorithme à nouveau.
+Par exemple, il est possible d’en extraire des solutions, par énumération ou par échantillonage uniforme ou de Boltzmann, d’y évaluer d’autres algèbres, ou de calculer les fréquences d’apparition de certains sommets (voir la \cref{sec:adp:solution-spaces}).
+Ces fonctions sont fournies par le module suivant.
 
 \begin{itemize}
-    \item \textbf{\texttt{padapto.structure}} définit les modules nécessaires à l’implantation d’algorithmes sous la forme de grammaires.
+    \item \textbf{\texttt{padapto.circuit}} offre des fonctions pour manipuler des circuits algébriques. \texttt{serialize} et \texttt{unserialize} permettent de les convertir dans un format textuel, \texttt{render} permet de les afficher, \texttt{enumerate\_solutions} et \texttt{get\_solution} d’en énumérer les solutions, \texttt{eval}, \texttt{eval\_inside} et \texttt{eval\_outside} d’évaluer une algèbre, et \texttt{sample} d’en échantillonner des solutions selon une distribution définie par une algèbre.
+\end{itemize}
+
+La représentation et la manipulation de circuits algébriques, qui sont des graphes orientés acycliques, est faite au travers de la bibliothèque \emph{sowing} présentée précédemment.
+
+Les modules précédents peuvent être utilisés dans des algorithmes définis de manière \enquote{traditionnelle}, par des fonctions itératives ou récursives spécialisées pour un certain problème.
+Une manière alternative de résoudre ces problèmes est au travers des grammaires de structure présentées à la \cref{sec:adp:yield-gram}.
+
+\begin{itemize}
+    \item \textbf{\texttt{padapto.structure.grammar}} permet la définition des clauses de grammaires en Python et réalise l’\cref{alg:seq-yield-parser} d’analyse récursive pour les grammaires.
+    \item \textbf{\texttt{padapto.structure.pattern}} définit un sous-langage dédié pour exprimer les motifs de séquences, d’ensembles, d’arbres, de forêts et de nombres utilisés dans les têtes des clauses et permettant de décomposer les entrées d’un algorithme de programmation dynamique.
 \end{itemize}
 
 \begin{listing}[p]
@@ -105,33 +100,23 @@ class AlignGrammar[T](Grammar[T]):
   def _insert(self, b: str, X: str, Y: str) -> T:
     return self.alg.insert(self.align(left=X, right=Y), b)
 \end{minted}
-    \caption{
+    \caption[Définition d’une grammaire avec la bibliothèque \emph{padapto}]{
         Implantation de la grammaire de l’\cref{ex:seq-align} en Python en utilisant \emph{padapto}.
         Une grammaire est une classe descendant de \texttt{Grammar} et décorée par \texttt{@grammar}.
         La classe contient une méthode décorée par \texttt{@predicate} pour chaque \emph{prédicat} de la grammaire dont chaque argument correspond à une dimension du prédicat.
         Elle contient également une méthode  pour chaque \emph{clause} de la grammaire.
         Les clauses sont décorées avec \texttt{@clause} en donnant un motif de décomposition pour chacune des dimensions du prédicat associé.
+        \label{lst:logiciel:padapto-gram}
     }
 \end{listing}
 
-La classe représentant une grammaire doit être instanciée en lui donnant l’algèbre à utiliser.
-Chaque instance renferme les tables de mémoisation qui gardent en mémoire les résultats partiels des sous-problèmes.
+Chaque classe représentant une grammaire, telle que celle définie dans le \cref{lst:logiciel:padapto-gram}, peut être instanciée en lui donnant une algèbre à utiliser.
+Chaque instance ainsi créée renferme les tables de mémoisation qui gardent en mémoire les résultats partiels des sous-problèmes.
 
 Les méthodes associées à chaque prédicat sont remplacées par une implémentation générée automatiquement qui suit le principe de l’\cref{alg:seq-yield-parser}.
 Lors de l’appel à un prédicat, cette méthode itère au travers des clauses correspondant au prédicat et au travers des décompositions possibles des entrées sur chaque dimension, puis collecte les résultats pour les stocker dans l’entrée associée de la table de mémoisation.
 
 Peu importe la manière dont la structure de l’espace des solutions est définie, il existe deux options pour y évaluer une algèbre.
-La première est de passer directement l’algèbre à l’algorithme, ce qui a pour but de produire une unique valeur correspondant au résultat de l’évaluation.
+La première est de passer directement l’algèbre à l’algorithme ou la grammaire, ce qui a pour effet de produire une unique valeur correspondant au résultat de l’évaluation.
 Généralement, l’algèbre ne considère qu’une partie limitée de l’espace des solutions, ainsi une fois le résultat obtenu il n’y a plus assez d’informations pour parcourir d’autres solutions associées.
-L’autre option est d’utiliser une algèbre de traçage (voir la \cref{sec:adp:solution-spaces:trace}) pour extraire le circuit algébrique décrivant l’espace des solutions.
-Dans \emph{padapto}, la fonction \texttt{trace} du module \texttt{padapto.evaluation} permet de dériver automatiquement l’algèbre de traçage associée à une certaine signature.
-
-Une fois un circuit algébrique obtenu, il devient possible d’y effectuer diverses opérations sans devoir exécuter l’algorithme à nouveau.
-Par exemple, il est possible d’en extraire des solutions, par énumération ou par échantillonage uniforme ou de Boltzmann, d’y évaluer d’autres algèbres, ou de calculer les fréquences d’apparition de certains sommets (voir la \cref{sec:adp:solution-spaces}).
-Ces fonctions sont fournies par le module suivant.
-
-\begin{itemize}
-    \item \textbf{\texttt{padapto.circuit}} offre des fonctions pour manipuler des circuits algébriques. \texttt{serialize} et \texttt{unserialize} permettent de les convertir dans un format textuel, \texttt{render} permet de les afficher, \texttt{enumerate\_solutions} et \texttt{get\_solution} d’en énumérer les solutions, \texttt{eval}, \texttt{eval\_inside} et \texttt{eval\_outside} d’évaluer une algèbre, et \texttt{sample} d’en échantillonner des solutions selon une distribution définie par une algèbre.
-\end{itemize}
-
-La représentation et la manipulation de circuits algébriques, qui sont des graphes orientés acycliques, est faite au travers de la bibliothèque \emph{sowing} présentée précédemment.
+L’autre option est d’utiliser une algèbre de traçage pour extraire le circuit algébrique décrivant l’espace des solutions.
