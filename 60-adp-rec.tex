@@ -150,7 +150,7 @@ L’\cref{alg:adp:circ-sample} pour l’échantillonage de solutions appliqué �
     \capstart
     \centering
     \input{fig/adp-rec/rec-input}
-    \caption{
+    \caption[Instance et solution à un problème de \(\recmodelDTLx\)-parcimonie]{
         \emph{(Gauche.)} Exemple d’instance \((T, S)\) du problème de \(\recmodelDTLx\)-parcimonie.
         \emph{(Droite.)} Unique solution optimale pour un coût de \(\cost(\evtD) = 2\), \(\cost(\evtT) = 3\), \(\cost(\evtL) = 1\) et \(\cost(\evtTX) = \infty\).
         Voir les légendes des \cref{fig:reconciliation:strict-rec,fig:reconciliation:rec-trees} pour les explications de lecture.
@@ -166,7 +166,7 @@ En construisant une algèbre de Pareto, nous pouvons obtenir le diagramme de la 
     \capstart
     \centering
     \input{fig/adp-rec/rec-pareto}
-    \caption{
+    \caption[Mosaïque des régions de coûts pour une instance de \(\recmodelDTLx\)-parcimonie]{
         Mosaïque des régions d’optimalité des coûts selon trois dimensions: nombre d’événements de duplication, de transfert et de perte.
         Le diagramme montre la tranche de l’espace des coûts pour \(\cost(\evtL) = 1\).
         La région \((2,1,3)\) contient la solution de la \cref{fig:adp-rec:rec-input}.
@@ -178,8 +178,8 @@ En construisant une algèbre de Pareto, nous pouvons obtenir le diagramme de la 
     \capstart
     \centering
     \scalebox{.95}{\input{fig/adp-rec/rec-supports}}
-    \caption{
-        Probabilité d’occurrence des événements dans un scénario moyen de la distribution de Boltzmann avec température \(T=1\) pour l’entrée et les coûts de la \cref{fig:adp-rec:rec-input}.
+    \caption[Probabilités d’occurrence des événements dans un scénario moyen]{
+        Probabilités d’occurrence des événements dans un scénario moyen de la distribution de Boltzmann avec température \(T=1\) pour l’entrée et les coûts de la \cref{fig:adp-rec:rec-input}.
         Le tableau indique la probabilité que chaque sommet de \(T\) soit assigné à un type d’événement \(\evtS\), \(\evtD\) ou \(\evtT\) et associé à un hôte de l’arbre~\(S\).
         \label{fig:adp-rec:rec-supports}
     }
@@ -209,7 +209,7 @@ Plus précisément, les embranchements doivent être étiquetés par des groupes
     \capstart
     \centering
     \input{fig/adp-rec/set-example}
-    \caption{
+    \caption[Instance et solution à un problème de parcimonie de groupes]{
         \emph{(Gauche.)} Exemple d’entrée pour le problème de parcimonie de groupes.
         Chaque feuille est étiquetée par un ensemble d’unités chacune représentée par une lettre différente.
         L’ordre dans lequel celles-ci sont inscrites est sans importance.
@@ -357,7 +357,7 @@ Cet ensemble peuvent être caractérisés en calculant l’espérance de la tail
     \capstart
     \centering
     \input{fig/adp-rec/set-solutions}
-    \caption{
+    \caption[Solution alternative et espérance des tailles des groupes]{
         \emph{(Gauche.)}
         Solution optimale avec 9~événements pour un coût d’ouverture de~3 et d’extension de~1.
         \emph{(Droite.)}
@@ -370,7 +370,7 @@ Cet ensemble peuvent être caractérisés en calculant l’espérance de la tail
     \capstart
     \centering
     \input{fig/adp-rec/set-pareto}
-    \caption{
+    \caption[Mosaïque des régions de coûts pour une instance de parcimonie de groupes]{
         Mosaïque des régions d’optimalité des coûts selon trois dimensions: nombre d’événements de perte, nombre d’événements de gain et nombre d’unités perdues.
         Ceci correspond à des coûts affines de la forme \(\cost_\evtG(n) = n + b_\evtG\) et \(\cost_\evtL(n) = a \cdot n + b_\evtL\).
         Le diagramme montre la tranche de l’espace des coûts pour \(a = 1\).
@@ -527,7 +527,7 @@ Les clauses résultantes sont présentées ci-dessous et dans le \cref{tab:adp-r
         \\
         \bottomrule
     \end{tabular}
-    \caption{
+    \caption[Paires de clauses des grammaires \(\gramrec\) et \(\gramset\) combinées pour former \(\gramseq\)]{
         Paires de clauses des grammaires \(\gramrec\) (\ref{eq:adp-rec:bilateral-grammar-leaf} à \ref{eq:adp-rec:bilateral-grammar-out-up}) et \(\gramset\) (\ref{eq:adp-rec:set-split-leaf} à \ref{eq:adp-rec:set-split-gain}) combinées pour former les clauses de la grammaire \(\gramseq\).
         Dans les clauses \labelcref{eq:adp-rec:comb-grammar-dup,eq:adp-rec:comb-grammar-tr} marquées d’une astérisque, l’un des deux arguments \(L\) a été remplacé par un~0.
         La dernière rangée correspond à un produit avec une clause bouclante \(\gBranch[T, G, L] \rightarrow \gBranch[T, G, L]\) nécessaire pour faire apparaître les clauses \labelcref{eq:adp-rec:comb-grammar-out-side} et \labelcref{eq:adp-rec:comb-grammar-out-up}.
@@ -551,7 +551,7 @@ Ces événements permettent en retour d’économiser certains événements de g
     \capstart
     \centering
     \input{fig/adp-rec/syn-solution-best}
-    \caption{
+    \caption[Scénario parcimonieux pour une instance de réconciliation segmentale]{
         Solution optimale pour l’instance du problème de réconciliation segmentale combinant les arbres de la \cref{fig:adp-rec:rec-input} et les groupes de la \cref{fig:adp-rec:set-example}.
         Le coût utilisé est de \(\cost(\evtD) = 2\), \(\cost(\evtT) = 3\), \(\cost(\evtL) = 1\), \(b_\evtL = b_\evtG = 3\) et \(a_\evtL = a_\evtG = 1\).
         Les contenus des groupes ancestraux sont inscrits au centre de la forme qui symbolise l’événement associé, à savoir un rectangle arrondi pour une spéciation, un rectangle pour une duplication, ou un hexagone allongé pour un transfert.

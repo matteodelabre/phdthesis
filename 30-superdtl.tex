@@ -340,18 +340,19 @@ We denote by $H = \tuple{\treeH, \eventOf, \syntenyOf, \speciesOf}$
 such a history where $\treeH$ is the supporting partially binary tree and for each of its nodes $v$, $\eventOf(v)$ is the event, $\syntenyOf(v)$ is the synteny, and $\speciesOf(v)$ is the species to which $\syntenyOf(v)$ belongs. We have $\X =\{\syntenyOf(l) \: : \: l \in \LF(\treeH)\}$ (see \cref{fig:evol-history-example}, center). Note that for an internal node $v$ of $\treeH$, $\syntenyOf(v)$ is not necessarily in $\X$. In general, $x$ is not an onto function, as not all possible syntenies on $\F$ are required to be represented in the history.
 
 \begin{figure}[htb]
+    \capstart
     \input{fig/superdtl/evol-history-example}
-    \caption{
-        (Left.) A synteny tree $T$ for the family $\syntenyFamily = \{\syntdisp{\{b\}}, \syntdisp{\{b,c\}}, \syntdisp{\{c\}}, \syntdisp{\{a\}}, \syntdisp{\{a,b\}}\}$ on the set of species $\speciesSet = \{\specdisp{X}, \specdisp{Y}, \specdisp{Z}\}$.
+    \caption[Input and possible evolutionary scenario for the SuperDTL model]{
+        \emph{(Left.)} A synteny tree $T$ for the family $\syntenyFamily = \{\syntdisp{\{b\}}, \syntdisp{\{b,c\}}, \syntdisp{\{c\}}, \syntdisp{\{a\}}, \syntdisp{\{a,b\}}\}$ on the set of species $\speciesSet = \{\specdisp{X}, \specdisp{Y}, \specdisp{Z}\}$.
         Under each leaf $l$ are shown its associated synteny $x(l)$ and species $s(l)$.
-        (Center.) An evolutionary history $\treeH$ for $T$, embedded in the species tree $\speciesTree$.
+        \emph{(Center.)} An evolutionary history $\treeH$ for $T$, embedded in the species tree $\speciesTree$.
         For binary nodes, rounded rectangles correspond to $\eventSpe$, plain rectangles to $\eventDup$, and chamfered rectangles to $\eventHGT$.
         For unary nodes, circles correspond to $\eventGain$, and crosses to $\eventLoss$.
         For a binary node $v$, the value of $\syntenyOf(v)$ is shown inside the shape (omitted when unchanged from its parent).
         For unary nodes, the synteny difference is shown beside the node.
-        (Right.) The Super-reconciliation $\tuple{\syntenyTree, \syntenyOf, \speciesOf}$ obtained from $\treeH$. For each internal node $v$, we exhibit $\eventOf(v)$ (shape of the node), $\speciesOf(v)$ (letter beside the node) and $\syntenyOf(v)$ (content of the node).
+        \emph{(Right.)} The Super-reconciliation $\tuple{\syntenyTree, \syntenyOf, \speciesOf}$ obtained from $\treeH$. For each internal node $v$, we exhibit $\eventOf(v)$ (shape of the node), $\speciesOf(v)$ (letter beside the node) and $\syntenyOf(v)$ (content of the node).
+        \label{fig:evol-history-example}
     }
-    \label{fig:evol-history-example}
 \end{figure}
 
 We next define a Super-reconciliation from a history.
@@ -599,9 +600,14 @@ Otherwise, we would not be able to compute $\speciesOf$ separately
 from $\syntenyOf$.
 
 \begin{figure}[htb]
+    \capstart
     \input{fig/superdtl/2-steps-ct-ex}
-    \caption{Two solutions for the same DTL Super-reconciliation problem input. (Left.) Solution obtained by first computing \(s\) to minimize duplications and HGTs (yielding one such event) and then labeling internal nodes to minimize losses (yielding 4~losses). (Right.) A more parsimonious solution with two HGTs and only two losses.}
-    \label{fig:superdtl:2-steps-ct-ex}
+    \caption[Counter-example to the two-steps approach for solving SuperDTL]{
+        Two solutions for the same DTL Super-reconciliation problem input.
+        \emph{(Left.)} Solution obtained by first computing \(s\) to minimize duplications and HGTs (yielding one such event) and then labeling internal nodes to minimize losses (yielding 4~losses).
+        \emph{(Right.)} A more parsimonious solution with two HGTs and only two losses.
+        \label{fig:superdtl:2-steps-ct-ex}
+    }
 \end{figure}
 
 Unfortunately, this two-steps method does not work for solving the $\eventDTL$ Super-reconciliation
@@ -825,10 +831,16 @@ We used the Cas gene synteny subtypes from Class 1 of CRISPR-Cas systems describ
 Each of those species contains a Cas synteny. Taxonomical information of the 15 bacterial species has been recovered from the NCBI Taxonomy database~\parencite{Schoch2020NCBITaxonomyComprehensive} and the species tree topology is based on the phylogeny inferred by \textcite{Coleman2021RootedPhylogenyResolves}.
 
 \begin{figure}[htb]
+    \capstart
     \centering
     \includegraphics[width=\linewidth]{fig/superdtl/crispr-trees}
-    \caption{Cas gene syntenies for the 15 considered bacterial species. (Left.) Phylogeny of Class 1 CRISPR-Cas systems with subtypes names, as presented by~\textcite{Makarova2020EvolutionaryClassificationCRISPR} with our preprocessing of syntenies as described in the text. (Right.) The species tree based on the topology inferred by~\textcite{Coleman2021RootedPhylogenyResolves} with representation of the two major groups of bacteria, Terrabacteria and Gracilicutes. Lines represent the correspondence between the Cas genes syntenies and the species they belong to, illustrating the high incongruence between the topology of the synteny tree and that of the species tree.}
-    \label{fig:superdtl:crispr-trees}
+    \caption[Dataset of CRISPR-Cas syntenies and their host species]{
+        Cas gene syntenies for the 15 considered bacterial species.
+        \emph{(Left.)} Phylogeny of Class 1 CRISPR-Cas systems with subtypes names, as presented by~\textcite{Makarova2020EvolutionaryClassificationCRISPR} with our preprocessing of syntenies as described in the text.
+        \emph{(Right.)} The species tree based on the topology inferred by~\textcite{Coleman2021RootedPhylogenyResolves} with representation of the two major groups of bacteria, Terrabacteria and Gracilicutes.
+        Lines represent the correspondence between the Cas genes syntenies and the species they belong to, illustrating the high incongruence between the topology of the synteny tree and that of the species tree.
+        \label{fig:superdtl:crispr-trees}
+    }
 \end{figure}
 
 We repurposed the phylogenetic tree given in figure~1 of \textcite{Makarova2020EvolutionaryClassificationCRISPR} as our synteny tree.
@@ -844,6 +856,7 @@ We used {\superdtl} to predict optimal DTL Super-reconciliations for the synteni
 We tested different values for the $\delta = \tuple{\costDup, \costHGT, \costLoss}$ cost model, in agreement with a classical assumption that HGTs are less frequent than duplications, which are less frequent than losses. The number of solutions obtained for each setting is given in \cref{tab:superdtl:sol-count}. We observe that the number of solutions decreases as the HGT cost increases, reaching a minimum for $\costHGT=4$, and then increases again. For a given $\costHGT$, the results are largely stable for different $\costDup$ values.
 
 \begin{table}[h]
+    \capstart
     \centering
     \setlength{\tabcolsep}{8pt}
     \begin{tabular}{cccccc}
@@ -858,19 +871,23 @@ We tested different values for the $\delta = \tuple{\costDup, \costHGT, \costLos
     6 & 320 & 288 & 288 & 288 & 288 \\
     \bottomrule
     \end{tabular}
-
-    \caption{Number of solutions obtained by Algorithm {\superdtl} for different values of $\delta = \tuple{\costDup, \costHGT, \costLoss}$, with $\costLoss = 1$.}
-    \label{tab:superdtl:sol-count}
+    \caption[Number of SuperDTL solutions for various cost settings]{
+        Number of solutions obtained by Algorithm {\superdtl} for different values of $\delta = \tuple{\costDup, \costHGT, \costLoss}$, with $\costLoss = 1$.
+        \label{tab:superdtl:sol-count}
+    }
 \end{table}
 
 \begin{figure}[htbp]
+    \capstart
     \centering%
     \scalebox{.66}{\input{fig/superdtl/result-4-h4d2-v2}}%
-    \caption{Representation of one of the 32 solutions inferred by Algorithm {\superdtl} reconstructing a DTL evolutionary history of the Class~1 Cas gene synteny dataset illustrated in \cref{fig:superdtl:crispr-trees}.
-    Event costs set to $\costLoss=1$, $\costHGT=4$ and $\costDup\in\{1,1.5,2,2.5\}$ yield equal solutions.
-    The red, blue, and green parts of the tree reflect the evolution of Cas synteny types IV, I, and III respectively.
-    Gains of Cas1+Cas2 and Cas3(Cas3'+Cas3")+Cas4 are illustrated.}
-    \label{fig:superdtl:crispr-scenario}
+    \caption[Most parsimonious scenario for the CRISPR-Cas dataset under SuperDTL]{
+        Representation of one of the 32 solutions inferred by Algorithm {\superdtl} reconstructing a DTL evolutionary history of the Class~1 Cas gene synteny dataset illustrated in \cref{fig:superdtl:crispr-trees}.
+        Event costs set to $\costLoss=1$, $\costHGT=4$ and $\costDup\in\{1,1.5,2,2.5\}$ yield equal solutions.
+        The red, blue, and green parts of the tree reflect the evolution of Cas synteny types IV, I, and III respectively.
+        Gains of Cas1+Cas2 and Cas3(Cas3'+Cas3")+Cas4 are illustrated.
+        \label{fig:superdtl:crispr-scenario}
+    }
 \end{figure}
 
 \subsection{An evolutionary scenario}

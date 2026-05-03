@@ -249,9 +249,10 @@ Finally, notice that \cref{def:synesth:hist} does not require the species involv
 (for a more precise definition of acyclicity, see~\textcite{Tofigh2011SimultaneousIdentificationDuplications}).
 
 \begin{figure}[htb]
+    \capstart
     \centering
     \input{fig/synesth/example}
-    \caption{
+    \caption[Input and possible scenario for the Synesth model]{
         (1)~A \emph{synteny tree} \(\syntenyTree\) (on the left) with an augmented \emph{species tree} \(\augS\) (on the right).
         Numbers represent single gene families and letters represent species.
         As indicated by the dashed gray lines connecting the two trees, the syntenies \(\{\{1,2\}, \{2,3\}, \{1,3\}\}\) belong to species~\textbf{A}, \(\{\{2,3\},\{1,2\}\}\) to~\textbf{B}, and \(\{\{3\},\{1,2\}\}\) to~\textbf{C}.
@@ -262,8 +263,8 @@ Finally, notice that \cref{def:synesth:hist} does not require the species involv
         Events are represented as follows: \enquote{\(\eventSpe\)} by ovals, \enquote{\(\eventDup\)} and \enquote{\(\eventCut\)} by rectangles, \enquote{\(\eventTrDup\)} and \enquote{\(\eventTrCut\)} by diamonds, \enquote{\(\eventLoss\)} by right half-circles and \enquote{\(\eventGain\)} by left half-circles.
         The synteny contents are written inside of each event, while the associated species is represented implicitly by the position of each event on top of the species tree.
         Duplicated or transferred genes are underlined, while fissions are represented by a separation in the synteny.
+        \label{fig:synesth:example}
     }
-    \label{fig:synesth:example}
 \end{figure}
 
 \section{Explicatory histories and optimization problems}\label{sec:synesth:opt-probs}
@@ -413,15 +414,16 @@ For example, in \cref{fig:synesth:history-builder},
 \(\Hist = \mergeHist([\eventSpe, X, \sigma], [X, \sigma\leftChild], [Y, \gamma\leftChild], [X, \sigma\rightChild], [Z, \gamma\rightChild])\).
 
 \begin{figure}[htb]
+    \capstart
     \centering
     \input{fig/synesth/history-builder}
-    \caption{
+    \caption[Decomposition of a history into sub-histories and paths]{
         A history \(\Hist\) for a synteny tree \(\syntenyTree\) starting with a speciation at \(v = [X, \sigma]\), composed of two sub-histories \(h(v\leftChild, Y, \gamma\leftChild)\) and \(h(v\rightChild, Z, \gamma\rightChild)\)
         linked together by two paths (represented by wavy lines):
         \(\optPath([Y', \gamma\leftChild'], [Y, \gamma\leftChild])\)
         and \(\optPath([Z', \gamma\rightChild'], [Z, \gamma\rightChild])\).
+        \label{fig:synesth:history-builder}
     }
-    \label{fig:synesth:history-builder}
 \end{figure}
 
 \pagebreak
@@ -932,10 +934,13 @@ The CRISPR–Cas module is an adaptive system used by prokaryotes to defend agai
 Its fame is due to the development of the CRISPR-Cas~9 genome editing technology, which is one of the most reliable and accurate “molecular scissors”. An important part of a CRISPR-Cas system is an operon of associated Cas genes playing various roles in the defense machinery. As the microbial function of CRISPR-Cas systems highly depends on the syntenic organization of Cas genes, elucidating the evolution of these syntenies is crucial.
 
 \begin{figure}[h]
+    \capstart
     \centering
     \scalebox{.27}{\input{fig/synesth/crispr-cas-scenario}}
-    \caption{Output of Synesth for the CRISPR-Cas Class 1 dataset, when asked for one minimum-cost history for event costs \(\eventCost(\eventLoss)=1\), \(\eventCost(\eventDup)=2\), \(\eventCost(\eventCut) = 2.5\), \(\eventCost(\eventTrDup)=4\) and \(\eventCost(\eventTrCut) = 4.5\).}
-    \label{fig:synesth:crispr-sol}
+    \caption[Most parsimonious scenario for the CRISPR-Cas dataset under Synesth]{
+        Output of Synesth for the CRISPR-Cas Class 1 dataset, when asked for one minimum-cost history for event costs \(\eventCost(\eventLoss)=1\), \(\eventCost(\eventDup)=2\), \(\eventCost(\eventCut) = 2.5\), \(\eventCost(\eventTrDup)=4\) and \(\eventCost(\eventTrCut) = 4.5\).
+        \label{fig:synesth:crispr-sol}
+    }
 \end{figure}
 
 In \cref{chap:superdtl}, taking the CRISPR-Cas classification of Class~1 from \textcite{Makarova2020EvolutionaryClassificationCRISPR} as the synteny tree, and considering a dataset of 15 bacterial species as well as the species tree topology inferred in \textcite{Coleman2021RootedPhylogenyResolves}, we recovered an evolutionary scenario which is broadly consistent with that of \textcite{Koonin2022EvolutionaryPlasticityFunctional} with the CRISPR-Cas emergence inferred at the root of Terrabacteria. However, some inconsistencies were observed. For example, in the Proteobacteria subtree, the \emph{SuperDTL} algorithm inferred an unlikely scenario with an ancestral synteny duplication before the LCA of \emph{Shewanella putrefaciens}, \emph{Vibrio crassostreae}, \emph{Yersinia pseudotuberculosis}, and  \emph{Escherichia coli} resulting in a succession of three consecutive full synteny losses along the branch to \emph{E. coli}.
@@ -949,10 +954,16 @@ To visualize the set of Pareto-optimal vectors computed as explained before, we 
 The resulting plot is given in \cref{fig:synesth:crispr-pareto}, in which each color-coded region corresponds to a set of event costs that give rise to exactly the same set of minimal histories.
 
 \begin{figure}[h]
+    \capstart
     \centering
     \input{fig/synesth/crispr-cas-pareto}
-    \caption{The event cost landscape for the solutions returned by Synesth for Class~1 Cas gene synteny dataset (see text). The cost of a loss event is fixed to 1. For each color region, the legend shows a condensed event count vector of the form \((c_\eventDup + c_\eventCut, c_\eventTrDup + c_\eventTrCut, c_\eventLoss)\). “\(n\)” indicates the number of distinct minimal histories for any set of event costs in that region.}
-    \label{fig:synesth:crispr-pareto}
+    \caption[Event cost landscape for the set of solutions to the CRISPR-Cas dataset]{
+        The event cost landscape for the solutions returned by Synesth for Class~1 Cas gene synteny dataset (see text).
+        The cost of a loss event is fixed to 1.
+        For each color region, the legend shows a condensed event count vector of the form \((c_\eventDup + c_\eventCut, c_\eventTrDup + c_\eventTrCut, c_\eventLoss)\).
+        “\(n\)” indicates the number of distinct minimal histories for any set of event costs in that region.
+        \label{fig:synesth:crispr-pareto}
+    }
 \end{figure}
 
 \section{Conclusion}

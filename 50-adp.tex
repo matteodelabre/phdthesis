@@ -123,6 +123,7 @@ Using this notation, we can state the optimization problem as follows, \[
 \end{example}
 
 \begin{algorithm}[h]
+    \capstart
     {\footnotesize
     \begin{minipage}[t]{.475\textwidth}
         \begin{algorithmic}[1]
@@ -180,7 +181,7 @@ Using this notation, we can state the optimization problem as follows, \[
         \end{algorithmic}
     \end{minipage}
     \par}
-    \caption{
+    \caption[Compared dynamic programming solutions for matrix chain multiplication]{
         \emph{(Left:)} A dynamic programming solution to the problem of finding the least number of scalar operations needed to compute the product \(E = M_1\cdots M_n\) of matrices of sizes \((x_1, y_1)\) to \((x_n, y_n)\).
         \emph{(Right:)} A simple modification of the algorithm that returns the total number of possible bracketings for \(E\) instead.
         Differences between the two algorithms are highlighted in gray boxes.
@@ -275,6 +276,7 @@ This connection between optimal substructure and distributivity has been extensi
 \Cref{prop:eval-alg-neutral,prop:eval-alg-commut,prop:eval-alg-assoc} allow us to express choices between sets of solutions without consideration for the order in which they are listed, and consequently to define the \(\left(\algsum_{x \in S} x\right)\) operator for any finite set of solutions~\(S\).
 
 \begin{table}
+    \capstart
     {\small
     \centering
     \setlength{\tabcolsep}{.4em}
@@ -294,7 +296,7 @@ This connection between optimal substructure and distributivity has been extensi
         \bottomrule
     \end{tabular}
     \par}
-    \caption{
+    \caption[Commonly-used semirings]{
         Commonly-used semirings.
         \label{tab:common-algebras}
     }
@@ -892,6 +894,7 @@ This process can be modelled through algebraic circuits that provide short repre
 \end{example}
 
 \begin{figure}[h]
+    \capstart
     \centering
     \begin{tikzpicture}[y={(-1.5cm, 0)}, x={(0, -.66cm)}]
         \node[term] (t0) at (0, 0) {\(\algterm_{5,10}\)};
@@ -952,7 +955,7 @@ This process can be modelled through algebraic circuits that provide short repre
         \draw[chosen arc] (p0123) -- (t01t23);
         \draw[arc] (p0123) -- (t0t123);
     \end{tikzpicture}
-    \caption{
+    \caption[Algebraic circuit generating the matrix chain multiplication solution space]{
         Circuit generating all the possible bracketings of \(\algterm_{5,10}\algterm_{10,3}\algterm_{3,7}\algterm_{7,7}\).
         \(\algplus\)~nodes represent choices between multiple bracketings
         and \(\algtimes\)~nodes represent decompositions into subbracketings.
@@ -1065,6 +1068,7 @@ This implies \(\prob_{\alg,v}(X) = 1\), confirming that \(\prob_{\alg,v}\) is a 
 This algorithm follows the recursive method of \textcite{Wilf1977UnifiedSettingSequencing} and its generalization by \textcite{Ponty2011CombinatorialFrameworkDesigning}.
 
 \begin{algorithm}
+    \capstart
     \begin{algorithmic}[1]
         \Require{%
             \(\alg = \tup{A, F}\), a weighting algebra of signature \(\algsign\);\\
@@ -1083,7 +1087,7 @@ This algorithm follows the recursive method of \textcite{Wilf1977UnifiedSettingS
             \EndIf
         \EndFunction
     \end{algorithmic}
-    \caption{
+    \caption[Generic sampling algorithm for algebraic circuits]{
         Generic sampling algorithm for algebraic circuits.
         \label{alg:adp:circ-sample}
     }
@@ -1388,6 +1392,7 @@ This is a CYK-style algorithm generalized to MCFGs~\parencite[section~7.1]{Kallm
 The intermediate results are tabled for each input decomposition and for each predicate, keeping the size of the underlying algebraic circuit polynomial.
 
 \begin{algorithm}
+    \capstart
     \begin{algorithmic}[1]
         \Require{%
             \(\gram = \tup{P, T, V, C, S}\), a sequential yield grammar of signature \(\algsign\);\\
@@ -1432,7 +1437,7 @@ The intermediate results are tabled for each input decomposition and for each pr
             \State \Return \(M(L, I)\)
         \EndFunction
     \end{algorithmic}
-    \caption{
+    \caption[CYK-style parser for sequential yield grammars]{
         CYK-style parser for sequential yield grammars.
         \label{alg:seq-yield-parser}
     }
@@ -1571,6 +1576,7 @@ Yield grammars can be generalized to hedges by using \emph{hedge patterns}.
 \end{definition}
 
 \begin{figure}[t]
+    \capstart
     \begin{minipage}[b]{.3\textwidth}\centering
     \begin{tikzpicture}[x=.5cm, y=.5cm]
         \node[outside node={below}{\text{d}}] (d) {};
@@ -1647,7 +1653,7 @@ Yield grammars can be generalized to hedges by using \emph{hedge patterns}.
         Alignment of \(S\) with \(T\)
     \end{minipage}
     
-    \caption{
+    \caption[Examples of hedges and their alignment]{
         Two hedges \(S\) and \(T\) represented both as terms and as graphs, with a possible alignment of \(S\) with \(T\).
         Both \(S\) and \(T\) are of breadth~1 and degree~3.
         Two hedge intervals are highlighted in blue and green:

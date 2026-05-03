@@ -40,7 +40,11 @@ disp = display(tree, {"a", "b", "d"})
 newick.write(disp)
 # résultat: ((a,b),d);
 \end{minted}
-    \caption{Fonction réalisant la contraction d’un arbre pour garder un ensemble de feuilles donné. Malgré le caractère immuable de la structure de données, cette fonction utilise un temps et un espace en \(\bigo(n)\), où \(n\) est le nombre de sommets dans l’arbre initial.\label{lst:logiciel:sowing-ex}}
+    \caption[Utilisation de la bibliothèque \emph{sowing} pour modifier un arbre]{
+        Fonction réalisant la contraction d’un arbre pour garder un ensemble de feuilles donné.
+        Malgré le caractère immuable de la structure de données, cette fonction utilise un temps et un espace en \(\bigo(n)\), où \(n\) est le nombre de sommets dans l’arbre initial.
+        \label{lst:logiciel:sowing-ex}
+    }
 \end{listing}
 
 Les fonctionnalités de \emph{sowing} sont réparties entre plusieurs modules.

@@ -241,11 +241,13 @@
     \renewcommand{\manu@name@problem@query}{Question}%
     \crefname{property}{propriété}{propriétés}%
     \Crefname{property}{Propriété}{Propriétés}%
+    \renewcommand{\tablename}{Tableau}%
     \crefname{table}{tableau}{tableaux}%
     \Crefname{table}{Tableau}{Tableaux}%
     \captionsetup[algorithm]{name=Algorithme}%
     \crefname{algorithm}{algorithme}{algorithmes}%
     \Crefname{algorithm}{Algorithme}{Algorithmes}%
+    \renewcommand{\listalgorithmname}{Liste des algorithmes}%
     \algrenewcommand{\algorithmicforall}{\textbf{pour chaque}}
     \algrenewcommand{\algorithmicrequire}{\textbf{Entrée:}}
     \algrenewcommand{\algorithmicensure}{\textbf{Sortie:}}
@@ -289,11 +291,13 @@
     \renewcommand{\manu@name@problem@query}{Question}%
     \crefname{property}{property}{properties}%
     \Crefname{property}{Property}{Properties}%
+    \renewcommand{\tablename}{Table}%
     \crefname{table}{table}{tables}%
     \Crefname{table}{Table}{Tables}%
     \captionsetup[algorithm]{name=Algorithm}%
     \crefname{algorithm}{algorithm}{algorithms}%
     \Crefname{algorithm}{Algorithm}{Algorithms}%
+    \renewcommand{\listalgorithmname}{List of Algorithms}%
     \algrenewcommand{\algorithmicforall}{\textbf{for each}}
     \algrenewcommand{\algorithmicrequire}{\textbf{Input:}}
     \algrenewcommand{\algorithmicensure}{\textbf{Output:}}
