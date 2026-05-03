@@ -3,16 +3,21 @@
 \section{mosaic --- Visualisation des vecteurs de Pareto}
 \programdetails{https://github.com/matteodelabre/mosaic}{GPL v3.0}{Entre décembre~2023 et avril~2026, 200 lignes de code}
 
-The cost space is a five-dimensional space in which each dimension corresponds to the possible cost values for each event type.
-For a given input synteny and species tree, each point in this space represents the set of histories explicating the input and which are optimal with respect to the corresponding cost setting.
-Notice that the event vector of any such optimal history is necessarily one of the Pareto-optimal output by Synesth.
+Dans certains problèmes d’optimisation combinatoire, dont les problèmes de réconciliation, la fonction d’objectif peut rassembler plusieurs quantités indépendantes comme le nombre d’événements de duplication, de transfert et de perte.
+Une manière de définir ce type d’objectif est de fixer un coût relatif pour chacune des quantités à minimiser et d’optimiser la combinaison linéaire ainsi obtenue.
+Les coûts ainsi définis deviennent alors des hyperparamètres de la méthode.
+Parfois difficiles à estimer, ceux-ci ont un impact considérable sur la teneur des solutions obtenues.
 
-Define the region of such a Pareto-optimal vector as the set of points (i.e., cost settings) which make the vector optimal with respect to the others.
-Since there is a finite number of such vectors, there is also a finite number of such regions.
-As shown by~\cite{LibeskindHadas2014ParetoOptimalPhylogenetic}, these regions are intersections of half-spaces and hence are convex polyhedrons.
-These regions cover the entire cost space, but do not form a partition as neighboring polyhedra are not disjoint.
+Afin d’éviter de fixer des coûts spécifiques, une alternative consiste à rechercher les vecteurs dont les dimensions sont les différentes quantités étudiées et qui sont Pareto-optimaux, c’est-à-dire pour lesquels il existe au moins un paramétrage de coûts qui les rend optimaux.
+Cette alternative a été explorée notamment au \cref{chap:synesth}.
 
-For visualization purposes, we reduce the five-dimensional space down to two dimensions, first by forcing the same cost for duplication and cut events and for transfer and transfer--cut events, and then by fixing the cost of one of the three remaining events to one (since the cost values are unit-less).
-This enables a convenient representation of the cost space as a color-coded diagram, each color representing a given region.
-For any given point of this diagram, its corresponding history set is the union of those of each region to which this point belongs.
+Le programme \emph{mosaic} permet de visualiser les régions de coûts associées à ces vecteurs de Pareto.
+La région de coût associée à un vecteur se définit comme l’ensemble des points dans l’espace des coûts qui rendent ce vecteur optimal par rapport à tous les autres vecteurs.
+Puisqu’il y a un nombre fini de tels vecteurs, il y a également un nombre fini de telles régions.
+Comme démontré par \textcite{LibeskindHadas2014ParetoOptimalPhylogenetic}, ces régions sont des intersections de demi-espaces et sont donc des polytopes convexes qui couvrent l’entièreté de l’espace des coûts.
+Chaque région et son vecteur coïncident avec un ensemble de solutions qui correspondent aux valeurs des différentes dimensions du vecteur.
+Chaque point de l’espace des coûts, donc chaque paramétrage de coût, correspond à un ensemble de solutions qui est l’union de ceux des régions auxquelles ce point appartient.
 
+Pour générer une représentation des régions de coûts, il faut donc résoudre le problème d’énumération des sommets d’un polytope convexe.
+Nous utilisons pour ce faire la bibliothèque \emph{\href{https://github.com/cddlib/cddlib}{cddlib}} au travers du module Python \emph{\href{https://github.com/stephane-caron/pypoman}{pypoman}}.
+Des exemples de diagrammes produits par cet outil sont présentés dans les \cref{fig:synesth:crispr-pareto,fig:adp-rec:rec-pareto,fig:adp-rec:set-pareto}.
