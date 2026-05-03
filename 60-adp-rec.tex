@@ -427,7 +427,7 @@ Les clauses résultantes sont présentées ci-dessous et dans le \cref{tab:adp-r
         &\gRecSplit[(T') \mid (T''), S, G_L + G_R, L] \\
         \rightarrow\ & \evTr_{t,v,G_L,G_R,L}(
             \begin{aligned}[t]
-                &\gRecOutBranch[(T'), S, 0, G_L, 0], \\
+                &\gRecOutBranch[(T'), S, G_L, 0], \\
                 &\gRecPathBranch[(T''), S, 0, G_R, L + |\xlca(T_L)| - G_L + |\xmin(T) - \xmin(T_R)|])
             \end{aligned} \\[-2ex]
         \intertext{\hspace*{3em}\itshape\small (seulement lorsque \(|\xlca(T_L)| \ge G_L\) and \(|\xlca(T_R)| \ge G_R\))}
@@ -540,7 +540,25 @@ Cela signifie qu’une quantité arbitraire d’unités peuvent disparaître sur
 Cette règle se manifeste dans le produit ci-dessus au niveau des clauses \labelcref{eq:adp-rec:comb-grammar-dup,eq:adp-rec:comb-grammar-tr} dans lesquelles, comparativement à la clause \labelcref{eq:adp-rec:set-split-inner} dont elles sont issues, la dimension \(L\) a été fixée à 0, ce qui implique que toutes les unités appartenant à l’ensemble \(\xout(v)\) sont automatiquement perdues sans déclencher d’événement de perte.
 
 Notons que sans l’altération de ces deux clauses, le produit des deux grammaires présenterait peu d’intérêt puisqu’il serait équivalent à optimiser de manière entièrement indépendante d’une part les événements de réconciliation bilatérale et d’autre part les événements segmentaux.
-Ainsi, une des pistes de recherche pour systématiser les produits de grammaires pourrait consister à rechercher un opérateur qui a exactement pour conséquence d’engendrer un espace de solutions qui permet de parcourir le produit cartésien des ensembles de solutions respectifs des deux grammaires initiales. 
+Ainsi, une des pistes de recherche pour systématiser les produits de grammaires pourrait consister à rechercher un opérateur qui a exactement pour conséquence d’engendrer un espace de solutions qui permet de parcourir le produit cartésien des ensembles de solutions respectifs des deux grammaires initiales.
+
+En employant la grammaire \(\gramseq\) ainsi construite et des algèbres d’évaluation définies de manière similaire aux sections précédentes, il est possible de résoudre le problème de réconciliation segmentale.
+Par exemple, l’instance obtenue en combinant les exemples des deux sections précédentes possède quatre solutions optimales dont l’une est présentée à la \cref{fig:adp-rec:syn-solution-best}.
+Comparativement à la solution de la \cref{fig:adp-rec:rec-input}, cette solution emploie quatre événements de transfert et un de duplication, au lieu d’un seul transfert et deux duplications.
+Ces événements permettent en retour d’économiser certains événements de gains et de pertes par rapport à la solution de la \cref{fig:adp-rec:set-solutions}.
+
+\begin{figure}[h]
+    \capstart
+    \centering
+    \input{fig/adp-rec/syn-solution-best}
+    \caption{
+        Solution optimale pour l’instance du problème de réconciliation segmentale combinant les arbres de la \cref{fig:adp-rec:rec-input} et les groupes de la \cref{fig:adp-rec:set-example}.
+        Le coût utilisé est de \(\cost(\evtD) = 2\), \(\cost(\evtT) = 3\), \(\cost(\evtL) = 1\), \(b_\evtL = b_\evtG = 3\) et \(a_\evtL = a_\evtG = 1\).
+        Les contenus des groupes ancestraux sont inscrits au centre de la forme qui symbolise l’événement associé, à savoir un rectangle arrondi pour une spéciation, un rectangle pour une duplication, ou un hexagone allongé pour un transfert.
+        Pour les duplications et les transferts, le sous-ensemble dupliqué ou transféré est souligné.
+        \label{fig:adp-rec:syn-solution-best}
+    }
+\end{figure}
 
 \section{Discussion}
 
