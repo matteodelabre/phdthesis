@@ -15,7 +15,7 @@ Nous verrons à la \cref{sec:superdtl:2steps} qu’il existe un contre-exemple e
 Nous parvenons néanmoins au résultat annoncé en développant un algorithme de programmation dynamique combinant les deux étapes sur la base des résultats de \textcite{Tofigh2011SimultaneousIdentificationDuplications}.
 
 Pour démontrer l’intérêt de cet algorithme, Yoann \textsc{Anselmetti} a réalisé une analyse de l’évolution des synténies d’un échantillon de systèmes CRISPR-Cas.
-Cette analyse préliminaire s’est révélée être alignée avec les hypothèses actuelles sur l’évolution de ces systèmes et a permis de proposer de nouvelles pistes.
+Celle-ci s’est révélée être alignée avec les hypothèses actuelles sur l’évolution de ces systèmes et a permis de proposer de nouvelles pistes.
 J’ai été en charge de la programmation de l’algorithme ayant permis ces analyses.
 
 Les résultats obtenus doivent toutefois être lus dans le contexte de plusieurs limites dont souffre la méthode présentée.
@@ -144,7 +144,7 @@ Ces limites ont guidé la recherche qui est présentée aux chapitres suivants.
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\comment}[1]{{\color{red} #1}}
-\newcommand{\ie}{\emph{i.e.}\xspace}
+% \newcommand{\ie}{\emph{i.e.}\xspace}
 %\newcommand{\treeRestrict}[2]{#1|_{#2}}
 
 \renewcommand{\l}{{\lambda_s}}
@@ -371,7 +371,7 @@ $\eventE$-Super-reconciliation but on an instance $\tuple{\Gamma, T, \Sigma, S}$
 The next lemma, which will be required later for a simple inference of the event labelling from the species labelling, directly follows from \cref{def:superdtl:evol-model,def:superdtl:super-rec}.
 
 \begin{lemma}[Synteny and species trees coincide]\label{lem:superdtl:synt-spe-coincide}
-    Let $I = \tuple{\X, \F, T , \Sigma, S}$ and $\supRec = \tuple{T, \eventOf, \syntenyOf, \speciesOf}$ be a $\eventDTLG$ Super-reconciliation for $I$ (i.e. a Super-recon\-ci\-lia\-tion on the set of events $\eventE = \{\eventSpe, D, T, L, G\}$\/). Then $\speciesOf$ satisfies the following conditions: (1) neither $\speciesOf(v_l)$ nor $\speciesOf(v_r)$ is a strict ancestor of $\speciesOf(v)$ (i.e. each one can either be a descendant of $\speciesOf(v)$ or be separated from it in the case of HGTs); (2) at least one of $\speciesOf(v_l)$ or $\speciesOf(v_r)$ is a descendant of $\speciesOf(v)$.
+    Let $I = \tuple{\X, \F, T , \Sigma, S}$ and $\supRec = \tuple{T, \eventOf, \syntenyOf, \speciesOf}$ be a $\eventDTLG$ Super-reconciliation for $I$ (i.e. a Super-recon\-ci\-lia\-tion on the set of events $\eventE = \{\eventSpe, D, T, L, G\}$\/). Then $\speciesOf$ satisfies the following conditions: (1) neither $\speciesOf(v_l)$ nor $\speciesOf(v_r)$ is a strict ancestor of $\speciesOf(v)$ (i.e., each one can either be a descendant of $\speciesOf(v)$ or be separated from it in the case of HGTs); (2) at least one of $\speciesOf(v_l)$ or $\speciesOf(v_r)$ is a descendant of $\speciesOf(v)$.
 \end{lemma}
 
 \paragraph{Restrictions on gain points}
@@ -830,7 +830,7 @@ From this brief presentation, it appears that the DTL Super-reconciliation model
 We used the Cas gene synteny subtypes from Class 1 of CRISPR-Cas systems described by~\textcite{Makarova2020EvolutionaryClassificationCRISPR}. We limited the dataset to the 15 bacteria species and omitted archaea to avoid bias due to their underrepresentation in the dataset.
 Each of those species contains a Cas synteny. Taxonomical information of the 15 bacterial species has been recovered from the NCBI Taxonomy database~\parencite{Schoch2020NCBITaxonomyComprehensive} and the species tree topology is based on the phylogeny inferred by \textcite{Coleman2021RootedPhylogenyResolves}.
 
-\begin{figure}[htb]
+\begin{figure}[htbp]
     \capstart
     \centering
     \includegraphics[width=\linewidth]{fig/superdtl/crispr-trees}

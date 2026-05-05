@@ -8,7 +8,7 @@ Ce cas de figure se présente lorsque de multiples gènes évoluent ensemble le 
 Le principe général consiste à intégrer un niveau intermédiaire dans la hiérarchie évolutive, décrivant l’évolution d’adjacences (DeCo) ou de segments porteurs d’ensembles d’unités (super-réconciliation).
 
 L’approche DeCo permet de modéliser des événements qui affectent des paires d’unités voisines, incluant notamment des réarrangements.
-D’un point de vue algorithmique, elle consiste à réconcilier individuellement les arbres phylogénétiques de chaque unité, puis à rassembler des paires de nœuds pour former une forêt d’adjacences.
+D’un point de vue algorithmique, elle consiste à réconcilier individuellement les arbres phylogénétiques de chaque unité, puis à rassembler des paires de sommets pour former une forêt d’adjacences.
 Chaque racine de cette forêt correspond au gain d’une adjacence qui se propage ensuite dans sa descendance.
 L’objectif est de minimiser le nombre de racines, c’est-à-dire le nombre de gains d’adjacences.
 Le statut de complexité du problème est encore inconnu, quoiqu’il ait été conjecturé NP-complet, mais un algorithme polynomial existe lorsque les réconciliations individuelles sont fixées en avance.
@@ -17,7 +17,7 @@ Par ailleurs, un résultat optimal peut comporter des structures non linéaires,
 
 La super-réconciliation propose un paradigme similaire, basé sur l’évolution de segments joignant un nombre quelconque d’unités.
 Cette extension permet de modéliser des événements segmentaux affectant plusieurs unités.
-De la même façon que pour DeCo, l’objectif algorithmique est de construire un arbre dans lequel chaque nœud rassemble des segments de nœuds issus de réconciliations individuelles.
+De la même façon que pour DeCo, l’objectif algorithmique est de construire un arbre dans lequel chaque sommet rassemble des segments de sommets issus de réconciliations individuelles.
 La structure reconstruite ici est un arbre et non une forêt, car il est supposé que tous les segments dérivent d’un segment ancestral unique.
 Le problème d’optimisation combinatoire associé est NP-complet dans sa version générale, lorsque la topologie de l’arbre de synténies est inconnue.
 Si la topologie est fixée, la complexité est inconnue dans la déclinaison du problème avec des segments, et polynomiale dans sa déclinaison avec des groupes.

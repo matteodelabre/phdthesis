@@ -10,14 +10,14 @@ Supposons que la phylogénie~\(T\) d’unités dépendantes et celle~\(S\) de le
 Lorsqu’un embranchement~\(v\) de~\(T\) relève d’une codivergence, celui-ci correspond à un embranchement de~\(S\).
 Si~\(v\) est indépendant de l’évolution des hôtes, il correspond à un point entre deux divergences de \(S\) le long d’une de ses branches.
 Les feuilles de \(T\) représentent des unités actuelles et correspondent chacune à une feuille de~\(S\), leur hôte.
-Cette association de \(T\) avec \(S\) est appelée \emph{réconciliation}.
+Une telle association de \(T\) avec \(S\) est appelée \emph{réconciliation}.
 
 Formellement, une réconciliation est un plongement de \(T\) dans \(S\), au sens défini ci-après.
 Pour faciliter la définition, lorsque \(v\) correspond à une branche de \(S\), il est associé à sa terminaison.
 
 \begin{definition}[Réconciliation]\label{definition:rec}
     Soient \(T\) et \(S\) deux arbres phylogénétiques et \(\llmap : \tleavs(T) \onto \tleavs(S)\) une application qui associe chaque feuille de \(T\) à son hôte dans \(S\).
-    Une \emph{réconciliation} de \(T\) avec \(S\) est une application \(\rec : \tnodes(T) \onto \tnodes(S)\) qui étend \(\llmap\) de sorte qu’aucune paire de nœuds \((v, w) \in \tnodes(T)^2\) ne soit telle que \(v \tancsneq w\) et \(\rec(v) \tdescneq \rec(w)\).
+    Une \emph{réconciliation} de \(T\) avec \(S\) est une application \(\rec : \tnodes(T) \onto \tnodes(S)\) qui étend \(\llmap\) de sorte qu’aucune paire de sommets \((v, w) \in \tnodes(T)^2\) ne soit telle que \(v \tancsneq w\) et \(\rec(v) \tdescneq \rec(w)\).
 \end{definition}
 
 Deux applications \(\rec_1\) et \(\rec_2\) sont illustrées en \cref{fig:reconciliation:strict-rec}.
@@ -42,7 +42,7 @@ Ce changement se produit entre deux points sur les branches dont \(\rec(v)\) et 
 Une réconciliation qui ne contient pas de telle branche est dite \emph{stricte}, car l’évolution des unités dépendantes suit alors strictement celle de leurs hôtes.
 
 \begin{definition}\label{definition:rec-strict}
-    Une réconciliation \(\rec\) de \(T\) avec \(S\) est dite \emph{stricte} si toutes les paires de nœuds
+    Une réconciliation \(\rec\) de \(T\) avec \(S\) est dite \emph{stricte} si toutes les paires de sommets
     \((v, w) \in \tnodes(T)^2\) avec \(v \tancs w\) sont telles que \(\rec(v) \tancs \rec(w)\).
     Sinon, \(\rec\) est dite \emph{libre}.
 \end{definition}
@@ -100,7 +100,7 @@ En revanche, cette méthode a l’avantage de sélectionner des réconciliations
     \input{fig/reconciliation/bilateral/rec-trees}
     \caption[Deux exemples d’arbres réconciliés]{
         Arbres réconciliés pour les réconciliations \(\rec_1\) et \(\rec_3\) sous les modèles duplication-perte~(\(\recmodelDL\)) et duplication-transfert-perte~(\(\recmodelDTL\)) respectivement.
-        Chaque arbre est superposé sur la trame de la phylogénie des hôtes de sorte à refléter l’association des nœuds prescrite par la réconciliation.
+        Chaque arbre est superposé sur la trame de la phylogénie des hôtes de sorte à refléter l’association des sommets prescrite par la réconciliation.
         Chaque cercle~{\showspeciation} représente un événement de codivergence~(\(\evtS\)),
         chaque carré~{\showduplication} une duplication~(\(\evtD\)),
         chaque losange~{\showtransfer} un transfert~(\(\evtT\)),
@@ -110,9 +110,9 @@ En revanche, cette méthode a l’avantage de sélectionner des réconciliations
 \end{figure}
 
 \paragraph{Modèle duplication-perte~\textup{\parencite{Goodman1979FittingGeneLineage,Page1994MapsTreesCladistic}}}
-Ce modèle comporte trois types d’événements \(\recmodelDL = \{\evtD, \evtL, \evtS\}\).
+Ce modèle comporte trois types d’événements, \(\recmodelDL = \{\evtD, \evtL, \evtS\}\).
 La divergence d’un gène s’explique par une duplication~(\(\evtD\)) ou par une spéciation de son hôte~(\(\evtS\)), et l’absence d’un gène dans une espèce descendante s’explique par une perte~(\(\evtL\)).
-Chaque nœud \(v \in \tnodes(\rectree)\) d’un arbre réconcilié sous ce modèle est tel que:
+Chaque sommet \(v \in \tnodes(\rectree)\) d’un arbre réconcilié sous ce modèle est tel que:
 \begin{compactitemize}
 \item si \(\evt(v) = \evtD\), alors \(v\) est un embranchement et \(\exrec(v) = \exrec(v\lchild) = \exrec(v\rchild)\);
     \item si \(\evt(v) = \evtL\), alors \(v\) est une feuille;
@@ -151,7 +151,7 @@ Cet événement supplémentaire offre une alternative à l’insertion de séque
 \paragraph{Autres modèles}
 Des extensions de la réconciliation pour prendre en compte le \emph{tri incomplet de lignées}~(ILS) ont été proposées par \textcite{Rasmussen2012UnifiedModelingGene,Wu2013MostParsimoniousReconciliation,Chan2017InferringIncompleteLineage}.
 Ce phénomène se produit lorsque des spéciations rapprochées dans le temps font que les espèces émergentes héritent de sous-ensembles d’unités distincts.
-Comme alternative aux modèles de type \(\recmodelDL\), \textcite{Goodman1979FittingGeneLineage} ont proposé un modèle intégrant la possibilité pour un gène d’être activé ou désactivé par un mécanisme de régulation, ce qui permet de limiter l’inférence de pertes superflues (voir également le modèle \(\recmodelDTLx\) décrit ci-dessus).
+Comme alternative aux modèles de type \(\recmodelDL\), \textcite{Goodman1979FittingGeneLineage} ont proposé un modèle intégrant la possibilité pour un gène d’être activé ou désactivé par un mécanisme de régulation, ce qui permet de limiter l’inférence de pertes superflues.
 Enfin, la datation de la phylogénie des hôtes, imposant une contrainte supplémentaire sur les changements d’hôtes, peut être intégrée aux modèles autorisant ce type d’événement~\parencite{Tofigh2011SimultaneousIdentificationDuplications}.
 
 \subsection{Cohérence temporelle}
@@ -160,7 +160,7 @@ Pour qu’une réconciliation puisse représenter un scénario évolutif réel, 
 Intuitivement, il doit être possible de construire un diagramme de l’arbre réconcilié similaire à ceux des \cref{fig:reconciliation:rec-trees,fig:reconciliation:rec-dtlx}.
 Dans une telle représentation, toutes les branches sont dirigées selon une même dimension temporelle.
 Chaque événement de codivergence se superpose au sommet de l’arbre de l’hôte correspondant et chaque événement de divergence se place le long de la branche correspondante.
-De plus, en présence de changements d’hôtes, les branches de transfert doivent être strictement orthogonales à la dimension temporelle.
+De plus, en présence de changements d’hôtes, les branches de transfert sont strictement orthogonales à la dimension temporelle.
 Ces contraintes peuvent être formalisées comme suit.
 
 \begin{definition}[Cohérence temporelle]\label{definition:rec-time-consistent}
@@ -199,13 +199,13 @@ Pour certaines réconciliations, comme celle illustrée dans la \cref{fig:reconc
         \item \(\tparent(\rec(v)) \succ_\sigma \rec(v\child)\) pour chaque branche \((v, v\child) \in T\) telle que \(\rec(v) \nottcomp \rec(v\child)\).
     \end{compactitemize}
 \end{lemma}
-\begin{proof}
-    Clairement, s’il n’existe pas d’ordre partiel \(\succeq_\sigma\), alors aucune interprétation de \(\rec\) ne peut donner lieu à un ordre partiel \(\succeq_\tau\) au sens de la \cref{definition:rec-time-consistent}.
-    Inversement, supposons qu’il existe un tel ordre partiel \(\succeq_\sigma\) et soit une interprétation \(\rectree(\rec)\).
-    Soit \((v, v\child)\) une branche de transfert dans \(\rectree(\rec)\).
-    ...
+% \begin{proof}
+    % Clairement, s’il n’existe pas d’ordre partiel \(\succeq_\sigma\), alors aucune interprétation de \(\rec\) ne peut donner lieu à un ordre partiel \(\succeq_\tau\) au sens de la \cref{definition:rec-time-consistent}.
+    % Inversement, supposons qu’il existe un tel ordre partiel \(\succeq_\sigma\) et soit une interprétation \(\rectree(\rec)\).
+    % Soit \((v, v\child)\) une branche de transfert dans \(\rectree(\rec)\).
+    % ...
     % TODO
-\end{proof}
+% \end{proof}
 
 Par exemple, pour la réconciliation \(\rec_4\) de la \cref{fig:reconciliation:free-rec}, la branche de transfert de l’espèce~4 vers l’espèce~\(\beta\) implique que \(\gamma \succ_\sigma \beta\) alors que celle de l’espèce~1 vers l’espèce~\(\gamma\) implique que \(\gamma \succ_\sigma \beta\).
 Ainsi, par le lemme précédent, il n’existe aucune interprétation de \(\rec_4\) qui soit temporellement cohérente.
@@ -242,15 +242,15 @@ La réconciliation stricte qui associe chaque embranchement de \(T\) au plus ré
 Le modèle \(\recmodelDL\) excluant toute possibilité de changement d’hôte, les réconciliations optimales se trouvent dans l’espace des réconciliations strictes (voir lemme~\labelcref{lemma:strict-rec-space}).
 La réconciliation~\(\reclca\) est toujours une solution sous ce modèle.
 De surcroît, à condition que \(\cost(\evtL) > 0\), il s’agit de l’unique solution~\parencite{Chauve2009NewPerspectivesGene}.
-Le calcul de~\(\reclca\) demande seulement un temps et espace linéaires en la taille de l’arbre \(T\)~\parencite{Zhang1997MirkinMuchnikSmith}.
+Le calcul de~\(\reclca\) demande seulement un temps et espace linéaires en la taille de \(T\)~\parencite{Zhang1997MirkinMuchnikSmith}.
 Le problème de \(\recmodelDL\)-parcimonie est donc polynomial.
 
-Contrairement au modèle \(\recmodelDL\), il peut exister plusieurs réconciliations optimales pour \(\recmodelDTL\) et la réconciliation \(\reclca\) n’en fait pas nécessairement partie.
-Une contrainte naturelle pour ce problème est de ne prendre en considération que les réconciliations temporellement cohérentes.
+Contrairement au modèle \(\recmodelDL\), il peut exister plusieurs réconciliations optimales sous le modèle \(\recmodelDTL\) et la réconciliation \(\reclca\) n’en fait pas nécessairement partie.
+Par ailleurs, une contrainte naturelle pour ce problème est de ne prendre en considération que les réconciliations temporellement cohérentes.
 Cependant, cette contrainte rend le problème de décision associé NP-complet, comme démontré par \textcite{Tofigh2011SimultaneousIdentificationDuplications} par réduction du problème du sous-graphe acyclique maximal.
 
 Pour contourner cette difficulté, dans la suite, nous permettrons les réconciliations incohérentes.
-Nous évaluerons également le coût d’une réconciliation comme celui de son interprétation la moins coûteuse, incluant les interprétations incohérentes.
+Nous évaluerons également le coût d’une réconciliation comme celui de son interprétation la moins coûteuse, même si celle-ci est incohérente.
 Ainsi, la réconciliation \(\rec_4\) de la \cref{fig:reconciliation:free-rec} devient acceptable et la réconciliation de la \cref{fig:reconciliation:time-cons} coûte seulement deux événements de transferts, bien qu’une perte soit nécessaire pour en faire une interprétation temporellement cohérente.
 
 Cette modification confère au problème une sous-structure optimale : une solution pour le sous-arbre \(\subtree{T}{v}\) est toujours un assemblage de deux solutions pour \(\subtree{T}{v\lchild}\) et \(\subtree{T}{v\rchild}\).
