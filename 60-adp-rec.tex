@@ -137,8 +137,9 @@ Ce facteur peut toutefois être éliminé en supprimant le paramètre \(N\) du p
 Cependant, cette transformation rend la grammaire non canonique, puisqu’il existe alors toujours deux solutions partielles connectant deux sommets de~\(T\), l’une empruntant une série d’événements \(\evSkip\) et l’autre empruntant la nouvelle clause pour les événements \(\evtTX\).
 
 Il est possible d’étendre cette grammaire pour résoudre le problème de binarisation d’un arbre \(T\) contenant des polytomies de sorte à minimiser le coût de réconciliation \(\recmodelDTLx\) associé.
-La complexité de l’algorithme résultant, en vertu du théorème XXX, est YYY, c’est-à-dire qu’il est FPT dans le degré maximum de l’arbre des unités.
-Cette complexité correspond à celle de l’algorithme développé par ZZZ (Exact Algorithms for Duplication-Transfer-Loss Reconciliation with Non-Binary Gene Trees, Misagh Kordi, Mukul S. Bansal).
+La complexité de l’algorithme résultant, en vertu du \cref{thm:adp:gram-forest-complex}, est \(\bigo(n^22^{\deg I})\), c’est-à-dire qu’il s’agit d’un algorithme \emph{fixed parameter tractable} (FPT) dans le degré maximum de l’arbre des unités.
+% FIXME missing log factor in the exponent
+Cette complexité correspond à celle de l’algorithme développé par \textcite{Kordi2016ExactAlgorithmsDuplicationTransferLoss}.
 
 \subsection{Résultats}
 
