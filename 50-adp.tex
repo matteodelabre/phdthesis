@@ -4,15 +4,15 @@
 \chapter{Théorie unifiée de la programmation dynamique algébrique}\label{chap:adp}
 
 La bio-informatique repose sur de nombreux algorithmes de programmation dynamique permettant de résoudre efficacement des problèmes d’optimisation combinatoire.
-La réconciliation phylogénétique, comme nous avons pu le voir dans les chapitres précédents, ne fait pas exception à cette règle.
+La réconciliation phylogénétique, comme il a été démontré dans les chapitres précédents, ne fait pas exception à cette règle.
 Plusieurs défis sont reliés à la conception de tels algorithmes.
-D’une part, il existe souvent un grand nombre (exponentiel) de solutions optimales à un problème donné, parfois accompagné d’un certain nombre de paramètres qui doivent être déterminés pour exécuter l’algorithme.
-Cette réalité amène des besoins algorithmiques supplémentaires : énumération et échantillonnage de solutions représentatives, caractérisation des solutions proches de l’optimalité, calcul de statistiques sur ces solutions et exploration efficace des paramètres.
+D’une part, il existe souvent une quantité exponentielle de solutions optimales à un problème donné, parfois accompagnées d’un certain nombre d’hyperparamètres qui doivent être déterminés pour pouvoir exécuter l’algorithme.
+Cette réalité amène des besoins algorithmiques supplémentaires : énumération et échantillonnage de solutions représentatives, caractérisation des solutions proches de l’optimalité, calcul de statistiques sur ces solutions et exploration efficace des hyperparamètres.
 D’autre part, les algorithmes conçus sont de plus en plus techniques, requérant plusieurs parfois plusieurs pages d’équations pour être décrits et encore davantage pour être démontrés corrects.
 
 L’approche \emph{algébrique} de la programmation dynamique, popularisée par
 \textcite{Giegerich2004DisciplineDynamicProgramming} dans le domaine de la bio-informatique, vise à offrir un niveau d’abstraction plus élevé afin de faciliter le développement de nouveaux algorithmes.
-Cette abstraction permet de résoudre les questions d’analyse de l’espace des solutions d’une manière générique qui peut par la suite être appliquée à tous les problèmes.
+Cette abstraction permet de résoudre les questions d’analyse de l’espace des solutions d’une manière générique qui peut par la suite être appliquée à une large variété de problèmes.
 Elle permet aussi, à terme, de concevoir des algorithmes de programmation dynamique complexes en les séparant en sous-tâches plus élémentaires, permettant ainsi de leur appliquer l’un des principes fondamentaux de l’informatique.
 
 Les développements, relativement récents, reliés à la programmation dynamique algébrique sont toutefois rendus peu accessibles par l’absence d’une ressource présentant une théorie cohérente du domaine.
@@ -56,7 +56,7 @@ L’objet de ce chapitre est de contribuer à bâtir une telle ressource.
 The goal of combinatorial optimization problems is to find objects that optimize given sets of criteria within considerably large search spaces.
 The dynamic programming technique, introduced by \textcite{Bellman1957DynamicProgramming}, can be used to efficiently solve some of these problems.
 This technique relies mainly on the \emph{optimal substructure} property (also called the \emph{principle of optimality}), which is true whenever \enquote{an optimal solution to [a] problem contains within it optimal solutions to subproblems}~\parencite[§14.3]{Cormen2022IntroductionAlgorithms}.
-Additionally, to be efficient, it requires the presence of \emph{overlapping subproblems}, meaning that the overall number of subproblems to be solved should grow asymptotically slower than the number of objects in the search space as the input size increases.
+To be efficient, it requires the presence of \emph{overlapping subproblems}, meaning that the overall number of subproblems to be solved should grow asymptotically slower than the number of objects in the search space as the input size increases.
 
 Dynamic programming has been used successfully on a wide range of problems in fields including operations research, natural language processing, and computational biology.
 In computational biology, problems such as secondary structure prediction, sequence alignment and phylogenetic reconciliation are among the well-known examples that have been solved using this approach.
@@ -711,7 +711,7 @@ This combinator generalizes the classified algebraic dynamic programming approac
 \end{proof}
 
 \paragraph{Complexity}
-Depends linearly on the number of possible values for the grouped dimensions \(D\), using a dictionary.
+Using a dictionary backed by a hash table, one can achieve linear amortized time complexity in the number of possible values for the grouped dimensions \(D\).
 % TODO: Add details and proof
 
 \subsubsection{Sort}\label{sec:adp:alg-combin:sort}
@@ -758,9 +758,9 @@ These constructions may be reproduced in a systematic way using the combinators 
     % TODO: prove for limit and bound
 \end{proof}
 
-\paragraph{Complexity} Adds an \(n\log n\) factor, where \(n\) is the size of the sets.
-For bounded, depends on how many elements can have values under the bound.
-For limited, depends on \(m\).
+\paragraph{Complexity} This combinator adds an \(n\log n\) factor to the complexity of the original algebra operators, where \(n\) is the size of the sets.
+For the \enquote{bound} combinator, this depends on how many elements can have values under the bound.
+For the \enquote{limit} combinator, this depends on the limit value \(m\).
 % TODO: Add details and proof
 
 \subsubsection{Pareto choice}\label{sec:adp:alg-combin:pareto}
@@ -1065,7 +1065,7 @@ Moreover, taking \(X\) as the set of all solutions of \(C_v\), we have \(\sum_{x
 because \(C\) is non-redundant and \(\algplus\) corresponds to addition.
 This implies \(\prob_{\alg,v}(X) = 1\), confirming that \(\prob_{\alg,v}\) is a valid probability distribution.
 
-\Cref{alg:adp:circ-sample} gives a generic and efficient method to sample a solution from a solution space encoded as a circuit \(C\) according to a probability distribution defined by an algebra \(\alg\).
+\Cref{alg:adp:circ-sample} gives a generic and efficient method to sample a solution space encoded as a circuit~\(C\) according to a probability distribution defined by an algebra \(\alg\).
 This algorithm follows the recursive method of \textcite{Wilf1977UnifiedSettingSequencing} and its generalization by \textcite{Ponty2011CombinatorialFrameworkDesigning}.
 
 \begin{algorithm}
@@ -1147,37 +1147,46 @@ This algorithm follows the recursive method of \textcite{Wilf1977UnifiedSettingS
     This algebra turns \(\alminplus\) into a weighting algebra that assigns its Boltzmann weight to each solution, and therefore it can be used inside~\cref{alg:adp:circ-sample} to perform Boltzmann sampling.
 \end{example}
 
-\subsection{Outside solutions}\label{sec:adp:space-enum-sample:outside}
+\subsection{Constrained solutions}\label{sec:adp:space-enum-sample:outside}
 
-Often, a single solution or sample of solutions does not give a complete picture of the solution space.
-Given an algebraic circuit, another interesting metric is: what is the probability that a given node appears in a randomly selected solution?
-This question can be asked under any weighting algebra.
-For example, in the context of sequence alignment, this enables computing a probability matrix giving the probability that any two symbols are aligned.
+Algebraic circuits also enable computing so-called \emph{constrained solutions}, which are solutions that contain a specific node of the circuit.
+Informally speaking, it suffices to traverse the circuit top-down and bottom-up starting from the constrained node.
+More generally, we are able to answer the following question: what is the probability that a given node appears in a randomly selected solution?
+This question can be answered under any weighting algebra.
 
-A partial solution is a term that contains a single hole \(\square\) or, equivalently, a solution circuit that contains a distinguished leaf.
-Such a partial solution \(x\) can be \emph{composed} with a solution \(y\) by replacing \(\square\) with \(y\) in \(x\), resulting in a solution denoted \(x \circ y\).
+Constrained solutions and their associated probabilities have different interpretations depending on the problem at hand.
+For example, in the context of sequence alignment, they correspond to constraining the solution space to alignments that match two specific positions of the input.
+This enables computing a probability matrix indicating the probability that any two symbols are aligned, yielding a more comprehensive picture of the solution space.
 
-Let \(\prob_\alg(v \in x)\) denote the probability that a random solution \(x\) contains the node \(v\).
-Such a solution can be decomposed into a solution \(x_f\) whose root is \(v\) and a partial solution \(x_b\) such that \(x = x_b \circ x_f\).
+\begin{definition}[Partial solutions]
+    A \emph{partial solution} is a term that contains a single hole \(\square\) or, equivalently, a solution circuit that contains a distinguished leaf.
+    Such a partial solution \(x\) can be \emph{composed} with a solution \(y\) by replacing \(\square\) with \(y\) in \(x\), resulting in a solution denoted \(x \circ y\).
+\end{definition}
 
-\(\prob_\alg(v \in x) = \prob_{\alg,\bar v}(x_{\bar v}) \times \prob_{\alg,v}(x_v)\)
+Let \(\prob_\alg(v \in x)\) denote the probability that a random solution \(x\) drawn under the distribution of a weighting algebra \(\alg\) contains the node \(v\).
+Any solution \(x\) constrained to containing a specific node \(v\) can naturally be decomposed into a solution \(x_f\) whose root is \(v\) and a partial solution \(x_b\), such that \(x = x_b \circ x_f\).
+Hence, as the next lemma states, \(\prob_\alg(v \in x)\) can be computed by taking the product of the probability that a partial solution ending in \(v\) occurs with the probability that a solution starting by \(v\) occurs.
 
-Define \(\back_\alg(v)\) as the sum of weights of all partial solutions that end at \(v\).
-Then \(\back_\alg(v)\) can be computed~\cite{Ponty2011CombinatorialFrameworkDesigning} as
+\begin{lemma}[Probability of a constrained solution]
+    For any weighting algebra \(\alg\), the probability \(\prob_\alg(v \in x)\) may be computed as \[
+    \prob_\alg(v \in x) = \frac{\back_\alg(v) \algeval_\alg(\term(C_v))}{\algeval_\alg(\term(C))}\,,
+\]
+where \(\back_\alg(v)\) is the sum of weights of all partial solutions that end at \(v\), which can itself be inductively computed as
 \begin{align*}
     \back_\alg(s) &= \algunit_\alg \\
     \back_\alg(v) &= \sum_{p \text{ precedes } v}\begin{cases}
         \back_\alg(p) & \text{if } p \text{ is a choice vertex} \\
-        \back_\alg(p) \times \prod_{s \text{ sibling of } v}{\algeval_\alg(\term(C_s))} & \text{otherwise}
+        \back_\alg(p) \times \prod_{s \text{ sibling of } v}{\algeval_\alg(\term(C_s))} & \text{otherwise.}
     \end{cases}
 \end{align*}
-
+\end{lemma}
+\begin{proof}
+    See \textcite{Ponty2011CombinatorialFrameworkDesigning}.
+\end{proof}
 % TODO: complexity
 
-This enables computing \(\prob_\alg(v \in x)\) as follows
-\[
-    \prob_\alg(v \in x) = \frac{\back_\alg(v) \algeval_\alg(\term(C_v))}{\algeval_\alg(\term(C))}\,.
-\]
+Let us note that constrained and partial solutions are conceptually very close to the solutions explored by algorithms such as the forward-backward and the inside-outside algorithms.
+This question has also been explored in the context of algebraic dynamic programming by \textcite{Siederdissen2015AlgebraicDynamicProgramming}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1457,18 +1466,18 @@ The intermediate results are tabled for each input decomposition and for each pr
     Let \(\gram\) and \(\alg\) be a sequential yield grammar and an evaluation algebra of the same signature.
     For any input \(I\), \(\Call{\emph{yield-parse}}{\gram, \alg, S, I, \emptyset}\) is equal to \(\algeval_\alg(\gramyield_\gram(I))\).
 \end{theorem}
-\begin{proof}
-    % TODO
-    assume that \(\alg\) is acyclic
+% TODO
+% \begin{proof}
+%     assume that \(\alg\) is acyclic
 
-    proceed to prove \(M(L, I) = \algeval_\alg(\gramyield_\gram(L, I))\) by well-founded induction on \(\prec_\gram\).
+%     proceed to prove \(M(L, I) = \algeval_\alg(\gramyield_\gram(L, I))\) by well-founded induction on \(\prec_\gram\).
 
-    such that if \(L[I] \rightarrow y\) then all holes in \(y\) are lower than \(L[I]\)
+%     such that if \(L[I] \rightarrow y\) then all holes in \(y\) are lower than \(L[I]\)
 
-    assume that all clauses right-hand sides have the shape \(f_t(H_1[...], ..., H_k[...])\), where \(f\) is a symbol of \(\algsign\)
+%     assume that all clauses right-hand sides have the shape \(f_t(H_1[...], ..., H_k[...])\), where \(f\) is a symbol of \(\algsign\)
 
-    use distributivity of \(\alg\) to rewrite \(\gramyield_\gram(L, I)\) as a sum by clause
-\end{proof}
+%     use distributivity of \(\alg\) to rewrite \(\gramyield_\gram(L, I)\) as a sum by clause
+% \end{proof}
 
 \begin{theorem}[Complexity of \cref{alg:seq-yield-parser}]\label{lem:yield-parse-complexity}
     Let \(\gram\) be a sequential yield grammar of signature \(\algsign\) and let \(I\) be an input of size \(n\).
@@ -1809,17 +1818,32 @@ The width of a pattern is one less than the number of variables it contains.
 % S[ x . R, E ] → S[R, E]
 % S[ ε, E ] → 1
 
-Each dimension can hold a subset of one of the input multiset tapes.
-There are \(\bigo(2^n)\) such subsets, hence \(\bigo(|P|2^{n\dim\gram})\) table entries.
-When matching a multiset with a multiset pattern, this multiset must be partitioned into as many parts as there are variables.
-There are \(\bigo((\width\gram + 1)^n)\) such partitions.
-Hence the global complexity is \(\bigo(|\gram|2^{n\dim\gram}(\width\gram + 1)^n)\).
+\begin{theorem}[Complexity of \cref{alg:seq-yield-parser} on sets and multisets]\label{thm:adp:gram-hedge-complex}
+    Let \(I\) be a tuple of sets or multisets containing a total of \(n\) elements.
+    \Cref{alg:seq-yield-parser} applied to a multiset yield grammar \(\gram\) on \(I\) operates in time \(\bigo(|\gram|2^{n\dim\gram}(\width\gram + 1)^n)\).
+\end{theorem}
+\begin{proof}
+    Each dimension can hold any subset of any of the input multiset tapes.
+    There are \(\bigo(2^n)\) such subsets, hence \(\bigo(|P|2^{n\dim\gram})\) table entries.
+    When matching a multiset with a multiset pattern, this multiset must be partitioned into as many parts as there are variables.
+    There are \(\bigo((\width\gram + 1)^n)\) such partitions.
+\end{proof}
 
 This is a slight generalization of the formalism in~\textcite{Siederdissen2015AlgebraicDynamicProgramming} which only considers bipartitions.
 
 Unordered trees and forests can be handled by generalizing multisets to forests in the same way that sequences were generalized to hedges.
 The children of a node or the roots in a forest are considered as sets instead of sequences.
-In this case, the complexity becomes...
+
+\begin{theorem}[Complexity of \cref{alg:seq-yield-parser} on unordered forests]
+    Let \(I\) be a tuple of unordered forests containing \(n\) nodes.
+    \Cref{alg:seq-yield-parser} applied to an unordered forest yield grammar \(\gram\) on \(I\) operates in time
+    \(\bigo(|\gram|n^{\dim\gram}2^{(\deg I)(\dim\gram)}(\width\gram + 1)^{\deg I})\).
+\end{theorem}
+\begin{proof}
+    Each dimension holds a subset of the set of children of a given node, or of the set of roots.
+    There are \(n2^{\deg I}\) possible such subsets, hence the number of entries in \(M\) is \(\bigo(|P|n^{\dim\gram}2^{(\deg I)(\dim\gram)})\).
+    The number of ways to split a given entry is \(\bigo((\width\gram + 1)^{\deg I})\).
+\end{proof}
 
 \begin{example}[Unordered forest alignment]\label{ex:for-align-unord}
 %
@@ -1836,26 +1860,34 @@ In this case, the complexity becomes...
         \gramnt{S}[\alpha(L)L', R \mid R'] &\rightarrow
             \algsym{del}_{\alpha}(\gramnt{S}[L, R], \gramnt{S}[L', R'])
     \end{align*}
+    The resulting algorithm has running time \(\bigo(n^22^{4\deg I})\), showing that the problem is fixed-parameter tractable in the degree of the input forests, as observed by \textcite{Jiang1995AlignmentTreesAlternative}.
 \end{example}
 
 \subsubsection{Natural numbers}
 
-We consider the decomposition of natural numbers through as sums.
+We consider the decomposition of natural numbers as sums.
 A number expression is either a natural number \(n \in \nat\) or a sum \(n + m\) where \(n\) and \(m\) are two number expressions.
 A number pattern is an expression that may contain constant natural numbers and variables from~\(V\).
 
-Each number dimension can hold any value between \(0\) and \(n\), where \(n\) is the value of the initial input.
-Note that these values cannot increase above \(n\).
-There are \(\bigo(|P|n)\) table entries.
-When matching a number with a number pattern, there are %%% multichoice?
-possible choices.
+\begin{theorem}[Complexity of \cref{alg:seq-yield-parser} on natural numbers]
+    Let \(I\) be a tuple of natural numbers of maximum value \(n\), i.e., of size \(\log n\).
+    \Cref{alg:seq-yield-parser} applied to an unordered forest yield grammar \(\gram\) on \(I\) operates in time
+    \(\bigo(|\gram|n^{\dim\gram}\binom{n+\width\gram}{\width\gram}^{\dim\gram})\).
+\end{theorem}
+\begin{proof}
+    Each number dimension can hold any value between \(0\) and \(n\), where \(n\) is the value of the initial input.
+    Note that these values cannot increase above \(n\).
+    Hence, there are \(\bigo(|P|n^{\dim\gram})\) table entries.
+    When matching a number with a number pattern, there are \(\binom{n+\width\gram}{\width\gram}^{\dim\gram}\) possible choices.
+\end{proof}
 
 \begin{example}[0-1 knapsack]
-    Mixes two input tape types, number and sequence.
+    The following example solves the 0-1 knapsack problem.
+    This example mixes two input tape types, one dimension being a number and the other a sequence.
     \begin{align*}
         \gramnt{S}[N, \varepsilon] &\rightarrow \algunit \\
         \gramnt{S}[N, AR] &\rightarrow \algsym{skip}_A(S[N, R]) \\
-        \gramnt{S}[A + N, AR] &\rightarrow \algsym{take}_A(S[N, R]) \\
+        \gramnt{S}[A + N, AR] &\rightarrow \algsym{take}_A(S[N, R]) \qedhere
     \end{align*}
 \end{example}
 
@@ -1876,7 +1908,7 @@ possible choices.
 % S[0, J] -> unit
 % S[I, 0] -> unit
 
-extend matching to \(A + B\) patterns, where \(A\) and \(B\) sum to the input
+% extend matching to \(A + B\) patterns, where \(A\) and \(B\) sum to the input
 
 \subsubsection{Comparison to other formalisms}
 
@@ -1910,7 +1942,7 @@ This is called \emph{semantic} ambiguity to distinguish it from the usual \emph{
 \textcite{Reeder2005EffectiveAmbiguityChecking} showed that semantic ambiguity, just like syntactic ambiguity, is an undecidable problem.
 They also provide heuristics for detecting ambiguity and proof strategies for establishing non-ambiguity.
 
-As pointed out by \citeauthor{Giegerich2000ExplainingControllingAmbiguity}~\cite{Giegerich2000ExplainingControllingAmbiguity}, the encoding of solutions as terms may create opportunities for the same solution to be represented by distinct terms, creating another layer of ambiguity.
+As pointed out by \textcite{Giegerich2000ExplainingControllingAmbiguity}, the encoding of solutions as terms may create opportunities for the same solution to be represented by distinct terms, creating another layer of ambiguity.
 For example, under the sequence alignment signature of \cref{ex:seq-align}, the two following terms are distinct \[
     \algsym{sub}_{\text{a},\text{a}}(\algsym{del}_\text{b}(\algsym{ins}_\text{c}(\algsym{sub}_{\text{d},\text{d}}(\algunit))))
     \qquad \algsym{sub}_{\text{a},\text{a}}(\algsym{ins}_\text{c}(\algsym{del}_\text{b}(\algsym{sub}_{\text{d},\text{d}}(\algunit))))
@@ -1940,7 +1972,7 @@ Even though canonicity is also undecidable, it can be checked on fixed inputs th
 % predicate dimension ≡ table dimension
 % number of variables in predicate argument ≡ number of split points
 
-\subsection{Grammar combinators}
+% \subsection{Grammar combinators}
 
 
 %  - grammar products
@@ -1976,20 +2008,20 @@ Even though canonicity is also undecidable, it can be checked on fixed inputs th
 %   fg(AM[X, F])
 % otherwise, pair up the predicates? requires same number of predicates in both terms. semantics? cannot repeat a variable in rhs
 
-\cite{Siederdissen2015ProductGrammarsAlignment}
+% \cite{Siederdissen2015ProductGrammarsAlignment}
 
 % Does Marchand’s generation of pseudoknot recurrences count as grammar transformations?
 
-Transformations of grammars
+% Transformations of grammars
 
-\begin{definition}
-    Let
+% \begin{definition}
+% Let
 
-    \(A[\alpha_1, \ldots, \alpha_\ell] \rightarrow \)
+% \(A[\alpha_1, \ldots, \alpha_\ell] \rightarrow \)
 
-\end{definition}
+% \end{definition}
 
-\cite{Eisner2016InsideOutsideForward}
+% \cite{Eisner2016InsideOutsideForward}
 
 % \section{Designing a dynamic programming algorithm}
 
@@ -2018,7 +2050,7 @@ This is the approach taken by~\textcite{Jukna2015LowerBoundsTropical}.
 A more general (and probably intractable) problem is that of finding the smallest factorization of a given algebraic circuit.
 A systematic solution to this problem could suggest optimizations to existing dynamic programming approaches.
 Regarding space complexity, the amount of memory needed for the evaluation of an algebraic circuit corresponds to its pebbling number.
-This correspondence underlies the space complexity upper bound of \Cref{lem:algebraic-circuit-eval}.
+This correspondence underlies the space complexity upper bound of \cref{lem:algebraic-circuit-eval}.
 In general, finding the pebbling number of a circuit is a known PSPACE-complete problem.
 But it is still interesting to prove upper bounds for some families of circuits.
 Indeed, some unexpected space optimization tricks have been found for some dynamic programming algorithms over the years (see, for example, Hirschberg’s algorithm for string alignment), and it may be worthwhile to generalize them.
