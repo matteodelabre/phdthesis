@@ -477,7 +477,7 @@ the \enquote{\texttt{View} semiring} by~\textcite{Erwig2021ExplainableDynamicPro
 the \enquote{\(\Delta\)-product} by~\textcite{Baril2026NewPerspectivesSemiring},
 and \enquote{tupling} by~\textcite{Little2024PolymorphicDynamicProgramming}.
 It was also described as early as~\citeyear{Goodman1999SemiringParsing} by~\textcite{Goodman1999SemiringParsing} in the specific case of the Viterbi semiring.
-The name \emph{lexicographic}, used by~\textcite{Saule2015ParetoOptimizationAlgebraic}, is due to the following observation:
+The name \emph{lexicographic}, used by~\textcite{Volgenant2002SolvingLexicographicMultiobjective,Saule2015ParetoOptimizationAlgebraic}, is due to the following observation:
 given a lexicographic choice algebra \(\bar\alg = \prod_{i=1}^n \alg_i \mid \allex{d_1, \ldots, d_\ell}\), where each \(\alg_{d_i}\) is a totally ordered strictly monotonic algebra, the sum \(\algplus^{\bar\alg}_{s \in S}{\,s}\) of a set of tuples \(S\) is the sum of all the lowest elements of \(S\) in lexicographic order, that is, where~\(\alg_{d_1}\) is minimized first, then \(\alg_{d_2}\) in case of equality on \(d_1\), etc.
 
 \begin{lemma}[Validity]
@@ -1023,7 +1023,8 @@ The trace algebra can also be used jointly with the combinators from \cref{sec:a
 \end{example}
 
 This connection between algebraic circuits and dynamic programming was explicitly noted by \textcite{Jukna2015LowerBoundsTropical} in the context of tropical semirings.
-Algebraic circuits also correspond to the \emph{AND/OR graphs} as studied by \textcite{Gnesi1981DynamicProgrammingGraph} and~\textcite{Wang2021GeneralFrameworkEnumerating}, where OR vertices correspond to choice vertices and AND vertices to combination vertices.
+\textcite{Mankowski2021DynamicProgrammingMultiObjective} also independently studied the link between circuits and dynamic programming.
+Algebraic circuits correspond to the \emph{AND/OR graphs} studied by \textcite{Gnesi1981DynamicProgrammingGraph} and~\textcite{Wang2021GeneralFrameworkEnumerating}, in which OR vertices are to choice vertices and AND vertices are combination vertices.
 An equivalent formulation using \emph{forward-hypergraphs (F-graphs)} was also proposed by~\textcite{Ponty2011CombinatorialFrameworkDesigning} in which combination vertices correspond to directed hyperedges and solutions correspond to paths in the hypergraph.
 All of these formulations generalize the original concept of \emph{combinatorial families} introduced by~\textcite{Wilf1977UnifiedSettingSequencing} that was restricted to linear objects, since it did not allow for combination vertices.
 
@@ -1818,7 +1819,7 @@ The width of a pattern is one less than the number of variables it contains.
 % S[ x . R, E ] → S[R, E]
 % S[ ε, E ] → 1
 
-\begin{theorem}[Complexity of \cref{alg:seq-yield-parser} on sets and multisets]\label{thm:adp:gram-hedge-complex}
+\begin{theorem}[Complexity of \cref{alg:seq-yield-parser} on sets and multisets]\label{thm:adp:gram-sets-complex}
     Let \(I\) be a tuple of sets or multisets containing a total of \(n\) elements.
     \Cref{alg:seq-yield-parser} applied to a multiset yield grammar \(\gram\) on \(I\) operates in time \(\bigo(|\gram|2^{n\dim\gram}(\width\gram + 1)^n)\).
 \end{theorem}
@@ -1834,7 +1835,7 @@ This is a slight generalization of the formalism in~\textcite{Siederdissen2015Al
 Unordered trees and forests can be handled by generalizing multisets to forests in the same way that sequences were generalized to hedges.
 The children of a node or the roots in a forest are considered as sets instead of sequences.
 
-\begin{theorem}[Complexity of \cref{alg:seq-yield-parser} on unordered forests]
+\begin{theorem}[Complexity of \cref{alg:seq-yield-parser} on unordered forests]\label{thm:adp:gram-forest-complex}
     Let \(I\) be a tuple of unordered forests containing \(n\) nodes.
     \Cref{alg:seq-yield-parser} applied to an unordered forest yield grammar \(\gram\) on \(I\) operates in time
     \(\bigo(|\gram|n^{\dim\gram}2^{(\deg I)(\dim\gram)}(\width\gram + 1)^{\deg I})\).
@@ -1887,7 +1888,7 @@ A number pattern is an expression that may contain constant natural numbers and 
     \begin{align*}
         \gramnt{S}[N, \varepsilon] &\rightarrow \algunit \\
         \gramnt{S}[N, AR] &\rightarrow \algsym{skip}_A(S[N, R]) \\
-        \gramnt{S}[A + N, AR] &\rightarrow \algsym{take}_A(S[N, R]) \qedhere
+        \gramnt{S}[A + N, AR] &\rightarrow \algsym{take}_A(S[N, R]). \qedhere
     \end{align*}
 \end{example}
 
