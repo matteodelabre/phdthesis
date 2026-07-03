@@ -12,7 +12,7 @@ Une arête reliant deux sommets~\(a\) et~\(b\) est notée~\(\{a, b\}\).
 Un arc ayant pour origine~\(a\) et pour terminaison~\(b\) est noté~\((a, b)\).
 
 \paragraph{Arbres}
-Les sommets d’un arbre \(T\) sont partitionnés entre un ensemble de \emph{feuilles} \(\tleavs(T)\) et d’\emph{embranchements} \(\tinner(T)\).
+L’ensemble des sommets d’un arbre~\(T\) est partitionné entre les \emph{feuilles} \(\tleavs(T)\) et les \emph{embranchements} \(\tinner(T)\).
 Un arbre \emph{enraciné} est muni d’une racine \(\troot(T) \in \tnodes(T)\) et formé d’arcs orientés dans la direction opposée à la racine.
 Un arbre \(T'\) \emph{affiche} \(T\) si \(T\) est un mineur de \(T'\).
 Une \emph{forêt} est une union disjointe d’arbres.
@@ -24,8 +24,9 @@ La longueur du plus court chemin reliant deux sommets \(v\) et \(w\) est notée 
 \vfill\break
 \paragraph{Parenté}
 Dans un arbre enraciné \(T\), le parent d’un sommet \(v\) différent de \(\troot(T)\) est son unique prédécesseur, noté \(\tparent(v)\).
+L’ensemble des successeurs d’un embranchement \(v\), appelés ses \emph{enfants}, est noté \(\children(v)\).
+Ces enfants sont notés \(v\lchild\) et \(v\rchild\) s’ils sont deux ou \(v\child\) s’il est unique.
 L’arbre est \emph{binaire} si le degré sortant de tous les embranchements vaut deux et \emph{partiellement binaire} s’il vaut un ou deux.
-Les enfants d’un embranchement \(v\) sont ses successeurs, notés \(v\lchild\) et \(v\rchild\) s’ils sont deux ou \(v\child\) s’il est unique.
 
 \paragraph{Descendance}
 Si un sommet \(v\) est sur le chemin menant d’une racine à un sommet \(w\), incluant~\(w\) lui-même, alors \(v\) est un \emph{ancêtre} de~\(w\), noté \(v \tancs w\), et \(w\)~est un \emph{descendant} de \(v\), noté \(w \tdesc v\).
