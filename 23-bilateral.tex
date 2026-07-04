@@ -62,7 +62,7 @@ La \cref{fig:reconciliation:free-rec} donne deux exemples de réconciliations li
 \end{figure}
 
 Certains auteurs restreignent la \cref{definition:rec} pour interdire qu’un embranchement donné voit ses deux enfants associés à une espèce séparée~\parencite{Nojgaard2018TimeConsistentReconciliation}.
-L’ajout de cette condition permet de garantir qu’il existe un chemin depuis tout embranchement jusqu’à une feuille qui n’implique pas de changement d’hôte.
+L’ajout de cette condition permet de garantir qu’il existe un chemin sans changement d’hôte depuis tout embranchement jusqu’à une feuille.
 Ainsi, tout embranchement correspond à une divergence dont il existe une trace actuelle.
 Les modèles que nous considérons par la suite demandent toutefois de conserver la généralité de la définition.
 
@@ -123,8 +123,8 @@ Chaque sommet \(v \in \tnodes(\rectree)\) d’un arbre réconcilié sous ce mod�
     \item si \(\evt(v) = \evtS\), alors \(v\) et \(\exrec(v)\) sont des embranchements et \(\{\exrec(v\lchild), \exrec(v\rchild)\} = \{\exrec(v)\lchild, \exrec(v)\rchild\}\).
 \end{compactitemize}
 Les événements de perte introduisent des feuilles supplémentaires dans l’arbre réconcilié par rapport à l’arbre des unités.
-Elles permettent d’interpréter les situations où les deux extrémités d’une branche sont associées à deux espèces non adjacentes, en insérant dans cette branche une succession de spéciations et de pertes.
-La \cref{fig:reconciliation:rec-trees} présente un exemple d’interprétation d’une réconciliation sous le modèle \(\recmodelDL\) dans lequel une telle succession de pertes est utilisée.
+Elles permettent d’interpréter les situations où les deux extrémités d’une branche sont associées à deux espèces non adjacentes, en insérant dans cette branche une séquence de spéciations et de pertes.
+La \cref{fig:reconciliation:rec-trees} présente un exemple d’interprétation d’une réconciliation sous le modèle \(\recmodelDL\) dans lequel une telle séquence de pertes est utilisée.
 
 Les fonctions de coût considérées pour ce modèle fixent habituellement \(\cost(\evtS) = 0\).
 Par conséquent, rechercher les réconciliations de coût minimal correspond à maximiser le nombre de codivergences entre \(T\) et \(S\).
@@ -147,7 +147,8 @@ Les embranchements ne menant qu’à des espèces absentes de cet échantillon s
 Dans le contexte de réconciliations libres, il est possible qu’un gène évolue dans une partie de la phylogénie située hors de l’échantillon pour être par la suite transféré vers un hôte échantillonné.
 Afin de représenter cette possibilité, le modèle \(\recmodelDTLx\) adjoint un événement supplémentaire \(\evtTX\) au modèle \(\recmodelDTL\).
 Pour un embranchement \(v \in \tinner(\rectree)\) sous ce modèle, si \(\evt(v) = \evtTX\), alors \(\exrec(v) = \exrec(v\lchild)\) et \(\exrec(v) \tancs \exrec(v\rchild)\), ou bien \(\exrec(v) = \exrec(v\rchild)\) et \(\exrec(v) \tancs \exrec(v\lchild)\).
-Cet événement supplémentaire offre une alternative à l’insertion de séquences de spéciations suivies de pertes pour faire coïncider la topologie de \(\rectree\) avec \(S\) et peut donc permettre de réduire le coût d’une réconciliation, comme illustré en~\cref{fig:reconciliation:rec-dtlx}.
+Cet événement offre une alternative à l’insertion de séquences de pertes pour interpréter une branche de réconciliation dont les deux extrémités sont associées à des espèces non adjacentes.
+Cela peut fournir une interprétation plus parcimonieuse à certaines réconciliations, comme illustré en~\cref{fig:reconciliation:rec-dtlx}.
 
 \begin{figure}[htb]
     \capstart
@@ -155,7 +156,7 @@ Cet événement supplémentaire offre une alternative à l’insertion de séque
     \input{fig/reconciliation/bilateral/rec-dtlx}
     \caption[Interprétations alternatives de la même réconciliation sous deux modèles]{
         Deux interprétations alternatives de la même réconciliation sous les modèles \(\recmodelDL\) et \(\recmodelDTLx\).
-        La branche sur trame hachurée correspond à une partie non échantillonnée de la phylogénie des hôtes.
+        Dans l’arbre réconcilié de droite, l’événement à la racine est un événement \(\evtTX\) qui est représenté comme une spéciation suivie d’un transfert dans une hypothétique branche non échantillonnée (hachurée) de la phylogénie des hôtes.
     }
     \label{fig:reconciliation:rec-dtlx}
 \end{figure}
@@ -197,7 +198,7 @@ Pour certaines réconciliations, comme celle illustrée dans la \cref{fig:reconc
     \input{fig/reconciliation/bilateral/time}
     \caption[Interprétations alternatives d’une réconciliation sous le même modèle]{
         Deux interprétations alternatives de la même réconciliation sous le modèle~\(\recmodelDTL\).
-        L’arbre réconcilié à gauche n’est pas temporellement cohérent, ce qui signifie qu’il est impossible de représenter l’arbre de sorte à rendre les deux branches de transfert horizontales.
+        L’arbre réconcilié à gauche n’est pas temporellement cohérent, ce qui signifie qu’il est impossible de représenter l’arbre de sorte à rendre horizontales les deux branches de transfert.
         À l’inverse, l’interprétation à droite, plus coûteuse, l’est.
         Ces diagrammes sont générés par le logiciel \emph{superrec2}, présenté à la \cref{sec:logiciel:superrec2}, qui détecte automatiquement si un arbre réconcilié est temporellement cohérent.
     }
