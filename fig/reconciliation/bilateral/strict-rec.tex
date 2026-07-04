@@ -4,32 +4,42 @@
     \input{fig/reconciliation/bilateral/shared-defs}
 
     \graph[phylogenetic tree layout, nodes={font=\small\itshape}]{
-        ttree[name=lt]
+        ttree[name=ct]
     };
     \node at (0, -2.3) {\(T\)};
 
-    \begin{scope}[shift={(4,0)}]
+    \begin{scope}[shift={(3.25,0)}]
         \graph[phylogenetic tree layout, nodes={font=\small\bfseries}]{
-            stree[name=s]
+            stree[name=ls]
         };
         \coordinate (labels) at (0, -2.3);
-        \node at (labels-|s l1s2) {\(S\)};
+        \node at (labels-|ls l1s2) {\(S\)};
     \end{scope}
 
-    \begin{scope}[shift={(8,0)}]
+    \draw[separator rule] (5.15, .15) -- ++(0, -2.6);
+
+    \begin{scope}[shift={(7.5,0)}]
         \graph[phylogenetic tree layout, nodes={font=\small\itshape}]{
-            ttree[name=rt]
+            ttree[name=lt]
         };
         \node at (0, -2.3) {\(T\)};
+
+        \begin{scope}[shift={(3.25,0)}]
+            \graph[phylogenetic tree layout, nodes={font=\small\bfseries}]{
+                stree[name=rs]
+            };
+            \coordinate (labels) at (0, -2.3);
+            \node at (labels-|rs l1s2) {\(S\)};
+        \end{scope}
     \end{scope}
 
-    \path[overlaid associate=reccolor1] (lt l2s1) edge[bend left=15] (s l2s1);
-    \path[overlaid associate=reccolor1] (lt l2s2) edge[out=0, in=180] (s l3s1);
-    \path[associate=reccolor1] (lt l3s1) edge[bend left=10]
-        node[above, midway] {\(\rec_1\)} (s l3s1);
+    \path[overlaid associate=reccolor1] (ct l2s1) edge[bend left=15] (ls l2s1);
+    \path[overlaid associate=reccolor1] (ct l2s2) edge[out=0, in=180] (ls l3s1);
+    \path[associate=reccolor1] (ct l3s1) edge[bend left=10]
+        node[above, midway] {\(\rec_1\)} (ls l3s1);
 
-    \path[overlaid associate=reccolor2] (rt l3s1) edge[bend left=10] (s l2s1);
-    \path[overlaid associate=reccolor2] (rt l2s1) edge[bend left=10, shorten >=16pt] (s l2s1);
-    \path[overlaid associate=reccolor2] (rt l2s2) edge[out=170, in=0]
-        node[above, midway, reccolor2] {\(\rec_2\)} (s l3s1);
+    \path[overlaid associate=reccolor2] (lt l3s1) edge[bend left=10] (rs l2s1);
+    \path[overlaid associate=reccolor2] (lt l2s1) edge[bend left=15] (rs l2s1);
+    \path[overlaid associate=reccolor2] (lt l2s2) edge[out=0, in=180]
+        node[above, midway, reccolor2] {\(\rec_2\)} (rs l3s1);
 \end{tikzpicture}
