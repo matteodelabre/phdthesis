@@ -38,6 +38,8 @@
 \RequirePackage{enumitem}
 \newlist{compactitemize}{itemize}{2}
 \setlist[compactitemize]{label=\textbullet, itemsep=0pt, parsep=0.5ex}
+\newlist{compactenumerate}{enumerate}{2}
+\setlist[compactenumerate]{label=\arabic*., itemsep=0pt, parsep=0.5ex}
 \renewcommand{\paragraph}[1]{\noindent\textit{#1.}\enspace}
 \setlength{\columnsep}{2em}
 

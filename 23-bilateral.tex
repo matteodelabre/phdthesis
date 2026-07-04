@@ -5,11 +5,10 @@
 
 \subsection{Plongement d’arbres phylogénétiques}
 
-Un embranchement dans l’arbre phylogénétique d’unités dépendantes peut être causé soit par une codivergence avec un hôte, soit par une divergence indépendante des hôtes.
-Supposons que la phylogénie~\(T\) d’unités dépendantes et celle~\(S\) de leurs hôtes soient connues.
-Lorsqu’un embranchement~\(v\) de~\(T\) relève d’une codivergence, celui-ci correspond à un embranchement de~\(S\).
-Si~\(v\) est indépendant de l’évolution des hôtes, il correspond à un point entre deux divergences de \(S\) le long d’une de ses branches.
-Les feuilles de \(T\) représentent des unités actuelles et correspondent chacune à une feuille de~\(S\), leur hôte.
+Un embranchement~\(v\) dans un arbre phylogénétique~\(T\) d’unités dépendantes peut être causé soit par une codivergence avec l’hôte associé, soit par une divergence indépendante de l’hôte.
+Lorsque~\(v\) relève d’une codivergence, celui-ci correspond à un embranchement dans la phylogénie~\(S\) des hôtes.
+Inversement, si~\(v\) est indépendant de l’évolution des hôtes, il correspond à un point le long d’une des branches de \(S\).
+Finalement, les feuilles de \(T\) représentent des unités actuelles et correspondent chacune à une feuille de~\(S\), leur hôte.
 Une telle association de \(T\) avec \(S\) est appelée \emph{réconciliation}.
 
 Formellement, une réconciliation est un plongement de \(T\) dans \(S\), au sens défini ci-après.
@@ -17,12 +16,11 @@ Pour faciliter la définition, lorsque \(v\) correspond à une branche de \(S\),
 
 \begin{definition}[Réconciliation]\label{definition:rec}
     Soient \(T\) et \(S\) deux arbres phylogénétiques et \(\llmap : \tleavs(T) \onto \tleavs(S)\) une application qui associe chaque feuille de \(T\) à son hôte dans \(S\).
-    Une \emph{réconciliation} de \(T\) avec \(S\) est une application \(\rec : \tnodes(T) \onto \tnodes(S)\) qui étend \(\llmap\) de sorte qu’aucune paire de sommets \((v, w) \in \tnodes(T)^2\) ne soit telle que \(v \tancsneq w\) et \(\rec(v) \tdescneq \rec(w)\).
+    Une \emph{réconciliation} de \(T\) avec~\(S\) est une application \(\rec : \tnodes(T) \onto \tnodes(S)\) qui étend \(\llmap\) de sorte qu’aucune paire de sommets \((v, w) \in \tnodes(T)^2\) n’est telle que \(v \tancsneq w\) et \(\rec(v) \tdescneq \rec(w)\).
 \end{definition}
 
-Deux applications \(\rec_1\) et \(\rec_2\) sont illustrées en \cref{fig:reconciliation:strict-rec}.
-Parmi elles, seule \(\rec_1\) est une réconciliation acceptable.
-En effet, \(\rec_2\) ne respecte pas la dernière condition de la définition, qui interdit aux réconciliations de \enquote{remonter dans le temps} par rapport à la topologie de \(S\).
+Deux exemples d’applications sont illustrées en \cref{fig:reconciliation:strict-rec}.
+L’application \(\rec_1\) est une réconciliation acceptable, alors que l’application \(\rec_2\) ne respecte pas la condition de la définition interdisant aux réconciliations de \enquote{remonter dans le temps} par rapport à la topologie de \(S\).
 
 \begin{figure}[htb]
     \capstart
@@ -30,25 +28,26 @@ En effet, \(\rec_2\) ne respecte pas la dernière condition de la définition, q
     \input{fig/reconciliation/bilateral/strict-rec}
     \caption[Deux exemples de réconciliations strictes]{
         Deux associations de la phylogénie \(T\) avec \(S\).
-        Les associations entre embranchements sont représentées par des flèches et les associations entre feuilles sont indiquées implicitement en leur attribuant la même étiquette.
+        Les associations entre les embranchements sont représentées par des flèches et les associations entre feuilles sont indiquées implicitement en leur attribuant la même étiquette.
     }
     \label{fig:reconciliation:strict-rec}
 \end{figure}
 
-Certaines unités dépendantes sont capables de migrer entre des hôtes coexistants.
+Certaines unités dépendantes sont capables de migrer entre deux hôtes coexistants.
 Par exemple, en particulier chez les procaryotes, des transferts horizontaux peuvent engendrer des migrations de gènes entre espèces.
-Dans une réconciliation \(\rec\), une branche \((v, w) \in \tedges(T)\) telle que \(\rec(v) \nottcomp \rec(w)\) représente un changement d’hôte.
-Ce changement se produit entre deux points sur les branches dont \(\rec(v)\) et \(\rec(w)\) sont les terminaisons.
-Une réconciliation qui ne contient pas de telle branche est dite \emph{stricte}, car l’évolution des unités dépendantes suit alors strictement celle de leurs hôtes.
+Dans une réconciliation \(\rec\), une branche \((v, w) \in \tedges(T)\) telle que \(\rec(v) \nottcomp \rec(w)\) implique qu’un changement d’hôte a eu lieu entre deux points sur le chemin entre \(\rec(v)\) et \(\rec(w)\).
+Notons cependant que des changements d’hôte \emph{inobservables} peuvent avoir lieu.
+Par exemple si, entre \(v\) et \(w\), l’unité a migré de l’hôte \(\rec(v)\) vers un hôte séparé \(\gamma\), puis à nouveau vers un hôte descendant de \(\rec(v)\) sans laisser de trace dans la descendance de \(\gamma\), la branche \((v, w)\) n’apparaîtra pas comme une branche de changement d’hôte.
+
+Nous appelons \emph{stricte} une réconciliation qui ne contient pas de telle branche, car l’évolution des unités dépendantes suit alors strictement celle de leurs hôtes.
+Dans la \cref{fig:reconciliation:strict-rec}, la réconciliation \(\rec_1\) est une réconciliation stricte.
+La \cref{fig:reconciliation:free-rec} donne deux exemples de réconciliations libres.
 
 \begin{definition}\label{definition:rec-strict}
     Une réconciliation \(\rec\) de \(T\) avec \(S\) est dite \emph{stricte} si toutes les paires de sommets
     \((v, w) \in \tnodes(T)^2\) avec \(v \tancs w\) sont telles que \(\rec(v) \tancs \rec(w)\).
     Sinon, \(\rec\) est dite \emph{libre}.
 \end{definition}
-
-Dans la \cref{fig:reconciliation:strict-rec}, la réconciliation \(\rec_1\) est une réconciliation stricte.
-La \cref{fig:reconciliation:free-rec} donne deux exemples de réconciliations libres.
 
 \begin{figure}[htb]
     \capstart
@@ -61,6 +60,11 @@ La \cref{fig:reconciliation:free-rec} donne deux exemples de réconciliations li
     }
     \label{fig:reconciliation:free-rec}
 \end{figure}
+
+Certains auteurs restreignent la \cref{definition:rec} pour interdire qu’un embranchement donné voit ses deux enfants associés à une espèce séparée~\parencite{Nojgaard2018TimeConsistentReconciliation}.
+L’ajout de cette condition permet de garantir qu’il existe un chemin depuis tout embranchement jusqu’à une feuille qui n’implique pas de changement d’hôte.
+Ainsi, tout embranchement correspond à une divergence dont il existe une trace actuelle.
+Les modèles que nous considérons par la suite demandent toutefois de conserver la généralité de la définition.
 
 \subsection{Arbres réconciliés et modèles de réconciliation}
 
