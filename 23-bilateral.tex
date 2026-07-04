@@ -92,7 +92,7 @@ Cette définition engendre une famille de problèmes d’optimisation combinatoi
     \probinput{Phylogénies \(T\) et \(S\);
                association des feuilles \(\llmap : \tleavs(T) \onto \tleavs(S)\);
                coûts \(\cost : \recmodel \onto \realpos\).}
-    \proboutput{Coût minimum d’une réconciliation de \(T\) et \(S\) sous le modèle \(\recmodel\) et les coûts \(\cost\).}
+    \proboutput{Coût minimum d’une réconciliation de \(T\) avec \(S\) sous le modèle \(\recmodel\) et les coûts \(\cost\).}
 \end{problem}
 
 Même si les phylogénies \(T\) et \(S\) étudiées sont exemptes d’erreurs, les réconciliations les plus parcimonieuses ne correspondent pas nécessairement à des histoires complètes ou exactes des unités concernées, puisque l’évolution emprunte rarement le chemin le plus court.
@@ -103,12 +103,12 @@ En revanche, cette méthode a l’avantage de sélectionner des réconciliations
     \centering
     \input{fig/reconciliation/bilateral/rec-trees}
     \caption[Deux exemples d’arbres réconciliés]{
-        Arbres réconciliés pour les réconciliations \(\rec_1\) et \(\rec_3\) sous les modèles duplication-perte~(\(\recmodelDL\)) et duplication-transfert-perte~(\(\recmodelDTL\)) respectivement.
-        Chaque arbre est superposé sur la trame de la phylogénie des hôtes de sorte à refléter l’association des sommets prescrite par la réconciliation.
+        Arbres réconciliés pour les réconciliations \(\rec_1\) et \(\rec_3\) (issues des \cref{fig:reconciliation:strict-rec,fig:reconciliation:free-rec}) sous les modèles duplication-perte~(\(\recmodelDL\)) et duplication-transfert-perte~(\(\recmodelDTL\)) respectivement.
+        Chaque arbre est superposé sur la trame de la phylogénie des hôtes de sorte à refléter l’association des sommets indiquée par la réconciliation.
         Chaque cercle~{\showspeciation} représente un événement de codivergence~(\(\evtS\)),
         chaque carré~{\showduplication} une duplication~(\(\evtD\)),
         chaque losange~{\showtransfer} un transfert~(\(\evtT\)),
-        et chaque demi-cercle orienté vers le haut~{\showloss} une perte~(\(\evtL\))
+        et chaque demi-cercle ouvert vers le haut~{\showloss} une perte~(\(\evtL\)).
     }
     \label{fig:reconciliation:rec-trees}
 \end{figure}
