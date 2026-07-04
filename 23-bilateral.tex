@@ -81,7 +81,7 @@ Ces interprétations sont représentées par des arbres réconciliés étiqueté
 Deux principales classes de méthodes existent pour évaluer la plausibilité d’une réconciliation sous un modèle donné.
 Dans les méthodes de \emph{parcimonie}, les réconciliations considérées comme les plus plausibles sont celles dont l’interprétation invoque le moins d’événements du modèle.
 Dans le cadre \emph{probabiliste}, ce sont les réconciliations dont la meilleure interprétation maximise la vraisemblance qui sont favorisées~\parencite{Doyon2011ModelsAlgorithmsPrograms}.
-La suite de ce document est consacrée aux méthodes de parcimonie.
+Cette thèse se concentre sur les méthodes de parcimonie.
 
 En parcimonie, une fonction \(\cost : \recmodel \onto \realpos\) attribuant un coût à chaque type d’événement est fixée en avance.
 Le coût d’un arbre réconcilié est la somme des coûts de ses événements.
@@ -113,7 +113,7 @@ En revanche, cette méthode a l’avantage de sélectionner des réconciliations
     \label{fig:reconciliation:rec-trees}
 \end{figure}
 
-\paragraph{Modèle duplication-perte~\textup{\parencite{Goodman1979FittingGeneLineage,Page1994MapsTreesCladistic}}}
+\paragraph{Duplication et perte~\textup{\parencite{Goodman1979FittingGeneLineage,Page1994MapsTreesCladistic}}}
 Ce modèle comporte trois types d’événements, \(\recmodelDL = \{\evtD, \evtL, \evtS\}\).
 La divergence d’un gène s’explique par une duplication~(\(\evtD\)) ou par une spéciation de son hôte~(\(\evtS\)), et l’absence d’un gène dans une espèce descendante s’explique par une perte~(\(\evtL\)).
 Chaque sommet \(v \in \tnodes(\rectree)\) d’un arbre réconcilié sous ce modèle est tel que:
@@ -122,15 +122,23 @@ Chaque sommet \(v \in \tnodes(\rectree)\) d’un arbre réconcilié sous ce mod�
     \item si \(\evt(v) = \evtL\), alors \(v\) est une feuille;
     \item si \(\evt(v) = \evtS\), alors \(v\) et \(\exrec(v)\) sont des embranchements et \(\{\exrec(v\lchild), \exrec(v\rchild)\} = \{\exrec(v)\lchild, \exrec(v)\rchild\}\).
 \end{compactitemize}
-Un exemple d’interprétation d’une réconciliation sous le modèle \(\recmodelDL\) est donné dans la \cref{fig:reconciliation:rec-trees}.
+Les événements de perte introduisent des feuilles supplémentaires dans l’arbre réconcilié par rapport à l’arbre des unités.
+Elles permettent d’interpréter les situations où les deux extrémités d’une branche sont associées à deux espèces non adjacentes, en insérant dans cette branche une succession de spéciations et de pertes.
+La \cref{fig:reconciliation:rec-trees} présente un exemple d’interprétation d’une réconciliation sous le modèle \(\recmodelDL\) dans lequel une telle succession de pertes est utilisée.
+
 Les fonctions de coût considérées pour ce modèle fixent habituellement \(\cost(\evtS) = 0\).
 Par conséquent, rechercher les réconciliations de coût minimal correspond à maximiser le nombre de codivergences entre \(T\) et \(S\).
 Ce choix est motivé par le fait que chaque événement~\(\evtS\) s’appuie sur la spéciation d’un hôte, un événement déjà postulé par l’arbre \(S\) donné en entrée.
 
-\paragraph{Duplication-transfert-perte~\textup{\parencite{Tofigh2011SimultaneousIdentificationDuplications}}}
+\paragraph{Changement d’hôte~\textup{\parencite{Tofigh2011SimultaneousIdentificationDuplications,Ranwez2016InferringGeneDuplications}}}
 Le modèle \(\recmodelDTL = \{\evtD, \evtT, \evtL, \evtS\}\) étend le modèle \(\recmodelDL\) pour y intégrer la possibilité de changements d’hôte et ainsi permettre d’interpréter des réconciliations libres.
 En plus des trois types d’événements définis précédemment, pour un embranchement \(v \in \tinner(\rectree)\) sous ce modèle, si \(\evt(v) = \evtT\), alors \(\exrec(v) = \exrec(v\lchild)\) et \(\exrec(v) \nottcomp \exrec(v\rchild)\), ou bien \(\exrec(v) = \exrec(v\rchild)\) et \(\exrec(v) \nottcomp \exrec(v\lchild)\).
 Un exemple d’interprétation d’une réconciliation sous le modèle \(\recmodelDTL\) est donné dans la \cref{fig:reconciliation:rec-trees}.
+
+Dans ce modèle, un changement d’hôte peut être suivi immédiatement d’une perte en ne laissant ainsi aucune trace dans l’hôte original.
+Cette observation, initialement ignorée dans le travail de \textcite{Tofigh2011SimultaneousIdentificationDuplications}, peut mener à la construction d’interprétations significativement différentes \parencite{Ranwez2016InferringGeneDuplications}.
+Elle permet également d’interpréter les réconciliations contenant des sommets dont les deux enfants sont associés à des hôtes séparés de leur parent.
+Cependant, sa prise en compte engendre une augmentation du nombre de solutions co-optimales dans le problème d’optimisation associé~\parencite{Weiner2021ImprovedDuplicationTransfer}.
 
 \paragraph{Espèces non échantillonnées~\textup{\parencite{Szoelloesi2013LateralGeneTransfer,Weiner2021ImprovedDuplicationTransfer}}}
 La phylogénie \(S\) est nécessairement incomplète puisqu’elle ne renseigne que sur les espèces hôtes des gènes de~\(T\).
