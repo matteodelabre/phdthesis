@@ -74,7 +74,7 @@ Ces interprétations sont représentées par des arbres réconciliés étiqueté
 
 \begin{definition}[Arbre réconcilié]\label{definition:rectree}
     Soient \(T\) et \(S\) deux arbres, \(\rec\) une réconciliation de \(T\) avec \(S\), et \(\recmodel\) un ensemble de types d’événements.
-    Un \emph{arbre réconcilié} \(\rectree_{\!\recmodel}(\rec)\) est une extension partiellement binaire de~\(T\) munie d’une application \(\exrec : \tnodes(\rectree) \onto \tnodes(S)\) qui étend \(\rec\) et d’une application \(\evt : \tnodes(\rectree) \onto \recmodel \cup \{\evtE\}\)
+    Un \emph{arbre réconcilié} \(\rectree_{\!\recmodel}(\rec)\) (ou simplement \(\rectree(\rec)\) quand le modèle utilisé est clair à partir du contexte) est une extension partiellement binaire de~\(T\) munie d’une application \(\exrec : \tnodes(\rectree) \onto \tnodes(S)\) qui étend \(\rec\) et d’une application \(\evt : \tnodes(\rectree) \onto \recmodel \cup \{\evtE\}\)
     telle que \(\tleavs(T) = \{ v \in \tleavs(\rectree) \suchthat \evt(v) = \evtE \}\).
 \end{definition}
 
