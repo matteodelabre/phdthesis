@@ -2,8 +2,53 @@
     \begin{scope}
         \input{fig/reconciliation/bilateral/time-seq-error}
     \end{scope}
-    \draw[separator rule] (3.5, -.2) -- ++(0, 2.45);
-    \begin{scope}[shift={(5, 0)}]
+    \begin{scope}[shift={(2.5, 0)}]
         \input{fig/reconciliation/bilateral/time-seq-valid}
+    \end{scope}
+    \draw[separator rule] (5.7, -.2) -- ++(0, 2.45);
+    \begin{scope}[shift={(7, 1.5)}, scale=.8]
+        \graph[
+            phylogenetic tree layout,
+            evolutionary unit length=0.44cm,
+            nodes={font=\small\itshape}
+        ]{
+            t l4s1 / [
+                coordinate,
+                label={[host, reccolor5, yshift=3pt]right:2},
+            ] -- {
+                t l3s1 / [
+                    coordinate,
+                    label={[host, reccolor5, yshift=3pt]right:3},
+                    > transfer branch,
+                ] -- {
+                    t l2s1 / [
+                        coordinate,
+                        label={[host, reccolor5]right:β},
+                        > transfer branch,
+                    ] -- {
+                        t l1s2 / 2 -- {},
+                        t l1s1 / 1 -- {},
+                    },
+                    t l1s3 / 3 [> length=2],
+                },
+                t l3s2 / 2 [> length=3],
+            },
+        };
+        \node[reccolor5] at (2, 0.15) {\((\rec_5)\)};
+
+        \begin{scope}[shift={(3.75, 0)}]
+            \graph[phylogenetic tree layout, nodes={font=\small\bfseries}]{
+                s l3s1 / [coordinate, label={[host]left:α}] -- {
+                    s l2s2 / [coordinate, label={[host]right:γ}] -- {
+                        s l1s4 / 4,
+                        s l1s3 / 3,
+                    },
+                    s l2s1 / [coordinate, label={[host]left:β}] -- {
+                        s l1s2 / 2,
+                        s l1s1 / 1,
+                    },
+                },
+            };
+        \end{scope}
     \end{scope}
 \end{tikzpicture}

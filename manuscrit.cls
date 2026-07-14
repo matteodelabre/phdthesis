@@ -38,8 +38,8 @@
 \RequirePackage{enumitem}
 \newlist{compactitemize}{itemize}{2}
 \setlist[compactitemize]{label=\textbullet, itemsep=0pt, parsep=0.5ex}
-\newlist{compactenumerate}{enumerate}{2}
-\setlist[compactenumerate]{label=\arabic*., itemsep=0pt, parsep=0.5ex}
+\newlist{condition}{enumerate}{2}
+\setlist[condition]{ref=(\arabic*), label=\arabic*., itemsep=0pt, parsep=0.5ex}
 \renewcommand{\paragraph}[1]{\noindent\textit{#1.}\enspace}
 \setlength{\columnsep}{2em}
 
@@ -209,6 +209,7 @@
 
 \crefname{problem}{problem}{problems}
 \crefname{property}{property}{properties}
+\crefname{conditioni}{condition}{conditions}
 \newcommand{\listingname}{}
 
 \addto\captionsfrench{%
@@ -262,6 +263,8 @@
     \Crefname{chapter}{Chapitre}{Chapitres}%
     \crefname{enumi}{point}{points}%
     \Crefname{enumi}{Point}{Points}%
+    \crefname{conditioni}{condition}{conditions}%
+    \Crefname{conditioni}{Condition}{Conditions}%
 }
 \addto\captionsenglish{%
     \renewcommand{\figurename}{Figure}%
@@ -312,6 +315,8 @@
     \Crefname{chapter}{Chapter}{Chapters}%
     \crefname{enumi}{item}{items}%
     \Crefname{enumi}{Item}{Items}%
+    \crefname{conditioni}{condition}{conditions}%
+    \Crefname{conditioni}{Condition}{Conditions}%
 }
 
 % Pages liminaires

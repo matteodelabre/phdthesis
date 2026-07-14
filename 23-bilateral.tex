@@ -88,7 +88,7 @@ Le coût d’un arbre réconcilié est la somme des coûts de ses événements.
 Le coût d’une réconciliation est alors défini comme celui de son interprétation la plus économique.
 Cette définition engendre une famille de problèmes d’optimisation combinatoire qui consistent à rechercher les réconciliations de coût minimum, c’est-à-dire les plus parcimonieuses.
 
-\begin{problem}{\(\recmodel\)-parcimonie}
+\begin{problem}{\(\recmodel\)-parcimonie\label{prob:reconciliation:parsimony}}
     \probinput{Phylogénies \(T\) et \(S\);
                association des feuilles \(\llmap : \tleavs(T) \onto \tleavs(S)\);
                coûts \(\cost : \recmodel \onto \realpos\).}
@@ -123,7 +123,7 @@ Chaque sommet \(v \in \tnodes(\rectree)\) d’un arbre réconcilié sous ce mod�
     \item si \(\evt(v) = \evtS\), alors \(v\) et \(\exrec(v)\) sont des embranchements et \(\{\exrec(v\lchild), \exrec(v\rchild)\} = \{\exrec(v)\lchild, \exrec(v)\rchild\}\).
 \end{compactitemize}
 Les événements de perte introduisent des feuilles supplémentaires dans l’arbre réconcilié par rapport à l’arbre des unités.
-Elles permettent d’interpréter les situations où les deux extrémités d’une branche sont associées à deux espèces non adjacentes, en insérant dans cette branche une séquence de spéciations et de pertes.
+Ils permettent d’interpréter les situations où les deux extrémités d’une branche sont associées à deux espèces non adjacentes, en insérant dans cette branche une séquence de spéciations et de pertes.
 La \cref{fig:reconciliation:rec-trees} présente un exemple d’interprétation d’une réconciliation sous le modèle \(\recmodelDL\) dans lequel une telle séquence de pertes est utilisée.
 
 Les fonctions de coût considérées pour ce modèle fixent habituellement \(\cost(\evtS) = 0\).
@@ -143,7 +143,6 @@ Cependant, sa prise en compte engendre une augmentation du nombre de solutions c
 \paragraph{Espèces non échantillonnées~\textup{\parencite{Szoelloesi2013LateralGeneTransfer,Weiner2021ImprovedDuplicationTransfer}}}
 La phylogénie \(S\) est nécessairement incomplète puisqu’elle ne renseigne que sur les espèces hôtes des gènes de~\(T\).
 Les embranchements ne menant qu’à des espèces absentes de cet échantillon sont donc manquants.
-% Lorsque seules les réconciliations strictes sont considérées, les gènes évoluent en suivant les embranchements menant jusqu’aux feuilles présentes dans l’échantillon, et de tels embranchements manquants sont donc sans effet.
 Dans le contexte de réconciliations libres, il est possible qu’un gène évolue dans une partie de la phylogénie située hors de l’échantillon pour être par la suite transféré vers un hôte échantillonné.
 Afin de représenter cette possibilité, le modèle \(\recmodelDTLx\) adjoint un événement supplémentaire \(\evtTX\) au modèle \(\recmodelDTL\).
 Pour un embranchement \(v \in \tinner(\rectree)\) sous ce modèle, si \(\evt(v) = \evtTX\), alors \(\exrec(v) = \exrec(v\lchild)\) et \(\exrec(v) \tancs \exrec(v\rchild)\), ou bien \(\exrec(v) = \exrec(v\rchild)\) et \(\exrec(v) \tancs \exrec(v\lchild)\).
@@ -169,70 +168,111 @@ Enfin, la datation de la phylogénie des hôtes, imposant une contrainte supplé
 
 \subsection{Cohérence temporelle}
 
-Pour qu’une réconciliation puisse représenter un scénario évolutif réel, celle-ci doit respecter les contraintes imposées par la topologie de l’arbre des hôtes et par les événements du modèle de réconciliation considéré.
-Intuitivement, il doit être possible de construire un diagramme de l’arbre réconcilié similaire à ceux des \cref{fig:reconciliation:rec-trees,fig:reconciliation:rec-dtlx}.
-Dans une telle représentation, toutes les branches sont dirigées selon une même dimension temporelle.
-Chaque événement de codivergence se superpose au sommet de l’arbre de l’hôte correspondant et chaque événement de divergence se place le long de la branche correspondante.
-De plus, en présence de changements d’hôtes, les branches de transfert sont strictement orthogonales à la dimension temporelle.
-Ces contraintes peuvent être formalisées comme suit.
+Les changements d’hôtes impliquent des contraintes temporelles, puisque l’hôte donneur et l’hôte receveur de chaque changement doivent avoir pu coexister.
+Ainsi, pour qu’un arbre réconcilié représente un scénario évolutif réaliste, celui-ci doit respecter les contraintes suivantes, imposées par la topologie de l’arbre des hôtes et par les événements du modèle de réconciliation
+\parencite{Stolzer2012InferringDuplicationsLosses,Ma2017DTLReconciliationRepair}.
 
-\begin{definition}[Cohérence temporelle]\label{definition:rec-time-consistent}
+\begin{definition}[Cohérence temporelle d’un arbre réconcilié]\label{def:reconciliation:time-cons}
     Un arbre réconcilié \(\rectree(\rec)\) est dit \emph{temporellement cohérent} s’il existe un ordre partiel \(\succeq_\tau\) sur \(\tnodes(\rectree) \cup \tnodes(S)\) tel que:
-    \begin{compactitemize}
-        \item \(v \succeq_\tau v\child\) pour chaque branche \((v, v\child) \in \tedges(\rectree)\);
-        \item \(s \succ_\tau s\child\) pour chaque branche \((s, s\child) \in \tedges(S)\);
-        \item \(\tparent(\rec(v)) \succ_\tau v \succeq_\tau \rec(v)\) pour chaque sommet \(v \in \tnodes(\rectree)\) tel que \(\rec(v) \neq \troot(S)\), sinon \(v \succeq_\tau \rec(v)\);
-        \item \(\tparent(\rec(v\child)) \succ_\tau v \succeq_\tau \rec(v\child)\) pour chaque branche \((v, v\child) \in \tedges(\rectree)\) telle que \(\rec(v) \nottcomp \rec(v\child)\).
-    \end{compactitemize}
-    Une réconciliation \(\rec\) est dite \emph{temporellement cohérente} dans un modèle \(\recmodel\) s’il existe un arbre réconcilié \(\rectree_{\!\recmodel}(\rec)\) temporellement cohérent.
+    \begin{condition}
+        \item \(s \succ_\tau s\child\) pour chaque branche \((s, s\child) \in \tedges(S)\); \label{def:reconciliation:time-cons:hosts}
+        \item \(v \succeq_\tau v\child\) pour chaque branche \((v, v\child) \in \tedges(\rectree)\); \label{def:reconciliation:time-cons:events}
+        \item \(\tparent(\exrec(v)) \succ_\tau v \succeq_\tau \exrec(v)\) pour chaque sommet \(v \in \tnodes(\rectree)\) tel que \(\exrec(v) \neq \troot(S)\), sinon \(v \succeq_\tau \exrec(v)\); \label{def:reconciliation:time-cons:events-hosts}
+        \item \(v =_\tau v\child\) pour chaque branche \((v, v\child) \in \tedges(\rectree)\) telle que \(\exrec(v) \nottcomp \exrec(v\child)\). \label{def:reconciliation:time-cons:host-switch} \qedhere
+    \end{condition}
 \end{definition}
 
-Remarquons qu’il est possible de vérifier si un arbre réconcilié est temporellement cohérent en temps \(\bigo((|\tnodes(\rectree)| + |\tnodes(S)|)^2)\) en utilisant l’algorithme de \textsc{Bellman--Ford} pour déterminer si un tel ordre existe \parencite[section~22.4]{Cormen2022IntroductionAlgorithms}.
-
-Par exemple, la réconciliation \(\rec_3\) de la \cref{fig:reconciliation:free-rec} est temporellement cohérente en raison de l’interprétation donnée dans la \cref{fig:reconciliation:rec-trees}.
-Pour certaines réconciliations, comme celle illustrée dans la \cref{fig:reconciliation:time-cons}, il peut exister des interprétations cohérentes et d’autres incohérentes.
+Intuitivement, un arbre réconcilié est temporellement cohérent s’il est possible d’en construire un diagramme similaire à ceux des \cref{fig:reconciliation:rec-trees,fig:reconciliation:rec-dtlx}.
+Dans une telle représentation, toutes les branches sont orientées selon un même axe temporel (\cref{def:reconciliation:time-cons:hosts,def:reconciliation:time-cons:events}).
+Chaque codivergence se superpose au sommet de l’arbre de l’hôte correspondant et chaque divergence se place le long de la branche correspondante (\cref{def:reconciliation:time-cons:events-hosts}).
+Finalement, les branches de changement d’hôte sont représentées de manière orthogonale à l’axe temporel (\cref{def:reconciliation:time-cons:host-switch}).
 
 \begin{figure}[htb]
     \capstart
     \centering
     \input{fig/reconciliation/bilateral/time}
-    \caption[Interprétations alternatives d’une réconciliation sous le même modèle]{
+    \caption[Exemples d’incohérences temporelles]{
+        Exemples d’incohérences temporelles.
+        \emph{(Gauche.)}
         Deux interprétations alternatives de la même réconciliation sous le modèle~\(\recmodelDTL\).
-        L’arbre réconcilié à gauche n’est pas temporellement cohérent, ce qui signifie qu’il est impossible de représenter l’arbre de sorte à rendre horizontales les deux branches de transfert.
-        À l’inverse, l’interprétation à droite, plus coûteuse, l’est.
+        L’interprétation à gauche est temporellement incohérente alors que celle à droite est cohérente.
         Ces diagrammes sont générés par le logiciel \emph{superrec2}, présenté à la \cref{sec:logiciel:superrec2}, qui détecte automatiquement si un arbre réconcilié est temporellement cohérent.
+        \emph{(Droite.)}
+        Une réconciliation pour laquelle il n’existe aucune interprétation temporellement cohérente.
     }
     \label{fig:reconciliation:time-cons}
 \end{figure}
 
-\begin{lemma}
-    Une réconciliation \(\rec\) est temporellement cohérente dans le modèle \(\recmodelDTL\) si et seulement s’il existe un ordre partiel \(\succeq_\sigma\) sur les sommets \(\tnodes(S)\) tel que:
-    \begin{compactitemize}
-        \item \(s \succ_\sigma s\child\) pour chaque branche \((s, s\child) \in \tedges(S)\)
-        \item \(\tparent(\rec(v)) \succ_\sigma \rec(v\child)\) pour chaque branche \((v, v\child) \in T\) telle que \(\rec(v) \nottcomp \rec(v\child)\).
-    \end{compactitemize}
+L’algorithme de \textsc{Bellman--Ford} permet de vérifier si un certain arbre réconcilié satisfait les conditions de la \cref{def:reconciliation:time-cons} en temps \(\bigo((|\tnodes(\rectree)| + |\tnodes(S)|)^2)\)~\parencite[section~22.4]{Cormen2022IntroductionAlgorithms}.
+Lorsque les conditions sont satisfaites, cet algorithme permet, en outre, d’obtenir un ordre total minimal satisfaisant les contraintes et ainsi d’aider à la construction d’un diagramme de l’arbre.
+
+Une réconciliation \(\rec\) est dite \emph{acyclique} dans un modèle \(\recmodel\) s’il existe un arbre réconcilié \(\rectree_{\!\recmodel}(\rec)\) temporellement cohérent.
+Par exemple, la réconciliation \(\rec_3\) de la \cref{fig:reconciliation:free-rec} est acyclique en raison de l’interprétation donnée dans la \cref{fig:reconciliation:rec-trees}.
+Certaines réconciliations acycliques, comme celle à gauche de la \cref{fig:reconciliation:time-cons}, ont à la fois des interprétations cohérentes et d’autres incohérentes.
+
+Le lemme suivant, adapté de \textcite[théorème 1]{Tofigh2009InferringDuplicationsLateral}, permet de vérifier si une réconciliation est acyclique dans le modèle \(\recmodelDTL\) sans énumérer toutes ses interprétations.
+
+\begin{lemma}[Acyclicité d’une réconciliation]\label{lem:reconciliation:rec-cons}
+    Une réconciliation \(\rec\) est acyclique dans le modèle \(\recmodelDTL\) si et seulement s’il existe un ordre partiel \(\succeq_\sigma\) sur \(\tnodes(S)\) tel que:
+    \begin{condition}
+        \item \(s \succ_\sigma s\child\) pour chaque branche \((s, s\child) \in \tedges(S)\); \label{lem:reconciliation:rec-cons:hosts}
+        \item \(\tparent(\rec(v)) \succ_\sigma \rec(v'\child)\) pour toutes branches \((v, v\child), (v', v'\child) \in \tedges(T)\) avec \(v_c \tancs v_c'\) et \(\rec(v) \neq \troot(S)\).
+            \label{lem:reconciliation:rec-cons:host-switch}
+    \end{condition}
 \end{lemma}
-% \begin{proof}
-    % Clairement, s’il n’existe pas d’ordre partiel \(\succeq_\sigma\), alors aucune interprétation de \(\rec\) ne peut donner lieu à un ordre partiel \(\succeq_\tau\) au sens de la \cref{definition:rec-time-consistent}.
-    % Inversement, supposons qu’il existe un tel ordre partiel \(\succeq_\sigma\) et soit une interprétation \(\rectree(\rec)\).
-    % Soit \((v, v\child)\) une branche de transfert dans \(\rectree(\rec)\).
-    % ...
-    % TODO
-% \end{proof}
+\begin{proof}
+    Supposons qu’il existe une interprétation de \(\rec\) avec un ordre partiel \(\succeq_\tau\) satisfaisant les conditions de la \cref{def:reconciliation:time-cons}.
+    Remarquons que la \cref{def:reconciliation:time-cons:hosts} de la définition est identique à la \cref{lem:reconciliation:rec-cons:hosts} du lemme qui est ainsi trivialement satisfaite.
+    Par ailleurs, soient \((v, v\child), (v', v'\child) \in \tedges(T)\) deux branches telles que \(v\child \tancs v'\child\) et \(\rec(v) \neq \troot(S)\).
+    Par les \cref{def:reconciliation:time-cons:events,def:reconciliation:time-cons:events-hosts} de la définition, \(\tparent(\rec(v)) = \tparent(\exrec(v)) \succ_\tau v \succeq_\tau v\child\) et \(v'\child \succeq_\tau \exrec(v'\child) = \rec(v'\child)\) et donc \(\tparent(\rec(v)) \succ_\tau \rec(v'\child)\).
+    Ainsi, la restriction de~\(\succeq_\tau\) aux sommets de \(S\) donne un ordre partiel satisfaisant les conditions du lemme.
 
-Par exemple, pour la réconciliation \(\rec_4\) de la \cref{fig:reconciliation:free-rec}, la branche de transfert de l’espèce~4 vers l’espèce~\(\beta\) implique que \(\gamma \succ_\sigma \beta\) alors que celle de l’espèce~1 vers l’espèce~\(\gamma\) implique que \(\gamma \succ_\sigma \beta\).
-Ainsi, par le lemme précédent, il n’existe aucune interprétation de \(\rec_4\) qui soit temporellement cohérente.
-Cette définition de cohérence temporelle pour une réconciliation correspond à celles proposées par \textcite{Charleston1998JunglesNewSolution,Tofigh2011SimultaneousIdentificationDuplications}.
+    Inversement, supposons qu’il existe un ordre partiel \(\succeq_\sigma\) satisfaisant les conditions du lemme et prenons-en une extension linéaire \(\succeq_\sigma'\).
+    Nous construisons une interprétation \(\exrec\) de \(\rec\), pas nécessairement parcimonieuse, mais associée à un ordre total \(\succeq_\tau\) complétant \(\succeq_\sigma'\) et répondant aux conditions de la \cref{def:reconciliation:time-cons}.
 
-\begin{remark}
-    Toutes les réconciliations strictes sont temporellement cohérentes.
-\end{remark}
+    En suivant un ordre préfixe sur \(T\), pour chaque branche de changement d’hôte \((v, v\child) \in \tedges(T)\) telle que \(\rec(v) \nottcomp \rec(v\child)\), intéressons nous à l’intervalle de temps dans lequel ce changement peut se produire.
+    Cet intervalle est délimité par \(b(v\child)\) et \(a(v\child)\) définis tels que
+    \begin{align*}
+        b(v\child) &= \min_{\succeq_\tau}\left(\{v' \mid v'\child \tancsneq v\child \text{ et } \exrec(v') \nottcomp \exrec(v'\child)\} \cup \{\tparent(\exrec(v))\}\right) \\
+        a(v\child) &= \max_{\succeq_\tau}\left(\{\exrec(v'\child) \mid v\child \tancs v'\child \text{ et } \exrec(v') \nottcomp \exrec(v'\child)\} \cup \{\exrec(v)\}\right).
+    \end{align*}
+    Notons à présent que \(b(v\child) \succ_\tau a(v\child)\).
+    Soient \((v^b, v^b\child) \in \tedges(T)\) et \((v^a, v^a\child) \in \tedges(T)\) deux branches telles que \(v^b\child \tancsneq v\child\), \(v\child \tancs v^a\child\), \(\exrec(v^b) \nottcomp \exrec(v^b\child)\), et \(\exrec(v^a) \nottcomp \exrec(v^a\child)\).
+    Remarquons que \(a(v^b\child) \succeq_\tau a(v\child)\), d’une part car \(v^b\child \tancsneq v\child \tancs v'\child\), d’autre part car \(\exrec(v''\child) \succeq_\tau \exrec(v)\), où \((v'', v''\child)\) est la branche de changement d’hôte la plus récente avant \((v, v\child)\).
+    Or, inductivement, nous pouvons supposer que \(v^b\) a~été placé de sorte que \(v^b \succ_\tau a(v^b\child) \succeq_\tau a(v\child)\).
+    Par la \cref{lem:reconciliation:rec-cons:host-switch} du lemme, \(\tparent(\exrec(v)) \succ_\tau \exrec(v^a\child)\).
+    Enfin, \(\tparent(\exrec(v)) \succ_\tau \exrec(v)\) par la \cref{lem:reconciliation:rec-cons:hosts} du lemme.
+
+    Pour interpréter la branche de changement d’hôte \((v, v\child)\), 
+    celle-ci est subdivisée en insérant deux sommets intermédiaires consécutifs \(v_0\) et \(v_1\).
+    Le sommet \(v_0\) est marqué comme un événement de transfert associé à l’hôte \(\exrec(v_0) = \rec(v)\), menant d’une part à une perte et d’autre part au sommet~\(v_1\) résultant du transfert.
+    L’intervalle non vide entre \(b(v\child)\) et \(a(v\child)\) permet de dater ces sommets de sorte que \(b(v\child) \succ_\tau v_0 =_\tau v_1 \succ_\tau a(v\child)\).
+    Ce choix permet de satisfaire inductivement la \cref{def:reconciliation:time-cons:events} puisque \(v^b \succeq_\tau b(v\child) \succ_\tau v_0 =_\tau v_1\).
+    La \cref{def:reconciliation:time-cons:events-hosts} de la définition est satisfaite pour~\(v_0\) car \(\tparent(\exrec(v)) \succeq_\tau b(v\child) \succ_\tau v_0 \succ_\tau a(v\child) \succeq_\tau \exrec(v)\).
+    Enfin, \(\lca\{\exrec(v), \exrec(v\child)\} \succeq_\tau \tparent(\exrec(v)) \succeq_\tau b(v\child)\), donc il existe un hôte \(t\) tel que \(\lca\{\exrec(v), \exrec(v\child)\} \tancsneq t \tancs \exrec(v\child)\) et \(\tparent(t) \succ_\tau v_1 \succeq_\tau t\).
+    Le sommet \(v_1\) est alors associé à un tel hôte \(t\), permettant de satisfaire la \cref{def:reconciliation:time-cons:events-hosts} de la définition pour~\(v_1\).
+
+    Finalement, les autres sommets \(v \in \tinner(T)\) sont marqués comme des duplications et les branches \((v, v\child)\) telles que \(\exrec(v) \tancsneq \exrec(v\child)\) sont subdivisées en insérant suffisamment de spéciations et de pertes et en choisissant des dates convenables.
+\end{proof}
+
+Par exemple, dans la réconciliation \(\rec_5\) de la \cref{fig:reconciliation:time-cons}, une première branche de transfert de l’hôte~2 à l’hôte~3 est suivie par un autre transfert de l’hôte~3 à l’hôte~\(\beta\).
+Ces deux transferts, pour satisfaire la \cref{lem:reconciliation:rec-cons:host-switch} du lemme précédent, demandent que \(\beta >_\sigma \beta\), ainsi il n’existe aucune interprétation de \(\rec_5\) qui soit temporellement cohérente.
+
+Une réconciliation peut toutefois être cyclique sans pour autant contenir deux transferts suivis l’un de l’autre.
+Par exemple, pour la réconciliation \(\rec_4\) de la \cref{fig:reconciliation:free-rec}, la branche de transfert de l’espèce~4 vers l’espèce~\(\beta\) demande que \(\gamma \succ_\sigma \beta\) alors que celle de l’espèce~1 vers l’espèce~\(\gamma\) demande que \(\beta \succ_\sigma \gamma\).
+Ainsi, la réconciliation \(\rec_4\) est également cyclique par le lemme précédent.
+
+Une version plus faible de la \cref{lem:reconciliation:rec-cons:host-switch} qui ne considérait pas les paires de transferts suivis l’un de l’autre fut initialement énoncée par \textcite{Charleston1998JunglesNewSolution}.
+Comme démontré par \textcite{Tofigh2009InferringDuplicationsLateral}, cette condition est incomplète en particulier parce qu’elle n’identifie pas la réconciliation \(\rec_5\) comme étant cyclique.
 
 \subsection{Complexité des problèmes de \(\recmodel\)-parcimonie}
 
 Comme le suggèrent les deux énoncés suivants, l’espace des réconciliations strictes est plus facilement explorable et plus restreint que l’espace général des réconciliations.
 
-\vspace{-.5em}
+\begin{remark}
+    Toutes les réconciliations strictes sont acycliques.
+\end{remark}
+
 \begin{lemma}\label{lemma:strict-rec-space}
     Si \(\rec\) est une réconciliation stricte de \(T\) avec \(S\) alors, pour tout embranchement \(v \in \tnodes(T)\),
     \(\rec(v) \tancs \lca\left\{ \llmap(l) \suchthat l \in \tleavs(\subtree{T}{v}) \right\}\).
@@ -251,7 +291,6 @@ La réconciliation stricte qui associe chaque embranchement de \(T\) au plus ré
     \reclca(v) = \lca\left\{ \llmap(l) \suchthat l \in \tleavs(\subtree{T}{v}) \right\}
 \).
 
-
 Le modèle \(\recmodelDL\) excluant toute possibilité de changement d’hôte, les réconciliations optimales se trouvent dans l’espace des réconciliations strictes (voir lemme~\labelcref{lemma:strict-rec-space}).
 La réconciliation~\(\reclca\) est toujours une solution sous ce modèle.
 De surcroît, à condition que \(\cost(\evtL) > 0\), il s’agit de l’unique solution~\parencite{Chauve2009NewPerspectivesGene}.
@@ -259,14 +298,14 @@ Le calcul de~\(\reclca\) demande seulement un temps et espace linéaires en la t
 Le problème de \(\recmodelDL\)-parcimonie est donc polynomial.
 
 Contrairement au modèle \(\recmodelDL\), il peut exister plusieurs réconciliations optimales sous le modèle \(\recmodelDTL\) et la réconciliation \(\reclca\) n’en fait pas nécessairement partie.
-Par ailleurs, une contrainte naturelle pour ce problème est de ne prendre en considération que les réconciliations temporellement cohérentes.
+Par ailleurs, une contrainte naturelle pour ce problème est de ne prendre en considération que les réconciliations acycliques.
 Cependant, cette contrainte rend le problème de décision associé NP-complet, comme démontré par \textcite{Tofigh2011SimultaneousIdentificationDuplications} par réduction du problème du sous-graphe acyclique maximal.
 
-Pour contourner cette difficulté, dans la suite, nous permettrons les réconciliations incohérentes.
+Pour contourner cette difficulté, dans la suite, nous permettrons les réconciliations cycliques.
 Nous évaluerons également le coût d’une réconciliation comme celui de son interprétation la moins coûteuse, même si celle-ci est incohérente.
 Ainsi, la réconciliation \(\rec_4\) de la \cref{fig:reconciliation:free-rec} devient acceptable et la réconciliation de la \cref{fig:reconciliation:time-cons} coûte seulement deux événements de transferts, bien qu’une perte soit nécessaire pour en faire une interprétation temporellement cohérente.
 
-Cette modification confère au problème une sous-structure optimale : une solution pour le sous-arbre \(\subtree{T}{v}\) est toujours un assemblage de deux solutions pour \(\subtree{T}{v\lchild}\) et \(\subtree{T}{v\rchild}\).
+Ces modifications confèrent au problème une sous-structure optimale : une solution pour le sous-arbre \(\subtree{T}{v}\) est toujours un assemblage de deux solutions pour \(\subtree{T}{v\lchild}\) et \(\subtree{T}{v\rchild}\).
 L’\cref{alg:reconciliation:dtl-parcimonie} exploite cette propriété pour résoudre efficacement le problème.
 
 \newcommand{\fndtl}{\mathrm{cost}}
@@ -285,7 +324,7 @@ L’\cref{alg:reconciliation:dtl-parcimonie} exploite cette propriété pour ré
             \(\llmap : \tleavs(T) \onto \tleavs(S)\), une association entre leurs feuilles;\\
             \(\cost : \recmodelDTL \onto \realpos\), un coût pour les événements \(\recmodelDTL\).
         }
-        \Ensure{Coût minimum d’une réconciliation de \(T\) avec \(S\) sous le modèle \(\recmodelDTL\), incluant les réconciliations temporellement incohérentes.}
+        \Ensure{Coût minimum d’une réconciliation de \(T\) avec \(S\) sous le modèle \(\recmodelDTL\), incluant les réconciliations cycliques.}
         \Function{cost}{\(v\), \(\sigma\)}
             \If{\(v \in \tleavs(T)\)}
                 \Return \(0\) {\algorithmicif} \(\sigma = \llmap(v)\)\textbf{,} {\algorithmicelse} \(\infty\) \;
