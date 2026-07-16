@@ -168,17 +168,17 @@ Enfin, la datation de la phylogénie des hôtes, imposant une contrainte supplé
 
 \subsection{Cohérence temporelle}
 
-Les changements d’hôtes impliquent des contraintes temporelles, puisque l’hôte donneur et l’hôte receveur de chaque changement doivent avoir pu coexister.
+Les changements d’hôtes impliquent des contraintes temporelles, puisque l’hôte donneur et l’hôte receveur de chaque changement doivent avoir pu coexister pour que l’événement se produise.
 Ainsi, pour qu’un arbre réconcilié représente un scénario évolutif réaliste, celui-ci doit respecter les contraintes suivantes, imposées par la topologie de l’arbre des hôtes et par les événements du modèle de réconciliation
 \parencite{Stolzer2012InferringDuplicationsLosses,Ma2017DTLReconciliationRepair}.
 
 \begin{definition}[Cohérence temporelle d’un arbre réconcilié]\label{def:reconciliation:time-cons}
-    Un arbre réconcilié \(\rectree(\rec)\) est dit \emph{temporellement cohérent} s’il existe un ordre partiel \(\succeq_\tau\) sur \(\tnodes(\rectree) \cup \tnodes(S)\) tel que:
+    Un arbre réconcilié \(\rectree(\rec)\) est dit \emph{temporellement cohérent} s’il existe un préordre \(\succeq_\tau\) sur \(\tnodes(\rectree) \cup \tnodes(S)\) tel que:
     \begin{condition}
         \item \(s \succ_\tau s\child\) pour chaque branche \((s, s\child) \in \tedges(S)\); \label{def:reconciliation:time-cons:hosts}
         \item \(v \succeq_\tau v\child\) pour chaque branche \((v, v\child) \in \tedges(\rectree)\); \label{def:reconciliation:time-cons:events}
         \item \(\tparent(\exrec(v)) \succ_\tau v \succeq_\tau \exrec(v)\) pour chaque sommet \(v \in \tnodes(\rectree)\) tel que \(\exrec(v) \neq \troot(S)\), sinon \(v \succeq_\tau \exrec(v)\); \label{def:reconciliation:time-cons:events-hosts}
-        \item \(v =_\tau v\child\) pour chaque branche \((v, v\child) \in \tedges(\rectree)\) telle que \(\exrec(v) \nottcomp \exrec(v\child)\). \label{def:reconciliation:time-cons:host-switch} \qedhere
+        \item \(v \succeq_\tau v\child\) et \(v\child \succeq_\tau v\) pour chaque branche \((v, v\child) \in \tedges(\rectree)\) telle que \(\exrec(v) \nottcomp \exrec(v\child)\). \label{def:reconciliation:time-cons:host-switch} \qedhere
     \end{condition}
 \end{definition}
 
@@ -213,7 +213,7 @@ Certaines réconciliations acycliques, comme celle à gauche de la \cref{fig:rec
 Le lemme suivant, adapté de \textcite[théorème 1]{Tofigh2009InferringDuplicationsLateral}, permet de vérifier si une réconciliation est acyclique dans le modèle \(\recmodelDTL\) sans énumérer toutes ses interprétations.
 
 \begin{lemma}[Acyclicité d’une réconciliation]\label{lem:reconciliation:rec-cons}
-    Une réconciliation \(\rec\) est acyclique dans le modèle \(\recmodelDTL\) si et seulement s’il existe un ordre partiel \(\succeq_\sigma\) sur \(\tnodes(S)\) tel que:
+    Une réconciliation \(\rec\) est acyclique dans le modèle \(\recmodelDTL\) si et seulement s’il existe un préordre \(\succeq_\sigma\) sur \(\tnodes(S)\) tel que:
     \begin{condition}
         \item \(s \succ_\sigma s\child\) pour chaque branche \((s, s\child) \in \tedges(S)\); \label{lem:reconciliation:rec-cons:hosts}
         \item \(\tparent(\rec(v)) \succ_\sigma \rec(v'\child)\) pour toutes branches \((v, v\child), (v', v'\child) \in \tedges(T)\) avec \(v_c \tancs v_c'\) et \(\rec(v) \neq \troot(S)\).
@@ -221,14 +221,14 @@ Le lemme suivant, adapté de \textcite[théorème 1]{Tofigh2009InferringDuplicat
     \end{condition}
 \end{lemma}
 \begin{proof}
-    Supposons qu’il existe une interprétation de \(\rec\) avec un ordre partiel \(\succeq_\tau\) satisfaisant les conditions de la \cref{def:reconciliation:time-cons}.
+    Supposons qu’il existe une interprétation de \(\rec\) avec un préordre \(\succeq_\tau\) satisfaisant les conditions de la \cref{def:reconciliation:time-cons}.
     Remarquons que la \cref{def:reconciliation:time-cons:hosts} de la définition est identique à la \cref{lem:reconciliation:rec-cons:hosts} du lemme qui est ainsi trivialement satisfaite.
     Par ailleurs, soient \((v, v\child), (v', v'\child) \in \tedges(T)\) deux branches telles que \(v\child \tancs v'\child\) et \(\rec(v) \neq \troot(S)\).
     Par les \cref{def:reconciliation:time-cons:events,def:reconciliation:time-cons:events-hosts} de la définition, \(\tparent(\rec(v)) = \tparent(\exrec(v)) \succ_\tau v \succeq_\tau v\child\) et \(v'\child \succeq_\tau \exrec(v'\child) = \rec(v'\child)\) et donc \(\tparent(\rec(v)) \succ_\tau \rec(v'\child)\).
-    Ainsi, la restriction de~\(\succeq_\tau\) aux sommets de \(S\) donne un ordre partiel satisfaisant les conditions du lemme.
+    Ainsi, la restriction de~\(\succeq_\tau\) aux sommets de \(S\) donne un préordre satisfaisant les conditions du lemme.
 
-    Inversement, supposons qu’il existe un ordre partiel \(\succeq_\sigma\) satisfaisant les conditions du lemme et prenons-en une extension linéaire \(\succeq_\sigma'\).
-    Nous construisons une interprétation \(\exrec\) de \(\rec\), pas nécessairement parcimonieuse, mais associée à un ordre total \(\succeq_\tau\) complétant \(\succeq_\sigma'\) et répondant aux conditions de la \cref{def:reconciliation:time-cons}.
+    Inversement, supposons qu’il existe un préordre \(\succeq_\sigma\) satisfaisant les conditions du lemme et prenons-en une extension linéaire \(\succeq_\sigma'\).
+    Nous construisons une interprétation \(\exrec\) de \(\rec\), pas nécessairement parcimonieuse, associée à un ordre total \(\succeq_\tau\) complétant \(\succeq_\sigma'\) et satisfaisant la \cref{def:reconciliation:time-cons}.
 
     En suivant un ordre préfixe sur \(T\), pour chaque branche de changement d’hôte \((v, v\child) \in \tedges(T)\) telle que \(\rec(v) \nottcomp \rec(v\child)\), intéressons nous à l’intervalle de temps dans lequel ce changement peut se produire.
     Cet intervalle est délimité par \(b(v\child)\) et \(a(v\child)\) définis tels que
@@ -262,7 +262,7 @@ Une réconciliation peut toutefois être cyclique sans pour autant contenir deux
 Par exemple, pour la réconciliation \(\rec_4\) de la \cref{fig:reconciliation:free-rec}, la branche de transfert de l’espèce~4 vers l’espèce~\(\beta\) demande que \(\gamma \succ_\sigma \beta\) alors que celle de l’espèce~1 vers l’espèce~\(\gamma\) demande que \(\beta \succ_\sigma \gamma\).
 Ainsi, la réconciliation \(\rec_4\) est également cyclique par le lemme précédent.
 
-Une version plus faible de la \cref{lem:reconciliation:rec-cons:host-switch} qui ne considérait pas les paires de transferts suivis l’un de l’autre fut initialement énoncée par \textcite{Charleston1998JunglesNewSolution}.
+Une version plus faible de la \cref{lem:reconciliation:rec-cons:host-switch} qui ne considérait pas les paires de transferts suivis l’un de l’autre a été initialement énoncée par \textcite{Charleston1998JunglesNewSolution}.
 Comme démontré par \textcite{Tofigh2009InferringDuplicationsLateral}, cette condition est incomplète en particulier parce qu’elle n’identifie pas la réconciliation \(\rec_5\) comme étant cyclique.
 
 \subsection{Complexité des problèmes de \(\recmodel\)-parcimonie}
