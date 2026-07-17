@@ -3,7 +3,7 @@
 \selectlanguage{french}
 \section{Réconciliation multiple}
 
-Certains hôtes sont porteurs de plusieurs familles d’unités dépendantes.
+Certains hôtes sont porteurs de plusieurs familles d’unités.
 Pour reconstruire les histoires respectives de ces familles, les méthodes de réconciliation bilatérale pourraient leur être appliquées individuellement.
 Cette approche supposerait toutefois que les unités étudiées évoluent indépendamment les unes des autres, ce qui n’est en particulier pas le cas de certains gènes.
 Les gènes sont en effet organisés linéairement le long du génome de leur espèce et affectés par des événements à l’échelle du génome.
@@ -13,45 +13,38 @@ L’évolution des structures linéaires, façonnées par les réarrangements et
 Le problème de la \emph{phylogénie génomique} consiste à reconstruire l’arbre phylogénétique le plus plausible pour un ensemble de génomes, en associant chaque embranchement à un génome ancestral.
 Ce problème se décline en une \emph{\enquote{grande}} version, où la topologie de l’arbre et les génomes ancestraux sont inférés simultanément, et une \emph{\enquote{petite}} version, dans laquelle la topologie est fixée et seuls les génomes ancestraux restent à déterminer~\parencite[pour une revue de ces problèmes, voir][]{ElMabrouk2012AnalysisGeneOrder}.
 
-% Le contenu des génomes étudiés est représenté par des ensembles de chaînes de caractères orientées, formées sur l’alphabet des familles de gènes.
-% La question du \emph{tri de génomes} consiste à identifier la plus courte séquence d’événements permettant de transformer un premier génome en un second, afin d’évaluer la distance évolutive qui les sépare~\parencite[voir][]{Hannenhalli1999TransformingCabbageTurnip,Bergeron2009NewLinearTime,Feijao2011ScjBreakpointDistance}.
-% Le problème du \emph{génome médian} demande de trouver, à partir de trois génomes \(A\), \(B\) et \(C\), un génome \(M\) telle que la somme des distances entre les quatre soit minimale~\parencite[voir][]{Mane2020DistanceMedianProblems}.
-% Reversals : NPC pour tout
-% DCJ : polynomial pour sorting, NPC pour médiane, NPC pour duplications
-% SCJ : polylomial pour sorting, médiane et duplications
-
-L’intégration des méthodes développées pour analyser l’évolution à l’échelle des familles de gènes avec celles pour l’échelle des génomes a été proposée par~\textcite{Sankoff2000DuplicationRearrangementReconciliation}.
+Pour répondre à ces problèmes, \textcite{Sankoff2000DuplicationRearrangementReconciliation} ont proposé de combiner les méthodes développées pour analyser l’évolution à l’échelle des familles de gènes avec celles pour l’échelle des génomes.
 Les informations recouvrées par la réconciliation, notamment les relations d’orthologie, pourraient en effet guider l’étude de l’évolution des génomes contenant plusieurs copies de la même famille de gènes.
 Inversement, l’intégration de l’échelle génomique dans la réconciliation permettrait de prendre en compte l’interdépendance de l’évolution des gènes.
-L’un des objectifs de la recherche dans ces domaines est donc la mise au point de méthodes capables de reconstruire conjointement l’histoire de multiples familles de gènes évoluant au sein de génomes~\parencite[voir aussi][]{Chauve2013DuplicationRearrangementReconciliation}.
+L’objectif de recherche est ainsi la mise au point de méthodes capables de reconstruire l’histoire conjointe de plusieurs familles de gènes~\parencite[voir aussi][]{Chauve2013DuplicationRearrangementReconciliation}.
 
 Pour ce faire, un niveau intermédiaire peut être intégré dans le modèle de réconciliation bilatéral, se plaçant entre l’échelle des gènes et celle des espèces, afin de modéliser l’évolution à l’échelle génomique.
-Dans la suite, nous comparons deux approches existantes fondées sur cette idée selon leur capacité de modélisation et leur complexité algorithmique.
+Dans la suite, nous comparons deux approches existantes fondées sur cette idée selon leur capacité de modélisation et selon leur complexité algorithmique.
 
 \subsection{Réconciliation d’adjacences}
 
 L’organisation linéaire d’un ensemble d’unités peut être représentée par un ensemble d’adjacences entre des paires d’unités.
-Par exemple, un génome \(\{(a, b, c), (d, e)\}\) formé de deux chromosomes et cinq gènes correspond aux trois adjacences \(\{(a, b), (b, c), (d, e)\}\).
+Par exemple, le génome \(\{(a, b, c), (d, e)\}\) formé de deux chromosomes et de cinq gènes correspond aux trois adjacences \(\{\{a, b\}, \{b, c\}, \{d, e\}\}\).
 Cette représentation facilite notamment la modélisation d’événements de réarrangement, puisqu’il suffit d’agir sur les adjacences en bordure du segment déplacé par l’événement.
 L’approche DeCo (pour \enquote{Détection de la Coévolution}), introduite par \textcite{Berard2012EvolutionGeneNeighborhoods}, étend la réconciliation pour y intégrer l’évolution d’adjacences entre des paires d’unités dépendantes.
 
 Supposons qu’une forêt \(\gtrees\) de phylogénies d’unités dépendantes et la phylogénie \(S\) de leurs hôtes soient connues.
-Une adjacence \((a, b)\) entre deux embranchements de \(\gtrees\) est une assertion affirmant que les deux divergences se sont produites simultanément dans le même hôte et que l’exemplaire de \(a\) précède immédiatement celui de \(b\) dans la structure de cet hôte.
+Une adjacence \(\{a, b\}\) entre deux embranchements de \(\gtrees\) est une assertion affirmant que les deux divergences se sont produites simultanément dans le même hôte et que l’exemplaire de \(a\) est un voisin immédiat de \(b\) dans la structure de cet hôte.
 
-\begin{definition}[Adjacence]\label{definition:adj}
-    Soient \(L\) et \(M\) deux ensembles et \(f : L \onto M\) une application.
-    Une adjacence est un couple \((a, b) \in L^2\) tel que \(a \neq b\) et \(f(a) = f(b)\).
-    L’ensemble des adjacences possibles est noté \(\alladjs(f)\).
+\begin{definition}[Adjacences]\label{definition:adj}
+    Une \emph{adjacence} sur un ensemble \(L\) est une paire \(\{a, b\} \subseteq L\) telle que \(a \neq b\).
+    Une telle adjacence \emph{respecte} l’application \(f : L \onto M\) si \(f(a) = f(b)\).
+    L’ensemble des adjacences respectant~\(f\) est noté~\(\alladjs(f)\).
 \end{definition}
 
 Supposons que l’ensemble des adjacences entre les feuilles de \(\gtrees\) soit également connu.
 Une réconciliation d’adjacences de \(\gtrees\) avec \(S\) (voir \cref{fig:reconciliation:adj-rec}) est une réconciliation de chaque arbre de \(\gtrees\) avec \(S\) assorti d’un ensemble d’adjacences ancestrales menant aux adjacences entre les feuilles.
 
-\begin{definition}[Réconciliation d’adjacences]\label{definition:adjrec}
+\begin{definition}[Réconciliations d’adjacences]\label{definition:adjrec}
     Soient \(\gtrees\) une forêt phylogénétique et \(S\) un arbre phylogénétique.
     Soient \(\llmap : \tleavs(\gtrees) \onto \tleavs(S)\) une application et \(\lladjset \subseteq \alladjs(\llmap)\) un ensemble d’adjacences.
     Une \emph{réconciliation d’adjacences} de \(\gtrees\) avec \(S\) est un couple \(\tuple{\rec, \adjset}\),
-    où \(\rec\) est une application étendant \(\llmap\) qui est l’union de réconciliations individuelles de chaque arbre de \(\gtrees\) avec \(S\),
+    où \(\rec\) est une application étendant~\(\llmap\) qui est l’union de réconciliations individuelles de chaque arbre de \(\gtrees\) avec \(S\),
     et \(\adjset\) est un ensemble d’adjacences ancestrales tel que \(\lladjset \subseteq \adjset \subseteq \alladjs(\rec)\).
 \end{definition}
 
@@ -74,15 +67,15 @@ Une réconciliation d’adjacences de \(\gtrees\) avec \(S\) (voir \cref{fig:rec
 \end{figure}
 
 Un ensemble d’adjacences ancestrales implique des contraintes temporelles qui doivent être compatibles avec celles imposées par la topologie de \(\gtrees\).
-Ainsi, un sommet ne peut être adjacent à l’un de ses descendants ou ancêtres, et si deux sommets sont adjacents, alors un ancêtre de l’un ne peut être adjacent à un descendant de l’autre.
+Ainsi, un sommet ne peut être adjacent à l’un de ses descendants ou ancêtres et, si deux sommets sont adjacents, alors un ancêtre de l’un ne peut être adjacent à un descendant de l’autre.
 
 \begin{definition}[Compatibilité]\label{definition:adjrec-adj-compat}
     Soient \(\gtrees\) une forêt phylogénétique, \(S\) un arbre phylogénétique, et \(\adjset\) un ensemble d’adjacences de \(\gtrees\).
-    Les adjacences de \(\adjset\) sont \emph{compatibles} si
-        toute adjacence \((v, w) \in \adjset\) est telle que \(v \nottcomp w\) et
-        toute paire d’adjacences \((v, w), (x, y) \in \adjset\) est telle que
-            si \(v \tancs x\) alors \(w \nottdesc y\) et
-            si \(v \tdesc x\) alors \(w \nottancs y\).
+    Les adjacences de \(\adjset\) sont \emph{compatibles} s’il existe un préordre~\(\succeq_\alpha\) sur les sommets de \(\tnodes(\gtrees)\) tel que:
+    \begin{condition}
+        \item \(v \succ_\alpha v\child\) pour chaque branche \((v, v\child) \in \tedges(\gtrees)\);
+        \item \(v \succeq_\alpha w\) et \(w \succeq_\alpha v\) pour chaque adjacence \(\{v, w\} \in \adjset\). \qedhere
+    \end{condition}
 \end{definition}
 
 Par ailleurs, pour qu’elles puissent correspondre à une structure biologique connue, ces adjacences doivent pouvoir être assemblées en segments ou en cycles sans former d’embranchements.
@@ -96,7 +89,7 @@ Comme pour les réconciliations bilatérales, le choix d’un modèle d’évolu
 Un tel modèle spécifie non seulement les événements qui affectent individuellement les unités dépendantes, mais aussi ceux qui touchent leurs adjacences.
 Une interprétation est représentée par une forêt d’adjacences.
 
-\begin{definition}[Forêt d’adjacences]\label{definition:adjrectree}
+\begin{definition}[Forêts d’adjacences]\label{definition:adjrectree}
     Soient \(\gtrees\) une forêt phylogénétique, \(S\) un arbre phylogénétique, \(\tuple{\rec, \adjset}\) une réconciliation d’adjacences de \(\gtrees\) avec \(S\), et \(\tuple{\recmodel\rmunit, \recmodel\rmadj}\) deux ensembles de types d’événements.
     Soit \(\rectree\) une forêt réconciliée, formée par l’union d’arbres réconciliés
         pour chaque arbre de \(\gtrees\) sous le modèle \(\recmodel\rmunit\),
@@ -160,7 +153,7 @@ La \cref{fig:reconciliation:adj-forest} donne un exemple de forêt réconciliée
 
 Aucun algorithme général n’est connu pour les problèmes de \(\tuple{\recmodel\rmunit, \recmodel\rmadj}\)-parcimonie, et il a été conjecturé que le problème est NP-complet~\parencite{Boussau2020ReconcilingGeneTrees}.
 Lorsque la forêt réconciliée est calculée en amont, le problème qui consiste à calculer la forêt d’adjacences optimale sous l’hypothèse d’une forêt réconciliée est résolu en temps polynomial par un algorithme de programmation dynamique.
-Cet algorithme est détaillé notamment par \textcite{Duchemin2017DecostarReconstructingAncestral} pour le modèle \(\recmodelDTLx\) et est implémenté dans le programme DeCoSTAR.
+Cet algorithme est détaillé notamment par \textcite{Duchemin2017DecostarReconstructingAncestral} pour le modèle \(\recmodelDTLx\) et est implanté dans le programme DeCoSTAR.
 
 Puisque les adjacences sont reconstruites séparément les unes des autres, cet algorithme peut retourner un ensemble d’adjacences non linéaire (voir \cref{definition:adjrec-lin}).
 Une étape de linéarisation peut être réalisée en post-traitement, mais le problème de linéarisation est NP-complet en général~\parencite{Manuch2012LinearizationAncestralMultichromosomal}.
@@ -175,15 +168,15 @@ Une façon de remédier à cette dernière limite a cependant été récemment p
 Pour permettre la modélisation d’événements segmentaux affectant simultanément plus de deux unités, \textcite{Delabre2020EvolutionSegmentalDuplications} ont introduit, sous le nom de \emph{super-réconciliation}, une méthode généralisant la notion d’adjacence à des ensembles d’unités de taille quelconque appelés \emph{synténies}.
 L’ordre interne de ces synténies peut être pris en compte (segments) ou ignoré (groupes).
 
-\begin{definition}[Segment]\label{definition:seg}
+\begin{definition}[Segments]\label{definition:seg}
     Soient \(L\) et \(M\) deux ensembles et \(f : L \onto M\) une application.
-    Un segment de taille~\(k\) est un tuple \(x = (x_1, …, x_k) \in L^k\) tel que, pour tout \(1 \leq i, j \leq k\) avec \(i \neq j\), \(x_i \neq x_j\) et \(f(x_i) = f(x_j)\).
+    Un \emph{segment} de taille~\(k\) est un tuple \(x = (x_1, …, x_k) \in L^k\) tel que, pour tout \(1 \leq i, j \leq k\) avec \(i \neq j\), \(x_i \neq x_j\) et \(f(x_i) = f(x_j)\).
     L’ensemble des segments possibles de taille quelconque est noté \(\allsegs(f)\).
 \end{definition}
 
-\begin{definition}[Groupe]\label{definition:cluster}
+\begin{definition}[Groupes]\label{definition:cluster}
     Soient \(L\) et \(M\) deux ensembles et \(f : L \onto M\) une application.
-    Un groupe est un sous-ensemble \(c = \{c_1, …, c_k\} \subseteq L\) tel que, pour tout \(1 \leq i, j \leq k\), \(f(c_i) = f(c_j)\).
+    Un \emph{groupe} est un sous-ensemble \(c = \{c_1, …, c_k\} \subseteq L\) tel que, pour tout \(1 \leq i, j \leq k\), \(f(c_i) = f(c_j)\).
     L’ensemble des groupes possibles est noté \(\allclstrs(f)\).
 \end{definition}
 
