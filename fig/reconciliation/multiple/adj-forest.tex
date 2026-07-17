@@ -1,23 +1,26 @@
 %! TeX root = ../main.tex
 % vim: set spelllang=fr:
-\begin{tikzpicture}[reference/.style={font=\small}]
+\begin{tikzpicture}[
+    label distance=-2pt,
+    reference/.style={font=\footnotesize, opacity=.5},
+]
     %% Réconciliation T_a
     \begin{scope}[x=.5cm, y=.8cm]
         \graph[no placement, nodes={dependent}]{
-            tal4s1 / [duplication, x=3.5, y=2.75, label={[reference]left:α}] -- {
-                tal3s1 / [speciation, x=3, y=2, label={[reference]left:β}] -- {
-                    tal2s1 / [graph node, x=1.5, y=1, label={[reference]left:δ}] --
-                        tal1s1 / \(\explar{a}{1}{1}\) [x=0, y=0],
-                    tal2s2 / [speciation, x=5.75, y=1.1, label={[reference]left:ε}] -- {
-                        tal1s2 / \(\explar{a}{2}{1}\) [x=4, y=0],
-                        tal1s3 / \(\explar{a}{3}{1}\) [x=7.5, y=0],
+            tal4s1 / [duplication, x=3.5, y=2.75, label={[reference]left:\(\bar{a}_1\)}] -- {
+                tal3s1 / [speciation, x=3, y=2, label={[reference]left:\(\bar{a}_2\)}] -- {
+                    tal2s1 / [graph node, x=1.5, y=1, label={[reference, yshift=1pt]left:\(\bar{a}_4\)}] --
+                        tal1s1 / \(\explar{a}{1}{1}\) [x=0, y=0, >shorten >=-3pt],
+                    tal2s2 / [speciation, x=5.75, y=1.1, label={[reference]left:\(\bar{a}_5\)}] -- {
+                        tal1s2 / \(\explar{a}{2}{1}\) [x=4, y=0, >shorten >=-3pt],
+                        tal1s3 / \(\explar{a}{3}{1}\) [x=7.5, y=0, >shorten >=-3pt],
                     },
                 },
-                tal3s2 / [speciation, x=4, y=2, label={[reference]right:γ}] -- {
-                    tal1s4 / \(\explar{a}{1}{2}\) [x=1, y=0],
-                    tal2s3 / [speciation, x=6.75, y=1.1, label={[reference]right:ζ}] -- {
-                        tal1s5 / \(\explar{a}{2}{2}\) [x=5, y=0],
-                        tal1s6 / \(\explar{a}{3}{2}\) [x=8.5, y=0],
+                tal3s2 / [speciation, x=4, y=2, label={[reference]right:\(\bar{a}_3\)}] -- {
+                    tal1s4 / \(\explar{a}{1}{2}\) [x=1, y=0, >shorten >=-3pt],
+                    tal2s3 / [speciation, x=6.75, y=1.1, label={[reference]right:\(\bar{a}_6\)}] -- {
+                        tal1s5 / \(\explar{a}{2}{2}\) [x=5, y=0, >shorten >=-3pt],
+                        tal1s6 / \(\explar{a}{3}{2}\) [x=8.5, y=0, >shorten >=-3pt],
                     },
                 },
             },
@@ -27,22 +30,22 @@
     %% Réconciliation T_b
     \begin{scope}[x=.5cm, y=.8cm, shift={(12, 0)}]
         \graph[no placement, nodes={dependent}]{
-            tbl4s1 / [duplication, x=3.5, y=2.75, label={[reference]left:η}] -- {
-                tbl3s1 / [speciation, x=3, y=2, label={[reference]left:θ}] -- {
-                    tbl2s1 / [duplication, x=1.5, y=1, label={[reference]left:κ}] -- {
-                        tbl1s1 / \(\explar{b}{1}{1}\) [x=-.5, y=0],
-                        tbl1s2 / \(\explar{b}{1}{2}\) [x=.5, y=0],
+            tbl4s1 / [duplication, x=3.5, y=2.75, label={[reference]left:\(\bar{b}_1\)}] -- {
+                tbl3s1 / [speciation, x=3, y=2, label={[reference, yshift=1pt]left:\(\bar{b}_2\)}] -- {
+                    tbl2s1 / [duplication, x=1.5, y=1, label={[reference, yshift=1pt]left:\(\bar{b}_4\)}] -- {
+                        tbl1s1 / \(\explar{b}{1}{1}\) [x=-.5, y=0, >shorten >=-3pt],
+                        tbl1s2 / \(\explar{b}{1}{2}\) [x=.5, y=0, >shorten >=-3pt],
                     },
-                    tbl2s2 / [speciation, x=5.75, y=1.1, label={[reference]left:λ}] -- {
-                        tbl1s3 / [loss, x=4, y=0],
-                        tbl1s4 / \(\explar{b}{3}{1}\) [x=7.5, y=0],
+                    tbl2s2 / [speciation, x=5.75, y=1.1, label={[reference, xshift=-1pt]left:\(\bar{b}_5\)}] -- {
+                        tbl1s3 / [loss, >loss branch, rotate=-45, x=4, y=0],
+                        tbl1s4 / \(\explar{b}{3}{1}\) [x=7.5, y=0, >shorten >=-3pt],
                     },
                 },
-                tbl3s2 / [speciation, x=4, y=2, label={[reference]right:ι}] -- {
-                    tbl1s5 / \(\explar{b}{1}{3}\) [x=1.5, y=0],
-                    tbl2s3 / [speciation, x=6.75, y=1.1, label={[reference]right:μ}] -- {
-                        tbl1s6 / \(\explar{b}{2}{1}\) [x=5, y=0],
-                        tbl1s7 / \(\explar{b}{3}{2}\) [x=8.5, y=0],
+                tbl3s2 / [speciation, x=4, y=2, label={[reference, yshift=1pt]right:\(\bar{b}_3\)}] -- {
+                    tbl1s5 / \(\explar{b}{1}{3}\) [x=1.5, y=0, >shorten >=-3pt],
+                    tbl2s3 / [speciation, x=6.75, y=1.1, label={[reference]right:\(\bar{b}_6\)}] -- {
+                        tbl1s6 / \(\explar{b}{2}{1}\) [x=5, y=0, >shorten >=-3pt],
+                        tbl1s7 / \(\explar{b}{3}{2}\) [x=8.5, y=0, >shorten >=-3pt],
                     },
                 },
             },
@@ -52,11 +55,11 @@
     %% Réconciliation T_c
     \begin{scope}[x=.5cm, y=1.1cm, shift={(24, 0)}]
         \graph[no placement, nodes={dependent}]{
-            tcl3s1 / [speciation, label={[reference]right:ν}, x=1.5, y=2] -- {
-                tcl1s1 / \(\explar{c}{1}{1}\) [x=0, y=0],
-                tcl2s1 / [speciation, label={[reference]right:ξ}, x=3, y=1.1] -- {
-                    tcl1s2 / \(\explar{c}{2}{1}\) [x=2, y=0],
-                    tcl1s3 / \(\explar{c}{3}{1}\) [x=4, y=0],
+            tcl3s1 / [speciation, label={[reference]right:\(\bar{c}_1\)}, x=1.5, y=2] -- {
+                tcl1s1 / \(\explar{c}{1}{1}\) [x=0, y=0, >shorten >=-2pt],
+                tcl2s1 / [speciation, label={[reference]right:\(\bar{c}_2\)}, x=3, y=1.1] -- {
+                    tcl1s2 / \(\explar{c}{2}{1}\) [x=2, y=0, >shorten >=-2pt],
+                    tcl1s3 / \(\explar{c}{3}{1}\) [x=4, y=0, >shorten >=-4pt],
                 },
             },
         };
@@ -106,45 +109,45 @@
 
 %% Forêt d’adjacences
 \vspace{1.5em}
-\begin{tikzpicture}[reference/.style={font=\small}]
+\begin{tikzpicture}[reference/.style={font=\small, inner sep=0pt, outer sep=0pt, outer ysep=3pt}]
     \draw[separator rule] (-3.5, .75) -- ++(14, 0);
 
     \begin{scope}
         \graph[
             phylogenetic tree layout,
-            evolutionary unit length=0.44cm,
+            evolutionary unit length=0.55cm,
             nodes={reference},
         ] {
-            / {(α, η)} -- {
-                / {(γ, ι)} -- {
-                    / {(ζ, μ)} -- {
+            / {(\(\bar{a}_1\), \(\bar{b}_1\))} -- {
+                / {(\(\bar{a}_3\), \(\bar{b}_3\))} -- {
+                    / {(\(\bar{a}_6\), \(\bar{b}_6\))} -- {
                         / {\((\explar{a}{3}{2}, \explar{b}{3}{2})\)},
                         / {\((\explar{a}{2}{2}, \explar{b}{2}{1})\)},
                     },
                     / {\((\explar{a}{1}{2}, \explar{b}{1}{3})\)} [> length=2],
                 },
-                / {(β, θ)} -- {
-                    / {(ε, λ)} -- {
+                / {(\(\bar{a}_2\), \(\bar{b}_2\))} -- {
+                    / {(\(\bar{a}_5\), \(\bar{b}_5\))} -- {
                         / {\((\explar{a}{3}{1}, \explar{b}{3}{1})\)},
                         / \(\strut\star\),
                     },
-                    / {(δ, κ)} -- / {\((\explar{a}{1}{1}, \explar{b}{1}{1})\)},
+                    / {(\(\bar{a}_4\), \(\bar{b}_4\))} -- / {\((\explar{a}{1}{1}, \explar{b}{1}{1})\)},
                 },
             },
         };
     \end{scope}
 
-    \begin{scope}[shift={(6.25, 0)}]
-        \node[reference] at (0, -1.6) {\((\explar{b}{1}{1}, \explar{b}{1}{2})\)};
+    \begin{scope}[shift={(6, -1.87)}]
+        \node[reference] {\((\explar{b}{1}{1}, \explar{b}{1}{2})\)};
     \end{scope}
 
-    \begin{scope}[shift={(9, 0)}]
+    \begin{scope}[shift={(9, -.57)}]
         \graph[
             phylogenetic tree layout,
-            evolutionary unit length=1.32cm,
+            evolutionary unit length=1.05cm,
             nodes={reference},
         ] {
-            / {(μ, ξ)} -- {
+            / {(\(\bar{b}_6\), \(\bar{c}_2\))} -- {
                 / {\((\explar{b}{3}{2}, \explar{c}{3}{1})\)},
                 / {\((\explar{b}{2}{1}, \explar{c}{2}{1})\)},
             },

@@ -106,17 +106,19 @@
     % Reconciliation layout
     host node/.style={
         ellipse,
-        fill=black!13,
+        fill=#1!13,
     },
+    host node/.default=black,
     host leaf node/.style={
-        host node,
+        host node={#1},
         inner sep=0pt,
     },
     host edge/.style={
-        fill=black!7,
+        fill=#1!7,
     },
+    host edge/.default=black,
     host edge terminal/.style={
-        host edge,
+        host edge={#1},
         rounded corners,
     },
     host edge unsampled/.style={
