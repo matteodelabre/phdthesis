@@ -9,16 +9,16 @@
         \graph[no placement, nodes={dependent}]{
             tal4s1 / [duplication, x=3.5, y=2.75, label={[reference]left:\(\bar{a}_1\)}] -- {
                 tal3s1 / [speciation, x=3, y=2, label={[reference]left:\(\bar{a}_2\)}] -- {
-                    tal2s1 / [graph node, x=1.5, y=1, label={[reference, yshift=1pt]left:\(\bar{a}_4\)}] --
-                        tal1s1 / \(\explar{a}{1}{1}\) [x=0, y=0, >shorten >=-3pt],
-                    tal2s2 / [speciation, x=5.75, y=1.1, label={[reference]left:\(\bar{a}_5\)}] -- {
+                    % tal2s1 / [graph node, x=1.5, y=1, label={[reference, yshift=1pt]left:\(\bar{a}_4\)}] --
+                    tal1s1 / \(\explar{a}{1}{1}\) [x=0, y=0, >shorten >=-3pt],
+                    tal2s2 / [speciation, x=5.75, y=1.1, label={[reference]left:\(\bar{a}_4\)}] -- {
                         tal1s2 / \(\explar{a}{2}{1}\) [x=4, y=0, >shorten >=-3pt],
                         tal1s3 / \(\explar{a}{3}{1}\) [x=7.5, y=0, >shorten >=-3pt],
                     },
                 },
                 tal3s2 / [speciation, x=4, y=2, label={[reference]right:\(\bar{a}_3\)}] -- {
                     tal1s4 / \(\explar{a}{1}{2}\) [x=1, y=0, >shorten >=-3pt],
-                    tal2s3 / [speciation, x=6.75, y=1.1, label={[reference]right:\(\bar{a}_6\)}] -- {
+                    tal2s3 / [speciation, x=6.75, y=1.1, label={[reference]right:\(\bar{a}_5\)}] -- {
                         tal1s5 / \(\explar{a}{2}{2}\) [x=5, y=0, >shorten >=-3pt],
                         tal1s6 / \(\explar{a}{3}{2}\) [x=8.5, y=0, >shorten >=-3pt],
                     },
@@ -118,27 +118,28 @@
             evolutionary unit length=0.55cm,
             nodes={reference},
         ] {
-            / {(\(\bar{a}_1\), \(\bar{b}_1\))} -- {
-                / {(\(\bar{a}_3\), \(\bar{b}_3\))} -- {
-                    / {(\(\bar{a}_6\), \(\bar{b}_6\))} -- {
-                        / {\((\explar{a}{3}{2}, \explar{b}{3}{2})\)},
-                        / {\((\explar{a}{2}{2}, \explar{b}{2}{1})\)},
+            / {\(\{{\color{color1}\bar{a}_1}, {\color{color2}\bar{b}_1}\}\)} -- {
+                / {\(\{{\color{color1}\bar{a}_3}, {\color{color2}\bar{b}_3}\}\)} -- {
+                    / {\(\{{\color{color1}\bar{a}_5}, {\color{color2}\bar{b}_6}\}\)} -- {
+                        / {\(\{{\color{color1}\explar{a}{3}{2}}, {\color{color2}\explar{b}{3}{2}}\}\)},
+                        / {\(\{{\color{color1}\explar{a}{2}{2}}, {\color{color2}\explar{b}{2}{1}}\}\)},
                     },
-                    / {\((\explar{a}{1}{2}, \explar{b}{1}{3})\)} [> length=2],
+                    / {\(\{{\color{color1}\explar{a}{1}{2}}, {\color{color2}\explar{b}{1}{3}}\}\)} [> length=2],
                 },
-                / {(\(\bar{a}_2\), \(\bar{b}_2\))} -- {
-                    / {(\(\bar{a}_5\), \(\bar{b}_5\))} -- {
-                        / {\((\explar{a}{3}{1}, \explar{b}{3}{1})\)},
+                / {\(\{{\color{color1}\bar{a}_2}, {\color{color2}\bar{b}_2}\}\)} -- {
+                    / {\(\{{\color{color1}\bar{a}_4}, {\color{color2}\bar{b}_5}\}\)} -- {
+                        / {\(\{{\color{color1}\explar{a}{3}{1}}, {\color{color2}\explar{b}{3}{1}}\}\)},
                         / \(\strut\star\),
                     },
-                    / {(\(\bar{a}_4\), \(\bar{b}_4\))} -- / {\((\explar{a}{1}{1}, \explar{b}{1}{1})\)},
+                    / {\(\{{\color{color1}\explar{a}{1}{1}}, {\color{color2}\bar{b}_4}\}\)} --
+                        / {\(\{{\color{color1}\explar{a}{1}{1}}, {\color{color2}\explar{b}{1}{1}}\}\)},
                 },
             },
         };
     \end{scope}
 
     \begin{scope}[shift={(6, -1.87)}]
-        \node[reference] {\((\explar{b}{1}{1}, \explar{b}{1}{2})\)};
+        \node[reference] {\(\{{\color{color2}\explar{b}{1}{1}}, {\color{color2}\explar{b}{1}{2}}\}\)};
     \end{scope}
 
     \begin{scope}[shift={(9, -.57)}]
@@ -147,9 +148,9 @@
             evolutionary unit length=1.05cm,
             nodes={reference},
         ] {
-            / {(\(\bar{b}_6\), \(\bar{c}_2\))} -- {
-                / {\((\explar{b}{3}{2}, \explar{c}{3}{1})\)},
-                / {\((\explar{b}{2}{1}, \explar{c}{2}{1})\)},
+            / {\(\{{\color{color2}\bar{b}_6}, {\color{color3}\bar{c}_2}\}\)} -- {
+                / {\(\{{\color{color2}\explar{b}{3}{2}}, {\color{color3}\explar{c}{3}{1}}\}\)},
+                / {\(\{{\color{color2}\explar{b}{2}{1}}, {\color{color3}\explar{c}{2}{1}}\}\)},
             },
         };
     \end{scope}
