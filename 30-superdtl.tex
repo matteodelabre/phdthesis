@@ -275,7 +275,7 @@ In this paper, the species and synteny trees are considered binary.
 %derive.
 %We will make no difference between a leaf of $T$
 %and its associated synteny
-See the left part of Figure~\ref{fig:evol-history-example} for an example of a synteny tree.
+See the left part of \cref{fig:evol-history-example} for an example of a synteny tree.
 
 %Given a gene tree $G$, the
 %\emph{corresponding synteny tree} is the tree $\tilde{G}$ obtained
@@ -510,7 +510,7 @@ We next introduce a way to assign a cost to a Super-reconciliation which, as we 
   \end{enumerate}
 \end{lemma}
 \begin{proof}
-    This follows from the constraints of \cref{def:superdtl:evol-model}, which states that the only way to loose part of a synteny, excluding $\eventDup$ and $\eventHGT$ events, is through $\eventLoss$ events, and that $\eventDup$ events allow loosing part of their synteny on either of their children, while $\eventHGT$ events allow loosing part of their synteny on their conserved child.
+    This follows from the constraints of \cref{def:superdtl:evol-model}, which states that the only way to lose part of a synteny, excluding $\eventDup$ and $\eventHGT$ events, is through $\eventLoss$ events, and that $\eventDup$ events allow losing part of their synteny on exactly one of their children, while $\eventHGT$ events only allow losing part of their synteny on their separated child.
 \end{proof}
 
 \begin{lemma}[Super-reconciliations minimize history cost]\label{lem:superdtl:superrec-min-hist}
@@ -775,12 +775,12 @@ We therefore only need to consider two possibilities for $\syntenyOf(v)$. We def
     Let $\sigma$ be any node of the species tree.
     Both $\mathcal{C}^\star(v, \sigma)$ and $\mathcal{C}(v, \sigma)$ explore all possible pairs $\sigma', \sigma'' \in \treeNodes(\speciesTree)^2$ that can be mapped respectively to $v_l$ and $v_r$, and return the minimum cost of all those options.
 
-    Consider the computation of $\mathcal{C}^\star(v, \sigma)$ by Algorithm~\ref{alg:superdtl:cstarmin-rec}.
+    Consider the computation of $\mathcal{C}^\star(v, \sigma)$ by \cref{alg:superdtl:cstarmin-rec}.
     Since in that case $\syntenyOf(v) \supsetneq \syntenyLCAOf(v)$, then $\syntenyOf(v) \not\subseteq \syntenyLCAOf(v_l)$.
     Therefore, setting $\syntenyOf(v_l) = \syntenyLCAOf(v_l)$ (which costs $\mathcal{C}(v_l, \sigma') = \dt{C}{v_l, \sigma'}$) would imply that $\subseqDist(\syntenyOf(v), \syntenyOf(v_l)) = 1$.
     On the contrary, setting $\syntenyOf(v_l) \supsetneq \syntenyLCAOf(v_l)$ (which costs $\mathcal{C^\star}(v_l, \sigma') = \dt{C^\star}{v_l, \sigma''}$) would give us the freedom to choose $\syntenyOf(v_l)$ such that $\syntenyOf(v) \subseteq \syntenyOf(v_l)$, implying that $\subseqDist(\syntenyOf(v), \syntenyOf(v_l)) = 0$.
     The same logic holds for $v$, $v_r$, and $\sigma''$.
-    Note that each of the three cases in the innermost loop uses the same cost computation formula as Definition~\ref{def:superdtl:cost}, albeit adapted to test all four options of setting $\syntenyOf(v_l)$ and $\syntenyOf(v_r)$ to either $\syntenyLCAOf$ or a superset of it.
+    Note that each of the three cases in the innermost loop uses the same cost computation formula as \cref{def:superdtl:cost}, albeit adapted to test all four options of setting $\syntenyOf(v_l)$ and $\syntenyOf(v_r)$ to either $\syntenyLCAOf$ or a superset of it.
     By \cref{lem:superdtl:subset-2cases}, those are the only four options to consider, so $\mathcal{C}^\star(v, \sigma) = \dt{C^\star}{v, \sigma}$.
 
     Consider the computation of $\mathcal{C}(v, \sigma)$ by \cref{alg:superdtl:cmin-rec}.
@@ -788,7 +788,7 @@ We therefore only need to consider two possibilities for $\syntenyOf(v)$. We def
     When setting $\syntenyOf(v_l) = \syntenyLCAOf(v_l)$ (which costs $\mathcal{C}(v_l, \sigma') = \dt{C}{v_l, \sigma'}$), the presence of a loss depends on the value of $\subseqDist(\syntenyLCAOf(v), \syntenyLCAOf(v_l))$.
     On the other hand, setting $\syntenyOf(v_l) \supsetneq \syntenyLCAOf(v_l)$ (which costs $\mathcal{C^\star}(v_r, \sigma') = \dt{C^\star}{v_r, \sigma''}$) would give us the freedom to choose $\syntenyOf(v_l)$ such that $\syntenyOf(v) \subseteq \syntenyOf(v_l)$, implying that $\subseqDist(\syntenyOf(v), \syntenyOf(v_l)) = 0$.
     The same logic holds for $v$, $v_r$, and $\sigma''$.
-    Note that this algorithm also follows Definition~\ref{def:superdtl:cost}, handling all four options mentioned previously, and excluding disallowed cases.
+    Note that this algorithm also follows \cref{def:superdtl:cost}, handling all four options mentioned previously, and excluding disallowed cases.
     So $\mathcal{C}(v, \sigma) = \dt{C}{v, \sigma}$.
 \end{proof}
 
@@ -803,7 +803,7 @@ Using this implementation trick allows finding a minimal Super-reconciliation in
 \begin{proof}
     Both dynamic programming tables have exactly $\lvert\treeNodes(\syntenyTree)\rvert\times\lvert\treeNodes(\speciesTree)\rvert$ entries each.
     Computing a single entry of one of the tables takes time $\mathcal{O}(\lvert\treeNodes(\speciesTree)\rvert^2)$, provided all the other required entries are made available in constant time and set and tree operations are implemented in an efficient way.
-    A single bottom-up traversal of the synteny tree is enough to fill in both tables using Algorithms~\ref{alg:superdtl:cmin-rec} and~\ref{alg:superdtl:cstarmin-rec}, therefore, computing the tables takes time $\mathcal{O}(\lvert\treeNodes(\syntenyTree)\rvert\times\lvert\treeNodes(\speciesTree)\rvert^3)$.
+    A single bottom-up traversal of the synteny tree is enough to fill in both tables using \cref{alg:superdtl:cmin-rec,alg:superdtl:cstarmin-rec}, therefore, computing the tables takes time $\mathcal{O}(\lvert\treeNodes(\syntenyTree)\rvert\times\lvert\treeNodes(\speciesTree)\rvert^3)$.
     To compute the overall minimal cost is to compute the minimum value of the $\mathrm{C}$ table in column $\rootOf(\syntenyTree)$, which can be done in time $\mathcal{O}(\treeNodes(\speciesTree))$.
     To construct an optimal solution, pointers to optimal $\sigma'$, $\sigma''$ pairs and to which of $\mathrm{C}$ and $\mathrm{C}^\star$ is used must be tracked for each table entry, taking up a constant time and space for each entry.
     After the tables have been computed, tracing back those pointers allows constructing a solution by following $\mathcal{O}(\lvert\treeNodes(\syntenyTree)\rvert)$ pointers.
