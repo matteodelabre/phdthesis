@@ -41,36 +41,36 @@ Ces limites ont guidé la recherche qui est présentée aux chapitres suivants.
 \newcommand{\define}[1]{\emph{#1}}
 
 %% Strings
-\newcommand{\cat}{\mathbin{.}}
-\newcommand{\substr}[3]{#1[#2,#3]}
-\newcommand{\delsub}[3]{#1_{\setminus[#2,#3]}}
-\newcommand{\isSubseq}{\mathrel{\subseteq}}
+% \newcommand{\cat}{\mathbin{.}}
+% \newcommand{\substr}[3]{#1[#2,#3]}
+% \newcommand{\delsub}[3]{#1_{\setminus[#2,#3]}}
+% \newcommand{\isSubseq}{\mathrel{\subseteq}}
 \newcommand{\subseqDist}{\mathrm{D}^\mathrm{sub}}
-\newcommand{\smallSubseqDist}{\mathrm{d}^\mathrm{sub}}
+% \newcommand{\smallSubseqDist}{\mathrm{d}^\mathrm{sub}}
 
 %% Trees
-\newcommand{\leftChild}{_\mathrm{\ell}}
-\newcommand{\rightChild}{_\mathrm{r}}
-\newcommand{\rootOf}{\mathrm{r}}
-\newcommand{\parentOf}{\mathrm{p}}
-\newcommand{\treeDist}[1]{\mathrm{D}^\mathrm{node}_{#1}}
-\newcommand{\treeNodes}{\mathrm{V}}
-\newcommand{\treeLeaves}{\mathrm{L}}
-\newcommand{\treeEdges}{\mathrm{E}}
-\newcommand{\treeEdge}[2]{(#1,#2)}
+% \newcommand{\leftChild}{_\mathrm{\ell}}
+% \newcommand{\rightChild}{_\mathrm{r}}
+% \newcommand{\rootOf}{\mathrm{r}}
+% \newcommand{\parentOf}{\mathrm{p}}
+% \newcommand{\treeDist}[1]{\mathrm{D}^\mathrm{node}_{#1}}
+% \newcommand{\treeNodes}{\mathrm{V}}
+% \newcommand{\treeLeaves}{\mathrm{L}}
+% \newcommand{\treeEdges}{\mathrm{E}}
+% \newcommand{\treeEdge}[2]{(#1,#2)}
 % \newcommand{\lca}[1]{\mathrm{lca}_{#1}}
 % \newcommand{\subtree}[2]{#1[#2]}
-\newcommand{\treeRestrict}[2]{#1|_{#2}}
-\newcommand{\V}{{\mathrm V}}
-\newcommand{\LF}{{\mathrm L}}
-\newcommand{\E}{{\mathrm E}}
+% \newcommand{\treeRestrict}[2]{#1|_{#2}}
+% \newcommand{\V}{{\mathrm V}}
+% \newcommand{\LF}{{\mathrm L}}
+% \newcommand{\E}{{\mathrm E}}
 \newcommand{\treeH}{H^\mathrm{tree}}
 
 %% Data structures
 % \newcommand{\tuple}[1]{\langle#1\rangle}
 
 %% Number sets
-\newcommand{\setReal}{\mathbb{R}}
+% \newcommand{\setReal}{\mathbb{R}}
 
 %% Species
 \newcommand{\species}{s}
@@ -99,7 +99,7 @@ Ces limites ont guidé la recherche qui est présentée aux chapitres suivants.
 \newcommand{\setOf}{\syntenyOf^{\mathrm{set}}}
 \newcommand{\eventOf}{e}
 \newcommand{\eventLCA}{e^{\mathrm{min}}}
-\newcommand{\LCA}{\mathrm{lca}}
+% \newcommand{\LCA}{\mathrm{lca}}
 
 %% (Super-)Reconciliations
 \newcommand{\supRec}{\mathcal{R}}
@@ -110,22 +110,22 @@ Ces limites ont guidé la recherche qui est présentée aux chapitres suivants.
 \newcommand{\eventDTL}{\mathrm{DTL}}
 \newcommand{\eventDTLG}{\mathrm{DTLG}}
 
-\newcommand{\eventSpe}{\mathrm{Spe}}
-\newcommand{\eventDup}{\mathrm{Dup}}
-\newcommand{\eventHGT}{\mathrm{HGT}}
-\newcommand{\eventLoss}{\mathrm{Loss}}
-\newcommand{\eventGain}{\mathrm{Gain}}
+% \newcommand{\eventSpe}{\mathrm{Spe}}
+% \newcommand{\eventDup}{\mathrm{Dup}}
+% \newcommand{\eventHGT}{\mathrm{HGT}}
+% \newcommand{\eventLoss}{\mathrm{Loss}}
+% \newcommand{\eventGain}{\mathrm{Gain}}
 
-\newcommand{\costDup}{c_{\eventDup}}
-\newcommand{\Set}{\mathrm{Set}}
-\newcommand{\costHGT}{c_{\eventHGT}}
-\newcommand{\costLoss}{c_{\eventLoss}}
-\newcommand{\costGain}{c_{\eventGain}}
+% \newcommand{\Set}{\mathrm{Set}}
+\newcommand{\costDup}{c_{\evtD}}
+\newcommand{\costHGT}{c_{\evtT}}
+\newcommand{\costLoss}{c_{\evtL}}
+\newcommand{\costGain}{c_{\evtG}}
 \newcommand{\costOf}[1]{C_{#1}}
 \newcommand{\costDL}{\mathrm{DL}}
 \newcommand{\costDT}{\mathrm{DT}}
 \newcommand{\costDTL}{\mathrm{DTL}}
-\newcommand{\rangeset}{\mathrm{Set}}
+% \newcommand{\rangeset}{\mathrm{Set}}
 
 %% Dynamic programming
 \newcommand{\dt}[2]{\mathrm{#1}(#2)}
@@ -138,23 +138,23 @@ Ces limites ont guidé la recherche qui est présentée aux chapitres suivants.
 \newcommand{\T}{{\mathcal T}}
 \newcommand{\F}{{\mathcal F}}
 \newcommand{\X}{{\mathcal X}}
-\renewcommand{\P}{{\mathcal P}}
-\renewcommand{\l}{{\ell}}
+% \renewcommand{\P}{{\mathcal P}}
+% \renewcommand{\l}{{\ell}}
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\Z}{\mathbb{Z}}
-\newcommand{\comment}[1]{{\color{red} #1}}
+% \newcommand{\comment}[1]{{\color{red} #1}}
 % \newcommand{\ie}{\emph{i.e.}\xspace}
 %\newcommand{\treeRestrict}[2]{#1|_{#2}}
 
-\renewcommand{\l}{{\lambda_s}}
-\renewcommand{\d}{{\delta_s}}
+% \renewcommand{\l}{{\lambda_s}}
+% \renewcommand{\d}{{\delta_s}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \selectlanguage{english}
 \articlehat{
-    \textfrench{La suite de ce chapitre est une reproduction partielle de l’article intitulé \enquote{Reconciliation with segmental duplication, transfer, loss and gain}.
+    \textfrench{La suite de ce chapitre est une adaptation de l’article intitulé \enquote{Reconciliation with segmental duplication, transfer, loss and gain}.
     Cet article a été écrit entre novembre 2020 et octobre 2021, présenté lors de l’édition 2022 de la conférence RECOMB-CG à La Jolla en Californie, et publié en mai 2022 dans les actes de ladite conférence parus chez Springer.}
 }
 \title{Reconciliation with segmental duplication, transfer, loss and gain}
@@ -170,9 +170,9 @@ Ces limites ont guidé la recherche qui est présentée aux chapitres suivants.
 \makearticlehead
 
 \begin{abstract}
-    We generalize the reconciliation approach, used for inferring the evolution of a single gene family given a species tree, to groups of co-localized genes, also called syntenies. More precisely, given a set $\X$ of syntenies in a set $\Sigma$ of genomes, a tree $T$ for $\X$ and a tree $S$ for $\Sigma$, the problem is to find a most parsimonious history for $\X$ with respect to a given evolutionary model. We extend a previous model involving segmental duplications and losses, to also include segmental horizontal gene transfers (HGTs) and gene gains.
+    We generalize the reconciliation approach, used for inferring the evolution of a single gene family given a species tree, to groups of co-localized genes, also called syntenies. More precisely, given a set \(\X\) of syntenies in a set \(\Sigma\) of genomes, a tree \(T\) for \(\X\) and a tree \(S\) for \(\Sigma\), the problem is to find a most parsimonious history for \(\X\) with respect to a given evolutionary model. We extend a previous model involving segmental duplications and losses, to also include segmental horizontal gene transfers (HGTs) and gene gains.
     We present a polynomial-time dynamic programming algorithm to solve the problem. We apply it to CRISPR-associated (Cas) gene syntenies. These genes are part of CRISPR-Cas systems, one of its members (CRISPR-Cas9) well-known as currently the most reliable and accurate molecular scissor technology for genome editing. The inferred evolutionary scenario is a plausible explanation of the diversification of this system into its different types.
-    An implementation of the algorithm presented in this paper is available at: \url{https://github.com/UdeM-LBIT/superrec2/releases/tag/rcg2022}.
+    An implementation of the algorithm presented in this chapter is available at: \url{https://github.com/UdeM-LBIT/superrec2/releases/tag/rcg2022}.
 
     \keywords{Reconciliation \and Synteny \and CRISPR-Cas \and Horizontal gene transfer.}
 \end{abstract}
@@ -193,185 +193,104 @@ While some work has been done on inferring the evolution of co-localized genes (
 
 The first attempt to generalize the reconciliation approach to a set of gene trees was described by~\textcite{Delabre2020EvolutionSegmentalDuplications}. Given a set of gene families grouped into ordered syntenies (i.e., ordered groups of genes), a gene tree for each gene family and a species tree, the \emph{DL~Super-reconciliation} problem was defined as finding an evolutionary scenario for the syntenies agreeing with the individual gene trees, whilst minimizing the number of segmental duplications and losses. The problem admits a solution only in the case of \enquote{consistent} gene trees and gene orders. It was shown that the associated decision problem is NP-hard, and that a two-step method on the synteny tree (obtained as a supertree of the gene trees), first assigning an event labelling from the LCA-mapping and then inferring ancestral syntenies and losses, leads to an optimal solution. Moreover, ignoring gene orders, a polynomial-time algorithm exists for the second step.
 
-In this paper, we describe DTL Super-reconciliation, generalizing the model to handle HGT and gene gain events. We restrict the problem to the unordered case, where syntenies are defined as unordered groups of genes. We introduce the evolutionary model in \cref{sec:superdtl:evol-his} and the formal optimization problem in \cref{sec:superdtl:opt-problem}. We show in \cref{sec:superdtl:2steps} that the two-step method for solving the DL Super-reconciliation problem does not apply in this case, then present a polynomial-time dynamic programming algorithm for DTL Super-reconciliation in \cref{sec:superdtl:algo}. Finally, in \cref{sec:superdtl:crispr,sec:superdtl:results}, we apply our algorithm to CRISPR-associated (Cas) gene syntenies. These genes are part of CRISPR-Cas systems, one of its members (CRISPR-Cas9) well-known as currently the most reliable and accurate molecular scissor technology for genome editing. The inferred evolutionary scenario leads to an interesting explanation of the diversification of this system into its different types, which opens the door to further investigations.
+In this chapter, we describe DTL Super-reconciliation, generalizing the model to handle HGT and gene gain events. We restrict the problem to the unordered case, where syntenies are defined as unordered groups of genes. We introduce the evolutionary model in \cref{sec:superdtl:evol-his} and the formal optimization problem in \cref{sec:superdtl:opt-problem}. We show in \cref{sec:superdtl:2steps} that the two-step method for solving the DL Super-reconciliation problem does not apply in this case, then present a polynomial-time dynamic programming algorithm for DTL Super-reconciliation in \cref{sec:superdtl:algo}. Finally, in \cref{sec:superdtl:crispr,sec:superdtl:results}, we apply our algorithm to CRISPR-associated (Cas) gene syntenies. These genes are part of CRISPR-Cas systems, one of its members (CRISPR-Cas9) well-known as currently the most reliable and accurate molecular scissor technology for genome editing. The inferred evolutionary scenario leads to an interesting explanation of the diversification of this system into its different types, which opens the door to further investigations.
 
 \section{Preliminary definitions}
 
 % TODO: Merge with introductory notation chapter
 
-%\paragraph{Trees:}
-All trees are considered rooted. Given a tree $T$, we denote by $r(T)$ its root, $\V(T)$ its node set and by $\LF(T) \subseteq \V(T)$ its leaf set. A node $v'$ is an \emph{ancestor} of $v$ if $v'$ is on the path from $r(T)$ to $v$; the \emph{parent} $\parentOf(v)$ of $v$, of which $v$ is a \emph{child}, directly precedes $v$ on this path.
-Conversely, $v$ is a \emph{descendant} of $v'$.
-Notice that a node $v$ is both an ancestor and a descendant of itself; where this case needs to be excluded, we will talk about strict ancestors and descendants.
-Two nodes are \emph{separated} in $T$ if neither is an ancestor of the other.
-We denote by $\E(T)$ the set of edges of $T$, where each edge
-is represented by a pair of nodes $(\parentOf(v),v)$.  For any two nodes $v_1$ and $v_2$ of $T$, the node distance
-$\treeDist{T}(v_1, v_2)$ is defined as the number of edges
-% (i.e. number of nodes minus one)
-on the unique path from $v_1$ to $v_2$.
-
-Given a node $v$ of $T$, $T[v]$ is the \emph{subtree} of $T$ rooted at $v$ (i.e., containing only the descendants of $v$).
-The \emph{lowest common ancestor}~(LCA) of a subset $V$ of nodes, denoted $\LCA_T(V)$, is the ancestor of all nodes in $V$ that is the most distant from the root. A node is said to be \emph{unary} if
-it has exactly one child and \emph{binary} if it has exactly two.  A
-\emph{binary tree} is a tree where all internal (non-leaf) nodes
-are binary. If all internal nodes are unary or binary, then the
-tree is called \emph{partially binary}.  The two children of a binary
-node $v$ are denoted $v_l$ and $v_r$ for the \enquote{left} and \enquote{right}
-child. Notice that the considered trees are unordered, and thus left
-and right are set arbitrarily.
-
-
-%For $L \subseteq \LF(T)$, the
-%restriction $\treeRestrict{T}{L}$ of $T$ to $L$ is the tree with
-%leaf set $L$ obtained from $T[lca_T(L)]$ by removing
-%all leaves that are not in $L$ and all unary nodes.
-%Finally, we say
-%that a tree $T$ is an \emph{extension} of another tree $T'$ when
-%$\treeRestrict{T}{\LF(T')}$ is label-isomorphic to $T'$;
-%i.e., isomorphic with preservation of leaf labels.
-
-%\paragraph{Species, genes and syntenies:}
-If $A$ is a set of labels (on a given finite alphabet), then any tree $T$ such that there exists a
-one-to-one relation between $A$ and $\LF(T)$ is said to \emph{be a tree for
-$A$}. In particular, a \emph{species tree} $S$ for a set $\Sigma$ of
+If \(A\) is a set of labels (on a given finite alphabet), then any tree \(T\) such that there exists a
+one-to-one relation between \(A\) and \(\tleavs(T)\) is said to \emph{be a tree for
+\(A\)}. In particular, a \emph{species tree} \(S\) for a set \(\Sigma\) of
 species represents an ordered set of speciation events that led to
-$\Sigma$ (i.e., each internal node of $S$ represents an ancestral species preceding a speciation event).
-Similarly, a \emph{gene tree} $T$ for a gene family $\Gamma$ is a
+\(\Sigma\) (i.e., each internal node of \(S\) represents an ancestral species preceding a speciation event).
+Similarly, a \emph{gene tree} \(T\) for a gene family \(\Gamma\) is a
 branching history encoding each gene divergence that led to the gene
-family~$\Gamma$. For a gene $g$ of $\Gamma$, we denote by $s(g)$ the
-species of $\Sigma$ the gene $g$ belongs to.
+family~\(\Gamma\). For a gene \(g\) of \(\Gamma\), we denote by \(s(g)\) the
+species of \(\Sigma\) the gene \(g\) belongs to.
 
-%$X = X_1 \cdots X_k$ is a sequence of genes belonging
-%to the same genome~$s(X)$.
-Let $\F$ be a set of gene families. In this
-paper, a \emph{syntenic group} or \emph{synteny} $X$ is a non-empty subset of $\F$ representing a group of co-localized genes, where the relative order of genes in the genomic region is ignored.
+Let \(\F\) be a set of gene families. In this chapter, a \emph{syntenic group} or \emph{synteny} \(X\) is a non-empty subset of \(\F\) representing a group of co-localized genes, where the relative order of genes in the genomic region is ignored.
 The genes of a synteny are considered to all belong to different gene families (i.e., duplications inside a syntenic group are not allowed),
-%for any $i,j$, $i \neq j$, $X_i$ and
-%$X_j$ belong to two different gene families of $\F$),
-therefore the genes are simply identified by their family $\Gamma$ of $\F$.
-Given two syntenies $X$ and $Y$, we say that there is a loss between $X$ and $Y$ if at least one of the gene families from $X$ is absent in $Y$. Notice that, due to the possibility of gene gains, $Y$ may contain genes not found in $X$.
-The loss indicator function $\subseqDist(X, Y)$ ($sub$ for \enquote{subset}) is therefore defined as $\subseqDist(X, Y) = 0$ if $X \subseteq Y$, otherwise $\subseqDist(X, Y) = 1$.
+therefore the genes are simply identified by their family \(\Gamma\) of \(\F\).
+Given two syntenies \(X\) and \(Y\), we say that there is a loss between \(X\) and \(Y\) if at least one of the gene families from \(X\) is absent in \(Y\). Notice that, due to the possibility of gene gains, \(Y\) may contain genes not found in \(X\).
+The loss indicator function \(\subseqDist(X, Y)\) (\(sub\) for \enquote{subset}) is therefore defined as \(\subseqDist(X, Y) = 0\) if \(X \subseteq Y\), otherwise \(\subseqDist(X, Y) = 1\).
 
-A \emph{synteny family} is a set $\X$ of syntenies.
-%We say that a set $\F$ of gene families
-%is \emph{organized into a family $\X$ of syntenies} if each gene of a
-%family in $\F$ belongs to a distinct synteny in $\X$ and if each gene
-%of a synteny in $\X$ comes from a distinct gene family in $\F$.
-A \emph{synteny tree} $T$ is a tree for a synteny family $\X$, $x(l)$
-being the synteny of $\X$ associated to each leaf $l$ of $T$.
-%Moreover,
-%a \emph{full synteny tree} on $\X$ and $\F$ is a synteny tree $T$ with
-%an extension of $\syntenyOf$ to internal nodes, more precisely a pair
-%$\tuple{T, \syntenyOf}$ where $\syntenyOf$ maps the nodes of $T$ to
-%syntenies on $\F$ such that, for each leaf $l$ of $\LF(T)$,
-%$\syntenyOf(l)$ is the synteny of $\X$ corresponding to $l$.
-In this paper, the species and synteny trees are considered binary.
-%For each
-%internal node $v$ of $T$, $\syntenyOf(v)$ denotes the ancestral
-%synteny on $\F$ associated to node $v$. Note that $\syntenyOf(v)$ is not necessarily in $\X$, and that $x$ is not an onto function, as any possible synteny on $\F$ is note requested to be represented in the synteny tree.
-%belonging to
-%$\speciesOf(v)$,
-%from which the syntenies $x(v_l)$ and $x(v_r)$
-%derive.
-%We will make no difference between a leaf of $T$
-%and its associated synteny
+A \emph{synteny family} is a set \(\X\) of syntenies.
+A \emph{synteny tree} \(T\) is a tree for a synteny family \(\X\), \(x(l)\)
+being the synteny of \(\X\) associated to each leaf \(l\) of \(T\).
+In this chapter, the species and synteny trees are considered binary.
 See the left part of \cref{fig:evol-history-example} for an example of a synteny tree.
-
-%Given a gene tree $G$, the
-%\emph{corresponding synteny tree} is the tree $\tilde{G}$ obtained
-%from $G$ by replacing each leaf of $G$ by the synteny containing the
-%considered gene.
-
-%\paragraph{Strings:}
-%A \emph{string} or a \emph{sequence} $X = X_1 \cdots X_n$ is a
-%potentially empty ordered set of $n$ characters.
-%We denote by $X \cat Y$ the concatenation of two strings $X$ and $Y$.
-%We denote by $Set(X)
-%= \{x_1, x_2, ... , x_k\}$ the {\em range}\/ of $X$, i.e. the set of
-%all genes contained in $X$, without any particular order.
-%For a string $X$, $X[i,j]$ is the \emph{substring}, or \emph{segment},
-%of $X$ that starts at $X_i$ and contains all next characters up to and
-%including $X_j$.
-%If~$i>j$, $X[i,j]$ is the empty string.
-%Conversely, $\delsub{X}{i}{j}$ is defined as $X[1,i-1] \cat X[j+1,n]$.
-%A \emph{subsequence} $Y$ of $X$ (we write $Y \subseteq X$) is a string
-%obtained by removing segments from $X$ without changing the order of
-%the remaining characters. The distance from $X$ to one of its
-%subsequences~$Y$, denoted $\subseqDist(X,Y)$, is the minimum number of
-%segments that need to be removed from $X$ to get to $Y$.  The
-%substring distance $\smallSubseqDist(X,Y)$ is that same number but not
-%counting segments removed from the edges of $X$.  For example, if \(x
-%= \mathrm{abccba}\) and \(y = \mathrm{bb}\), $\subseqDist(x,y) = 3$
-%while $\smallSubseqDist(x,y) = 1$.
 
 \section{Evolutionary histories for syntenies}\label{sec:superdtl:evol-his}
 
-The \emph{Super-reconciliation} framework introduced by~\textcite{Delabre2020EvolutionSegmentalDuplications} generalizes the reconciliation framework from a single gene family $\Gamma$ to a family $\X$ of syntenies.
-More precisely, while an instance of a reconciliation problem is a tuple $\tuple{\Gamma, T, \Sigma, S}$, $T$ being a gene tree for $\Gamma$, an instance of a Super-reconciliation problem is a tuple $\tuple{\X, \F, T , \Sigma, S}$ where $T$ is a synteny tree for the synteny family $\X$ on a set $\F$ of gene families.
-Notice that, while in~\textcite{Delabre2020EvolutionSegmentalDuplications} the synteny tree is inferred from a set of \enquote{consistent} gene trees, in this paper we start from the synteny tree itself, whatever the way used to infer it (e.g., from a set of gene trees, or alternatively from an alignment of the concatenated gene sequences).
+The \emph{Super-reconciliation} framework introduced by~\textcite{Delabre2020EvolutionSegmentalDuplications} generalizes the reconciliation framework from a single gene family \(\Gamma\) to a family \(\X\) of syntenies.
+More precisely, while an instance of a reconciliation problem is a tuple \(\tup{\Gamma, T, \Sigma, S}\), \(T\) being a gene tree for \(\Gamma\), an instance of a Super-reconciliation problem is a tuple \(\tup{\X, \F, T , \Sigma, S}\) where \(T\) is a synteny tree for the synteny family \(\X\) on a set \(\F\) of gene families.
+Notice that, while in~\textcite{Delabre2020EvolutionSegmentalDuplications} the synteny tree is inferred from a set of \enquote{consistent} gene trees, in this chapter we start from the synteny tree itself, whatever the way used to infer it (e.g., from a set of gene trees, or alternatively from an alignment of the concatenated gene sequences).
 
-The goal of the reconciliation approach is to infer a \emph{correct} and \emph{optimal} evolutionary history explaining $T$ given $S$.
+The goal of the reconciliation approach is to infer a \emph{correct} and \emph{optimal} evolutionary history explaining \(T\) given \(S\).
 Correctness depends on the considered evolutionary events, while optimality is stated as a parsimony criterion, given a cost function for the evolutionary events.
 As for Super-reconciliation, in addition to evolutionary events, ancestral syntenies should also be inferred.
 
-The $\eventDL$ Super-reconciliation model~\parencite{Delabre2020EvolutionSegmentalDuplications}, defined both on ordered and unordered syntenies, only involves speciations, duplications and losses. 
+The \(\eventDL\) Super-reconciliation model~\parencite{Delabre2020EvolutionSegmentalDuplications}, defined both on ordered and unordered syntenies, only involves speciations, duplications and losses. 
 Here, we extend the unordered version to also allow for HGTs.
-We assume that evolution only takes place inside the $\speciesTree$ species tree, excluding speciations and transfers to and from extinct or unsampled lineages~\parencite{Szoelloesi2013LateralGeneTransfer,Weiner2021ImprovedDuplicationTransfer}.
+We assume that evolution only takes place inside the \(\speciesTree\) species tree, excluding speciations and transfers to and from extinct or unsampled lineages~\parencite{Szoelloesi2013LateralGeneTransfer,Weiner2021ImprovedDuplicationTransfer}.
 Also notice that the constraints on HGTs do not exclude cyclic reconciliations.
 In addition, in order to avoid the unrealistic assumption of having all gene families present at the root, we allow for gene gains.
 
 \begin{definition}[Evolutionary history for syntenies]\label{def:superdtl:evol-model}
-    Let $\X$ be a set of syntenies on a set $\F$ of gene families,
-    $\Sigma$ be the set of taxa to which these syntenies belong and $S$ be the species tree for $\Sigma$. An $\eventE$ evolutionary history, with $\eventE \subseteq \{\eventSpe, \eventDup,
-    \eventHGT, \eventLoss, \eventGain\}$, is a partially binary tree with leaves mapped to $\X$ and where
-    each internal node $v$ corresponds to an event $\eventOf(X)$ of
-    $\eventE$ with $X \subseteq \F$ being the synteny at $v$ belonging to a genome $s(v)$ such that:
+    Let \(\X\) be a set of syntenies on a set \(\F\) of gene families,
+    \(\Sigma\) be the set of taxa to which these syntenies belong and \(S\) be the species tree for \(\Sigma\).
+    An \(\eventE\) evolutionary history, with \(\eventE \subseteq \{\evtS, \evtD, \evtT, \evtL, \evtG\}\), is a partially binary tree with leaves mapped to \(\X\) and where each internal node \(v\) corresponds to an event \(\eventOf(X)\) of \(\eventE\) with \(X \subseteq \F\) being the synteny at \(v\) belonging to a genome \(s(v)\) such that:
     \begin{itemize}
-	\item $\eventSpe$ produces two
-          syntenies $Y$ and $Z$ verifying $X = Y = Z$ and $s(Y)$, $s(Z)$ are the two children of $s(X)$ in $S$.
-	\item $\eventDup$ \textup{(D)} produces two syntenies $Y$ and $Z$ verifying $Y= X$, $Z \subseteq X$, and $s(X)=s(Y)=s(Z)$.
-	\item $\eventHGT$ \textup{(T)} produces two syntenies $Y$ and $Z$ verifying $Y= X$, $Z \subseteq X$, $s(Y) = s(X)$ and $s(Z)$ is separated from $s(X)$.
-	\item $\eventLoss$ \textup{(L)} produces a single synteny $Y$ verifying $Y \subset X$ and $s(Y) = s(X)$. A loss is \emph{full} if $Y$ is the empty synteny (i.e., $Y = \emptyset$) and \emph{partial} otherwise.
-	\item $\eventGain$ \textup{(G)} produces a single synteny $Y$ verifying $X \subset Y$ and $s(Y) = s(X)$. \qedhere
+	\item \(\evtS\) produces two
+          syntenies \(Y\) and \(Z\) verifying \(X = Y = Z\) and \(s(Y)\), \(s(Z)\) are the two children of \(s(X)\) in \(S\).
+	\item \(\evtD\) produces two syntenies \(Y\) and \(Z\) verifying \(Y = X\), \(Z \subseteq X\), and \(s(X) = s(Y) = s(Z)\).
+	\item \(\evtT\) produces two syntenies \(Y\) and \(Z\) verifying \(Y = X\), \(Z \subseteq X\), \(s(Y) = s(X)\) and \(s(Z)\) is separated from \(s(X)\).
+	\item \(\evtL\) produces a single synteny \(Y\) verifying \(Y \subsetneq X\) and \(s(Y) = s(X)\). A loss is \emph{full} if \(Y\) is the empty synteny (i.e., \(Y = \emptyset\)) and \emph{partial} otherwise.
+	\item \(\evtG\) produces a single synteny \(Y\) verifying \(X \subsetneq Y\) and \(s(Y) = s(X)\). \qedhere
     \end{itemize}
 \end{definition}
 
-We denote by $H = \tuple{\treeH, \eventOf, \syntenyOf, \speciesOf}$
-such a history where $\treeH$ is the supporting partially binary tree and for each of its nodes $v$, $\eventOf(v)$ is the event, $\syntenyOf(v)$ is the synteny, and $\speciesOf(v)$ is the species to which $\syntenyOf(v)$ belongs. We have $\X =\{\syntenyOf(l) \: : \: l \in \LF(\treeH)\}$ (see \cref{fig:evol-history-example}, center). Note that for an internal node $v$ of $\treeH$, $\syntenyOf(v)$ is not necessarily in $\X$. In general, $x$ is not an onto function, as not all possible syntenies on $\F$ are required to be represented in the history.
+We denote by \(H = \tup{\treeH, \eventOf, \syntenyOf, \speciesOf}\) such a history where \(\treeH\) is the supporting partially binary tree and for each of its nodes \(v\), \(\eventOf(v)\) is the event, \(\syntenyOf(v)\) is the synteny, and \(\speciesOf(v)\) is the species to which \(\syntenyOf(v)\) belongs.
+We have \(\X = \{\syntenyOf(l) \suchthat l \in \tleavs(\treeH)\}\) (see \cref{fig:evol-history-example}, center).
+Note that for an internal node \(v\) of \(\treeH\), \(\syntenyOf(v)\) is not necessarily in \(\X\). In general, \(x\) is not an onto function, as not all possible syntenies on \(\F\) are required to be represented in the history.
 
 \begin{figure}[htb]
     \capstart
     \input{fig/superdtl/evol-history-example}
     \caption[Input and possible evolutionary scenario for the SuperDTL model]{
-        \emph{(Left.)} A synteny tree $T$ for the family $\syntenyFamily = \{\syntdisp{\{b\}}, \syntdisp{\{b,c\}}, \syntdisp{\{c\}}, \syntdisp{\{a\}}, \syntdisp{\{a,b\}}\}$ on the set of species $\speciesSet = \{\specdisp{X}, \specdisp{Y}, \specdisp{Z}\}$.
-        Under each leaf $l$ are shown its associated synteny $x(l)$ and species $s(l)$.
-        \emph{(Center.)} An evolutionary history $\treeH$ for $T$, embedded in the species tree $\speciesTree$.
-        For binary nodes, rounded rectangles correspond to $\eventSpe$, plain rectangles to $\eventDup$, and chamfered rectangles to $\eventHGT$.
-        For unary nodes, circles correspond to $\eventGain$, and crosses to $\eventLoss$.
-        For a binary node $v$, the value of $\syntenyOf(v)$ is shown inside the shape (omitted when unchanged from its parent).
+        \emph{(Left.)} A synteny tree \(T\) for the family \(\syntenyFamily = \{\syntdisp{\{b\}}, \syntdisp{\{b,c\}}, \syntdisp{\{c\}}, \syntdisp{\{a\}}, \syntdisp{\{a,b\}}\}\) on the set of species \(\speciesSet = \{\specdisp{X}, \specdisp{Y}, \specdisp{Z}\}\).
+        Under each leaf \(l\) are shown its associated synteny \(x(l)\) and species \(s(l)\).
+        \emph{(Center.)} An evolutionary history \(\treeH\) for \(T\), embedded in the species tree \(\speciesTree\).
+        For binary nodes, rounded rectangles correspond to \(\evtS\), plain rectangles to \(\evtD\), and chamfered rectangles to \(\evtT\).
+        For unary nodes, circles correspond to \(\evtG\), and crosses to \(\evtL\).
+        For a binary node \(v\), the value of \(\syntenyOf(v)\) is shown inside the shape (omitted when unchanged from its parent).
         For unary nodes, the synteny difference is shown beside the node.
-        \emph{(Right.)} The Super-reconciliation $\tuple{\syntenyTree, \syntenyOf, \speciesOf}$ obtained from $\treeH$. For each internal node $v$, we exhibit $\eventOf(v)$ (shape of the node), $\speciesOf(v)$ (letter beside the node) and $\syntenyOf(v)$ (content of the node).
+        \emph{(Right.)} The Super-reconciliation \(\tup{\syntenyTree, \syntenyOf, \speciesOf}\) obtained from \(\treeH\). For each internal node \(v\), we exhibit \(\eventOf(v)\) (shape of the node), \(\speciesOf(v)\) (letter beside the node) and \(\syntenyOf(v)\) (content of the node).
         \label{fig:evol-history-example}
     }
 \end{figure}
 
 We next define a Super-reconciliation from a history.
-In \cref{def:superdtl:super-rec}, the $\eventE$-Super-reconciliation obtained from $H$ is $\tuple{T_{H}, \eventOf, \syntenyOf, \speciesOf}$  where $T_{H}$ is the binary tree obtained from $\treeH$ by removing edges adjacent to empty syntenies (due to full losses) and then removing unary nodes, and $\eventOf$, $\syntenyOf$ and $\speciesOf$ are restrictions of the event, synteny and species mappings to the nodes of $T_{H}$ (see \cref{fig:evol-history-example}, right).
+In \cref{def:superdtl:super-rec}, the \(\eventE\)-Super-reconciliation obtained from \(H\) is \(\tup{T_{H}, \eventOf, \syntenyOf, \speciesOf}\)  where \(T_{H}\) is the binary tree obtained from \(\treeH\) by removing edges adjacent to empty syntenies (due to full losses) and then removing unary nodes, and \(\eventOf\), \(\syntenyOf\) and \(\speciesOf\) are restrictions of the event, synteny and species mappings to the nodes of \(T_{H}\) (see \cref{fig:evol-history-example}, right).
 
 \begin{definition}[Super-reconciliation]\label{def:superdtl:super-rec}
-Let $I = \tuple{\X, \F, T ,
-  \Sigma, S}$ be an instance of a Super-reconciliation problem. An
-\emph{$\eventE$-Super-reconciliation} for $I$ is a tuple $\supRec= \tuple{T_H, \eventOf, \syntenyOf,
-  \speciesOf}$ obtained from an $\eventE$ history $H = \tuple{\treeH,
-  \eventOf, \syntenyOf, \speciesOf}$. We say that $H$ is a history for $I$ leading to $\supRec$.
+    Let \(I = \tup{\X, \F, T, \Sigma, S}\) be an instance of a Super-reconciliation problem.
+    An \emph{\(\eventE\)-Super-reconciliation} for \(I\) is a tuple \(\supRec = \tup{T_H, \eventOf, \syntenyOf, \speciesOf}\) obtained from an \(\eventE\) history \(H = \tup{\treeH, \eventOf, \syntenyOf, \speciesOf}\).
+    We say that \(H\) is a history for \(I\) leading to \(\supRec\).
 \end{definition}
 
-Note that an \emph{$\eventE$-Reconciliation} is defined as an
-$\eventE$-Super-reconciliation but on an instance $\tuple{\Gamma, T, \Sigma, S}$.
+Note that an \emph{\(\eventE\)-Reconciliation} is defined as an
+\(\eventE\)-Super-reconciliation but on an instance \(\tup{\Gamma, T, \Sigma, S}\).
 The next lemma, which will be required later for a simple inference of the event labelling from the species labelling, directly follows from \cref{def:superdtl:evol-model,def:superdtl:super-rec}.
 
 \begin{lemma}[Synteny and species trees coincide]\label{lem:superdtl:synt-spe-coincide}
-    Let $I = \tuple{\X, \F, T , \Sigma, S}$ and $\supRec = \tuple{T, \eventOf, \syntenyOf, \speciesOf}$ be a $\eventDTLG$ Super-reconciliation for $I$ (i.e. a Super-recon\-ci\-lia\-tion on the set of events $\eventE = \{\eventSpe, D, T, L, G\}$\/). Then $\speciesOf$ satisfies the following conditions: (1) neither $\speciesOf(v_l)$ nor $\speciesOf(v_r)$ is a strict ancestor of $\speciesOf(v)$ (i.e., each one can either be a descendant of $\speciesOf(v)$ or be separated from it in the case of HGTs); (2) at least one of $\speciesOf(v_l)$ or $\speciesOf(v_r)$ is a descendant of $\speciesOf(v)$.
+    Let \(I = \tup{\X, \F, T , \Sigma, S}\) and \(\supRec = \tup{T, \eventOf, \syntenyOf, \speciesOf}\) be a \(\eventDTLG\) Super-reconciliation for \(I\) (i.e., a Super-reconciliation on the set of events \(\eventE = \{\evtS, D, T, L, G\}\)).
+    Then \(\speciesOf\) satisfies the following conditions:
+    \begin{condition}
+        \item neither \(\speciesOf(v\lchild)\) nor \(\speciesOf(v\rchild)\) is a strict ancestor of \(\speciesOf(v)\) (i.e., each one can either be a descendant of \(\speciesOf(v)\) or be separated from it in the case of HGTs);
+        \item at least one of \(\speciesOf(v\lchild)\) or \(\speciesOf(v\rchild)\) is a descendant of \(\speciesOf(v)\).
+    \end{condition}
 \end{lemma}
 
 \paragraph{Restrictions on gain points}
@@ -382,438 +301,433 @@ can only appear once in the history (i.e., not allowing for convergent
 evolution).
 
 \begin{definition}[Gain point]\label{def:superdtl-gain-point}
-Let $T$ be a synteny tree for a synteny family $\X$ on $\F$ and
-$\syntenyOf$ be a synteny assignment on the internal nodes of $T$. A
-node $v\in \V(T)$ is a \emph{gain point}\/ for $\Gamma \in \F$ in
-$\tuple{T,\syntenyOf}$ iff $\Gamma \in \syntenyOf(v)$ and
-either $v = \rootOf(T)$ or $\Gamma \notin \syntenyOf(\parentOf(v))$.
-The set of gain points for $\Gamma$ is denoted as $\eventGain_{\tuple{T,\syntenyOf}}(\Gamma)$.
+    Let \(T\) be a synteny tree for a synteny family \(\X\) on \(\F\) and
+    \(\syntenyOf\) be a synteny assignment on the internal nodes of \(T\). A
+    node \(v \in \tnodes(T)\) is a \emph{gain point}\/ for \(\Gamma \in \F\) in
+    \(\tup{T,\syntenyOf}\) iff \(\Gamma \in \syntenyOf(v)\) and
+    either \(v = \troot(T)\) or \(\Gamma \notin \syntenyOf(\tparent(v))\).
+    The set of gain points for \(\Gamma\) is denoted as \(\evtG_{\tup{T,\syntenyOf}}(\Gamma)\).
 \end{definition}
 
 Moreover, as gain of function affects genes individually, we will
 restrict a gain to an event inserting a single gene in a synteny. Formally, we add
-a restriction to the $\eventGain$ event of \cref{def:superdtl:evol-model} specifying that the synteny $Y$
-produced from a synteny $X$ by a gain is such that $|Y| =
+a restriction to the \(\evtG\) event of \cref{def:superdtl:evol-model} specifying that the synteny \(Y\)
+produced from a synteny \(X\) by a gain is such that $|Y| =
 |X| + 1$.
 
-Consequently, each gene family $\Gamma \in \F$ can only be gained once in the
-history, leading to exactly $|\F|$ gains. In other words, we account
+Consequently, each gene family \(\Gamma \in \F\) can only be gained once in the
+history, leading to exactly \(|\F|\) gains. In other words, we account
 for gene gains only to avoid imposing all gene families to be present
-at the root of $T$, but without including them in the cost function
+at the root of \(T\), but without including them in the cost function
 for inferring a most parsimonious history. Consequently, we can define
-our problem as a $\eventDTL$ (for D, T, and L events) rather than a $\eventDTLG$ problem (D, T, L, and G events) as
-follows, considering the above restriction on the $\eventGain$ event.
+our problem as a \(\eventDTL\) (for D, T, and L events) rather than a \(\eventDTLG\) problem (D, T, L, and G events) as
+follows, considering the above restriction on the \(\evtG\) event.
 
 \begin{definition}[DTL Super-reconciliation]
-Let $I = \tuple{\X, \F, T , \Sigma, S}$. A $\eventDTL$ Super-Re\-con\-ci\-lia\-tion for $I$ is a $\eventDTLG$ Super-reconciliation $\tuple{T, \eventOf, \syntenyOf, \speciesOf}$ such that, for each $\Gamma \in \F$, $|\eventGain_{\tuple{T, \syntenyOf}}(\Gamma)| = 1$.
+    Let \(I = \tup{\X, \F, T , \Sigma, S}\).
+    A \(\eventDTL\) Super-Reconciliation for \(I\) is a \(\eventDTLG\) Super-reconciliation \(\tup{T, \eventOf, \syntenyOf, \speciesOf}\) such that, for each \(\Gamma \in \F\), \(|\evtG_{\tup{T, \syntenyOf}}(\Gamma)| = 1\).
 \end{definition}
 
 \section{Most parsimonious super-reconciliations}\label{sec:superdtl:opt-problem}
 
-In this paper, we assume a null cost for speciations and, according to
-the restriction on $\eventGain$ events described above, we can ignore
-the cost of gains. We then define $\delta = \tuple{\costDup, \costHGT,
+In this chapter, we assume a null cost for speciations and, according to
+the restriction on \(\evtG\) events described above, we can ignore
+the cost of gains. We then define $\delta = \tup{\costDup, \costHGT,
   \costLoss} \in (\R^+ \cup \{\infty\})^3$ the cost for, respectively,
 a duplication, an HGT and a loss event.
-For a history \(H=\tuple{\treeH, \eventOf, \syntenyOf, \speciesOf}\) and a node $v \in \treeNodes(\treeH)$, we define $c_{\delta}(H, v)$ to be the sum of costs of events in the \(\subtree{\treeH}{v}\) subtree, up to and including \(v\) itself.
-The history’s overall cost $c_{\delta}(H)$ is equal to $c_{\delta}(H, \rootOf(\treeH))$.
+For a history \(H=\tup{\treeH, \eventOf, \syntenyOf, \speciesOf}\) and a node \(v \in \tnodes(\treeH)\), we define \(c_{\delta}(H, v)\) to be the sum of costs of events in the \(\subtree{\treeH}{v}\) subtree, up to and including \(v\) itself.
+The history’s overall cost \(c_{\delta}(H)\) is equal to \(c_{\delta}(H, \troot(\treeH))\).
 
-The goal is to find a most parsimonious history (i.e., a history of minimum cost), explaining a given synteny tree $T$ with respect to a species tree $S$.
-From \cref{def:superdtl:super-rec}, a Super-reconciliation~$\supRec$ for an instance $I$ represents not a
-single, but rather a set of histories $H$ from which
-$\supRec$ can be obtained. In the
+The goal is to find a most parsimonious history (i.e., a history of minimum cost), explaining a given synteny tree \(T\) with respect to a species tree \(S\).
+From \cref{def:superdtl:super-rec}, a Super-reconciliation~\(\supRec\) for an instance \(I\) represents not a
+single, but rather a set of histories \(H\) from which
+\(\supRec\) can be obtained. In the
 rest of this section, we give some results allowing to reduce the
 problem to the exploration of the Super-reconciliation space rather
 than the history space.
 
 The next lemma states that gain points can be inferred
-from the synteny tree.  For each family $\Gamma \in \F$, denote
-by $\LF(T)_\Gamma = \{l \in \LF(T) : \: \Gamma \in \syntenyOf(l)\}$
+from the synteny tree.  For each family \(\Gamma \in \F\), denote
+by \(\tleavs(T)_\Gamma = \{l \in \tleavs(T) \suchthat \Gamma \in \syntenyOf(l)\}\)
 the set of leaves whose corresponding synteny contains
-$\Gamma$ and $\LCA(\Gamma,T) = \LCA_T(\LF(T)_\Gamma)$.
+\(\Gamma\) and \(\lca(\Gamma,T) = \lca(\tleavs(T)_\Gamma)\).
 
 \begin{lemma}[Optimal gain point position]\label{lem:superdtl:gains}
-    Let $I=\tuple{\X, \F, T , \Sigma, S}$. There is an optimal history $H$ for $I$ such that, in the Super-reconciliation $\supRec= \tuple{T, \eventOf, \syntenyOf, \speciesOf}$ obtained from $H$, for each $\Gamma \in \F$, $\LCA(\Gamma,T)$ is the gain point for $\Gamma$ in~$T$.
+    Let \(I = \tup{\X, \F, T, \Sigma, S}\).
+    There is an optimal history \(H\) for \(I\) such that, in the Super-reconciliation \(\supRec= \tup{T, \eventOf, \syntenyOf, \speciesOf}\) obtained from \(H\), for each \(\Gamma \in \F\), \(\lca(\Gamma,T)\) is the gain point for \(\Gamma\) in~\(T\).
 \end{lemma}
 \begin{proof}
-    Let $H=\tuple{\treeH, \eventOf, \syntenyOf, \speciesOf}$. Let $v$ be the node corresponding to $\LCA(\Gamma,T)$ in $\treeH$. The fact that $\LCA(\Gamma,T)$ is the gain point for $\Gamma$ in $T$ means that the gene family $\Gamma$ is gained on the branch $(u,v)$ where $u$ is the root of $\treeH$ or the node just preceding $v$ in $\treeH$. The result then follows from the fact that: (1) $\Gamma$ cannot be gained on a node of the left subtree $\treeH[v_l]$ of $\treeH[v]$ as in that case, $\Gamma$ should also have been gained on another node on the right subtree $\treeH[v_r]$ of $\treeH[v]$ (or conversely); (2) thus $\Gamma$ can only be gained on a node between the root $r$ of $\treeH$ and $v$; moving the gain point to an ancestor of $v$ cannot decrease the number of losses.
+    Let \(H = \tup{\treeH, \eventOf, \syntenyOf, \speciesOf}\).
+    Let \(v\) be the node corresponding to \(\lca(\Gamma,T)\) in \(\treeH\).
+    The fact that \(\lca(\Gamma,T)\) is the gain point for \(\Gamma\) in \(T\) means that the gene family \(\Gamma\) is gained on the branch \((u,v)\) where \(u\) is the root of \(\treeH\) or the node just preceding \(v\) in \(\treeH\).
+    The result then follows from the fact that:
+    (1) \(\Gamma\) cannot be gained on a node of the left subtree \(\subtree{\treeH}{v\lchild}\) of \(\subtree{\treeH}{v}\) as in that case, \(\Gamma\) should also have been gained on another node on the right subtree \(\subtree{\treeH}{v\rchild}\) of \(\subtree{\treeH}{v}\) (or conversely);
+    (2) thus \(\Gamma\) can only be gained on a node between the root \(r\) of \(\treeH\) and \(v\); moving the gain point to an ancestor of \(v\) cannot decrease the number of losses.
 \end{proof}
 
-We denote by $\syntenyGAINOf(v)$ the set of genes gained at node $v$ of $T$.
+We denote by \(\syntenyGAINOf(v)\) the set of genes gained at node \(v\) of \(T\).
 We next introduce a way to assign a cost to a Super-reconciliation which, as we show in the subsequent lemma, matches the minimum cost of any history leading to that Super-reconciliation.
 
 \begin{definition}[Super-reconciliation cost]\label{def:superdtl:cost}
-    Let $\supRec = \tuple{T, \eventOf, \syntenyOf, \speciesOf}$ be a
-    Super-reconciliation for $I=\tuple{\X, \F, T , \Sigma, S}$. The
-    \emph{cost} $\costOf{\delta}(\supRec, v)$ of $\supRec$ for the
-    $T[v]$ subtree (or simply $\costOf{}(\supRec, v)$ or $\costOf{}(v)$ if no ambiguity) is defined recursively as follows:
+    Let \(\supRec = \tup{T, \eventOf, \syntenyOf, \speciesOf}\) be a
+    Super-reconciliation for \(I=\tup{\X, \F, T , \Sigma, S}\). The
+    \emph{cost} \(\costOf{\delta}(\supRec, v)\) of \(\supRec\) for the
+    \(\subtree{T}{v}\) subtree (or simply \(\costOf{}(\supRec, v)\) or \(\costOf{}(v)\) if no ambiguity) is defined recursively as follows:
 
-\begin{itemize}
-    \item if $v$ is a leaf, then $\costOf{\delta}(\supRec, v) = 0$;
-    \item if $\eventOf(v) = \eventSpe$ and $v_l, v_r$ are the two children of $v$, then
+\begin{compactitemize}
+    \item if \(v\) is a leaf, then \(\costOf{\delta}(\supRec, v) = 0\);
+    \item if \(\eventOf(v) = \evtS\) and \(v\lchild, v\rchild\) are the two children of \(v\), then
         \begin{align*}
             \costOf{\delta}(\supRec, v) =\ &
-            \costOf{\delta}(\supRec, v_l) + \costOf{\delta}(\supRec, v_r)\ +\\
+            \costOf{\delta}(\supRec, v\lchild) + \costOf{\delta}(\supRec, v\rchild)\ +\\
             & \begin{aligned}[t]
             \costLoss \times (
-                &\subseqDist(\syntenyOf(v), \syntenyOf(v_l))
-                + \subseqDist(\syntenyOf(v), \syntenyOf(v_r)) +\\
-                &\treeDist{S}(\speciesOf(v), \speciesOf(v_l))
-                + \treeDist{S}(\speciesOf(v), \speciesOf(v_r))
+                &\subseqDist(\syntenyOf(v), \syntenyOf(v\lchild))
+                + \subseqDist(\syntenyOf(v), \syntenyOf(v\rchild)) +\\
+                &\tdist(\speciesOf(v), \speciesOf(v\lchild))
+                + \tdist(\speciesOf(v), \speciesOf(v\rchild))
                 - 2
             );
             \end{aligned}
         \end{align*}
-    \item if \(\eventOf(v) = \eventDup\) and \(v_l, v_r\) are the two children of \(v\), then
+    \item if \(\eventOf(v) = \evtD\) and \(v\lchild, v\rchild\) are the two children of \(v\), then
         \begin{align*}
             \costOf{\delta}(\supRec, v) =\ &
-            \costDup + \costOf{\delta}(\supRec, v_l) + \costOf{\delta}(\supRec, v_r)\ +\\
+            \costDup + \costOf{\delta}(\supRec, v\lchild) + \costOf{\delta}(\supRec, v\rchild)\ +\\
             & \begin{aligned}[t]
             \costLoss \times (
                 &\min\left\{
-                    \subseqDist(\syntenyOf(v), \syntenyOf(v_l)),
-                    \subseqDist(\syntenyOf(v), \syntenyOf(v_r))
+                    \subseqDist(\syntenyOf(v), \syntenyOf(v\lchild)),
+                    \subseqDist(\syntenyOf(v), \syntenyOf(v\rchild))
                 \right\}\ +\\
-                &\treeDist{S}(\speciesOf(v), \speciesOf(v_l)) +
-                \treeDist{S}(\speciesOf(v), \speciesOf(v_r))
+                &\tdist(\speciesOf(v), \speciesOf(v\lchild)) +
+                \tdist(\speciesOf(v), \speciesOf(v\rchild))
             );
             \end{aligned}
         \end{align*}
-    \item if \(\eventOf(v) = \eventHGT\), \(v'\) is the separated child, and \(v''\) is the conserved one, then
+    \item if \(\eventOf(v) = \evtT\), \(v'\) is the separated child, and \(v''\) is the conserved one, then
         \begin{align*}
             \costOf{\delta}(\supRec, v) =\ &
-            \costHGT + \costOf{\delta}(\supRec, v_l) + \costOf{\delta}(\supRec, v_r)\ +\\
+            \costHGT + \costOf{\delta}(\supRec, v\lchild) + \costOf{\delta}(\supRec, v\rchild)\ +\\
             & \costLoss \times (
                 \subseqDist(\syntenyOf(v), \syntenyOf(v''))\ +
-                \treeDist{S}(\speciesOf(v), \speciesOf(v''))).
+                \tdist(\speciesOf(v), \speciesOf(v''))).
         \end{align*}
-    \end{itemize}
-    The global cost of $\supRec$ is defined as $\costOf{\delta}(\supRec) = \costOf{\delta}(\supRec, r(T))$ (or simply $\costOf{}(\supRec)$ if no ambiguity).
+    \end{compactitemize}
+    The global cost of \(\supRec\) is defined as \(\costOf{\delta}(\supRec) = \costOf{\delta}(\supRec, \troot(T))\) (or simply \(\costOf{}(\supRec)\) if no ambiguity).
 \end{definition}
 
 \begin{lemma}\label{lem:superdtl:history-min-spe}
-    Let $H=\tuple{\treeH, \eventOf, \syntenyOf, \speciesOf}$ be a history, and $v \neq w$ be two nodes of $\treeH$ such that none of the nodes on the path from $v$ to $w$ (excluding $v$ and $w$ themselves) is a $\eventHGT$ event and such that $\speciesOf(v)$ and $\speciesOf(w)$ are not separated. Then, there are at least \(\treeDist{\speciesTree}(\speciesOf(v), \speciesOf(w))\) speciation nodes on the path from $v$ to $\parentOf(w)$.
+    Let \(H = \tup{\treeH, \eventOf, \syntenyOf, \speciesOf}\) be a history, and \(v \neq w\) be two nodes of \(\treeH\) such that none of the nodes on the path from \(v\) to \(w\) (excluding \(v\) and \(w\) themselves) is a \(\evtT\) event and such that \(\speciesOf(v)\) and \(\speciesOf(w)\) are not separated. Then, there are at least \(\tdist(\speciesOf(v), \speciesOf(w))\) speciation nodes on the path from \(v\) to \(\tparent(w)\).
 \end{lemma}
 \begin{proof}
-    This follows from the constraints of \cref{def:superdtl:evol-model}, which states that the only way to descend in the species tree, excluding $\eventHGT$ events, is through $\eventSpe$ events.
+    This follows from the constraints of \cref{def:superdtl:evol-model}, which states that the only way to descend in the species tree, excluding \(\evtT\) events, is through \(\evtS\) events.
 \end{proof}
 
 \begin{lemma}\label{lem:superdtl:history-min-loss}
-    Let $H=\tuple{\treeH, \eventOf, \syntenyOf,
-  \speciesOf}$ be a history, and $v$, $w_l$, $w_r$ be three nodes of $\treeH$ such that $v$ is a binary node, $w_l$ descends from $v_l$ and $w_r$ from $v_r$, and none of the nodes on the paths from $v$ to $w_l$ and $v$ to $w_r$ (excluding $v$, $w_l$, and $w_r$ themselves) are $\eventDup$ or $\eventHGT$ events. Then:\begin{enumerate}
-      \item\label{lem:superdtl:history-min-loss-spe}
-      If $\eventOf(v) = \eventSpe$, there are at least $\subseqDist(\syntenyOf(v), \syntenyOf(w_l)) + \subseqDist(\syntenyOf(v), \syntenyOf(w_r))$ loss events on the path from $w_l$ to $w_r$.
-      \item\label{lem:superdtl:history-min-loss-dup}
-      If $\eventOf(v) = \eventDup$, there are at least $\min\{\subseqDist(\syntenyOf(v), \syntenyOf(w_l)), \subseqDist(\syntenyOf(v), \syntenyOf(w_r))\}$ loss events on the path from $w_l$ to $w_r$.
-      \item\label{lem:superdtl:history-min-loss-hgt}
-      If $\eventOf(v) = \eventHGT$, if $\speciesOf(w_l)$ (resp. $w_r$) is not separated from $\speciesOf(v)$ there is at least $\subseqDist(\syntenyOf(v), \syntenyOf(w_l))$ (resp. $w_r$) loss event on the path from $v$ to $w_l$ (resp. $w_r$).
-  \end{enumerate}
+    Let \(H = \tup{\treeH, \eventOf, \syntenyOf, \speciesOf}\) be a history, and \(v\), \(w\lchild\), \(w\rchild\) be three nodes of \(\treeH\) such that \(v\) is a binary node, \(w\lchild\) descends from \(v\lchild\) and \(w\rchild\) from \(v\rchild\), and none of the nodes on the paths from \(v\) to \(w\lchild\) and \(v\) to \(w\rchild\) (excluding \(v\), \(w\lchild\), and \(w\rchild\) themselves) are \(\evtD\) or \(\evtT\) events.
+    Then:
+    \begin{condition}
+        \item\label{lem:superdtl:history-min-loss-spe}
+        If \(\eventOf(v) = \evtS\), there are at least \(\subseqDist(\syntenyOf(v), \syntenyOf(w\lchild)) + \subseqDist(\syntenyOf(v), \syntenyOf(w\rchild))\) loss events on the path from \(w\lchild\) to \(w\rchild\).
+        \item\label{lem:superdtl:history-min-loss-dup}
+        If \(\eventOf(v) = \evtD\), there are at least \(\min\{\subseqDist(\syntenyOf(v), \syntenyOf(w\lchild)), \subseqDist(\syntenyOf(v), \syntenyOf(w\rchild))\}\) loss events on the path from \(w\lchild\) to \(w\rchild\).
+        \item\label{lem:superdtl:history-min-loss-hgt}
+        If \(\eventOf(v) = \evtT\), if \(\speciesOf(w\lchild)\) (resp.~\(w\rchild\)) is not separated from \(\speciesOf(v)\) there is at least \(\subseqDist(\syntenyOf(v), \syntenyOf(w\lchild))\) (resp.~\(w\rchild\)) loss event on the path from \(v\) to \(w\lchild\) (resp.~\(w\rchild\)).
+    \end{condition}
 \end{lemma}
 \begin{proof}
-    This follows from the constraints of \cref{def:superdtl:evol-model}, which states that the only way to lose part of a synteny, excluding $\eventDup$ and $\eventHGT$ events, is through $\eventLoss$ events, and that $\eventDup$ events allow losing part of their synteny on exactly one of their children, while $\eventHGT$ events only allow losing part of their synteny on their separated child.
+    This follows from the constraints of \cref{def:superdtl:evol-model}, which states that the only way to lose part of a synteny, excluding \(\evtD\) and \(\evtT\) events, is through \(\evtL\) events, and that \(\evtD\) events allow losing part of their synteny on exactly one of their children, while \(\evtT\) events only allow losing part of their synteny on their separated child.
 \end{proof}
 
 \begin{lemma}[Super-reconciliations minimize history cost]\label{lem:superdtl:superrec-min-hist}
-    Let $\supRec = \tuple{T, \eventOf, \syntenyOf, \speciesOf}$ be a Super-reconciliation for $I=\tuple{\X, \F, T , \Sigma, S}$ and ${\cal H}$\/ be the set of histories leading to $\supRec$. Then, for any $\costOf{\delta}(\supRec) = \min_{H \in \mathcal{H}} c_\delta(H)$.
+    Let \(\supRec = \tup{T, \eventOf, \syntenyOf, \speciesOf}\) be a Super-reconciliation for \(I = \tup{\X, \F, T, \Sigma, S}\) and \(\mathcal{H}\) be the set of histories leading to \(\supRec\). Then, for any \(\costOf{\delta}(\supRec) = \min_{H \in \mathcal{H}} c_\delta(H)\).
 \end{lemma}
 \begin{proof}
-    Let $H=\tuple{\treeH, \eventOf, \syntenyOf,
-  \speciesOf}$ be a history leading to $\supRec$.
-    Let us first prove that $c_\delta(H) \geq \costOf{\delta}(\supRec)$, by structural induction on $\syntenyTree$.
-    Let $v$ be a node of $\syntenyTree$ and $v'$ be its corresponding node in $\treeH$.
-    If $v$ is a leaf, then $c_\delta(H, v') \geq \costOf{\delta}(\supRec, v) = 0$; otherwise, let $v'_l$ and $v'_r$ be the nodes in $\treeH$ corresponding to $v_l$ and $v_r$ respectively, and assume $c_\delta(H, v'_l) \geq \costOf{\delta}(\supRec, v_l)$ and $c_\delta(H, v'_r) \geq \costOf{\delta}(\supRec, v_r)$.
+    Let \(H = \tup{\treeH, \eventOf, \syntenyOf, \speciesOf}\) be a history leading to \(\supRec\).
+    Let us first prove that \(c_\delta(H) \geq \costOf{\delta}(\supRec)\), by structural induction on \(\syntenyTree\).
+    Let \(v\) be a node of \(\syntenyTree\) and \(v'\) be its corresponding node in \(\treeH\).
+    If \(v\) is a leaf, then \(c_\delta(H, v') \geq \costOf{\delta}(\supRec, v) = 0\); otherwise, let \(v'\lchild\) and \(v'\rchild\) be the nodes in \(\treeH\) corresponding to \(v\lchild\) and \(v\rchild\) respectively, and assume \(c_\delta(H, v'\lchild) \geq \costOf{\delta}(\supRec, v\lchild)\) and \(c_\delta(H, v'\rchild) \geq \costOf{\delta}(\supRec, v\rchild)\).
     \begin{itemize}
-        \item If $\eventOf(v) = \eventSpe$, by \cref{lem:superdtl:history-min-spe}, there are at least $\treeDist{\speciesTree}(\speciesOf(v), \speciesOf(v_l)) - 1$ speciation nodes on the path from $(v')_l$ to $v'_l$ and at least $\treeDist{\speciesTree}(\speciesOf(v), \speciesOf(v_r)) - 1$ speciation nodes on the path from $(v')_r$ to $v'_r$. Each of those speciation nodes must have at least a full loss child, for otherwise $v'_l$ or $v'_r$ would not correspond to $v_l$ and $v_r$.
-        By \cref{lem:superdtl:history-min-loss} \cref{lem:superdtl:history-min-loss-spe}, there are at least $\subseqDist(\syntenyOf(v), \syntenyOf(v_l)) + \subseqDist(\syntenyOf(v), \syntenyOf(v_r))$ loss events on the path from $v'_l$ to $v'_r$.
-        \item If $\eventOf(v) = \eventDup$, by \cref{lem:superdtl:history-min-spe}, there are at least $\treeDist{\speciesTree}(\speciesOf(v), \speciesOf(v_l))$ speciation nodes on the path from $(v')_l$ to $v'_l$ and at least $\treeDist{\speciesTree}(\speciesOf(v), \speciesOf(v_r))$ speciation nodes on the path from $(v')_r$ to $v'_r$, each of which must have a full loss child as per the same argument as above.
-        By \cref{lem:superdtl:history-min-loss} \cref{lem:superdtl:history-min-loss-dup}, there are at least $\min\{\subseqDist(\syntenyOf(v), \syntenyOf(v_l)), \subseqDist(\syntenyOf(v), \syntenyOf(v_r))\}$ loss events on the path from $v'_l$ to~$v'_r$.
-        \item If $\eventOf(v) = \eventHGT$, assume w.l.o.g. that $v_l$ is the conserved child. By \cref{lem:superdtl:history-min-spe}, there are at least $\treeDist{\speciesTree}(\speciesOf(v), \speciesOf(v_l))$ speciation nodes on the path from $(v')_l$ to $v'_l$, each of which must have a full loss child as per the same argument as above.
-        By \cref{lem:superdtl:history-min-loss} \cref{lem:superdtl:history-min-loss-hgt}, there are at least $\subseqDist(\syntenyOf(v), \syntenyOf(v_l)$ loss events on the path from $v'$ to $v'_l$.
+        \item If \(\eventOf(v) = \evtS\), by \cref{lem:superdtl:history-min-spe}, there are at least \(\tdist(\speciesOf(v), \speciesOf(v\lchild)) - 1\) speciation nodes on the path from \((v')\lchild\) to~\(v'\lchild\) and at least \(\tdist(\speciesOf(v), \speciesOf(v\rchild)) - 1\) speciation nodes on the path from \((v')\rchild\) to~\(v'\rchild\). Each of those speciation nodes must have at least a full loss child, for otherwise \(v'\lchild\) or \(v'\rchild\) would not correspond to \(v\lchild\) and \(v\rchild\).
+        By \cref{lem:superdtl:history-min-loss} \cref{lem:superdtl:history-min-loss-spe}, there are at least \(\subseqDist(\syntenyOf(v), \syntenyOf(v\lchild)) + \subseqDist(\syntenyOf(v), \syntenyOf(v\rchild))\) loss events on the path from \(v'\lchild\) to \(v'\rchild\).
+        \item If \(\eventOf(v) = \evtD\), by \cref{lem:superdtl:history-min-spe}, there are at least \(\tdist(\speciesOf(v), \speciesOf(v\lchild))\) speciation nodes on the path from \((v')\lchild\) to \(v'\lchild\) and at least \(\tdist(\speciesOf(v), \speciesOf(v\rchild))\) speciation nodes on the path from \((v')\rchild\) to \(v'\rchild\), each of which must have a full loss child as per the same argument as above.
+        By \cref{lem:superdtl:history-min-loss} \cref{lem:superdtl:history-min-loss-dup}, there are at least \(\min\{\subseqDist(\syntenyOf(v), \syntenyOf(v\lchild)), \subseqDist(\syntenyOf(v), \syntenyOf(v\rchild))\}\) loss events on the path from \(v'\lchild\) to~\(v'\rchild\).
+        \item If \(\eventOf(v) = \evtT\), assume w.l.o.g. that \(v\lchild\) is the conserved child. By \cref{lem:superdtl:history-min-spe}, there are at least \(\tdist(\speciesOf(v), \speciesOf(v\lchild))\) speciation nodes on the path from \((v')\lchild\) to \(v'\lchild\), each of which must have a full loss child as per the same argument as above.
+        By \cref{lem:superdtl:history-min-loss} \cref{lem:superdtl:history-min-loss-hgt}, there are at least \(\subseqDist(\syntenyOf(v), \syntenyOf(v\lchild)\) loss events on the path from \(v'\) to \(v'\lchild\).
     \end{itemize}
-    In all three cases, $c_\delta(H, v') \geq \costOf{\delta}(\supRec, v)$, concluding the first part of the proof.
-    Additionally, it is easy to see that a history $H_{\supRec}$ can be constructed from $\supRec$ such that $H_{\supRec} \in \mathcal{H}$ and $c_\delta(H_{\supRec}) = \costOf{\delta}(\supRec)$, by inserting speciation nodes and loss nodes in the locations described above.
+    In all three cases, \(c_\delta(H, v') \geq \costOf{\delta}(\supRec, v)\), concluding the first part of the proof.
+    Additionally, it is easy to see that a history \(H_{\supRec}\) can be constructed from \(\supRec\) such that \(H_{\supRec} \in \mathcal{H}\) and \(c_\delta(H_{\supRec}) = \costOf{\delta}(\supRec)\), by inserting speciation nodes and loss nodes in the locations described above.
 \end{proof}
 
 Searching for a most parsimonious history is therefore equivalent to searching in the smaller space of super-reconciliations.
-Finally, the following definition makes the link between the values of the $\speciesOf$ mapping and the evolutionary events at the internal nodes of a Super-reconciliation.
+Finally, the following definition makes the link between the values of the \(\speciesOf\) mapping and the evolutionary events at the internal nodes of a Super-reconciliation.
 
 \begin{definition}[Min-event labelling]\label{def:superdtl:interpretation}
-    Given $I=\tuple{\X, \F, T , \Sigma, S}$, an internal node $v$ of $\syntenyTree$, and three species $\sigma$, $\sigma'$, $\sigma''$ of $S$, we define the \emph{min-event} function $\eventLCA(\sigma, \sigma', \sigma'')$, used to label $v$ if $\speciesOf(v) = \sigma$, $\speciesOf(v_l) = \sigma'$, and $\speciesOf(v_r) = \sigma''$, as follows:
-    \begin{itemize}
-        \item If $\sigma$ is an ancestor of both \(\sigma'\) and \(\sigma''\), then
-        \begin{itemize}
-            \item if $\sigma'$ is separated from $\sigma''$ and $\sigma = \LCA(\sigma', \sigma'')$, then $\eventLCA(\sigma, \sigma', \sigma'') = \eventSpe$;
-            \item if $\sigma'$ and $\sigma''$ are not separated or $\sigma \neq \LCA(\sigma', \sigma'')$, then $\eventLCA(\sigma, \sigma', \sigma'') = \eventDup$.
-        \end{itemize}
+    Given \(I = \tup{\X, \F, T, \Sigma, S}\), an internal node \(v\) of \(\syntenyTree\), and three species \(\sigma\), \(\sigma'\), \(\sigma''\) of \(S\), we define the \emph{min-event} function \(\eventLCA(\sigma, \sigma', \sigma'')\), used to label \(v\) if \(\speciesOf(v) = \sigma\), \(\speciesOf(v\lchild) = \sigma'\), and \(\speciesOf(v\rchild) = \sigma''\), as follows:
+    \begin{compactitemize}
+        \item If \(\sigma\) is an ancestor of both \(\sigma'\) and \(\sigma''\), then:
+        \begin{compactitemize}
+            \item if \(\sigma'\) is separated from \(\sigma''\) and \(\sigma = \lca\{\sigma', \sigma''\}\), then \(\eventLCA(\sigma, \sigma', \sigma'') = \evtS\);
+            \item if \(\sigma'\) and \(\sigma''\) are not separated or \(\sigma \neq \lca\{\sigma', \sigma''\}\), then \(\eventLCA(\sigma, \sigma', \sigma'') = \evtD\).
+        \end{compactitemize}
 
-        \item If either $\sigma'$ or $\sigma''$ is separated from $\sigma$, then $\eventLCA(\sigma, \sigma', \sigma'') = \eventHGT$.
+        \item If either \(\sigma'\) or \(\sigma''\) is separated from \(\sigma\), then \(\eventLCA(\sigma, \sigma', \sigma'') = \evtT\).
 
-        \item Species $\sigma'$ and $\sigma''$ cannot be both separated from $\sigma$ as per \cref{lem:superdtl:synt-spe-coincide}, therefore in such cases $\eventLCA(\sigma, \sigma', \sigma'')$ equals an error value not in $\{\eventSpe, \eventDup, \eventHGT\}$.
-    \end{itemize}
-    Additionally, given a mapping $s$ from $\treeNodes(\syntenyTree)$ to $\treeNodes(\speciesTree)$, we define $\eventLCA_s$ so that for any internal node $v$ of $\syntenyTree$, $\eventLCA_s(v) = \eventLCA(s(v), s(v_l), s(v_r))$.
+        \item Species \(\sigma'\) and \(\sigma''\) cannot be both separated from \(\sigma\) as per \cref{lem:superdtl:synt-spe-coincide}, therefore in such cases \(\eventLCA(\sigma, \sigma', \sigma'')\) equals an error value not in \(\{\evtS, \evtD, \evtT\}\).
+    \end{compactitemize}
+    Additionally, given a mapping \(s\) from \(\tnodes(\syntenyTree)\) to \(\tnodes(\speciesTree)\), we define \(\eventLCA_s\) so that for any internal node \(v\) of \(\syntenyTree\), \(\eventLCA_s(v) = \eventLCA(s(v), s(v\lchild), s(v\rchild))\).
 \end{definition}
 
 The following lemma shows that the min-event labelling leads to the most parsimonious Super-reconciliation.
 
 \begin{lemma}[Min-event labelling is optimal]\label{lem:superdtl:event-labeling}
-    Let $\supRec = \tuple{T, \eventOf, \syntenyOf, \speciesOf}$ and
-$\supRecLCA = \tuple{T, \eventLCA_s, \syntenyOf, \speciesOf}$ be two
-DTL Super-reconciliations for $I=\tuple{\X, \F, T , \Sigma, S}$. Then,
-$\costOf{\delta}(\supRecLCA) \leq \costOf{\delta}(\supRec)$.
+    Let \(\supRec = \tup{T, \eventOf, \syntenyOf, \speciesOf}\) and
+\(\supRecLCA = \tup{T, \eventLCA_s, \syntenyOf, \speciesOf}\) be two
+DTL Super-reconciliations for \(I=\tup{\X, \F, T , \Sigma, S}\). Then,
+\(\costOf{\delta}(\supRecLCA) \leq \costOf{\delta}(\supRec)\).
 \end{lemma}
 \begin{proof}
-    Given $\speciesOf$, the choice for $\eventOf$ is constrained by \cref{def:superdtl:evol-model}, as evidenced by \cref{lem:superdtl:synt-spe-coincide}.
-    For any internal node $v$ of $\syntenyTree$, if either $\speciesOf(v_l)$ or $\speciesOf(v_r)$ is separated from $\speciesOf(v)$, then it must be that $\eventOf(v) = \eventHGT$.
-    If $\speciesOf(v_l)$ and $\speciesOf(v_r)$ are not separated (i.e., either one is an ancestor of the other), then it must be that $\eventOf(v) = \eventDup$.
-    Finally, if $\speciesOf(v_l)$ is separated from $\speciesOf(v_r)$, then $\eventLCA_s(v) = \eventSpe$, but it would also be valid to set $\eventOf(v)$ to $\eventDup$.
-    However, in that case, replacing $\eventDup$ back with $\eventSpe$ would save two full losses at the cost of adding at most one partial loss, which cannot lead to a more costly Super-reconciliation since speciations have a null cost and $\costDup, \costLoss \geq 0$.
+    Given \(\speciesOf\), the choice for \(\eventOf\) is constrained by \cref{def:superdtl:evol-model}, as evidenced by \cref{lem:superdtl:synt-spe-coincide}.
+    For any internal node \(v\) of \(\syntenyTree\), if either \(\speciesOf(v\lchild)\) or \(\speciesOf(v\rchild)\) is separated from \(\speciesOf(v)\), then it must be that \(\eventOf(v) = \evtT\).
+    If \(\speciesOf(v\lchild)\) and \(\speciesOf(v\rchild)\) are not separated (i.e., either one is an ancestor of the other), then it must be that \(\eventOf(v) = \evtD\).
+    Finally, if \(\speciesOf(v\lchild)\) is separated from \(\speciesOf(v\rchild)\), then \(\eventLCA_s(v) = \evtS\), but it would also be valid to set \(\eventOf(v)\) to \(\evtD\).
+    However, in that case, replacing \(\evtD\) back with \(\evtS\) would save two full losses at the cost of adding at most one partial loss, which cannot lead to a more costly Super-reconciliation since speciations have a null cost and \(\costDup, \costLoss \geq 0\).
 \end{proof}
 
-It follows that event labelling can be ignored, as it can be directly inferred from the species mapping. Therefore, from now on, a Super-reconciliation will be simply designed as a triplet $\tuple{T, \syntenyOf, \speciesOf}$. We are now ready to formally define the considered optimization problem.
+It follows that event labelling can be ignored, as it can be directly inferred from the species mapping. Therefore, from now on, a Super-reconciliation will be simply designed as a triplet \(\tup{T, \syntenyOf, \speciesOf}\). We are now ready to formally define the considered optimization problem.
 
-\begin{problem}{$\delta$-Super-Reconciliation\label{prob:superdtl:main}}
-    \probinput{An input $I = \tuple{\X, \F, T , \Sigma, S}$.}
-    \proboutput{A Super-reconciliation $\supRec = \tuple{T, \syntenyOf, \speciesOf}$ for $I$ minimizing $\costOf{\delta}(\supRec)$.}
+\begin{problem}{\(\delta\)-Super-Reconciliation\label{prob:superdtl:main}}
+    \probinput{An input \(I = \tup{\X, \F, T , \Sigma, S}\).}
+    \proboutput{A Super-reconciliation \(\supRec = \tup{T, \syntenyOf, \speciesOf}\) for \(I\) minimizing \(\costOf{\delta}(\supRec)\).}
 \end{problem}
 
 \section{A two-step method}\label{sec:superdtl:2steps}
 
 Finding a DL Reconciliation of a gene tree with a species tree is a classical
 problem~\parencite{Fitch1970DistinguishingHomologousAnalogous,Goodman1979FittingGeneLineage,Guigo1996ReconstructionAncientMolecular,Page1994MapsTreesCladistic}.
-Given an instance $I = \tuple{\Gamma, T, \Sigma, S}$,
-define its LCA-mapping from $T$ to $S$ as $\speciesOf(v) = \lca{S}(\{\speciesOf(l)
-\mid l \in \LF(T[v])\})$ for any $v \in \V(T) \setminus \LF(T)$, and
-$\speciesOf(l) = x$ for any $l \in \LF(T)$, where $x$ is the extant
-species to which $l$ belongs.  This mapping leads to an optimal DL Reconciliation (with constant costs on operations) and  can be computed in time
-$\mathcal{O}(|\V(T)| + |\V(S)|)$~\parencite{Gorecki2006DlsTreesModel}.
+Given an instance \(I = \tup{\Gamma, T, \Sigma, S}\), define its LCA-mapping from \(T\) to \(S\) as \(\speciesOf(v) = \lca\{\speciesOf(l) \suchthat l \in \tleavs(\subtree{T}{v})\}\) for any \(v \in \tnodes(T) - \tleavs(T)\), and \(\speciesOf(l) = x\) for any \(l \in \tleavs(T)\), where \(x\) is the extant species to which \(l\) belongs.
+This mapping leads to an optimal DL Reconciliation (with constant costs on operations) and  can be computed in time \(\mathcal{O}(|\tnodes(T)| + |\tnodes(S)|)\)~\parencite{Gorecki2006DlsTreesModel}.
 
-As for DL Super-reconciliation, an approach using two steps to infer an optimal $\supRec = \tuple{T, \syntenyOf, \speciesOf}$ for an instance
-$I=\tuple{\X, \F, T , \Sigma, S}$ was presented by~\textcite{Delabre2020EvolutionSegmentalDuplications}:
+As for DL Super-reconciliation, an approach using two steps to infer an optimal \(\supRec = \tup{T, \syntenyOf, \speciesOf}\) for an instance \(I = \tup{\X, \F, T, \Sigma, S}\) was presented by~\textcite{Delabre2020EvolutionSegmentalDuplications}:
 \begin{enumerate}
-    \item Compute $\speciesOf$ as the LCA-mapping of $T$ to $S$;
-    \item Infer $\syntenyOf$ in a way minimizing segmental losses and with the constraint that $\syntenyOf(r(T)) = \F$ (as gains were not allowed).
+    \item Compute \(\speciesOf\) as the LCA-mapping of \(T\) to \(S\);
+    \item Infer \(\syntenyOf\) in a way minimizing segmental losses and with the constraint that \(\syntenyOf(\troot(T)) = \F\) (as gains were not allowed).
 \end{enumerate}
-Using this approach, an optimal DL~Super-reconciliation can be computed in time $\mathcal{O}(\lvert\syntenyFamily\rvert\times\lvert\geneFamilySet\rvert)$.
-Crucially, this approach works because any optimal DL Super-reconciliation $\tuple{T, \syntenyOf, \speciesOf}$ is such that
-$\speciesOf$ is the LCA-mapping of $\syntenyTree$ to $\speciesTree$.
-Otherwise, we would not be able to compute $\speciesOf$ separately
-from $\syntenyOf$.
+
+Using this approach, an optimal DL~Super-reconciliation can be computed in time \(\bigo(\lvert\syntenyFamily\rvert\times\lvert\geneFamilySet\rvert)\).
+Crucially, this approach works because any optimal DL Super-reconciliation \(\tup{T, \syntenyOf, \speciesOf}\) is such that \(\speciesOf\) is the LCA-mapping of \(\syntenyTree\) to \(\speciesTree\).
+Otherwise, we would not be able to compute \(\speciesOf\) separately from \(\syntenyOf\).
+
+Unfortunately, this two-step method does not work for solving the \(\eventDTL\) Super-reconciliation problem.
+In fact, for a given input \(I = \tup{\Gamma, T, \Sigma, S}\), the mapping \(s^{\mathrm{DT}}\) from \(T\) to \(S\) allowing to minizime the duplication and loss cost is not necessarily the mapping \(\speciesOf\) of an optimal \(\eventDTL\) Super-reconciliation \(\supRec = \tup{T, \syntenyOf, \speciesOf}\).
+In particular, changing a speciation node (inferred from \(s^{\mathrm{DT}}\)) to a \(\evtT\) event may lead to less losses, and thus to a better cost in total.
+\Cref{fig:superdtl:2-steps-ct-ex} shows a counterexample of the two-step method for solving the \(\eventDTL\) problem.
 
 \begin{figure}[htb]
     \capstart
     \input{fig/superdtl/2-steps-ct-ex}
     \caption[Counter-example to the two-step approach for solving SuperDTL]{
         Two solutions for the same DTL Super-reconciliation problem input.
-        \emph{(Left.)} Solution obtained by first computing \(s\) to minimize duplications and HGTs (yielding one such event) and then labelling internal nodes to minimize losses (yielding 4~losses).
-        \emph{(Right.)} A more parsimonious solution with two HGTs and only two losses.
+        \emph{(Left.)}~Solution obtained by first computing \(s\) to minimize duplications and HGTs (yielding one such event) and then labelling internal nodes to minimize losses (yielding 4~losses).
+        \emph{(Right.)}~A more parsimonious solution with two HGTs and only two losses.
         \label{fig:superdtl:2-steps-ct-ex}
     }
 \end{figure}
 
-Unfortunately, this two-step method does not work for solving the $\eventDTL$ Super-reconciliation
-problem. In fact, for a given input $I = \tuple{\Gamma, T, \Sigma,
-  S}$, the mapping $s^{\mathrm{DT}}$ from $T$ to $S$ allowing to
-minizime the duplication and loss cost is not necessarily the mapping
-$\speciesOf$ of an optimal $\eventDTL$
-Super-reconciliation $\supRec = \tuple{T, \syntenyOf, \speciesOf}$. In particular, changing a
-speciation node (inferred from $s^{\mathrm{DT}}$) to a $\eventHGT$
-event may lead to less losses, and thus to a better cost in
-total. \Cref{fig:superdtl:2-steps-ct-ex} shows a counterexample of the
-two-step method for solving the $\eventDTL$ problem.
-
-\section{A dynamic programming algorithm for $\eventDTL$~super-reconciliation}\label{sec:superdtl:algo}
+\section{A dynamic programming algorithm for \(\eventDTL\)~super-reconciliation}\label{sec:superdtl:algo}
 
 In this section, we introduce {\superdtl}, a polynomial-time algorithm for solving the DTL Super-Reconciliation problem.
-Let $I = \tuple{\X, \F, T , \Sigma, S}$ be any input for this problem.
-For any node $v$ of $\syntenyTree$, we define $\syntenyLCAOf(v)$ to be the leafset of $\subtree{\syntenyTree}{v}$ excluding genes gained below $v$, namely: \[
+Let \(I = \tup{\X, \F, T , \Sigma, S}\) be any input for this problem.
+For any node \(v\) of \(\syntenyTree\), we define \(\syntenyLCAOf(v)\) to be the leafset of \(\subtree{\syntenyTree}{v}\) excluding genes gained below \(v\), namely: \[
     \syntenyLCAOf(v) = \begin{cases}
-        \syntenyOf(v) & \text{if } v \in \treeLeaves(\geneTree)\\
-        \syntenyLCAOf(v_l) \cup \syntenyLCAOf(v_r) \setminus (\syntenyGAINOf(v_l) \cup \syntenyGAINOf(v_r))& \text{otherwise.}
+        \syntenyOf(v) & \text{if } v \in \tleavs(\geneTree)\\
+        \syntenyLCAOf(v\lchild) \cup \syntenyLCAOf(v\rchild) - (\syntenyGAINOf(v\lchild) \cup \syntenyGAINOf(v\rchild))& \text{otherwise.}
     \end{cases}
 \]
 
-For a synteny $X$ and a node $v$ of $T$, denote by $C_X(v)$ the minimum cost of a Super-reconciliation $\tuple{T[v], \syntenyOf, \speciesOf}$ between $T[v]$ and $S$ in which $\syntenyOf(v) = X$. Notice that $\syntenyLCAOf(v)$ should be a subset of $X$ as otherwise there would be a gene family with two or more gain points (by \cref{def:superdtl-gain-point}). In other words, if $\syntenyLCAOf(v) \not\subseteq X$, then $C_X(v)=\infty$. However, $X$ may contain genes in $\F \setminus \syntenyLCAOf(v)$, which may allow grouping losses in the evolutionary history thus leading to a lower cost. Testing all possible subsets of $\F \setminus \syntenyLCAOf(v)$ would be costly, but as shown by~\textcite{Delabre2020EvolutionSegmentalDuplications}, this can be avoided due to a property that still holds in our case: all that matters is to know whether $\syntenyLCAOf(v)$ is included in $X$ in a strict or not strict way, and the nature and number of \enquote{extra} genes is irrelevant for the computation of the optimal cost. In other words, the following lemma from~\textcite{Delabre2020EvolutionSegmentalDuplications} holds.
+For a synteny \(X\) and a node \(v\) of \(T\), denote by \(C_X(v)\) the minimum cost of a Super-reconciliation \(\tup{\subtree{T}{v}, \syntenyOf, \speciesOf}\) between \(\subtree{T}{v}\) and \(S\) in which \(\syntenyOf(v) = X\). Notice that \(\syntenyLCAOf(v)\) should be a subset of \(X\) as otherwise there would be a gene family with two or more gain points (by \cref{def:superdtl-gain-point}). In other words, if \(\syntenyLCAOf(v) \not\subseteq X\), then \(C_X(v)=\infty\). However, \(X\) may contain genes in \(\F - \syntenyLCAOf(v)\), which may allow grouping losses in the evolutionary history thus leading to a lower cost. Testing all possible subsets of \(\F - \syntenyLCAOf(v)\) would be costly, but as shown by~\textcite{Delabre2020EvolutionSegmentalDuplications}, this can be avoided due to a property that still holds in our case: all that matters is to know whether \(\syntenyLCAOf(v)\) is included in \(X\) in a strict or not strict way, and the nature and number of \enquote{extra} genes is irrelevant for the computation of the optimal cost. In other words, the following lemma from~\textcite{Delabre2020EvolutionSegmentalDuplications} holds.
 
 \begin{lemma}\label{lem:superdtl:subset-2cases}
-Let $v$ be an internal node of $T$ and $X$, $Y$ be two subsets of $\F$ such that $\syntenyLCAOf(v) \subseteq X, Y$. Then $C_X(v) =C_Y(v)$.
+    Let \(v\) be an internal node of \(T\) and \(X\), \(Y\) be two subsets of \(\F\) such that \(\syntenyLCAOf(v) \subseteq X, Y\). Then \(C_X(v) =C_Y(v)\).
 \end{lemma}
 
-We therefore only need to consider two possibilities for $\syntenyOf(v)$. We define $\dt{C}{v, \sigma}$ (respec. $\dt{C^\star}{v, \sigma}$) to be the minimum cost of a Super-reconciliation $\tuple{T[v], \syntenyOf, \speciesOf}$ between $T[v]$ and $S$ in which $\speciesOf(v) = \sigma$ and $\syntenyOf(v) = \syntenyLCAOf(v)$ (respec. $\syntenyOf(v) \supsetneq \syntenyLCAOf(v)$).
+We therefore only need to consider two possibilities for \(\syntenyOf(v)\). We define \(\dt{C}{v, \sigma}\) (respec. \(\dt{C^\star}{v, \sigma}\)) to be the minimum cost of a Super-reconciliation \(\tup{\subtree{T}{v}, \syntenyOf, \speciesOf}\) between \(\subtree{T}{v}\) and \(S\) in which \(\speciesOf(v) = \sigma\) and \(\syntenyOf(v) = \syntenyLCAOf(v)\) (respec. \(\syntenyOf(v) \supsetneq \syntenyLCAOf(v)\)).
 \Cref{alg:superdtl:cmin-rec,alg:superdtl:cstarmin-rec}, described below, provide a method for computing those two functions.
 
 \begin{algorithm}[htb!]
     \begin{algorithmic}
-        \Function{$\mathcal{C}$}{$v, \sigma$}
-            \If{$v \in \treeLeaves(\syntenyTree)$}
-                \State \Return $0$ \textbf{if} $\sigma = s(v)$ \textbf{else} $\infty$
+        \Function{\(\mathcal{C}\)}{\(v, \sigma\)}
+            \If{\(v \in \tleavs(\syntenyTree)\)}
+                \State \Return \(0\) \textbf{if} \(\sigma = s(v)\) \textbf{else} \(\infty\)
             \Else
-                \State $c \gets \infty$
-                \For{$\sigma',\sigma'' \in \treeNodes(\speciesTree)^2$}
-                    \State $star\lchild \gets \infty$ \textbf{if} $\syntenyLCAOf(v) \subseteq \syntenyLCAOf(v_l)$ \textbf{else} $0$
-                    \State $star\rchild \gets \infty$ \textbf{if} $\syntenyLCAOf(v) \subseteq \syntenyLCAOf(v_r)$ \textbf{else} $0$
-                    \State $partial\lchild \gets \subseqDist(\syntenyLCAOf(v), \syntenyLCAOf(v_l))$
-                    \State $partial\rchild \gets \subseqDist(\syntenyLCAOf(v), \syntenyLCAOf(v_r))$
-                    \If{$\eventLCA(\sigma,\sigma',\sigma'') = \eventSpe$}
+                \State \(c \gets \infty\)
+                \For{\(\sigma',\sigma'' \in \tnodes(\speciesTree)^2\)}
+                    \State \(star\lchild \gets \infty\) \textbf{if} \(\syntenyLCAOf(v) \subseteq \syntenyLCAOf(v\lchild)\) \textbf{else} \(0\)
+                    \State \(star\rchild \gets \infty\) \textbf{if} \(\syntenyLCAOf(v) \subseteq \syntenyLCAOf(v\rchild)\) \textbf{else} \(0\)
+                    \State \(partial\lchild \gets \subseqDist(\syntenyLCAOf(v), \syntenyLCAOf(v\lchild))\)
+                    \State \(partial\rchild \gets \subseqDist(\syntenyLCAOf(v), \syntenyLCAOf(v\rchild))\)
+                    \If{\(\eventLCA(\sigma,\sigma',\sigma'') = \evtS\)}
                         \State $c \gets \min\{c, \begin{aligned}[t]
-                            &\min\{\mathcal{C^\star}(v_l, \sigma') + star\lchild,
-                                 \mathcal{C}(v_l, \sigma') +
+                            &\min\{\mathcal{C^\star}(v\lchild, \sigma') + star\lchild,
+                                 \mathcal{C}(v\lchild, \sigma') +
                                  \costLoss \times partial\lchild\}\ +\\
-                            &\min\{\mathcal{C^\star}(v_r, \sigma'') + star\rchild,
-                                 \mathcal{C}(v_r, \sigma'') +
+                            &\min\{\mathcal{C^\star}(v\rchild, \sigma'') + star\rchild,
+                                 \mathcal{C}(v\rchild, \sigma'') +
                                  \costLoss \times partial\rchild\}\ +\\[-.25em]
                             &\costLoss\times
-                            (\treeDist{\speciesTree}(\sigma, \sigma') +
-                            \treeDist{\speciesTree}(\sigma, \sigma'') - 2)\}
+                            (\tdist(\sigma, \sigma') +
+                            \tdist(\sigma, \sigma'') - 2)\}
                         \end{aligned}$
-                    \ElsIf{$\eventLCA(\sigma,\sigma',\sigma'') = \eventDup$}
+                    \ElsIf{\(\eventLCA(\sigma,\sigma',\sigma'') = \evtD\)}
                         \State $c \gets \min\{c, \begin{aligned}[t]
                             &\min\{
                             \begin{aligned}[t]
-                                &\mathcal{C^\star}(v_l, \sigma') + \mathcal{C^\star}(v_r, \sigma'') + star\lchild + star\rchild,\\
-                                &\mathcal{C}(v_l, \sigma') + \mathcal{C^\star}(v_r, \sigma'') + star\rchild,\\
-                                &\mathcal{C^\star}(v_l, \sigma') + \mathcal{C}(v_r, \sigma'') + star\lchild,\\
-                                &\mathcal{C}(v_l, \sigma') + \mathcal{C}(v_r, \sigma'')\ + \\
+                                &\mathcal{C^\star}(v\lchild, \sigma') + \mathcal{C^\star}(v\rchild, \sigma'') + star\lchild + star\rchild,\\
+                                &\mathcal{C}(v\lchild, \sigma') + \mathcal{C^\star}(v\rchild, \sigma'') + star\rchild,\\
+                                &\mathcal{C^\star}(v\lchild, \sigma') + \mathcal{C}(v\rchild, \sigma'') + star\lchild,\\
+                                &\mathcal{C}(v\lchild, \sigma') + \mathcal{C}(v\rchild, \sigma'')\ + \\
                                 &\qquad\costLoss\times\min\{partial\lchild, partial\rchild\}
                                 \}\ +
                             \end{aligned}\\[-.25em]
                             &\costDup + \costLoss\times
-                            (\treeDist{\speciesTree}(\sigma, \sigma') +
-                            \treeDist{\speciesTree}(\sigma, \sigma''))\}
+                            (\tdist(\sigma, \sigma') +
+                            \tdist(\sigma, \sigma''))\}
                         \end{aligned}$
-                    \ElsIf{$\eventLCA(\sigma,\sigma',\sigma'') = \eventHGT$}
-                        \State $f\!ull \gets \treeDist{\speciesTree}(\sigma, \sigma'')$ \textbf{if} $\sigma'$ is separated from $\sigma$ \textbf{else} $\treeDist{\speciesTree}(\sigma, \sigma')$
-                        \State \textbf{if} $\sigma'$ is separated from $\sigma$ \textbf{then} $partial\lchild \gets 0$
-                        \State \textbf{if} $\sigma''$ is separated from $\sigma$ \textbf{then} $partial\rchild \gets 0$
+                    \ElsIf{\(\eventLCA(\sigma,\sigma',\sigma'') = \evtT\)}
+                        \State \(f\!ull \gets \tdist(\sigma, \sigma'')\) \textbf{if} \(\sigma'\) is separated from \(\sigma\) \textbf{else} \(\tdist(\sigma, \sigma')\)
+                        \State \textbf{if} \(\sigma'\) is separated from \(\sigma\) \textbf{then} \(partial\lchild \gets 0\)
+                        \State \textbf{if} \(\sigma''\) is separated from \(\sigma\) \textbf{then} \(partial\rchild \gets 0\)
                         \State $c \gets \min\{c, \begin{aligned}[t]
                             &\min\{
                             \begin{aligned}[t]
-                                &\mathcal{C^\star}(v_l, \sigma') + \mathcal{C^\star}(v_r, \sigma''),\\
-                                &\mathcal{C}(v_l, \sigma') + \mathcal{C^\star}(v_r, \sigma'') +
+                                &\mathcal{C^\star}(v\lchild, \sigma') + \mathcal{C^\star}(v\rchild, \sigma''),\\
+                                &\mathcal{C}(v\lchild, \sigma') + \mathcal{C^\star}(v\rchild, \sigma'') +
                                     star\rchild +
                                     \costLoss \times partial\lchild,\\
-                                &\mathcal{C^\star}(v_l, \sigma') + \mathcal{C}(v_r, \sigma'') +
+                                &\mathcal{C^\star}(v\lchild, \sigma') + \mathcal{C}(v\rchild, \sigma'') +
                                     star\lchild +
                                     \costLoss \times partial\rchild,\\
-                                &\mathcal{C}(v_l, \sigma') + \mathcal{C}(v_r, \sigma'') + \costLoss
+                                &\mathcal{C}(v\lchild, \sigma') + \mathcal{C}(v\rchild, \sigma'') + \costLoss
                                 \}\ +
                             \end{aligned}\\[-.25em]
                             &\costHGT + \costLoss \times f\!ull\}
                         \end{aligned}$
                     \EndIf
                 \EndFor
-                \State \Return $c$
+                \State \Return \(c\)
             \EndIf
         \EndFunction
     \end{algorithmic}
-    \caption{Computing the value of $\dt{C}{v, \sigma}$}
+    \caption{Computing the value of \(\dt{C}{v, \sigma}\)}
     \label{alg:superdtl:cmin-rec}
 \end{algorithm}
 
 \begin{algorithm}[htb!]
     \begin{algorithmic}
-        \Function{$\mathcal{C^\star}$}{$v, \sigma$}
-            \If{$v \in \treeLeaves(\syntenyTree)$}
-                \Return $\infty$
+        \Function{\(\mathcal{C^\star}\)}{\(v, \sigma\)}
+            \If{\(v \in \tleavs(\syntenyTree)\)}
+                \Return \(\infty\)
             \Else
-                \State $c \gets \infty$
-                \For{$\sigma',\sigma'' \in \treeNodes(\speciesTree)^2$}
-                    \If{$\eventLCA(\sigma,\sigma',\sigma'') = \eventSpe$}
+                \State \(c \gets \infty\)
+                \For{\(\sigma',\sigma'' \in \tnodes(\speciesTree)^2\)}
+                    \If{\(\eventLCA(\sigma,\sigma',\sigma'') = \evtS\)}
                         \State $c \gets \min\{c, \begin{aligned}[t]
-                            &\min\{\mathcal{C^\star}(v_l, \sigma'),
-                                 \mathcal{C}(v_l, \sigma') + \costLoss\}\ +\\
-                            &\min\{\mathcal{C^\star}(v_r, \sigma''),
-                                 \mathcal{C}(v_r, \sigma'') + \costLoss\}\ +\\[-.25em]
+                            &\min\{\mathcal{C^\star}(v\lchild, \sigma'),
+                                 \mathcal{C}(v\lchild, \sigma') + \costLoss\}\ +\\
+                            &\min\{\mathcal{C^\star}(v\rchild, \sigma''),
+                                 \mathcal{C}(v\rchild, \sigma'') + \costLoss\}\ +\\[-.25em]
                             &\costLoss\times
-                            (\treeDist{\speciesTree}(\sigma, \sigma') +
-                            \treeDist{\speciesTree}(\sigma, \sigma'') - 2)\}
+                            (\tdist(\sigma, \sigma') +
+                            \tdist(\sigma, \sigma'') - 2)\}
                         \end{aligned}$
-                    \ElsIf{$\eventLCA(\sigma,\sigma',\sigma'') = \eventDup$}
+                    \ElsIf{\(\eventLCA(\sigma,\sigma',\sigma'') = \evtD\)}
                         \State $c \gets \min\{c, \begin{aligned}[t]
                             &\min\{
                             \begin{aligned}[t]
-                                &\mathcal{C^\star}(v_l, \sigma') + \mathcal{C^\star}(v_r, \sigma''),
-                                \mathcal{C}(v_l, \sigma') + \mathcal{C^\star}(v_r, \sigma''),\\
-                                &\mathcal{C^\star}(v_l, \sigma') + \mathcal{C}(v_r, \sigma''),
-                                \mathcal{C}(v_l, \sigma') + \mathcal{C}(v_r, \sigma'') + \costLoss
+                                &\mathcal{C^\star}(v\lchild, \sigma') + \mathcal{C^\star}(v\rchild, \sigma''),
+                                \mathcal{C}(v\lchild, \sigma') + \mathcal{C^\star}(v\rchild, \sigma''),\\
+                                &\mathcal{C^\star}(v\lchild, \sigma') + \mathcal{C}(v\rchild, \sigma''),
+                                \mathcal{C}(v\lchild, \sigma') + \mathcal{C}(v\rchild, \sigma'') + \costLoss
                                 \}
                             \end{aligned}\\[-.25em]
                             &+ \costDup + \costLoss\times
-                            (\treeDist{\speciesTree}(\sigma, \sigma') +
-                            \treeDist{\speciesTree}(\sigma, \sigma''))\}
+                            (\tdist(\sigma, \sigma') +
+                            \tdist(\sigma, \sigma''))\}
                         \end{aligned}$
-                    \ElsIf{$\eventLCA(\sigma,\sigma',\sigma'') = \eventHGT$}
-                        \State $f\!ull \gets \treeDist{\speciesTree}(\sigma, \sigma'')$ \textbf{if} $\sigma'$ is separated from $\sigma$ \textbf{else} $\treeDist{\speciesTree}(\sigma, \sigma')$
-                        \State $partial\lchild \gets 0$ \textbf{if} $\sigma'$ is separated from $\sigma$ \textbf{else} $1$
-                        \State $partial\rchild \gets 0$ \textbf{if} $\sigma''$ is separated from $\sigma$ \textbf{else} $1$
+                    \ElsIf{\(\eventLCA(\sigma,\sigma',\sigma'') = \evtT\)}
+                        \State \(f\!ull \gets \tdist(\sigma, \sigma'')\) \textbf{if} \(\sigma'\) is separated from \(\sigma\) \textbf{else} \(\tdist(\sigma, \sigma')\)
+                        \State \(partial\lchild \gets 0\) \textbf{if} \(\sigma'\) is separated from \(\sigma\) \textbf{else} \(1\)
+                        \State \(partial\rchild \gets 0\) \textbf{if} \(\sigma''\) is separated from \(\sigma\) \textbf{else} \(1\)
                         \State $c \gets \min\{c, \begin{aligned}[t]
                             &\min\{
                             \begin{aligned}[t]
-                                &\mathcal{C^\star}(v_l, \sigma') + \mathcal{C^\star}(v_r, \sigma''),\\
-                                &\mathcal{C}(v_l, \sigma') + \mathcal{C^\star}(v_r, \sigma'') +
+                                &\mathcal{C^\star}(v\lchild, \sigma') + \mathcal{C^\star}(v\rchild, \sigma''),\\
+                                &\mathcal{C}(v\lchild, \sigma') + \mathcal{C^\star}(v\rchild, \sigma'') +
                                     \costLoss \times partial\lchild,\\
-                                &\mathcal{C^\star}(v_l, \sigma') + \mathcal{C}(v_r, \sigma'') +
+                                &\mathcal{C^\star}(v\lchild, \sigma') + \mathcal{C}(v\rchild, \sigma'') +
                                     \costLoss \times partial\rchild,\\
-                                &\mathcal{C}(v_l, \sigma') + \mathcal{C}(v_r, \sigma'') + \costLoss
+                                &\mathcal{C}(v\lchild, \sigma') + \mathcal{C}(v\rchild, \sigma'') + \costLoss
                                 \}\ +
                             \end{aligned}\\[-.25em]
                             &\costHGT + \costLoss \times f\!ull\}
                         \end{aligned}$
                     \EndIf
                 \EndFor
-                \State \Return $c$
+                \State \Return \(c\)
             \EndIf
         \EndFunction
     \end{algorithmic}
-    \caption{Computing the value of $\dt{C^\star}{v, \sigma}$}
+    \caption{Computing the value of \(\dt{C^\star}{v, \sigma}\)}
     \label{alg:superdtl:cstarmin-rec}
 \end{algorithm}
 
 \begin{lemma}[Termination and correctness]
-    For any $v \in \treeNodes(\syntenyTree)$ and $\sigma \in \treeNodes(\speciesTree)$, $\mathcal{C}(v, \sigma) = \dt{C}{v, \sigma}$ and $\mathcal{C}^\star(v, \sigma) = \dt{C^\star}{v, \sigma}$ (as computed by \cref{alg:superdtl:cmin-rec,alg:superdtl:cstarmin-rec} respectively).
+    For any \(v \in \tnodes(\syntenyTree)\) and \(\sigma \in \tnodes(\speciesTree)\), \(\mathcal{C}(v, \sigma) = \dt{C}{v, \sigma}\) and \(\mathcal{C}^\star(v, \sigma) = \dt{C^\star}{v, \sigma}\) (as computed by \cref{alg:superdtl:cmin-rec,alg:superdtl:cstarmin-rec} respectively).
 \end{lemma}
 \begin{proof}
-    First, note that both algorithms terminate even though they are mutually recursive, since any call to $\mathcal{C}(v, \sigma)$ or $\mathcal{C}^\star(v, \sigma)$ calls $\mathcal{C}$ and $\mathcal{C}^\star$ only on $v_l$ and $v_r$.
+    First, note that both algorithms terminate even though they are mutually recursive, since any call to \(\mathcal{C}(v, \sigma)\) or \(\mathcal{C}^\star(v, \sigma)\) calls \(\mathcal{C}\) and \(\mathcal{C}^\star\) only on \(v\lchild\) and \(v\rchild\).
     We proceed by structural induction to prove correctness.
-    Let $v$ be a leaf of~$\syntenyTree$.
-    Leaves cannot be labelled by any synteny or mapped to any species other than the ones specified in the problem input, therefore $\dt{C}{v, \speciesOf(v)} = 0 = \mathcal{C}(v, \speciesOf(v))$, $\dt{C}{v, \sigma} = \infty = \mathcal{C}(v, \sigma)$ for any $\sigma \neq \speciesOf(v)$, and $\dt{C^\star}{v, \sigma} = \infty = \mathcal{C}^\star(v, \sigma)$ for any $\sigma \in \treeNodes(\speciesTree)$.
+    Let \(v\) be a leaf of~\(\syntenyTree\).
+    Leaves cannot be labelled by any synteny or mapped to any species other than the ones specified in the problem input, therefore \(\dt{C}{v, \speciesOf(v)} = 0 = \mathcal{C}(v, \speciesOf(v))\), \(\dt{C}{v, \sigma} = \infty = \mathcal{C}(v, \sigma)\) for any \(\sigma \neq \speciesOf(v)\), and \(\dt{C^\star}{v, \sigma} = \infty = \mathcal{C}^\star(v, \sigma)\) for any \(\sigma \in \tnodes(\speciesTree)\).
 
-    Now, let $v$ be an internal node and assume that for any $\sigma \in \treeNodes(\speciesTree)$, $\mathcal{C}^\star(v_l, \sigma) = \dt{C^\star}{v_l, \sigma}$, $\mathcal{C}^\star(v_r, \sigma) = \dt{C^\star}{v_r, \sigma}$, $\mathcal{C}(v_l, \sigma) = \dt{C}{v_l, \sigma}$, and $\mathcal{C}(v_r, \sigma) = \dt{C}{v_r, \sigma}$.
-    Let $\sigma$ be any node of the species tree.
-    Both $\mathcal{C}^\star(v, \sigma)$ and $\mathcal{C}(v, \sigma)$ explore all possible pairs $\sigma', \sigma'' \in \treeNodes(\speciesTree)^2$ that can be mapped respectively to $v_l$ and $v_r$, and return the minimum cost of all those options.
+    Now, let \(v\) be an internal node and assume that for any \(\sigma \in \tnodes(\speciesTree)\), \(\mathcal{C}^\star(v\lchild, \sigma) = \dt{C^\star}{v\lchild, \sigma}\), \(\mathcal{C}^\star(v\rchild, \sigma) = \dt{C^\star}{v\rchild, \sigma}\), \(\mathcal{C}(v\lchild, \sigma) = \dt{C}{v\lchild, \sigma}\), and \(\mathcal{C}(v\rchild, \sigma) = \dt{C}{v\rchild, \sigma}\).
+    Let \(\sigma\) be any node of the species tree.
+    Both \(\mathcal{C}^\star(v, \sigma)\) and \(\mathcal{C}(v, \sigma)\) explore all possible pairs \(\sigma', \sigma'' \in \tnodes(\speciesTree)^2\) that can be mapped respectively to \(v\lchild\) and \(v\rchild\), and return the minimum cost of all those options.
 
-    Consider the computation of $\mathcal{C}^\star(v, \sigma)$ by \cref{alg:superdtl:cstarmin-rec}.
-    Since in that case $\syntenyOf(v) \supsetneq \syntenyLCAOf(v)$, then $\syntenyOf(v) \not\subseteq \syntenyLCAOf(v_l)$.
-    Therefore, setting $\syntenyOf(v_l) = \syntenyLCAOf(v_l)$ (which costs $\mathcal{C}(v_l, \sigma') = \dt{C}{v_l, \sigma'}$) would imply that $\subseqDist(\syntenyOf(v), \syntenyOf(v_l)) = 1$.
-    On the contrary, setting $\syntenyOf(v_l) \supsetneq \syntenyLCAOf(v_l)$ (which costs $\mathcal{C^\star}(v_l, \sigma') = \dt{C^\star}{v_l, \sigma''}$) would give us the freedom to choose $\syntenyOf(v_l)$ such that $\syntenyOf(v) \subseteq \syntenyOf(v_l)$, implying that $\subseqDist(\syntenyOf(v), \syntenyOf(v_l)) = 0$.
-    The same logic holds for $v$, $v_r$, and $\sigma''$.
-    Note that each of the three cases in the innermost loop uses the same cost computation formula as \cref{def:superdtl:cost}, albeit adapted to test all four options of setting $\syntenyOf(v_l)$ and $\syntenyOf(v_r)$ to either $\syntenyLCAOf$ or a superset of it.
-    By \cref{lem:superdtl:subset-2cases}, those are the only four options to consider, so $\mathcal{C}^\star(v, \sigma) = \dt{C^\star}{v, \sigma}$.
+    Consider the computation of \(\mathcal{C}^\star(v, \sigma)\) by \cref{alg:superdtl:cstarmin-rec}.
+    Since in that case \(\syntenyOf(v) \supsetneq \syntenyLCAOf(v)\), then \(\syntenyOf(v) \not\subseteq \syntenyLCAOf(v\lchild)\).
+    Therefore, setting \(\syntenyOf(v\lchild) = \syntenyLCAOf(v\lchild)\) (which costs \(\mathcal{C}(v\lchild, \sigma') = \dt{C}{v\lchild, \sigma'}\)) would imply that \(\subseqDist(\syntenyOf(v), \syntenyOf(v\lchild)) = 1\).
+    On the contrary, setting \(\syntenyOf(v\lchild) \supsetneq \syntenyLCAOf(v\lchild)\) (which costs \(\mathcal{C^\star}(v\lchild, \sigma') = \dt{C^\star}{v\lchild, \sigma''}\)) would give us the freedom to choose \(\syntenyOf(v\lchild)\) such that \(\syntenyOf(v) \subseteq \syntenyOf(v\lchild)\), implying that \(\subseqDist(\syntenyOf(v), \syntenyOf(v\lchild)) = 0\).
+    The same logic holds for \(v\), \(v\rchild\), and \(\sigma''\).
+    Note that each of the three cases in the innermost loop uses the same cost computation formula as \cref{def:superdtl:cost}, albeit adapted to test all four options of setting \(\syntenyOf(v\lchild)\) and \(\syntenyOf(v\rchild)\) to either \(\syntenyLCAOf\) or a superset of it.
+    By \cref{lem:superdtl:subset-2cases}, those are the only four options to consider, so \(\mathcal{C}^\star(v, \sigma) = \dt{C^\star}{v, \sigma}\).
 
-    Consider the computation of $\mathcal{C}(v, \sigma)$ by \cref{alg:superdtl:cmin-rec}.
-    In that case, $\syntenyOf(v) = \syntenyLCAOf(v)$, therefore setting $\syntenyOf(v_l) \supsetneq \syntenyLCAOf(v_l)$ is only allowed if $\syntenyLCAOf(v) \not\subseteq \syntenyLCAOf(v_l)$, for otherwise there would be at least one gene family with two or more gain points.
-    When setting $\syntenyOf(v_l) = \syntenyLCAOf(v_l)$ (which costs $\mathcal{C}(v_l, \sigma') = \dt{C}{v_l, \sigma'}$), the presence of a loss depends on the value of $\subseqDist(\syntenyLCAOf(v), \syntenyLCAOf(v_l))$.
-    On the other hand, setting $\syntenyOf(v_l) \supsetneq \syntenyLCAOf(v_l)$ (which costs $\mathcal{C^\star}(v_r, \sigma') = \dt{C^\star}{v_r, \sigma''}$) would give us the freedom to choose $\syntenyOf(v_l)$ such that $\syntenyOf(v) \subseteq \syntenyOf(v_l)$, implying that $\subseqDist(\syntenyOf(v), \syntenyOf(v_l)) = 0$.
-    The same logic holds for $v$, $v_r$, and $\sigma''$.
+    Consider the computation of \(\mathcal{C}(v, \sigma)\) by \cref{alg:superdtl:cmin-rec}.
+    In that case, \(\syntenyOf(v) = \syntenyLCAOf(v)\), therefore setting \(\syntenyOf(v\lchild) \supsetneq \syntenyLCAOf(v\lchild)\) is only allowed if \(\syntenyLCAOf(v) \not\subseteq \syntenyLCAOf(v\lchild)\), for otherwise there would be at least one gene family with two or more gain points.
+    When setting \(\syntenyOf(v\lchild) = \syntenyLCAOf(v\lchild)\) (which costs \(\mathcal{C}(v\lchild, \sigma') = \dt{C}{v\lchild, \sigma'}\)), the presence of a loss depends on the value of \(\subseqDist(\syntenyLCAOf(v), \syntenyLCAOf(v\lchild))\).
+    On the other hand, setting \(\syntenyOf(v\lchild) \supsetneq \syntenyLCAOf(v\lchild)\) (which costs \(\mathcal{C^\star}(v\rchild, \sigma') = \dt{C^\star}{v\rchild, \sigma''}\)) would give us the freedom to choose \(\syntenyOf(v\lchild)\) such that \(\syntenyOf(v) \subseteq \syntenyOf(v\lchild)\), implying that \(\subseqDist(\syntenyOf(v), \syntenyOf(v\lchild)) = 0\).
+    The same logic holds for \(v\), \(v\rchild\), and \(\sigma''\).
     Note that this algorithm also follows \cref{def:superdtl:cost}, handling all four options mentioned previously, and excluding disallowed cases.
-    So $\mathcal{C}(v, \sigma) = \dt{C}{v, \sigma}$.
+    So \(\mathcal{C}(v, \sigma) = \dt{C}{v, \sigma}\).
 \end{proof}
 
-Algorithm~{\superdtl} computes the minimal cost of a Super-reconciliation for $I$ by computing $\min_{\sigma \in \treeNodes(\speciesTree)}{\mathcal{C}(\rootOf(\syntenyTree), \sigma)}$ using \cref{alg:superdtl:cmin-rec}, which recursively invokes itself and \cref{alg:superdtl:cstarmin-rec}.
-Additionally, an actual solution can be constructed by keeping track of which $\sigma'$, $\sigma''$ pairs and which of $\mathrm{C}$ or $\mathrm{C}^\star$ yield the minimum values of the $\min$ expressions in both algorithms.
-To make {\superdtl} efficient, it should not be implemented as a naive recursion, but rather $\mathrm{C}$ and $\mathrm{C}^\star$ should be considered as dynamic programming tables with $\lvert\treeNodes(\syntenyTree)\rvert\times\lvert\treeNodes(\speciesTree)\rvert$ entries each.
+Algorithm~{\superdtl} computes the minimal cost of a Super-reconciliation for \(I\) by computing \(\min_{\sigma \in \tnodes(\speciesTree)}{\mathcal{C}(\troot(\syntenyTree), \sigma)}\) using \cref{alg:superdtl:cmin-rec}, which recursively invokes itself and \cref{alg:superdtl:cstarmin-rec}.
+Additionally, an actual solution can be constructed by keeping track of which \(\sigma'\), \(\sigma''\) pairs and which of \(\mathrm{C}\) or \(\mathrm{C}^\star\) yield the minimum values of the \(\min\) expressions in both algorithms.
+To make {\superdtl} efficient, it should not be implemented as a naive recursion, but rather \(\mathrm{C}\) and \(\mathrm{C}^\star\) should be considered as dynamic programming tables with \(|\tnodes(\syntenyTree)| \times |\tnodes(\speciesTree)|\) entries each.
 Using this implementation trick allows finding a minimal Super-reconciliation in polynomial time, as shown in the next theorem.
 
 \begin{theorem}[Time and space complexity]
-    Using {\superdtl}, the \textsc{DTL Super-reconciliation} problem can be solved in polynomial time $\mathcal{O}(\lvert\syntenyFamily\rvert\times\lvert\speciesSet\rvert^3)$ and space $\mathcal{O}(\lvert\syntenyFamily\rvert\times\lvert\speciesSet\rvert)$.
+    Using {\superdtl}, the \textsc{DTL Super-reconciliation} problem can be solved in polynomial time \(\bigo(|\syntenyFamily| \times |\speciesSet|^3)\) and space \(\bigo(|\syntenyFamily| \times |\speciesSet|)\).
 \end{theorem}
 \begin{proof}
-    Both dynamic programming tables have exactly $\lvert\treeNodes(\syntenyTree)\rvert\times\lvert\treeNodes(\speciesTree)\rvert$ entries each.
-    Computing a single entry of one of the tables takes time $\mathcal{O}(\lvert\treeNodes(\speciesTree)\rvert^2)$, provided all the other required entries are made available in constant time and set and tree operations are implemented in an efficient way.
-    A single bottom-up traversal of the synteny tree is enough to fill in both tables using \cref{alg:superdtl:cmin-rec,alg:superdtl:cstarmin-rec}, therefore, computing the tables takes time $\mathcal{O}(\lvert\treeNodes(\syntenyTree)\rvert\times\lvert\treeNodes(\speciesTree)\rvert^3)$.
-    To compute the overall minimal cost is to compute the minimum value of the $\mathrm{C}$ table in column $\rootOf(\syntenyTree)$, which can be done in time $\mathcal{O}(\treeNodes(\speciesTree))$.
-    To construct an optimal solution, pointers to optimal $\sigma'$, $\sigma''$ pairs and to which of $\mathrm{C}$ and $\mathrm{C}^\star$ is used must be tracked for each table entry, taking up a constant time and space for each entry.
-    After the tables have been computed, tracing back those pointers allows constructing a solution by following $\mathcal{O}(\lvert\treeNodes(\syntenyTree)\rvert)$ pointers.
-    The overall time and space complexities are therefore $\mathcal{O}(\lvert\treeNodes(\syntenyTree)\rvert\times\lvert\treeNodes(\speciesTree)\rvert^3)$ and $\mathcal{O}(\lvert\treeNodes(\syntenyTree)\rvert\times\lvert\treeNodes(\speciesTree)\rvert)$, or, equivalently, $\mathcal{O}(\lvert\syntenyFamily\rvert\times\lvert\speciesSet\rvert^3)$ and $\mathcal{O}(\lvert\syntenyFamily\rvert\times\lvert\speciesSet\rvert)$.
+    Both dynamic programming tables have exactly \(|\tnodes(\syntenyTree)| \times |\tnodes(\speciesTree)|\) entries each.
+    Computing a single entry of one of the tables takes time \(\bigo(|\tnodes(\speciesTree)|^2)\), provided all the other required entries are made available in constant time and set and tree operations are implemented in an efficient way.
+    A single bottom-up traversal of the synteny tree is enough to fill in both tables using \cref{alg:superdtl:cmin-rec,alg:superdtl:cstarmin-rec}, therefore, computing the tables takes time \(\bigo(|\tnodes(\syntenyTree)| \times |\tnodes(\speciesTree)|^3)\).
+    To compute the overall minimal cost is to compute the minimum value of the \(\mathrm{C}\) table in column \(\troot(\syntenyTree)\), which can be done in time \(\bigo(\tnodes(\speciesTree))\).
+    To construct an optimal solution, pointers to optimal \(\sigma'\), \(\sigma''\) pairs and to which of \(\mathrm{C}\) and \(\mathrm{C}^\star\) is used must be tracked for each table entry, taking up a constant time and space for each entry.
+    After the tables have been computed, tracing back those pointers allows constructing a solution by following \(\bigo(|\tnodes(\syntenyTree)|)\) pointers.
+    The overall time and space complexities are therefore \(\bigo(|\tnodes(\syntenyTree)| \times |\tnodes(\speciesTree)|^3)\) and \(\bigo(|\tnodes(\syntenyTree)| \times |\tnodes(\speciesTree)|)\), or, equivalently, \(\bigo(|\syntenyFamily| \times |\speciesSet|^3)\) and \(\bigo(|\syntenyFamily| \times |\speciesSet|)\).
 \end{proof}
 
 \section{Application to CRISPR-associated (Cas) gene syntenies}\label{sec:superdtl:crispr}
@@ -859,7 +773,7 @@ In the paper by~\textcite{Makarova2020EvolutionaryClassificationCRISPR}, Cas10 a
 
 We used {\superdtl} to predict optimal DTL Super-reconciliations for the syntenies and trees depicted in \cref{fig:superdtl:crispr-trees}. Notice that the synteny tree is non-binary and contains three multifurcations, one at the root and two in the subtree of Type I CRISPR-Cas systems. As our algorithm can only be applied to binary trees, we test all possible \enquote{binarizations} of the synteny tree and retain the overall minimal solutions.
 
-We tested different values for the $\delta = \tuple{\costDup, \costHGT, \costLoss}$ cost model, in agreement with a classical assumption that HGTs are less frequent than duplications, which are less frequent than losses. The number of solutions obtained for each setting is given in \cref{tab:superdtl:sol-count}. We observe that the number of solutions decreases as the HGT cost increases, reaching a minimum for $\costHGT=4$, and then increases again. For a given $\costHGT$, the results are largely stable for different $\costDup$ values.
+We tested different values for the \(\delta = \tup{\costDup, \costHGT, \costLoss}\) cost model, in agreement with a classical assumption that HGTs are less frequent than duplications, which are less frequent than losses. The number of solutions obtained for each setting is given in \cref{tab:superdtl:sol-count}. We observe that the number of solutions decreases as the HGT cost increases, reaching a minimum for \(\costHGT = 4\), and then increases again. For a given \(\costHGT\), the results are largely stable for different \(\costDup\) values.
 
 \begin{table}[h]
     \capstart
@@ -867,7 +781,7 @@ We tested different values for the $\delta = \tuple{\costDup, \costHGT, \costLos
     \setlength{\tabcolsep}{8pt}
     \begin{tabular}{cccccc}
     \toprule
-     {\bf $\costHGT$\textbackslash$\costDup$} & {\bf 1} & {\bf 1.5} & {\bf 2} & {\bf 2.5} & {\bf 3}\\
+     {\bf \(\costHGT\)\textbackslash\(\costDup\)} & {\bf 1} & {\bf 1.5} & {\bf 2} & {\bf 2.5} & {\bf 3}\\
     \midrule
     1 & 1376 & 1376 & 1376 & 1376 & 1376 \\ \midrule
     2 & 132 & 132 & 132 & 132 & 132 \\ \midrule
@@ -878,7 +792,7 @@ We tested different values for the $\delta = \tuple{\costDup, \costHGT, \costLos
     \bottomrule
     \end{tabular}
     \caption[Number of SuperDTL solutions for various cost settings]{
-        Number of solutions obtained by Algorithm {\superdtl} for different values of $\delta = \tuple{\costDup, \costHGT, \costLoss}$, with $\costLoss = 1$.
+        Number of solutions obtained by Algorithm {\superdtl} for different values of \(\delta = \tup{\costDup, \costHGT, \costLoss}\), with \(\costLoss = 1\).
         \label{tab:superdtl:sol-count}
     }
 \end{table}
@@ -889,7 +803,7 @@ We tested different values for the $\delta = \tuple{\costDup, \costHGT, \costLos
     \scalebox{.66}{\input{fig/superdtl/result-4-h4d2-v2}}%
     \caption[Most parsimonious scenario for the CRISPR-Cas dataset under SuperDTL]{
         Representation of one of the 32 solutions inferred by Algorithm {\superdtl} reconstructing a DTL evolutionary history of the Class~1 Cas gene synteny dataset illustrated in \cref{fig:superdtl:crispr-trees}.
-        Event costs set to $\costLoss=1$, $\costHGT=4$ and $\costDup\in\{1,1.5,2,2.5\}$ yield equal solutions.
+        Event costs set to \(\costLoss = 1\), \(\costHGT = 4\) and \(\costDup \in \{1, 1.5, 2, 2.5\}\) yield equal solutions.
         The red, blue, and green parts of the tree reflect the evolution of Cas synteny types IV, I, and III respectively.
         Gains of Cas1+Cas2 and Cas3(Cas3'+Cas3")+Cas4 are illustrated.
         \label{fig:superdtl:crispr-scenario}
@@ -898,7 +812,7 @@ We tested different values for the $\delta = \tuple{\costDup, \costHGT, \costLos
 
 \subsection{An evolutionary scenario}
 
-We analyzed the 32 solutions generated for $\costHGT=4$ and $\costDup\in\{1,1.5,2,2.5\}$. All solutions lead to the same resolution of the three multifurcations in the synteny tree, and the incongruence observed between the species and synteny tree topologies is mainly resolved by inferring six HGTs and one duplication. The 32 solutions only differ from one another by minor variations, such as gene losses located either before or after a speciation or HGT event, which do not change the overall inferred evolutionary history for the Cas gene syntenies.
+We analyzed the 32 solutions generated for \(\costHGT = 4\) and \(\costDup \in \{1, 1.5, 2, 2.5\}\). All solutions lead to the same resolution of the three multifurcations in the synteny tree, and the incongruence observed between the species and synteny tree topologies is mainly resolved by inferring six HGTs and one duplication. The 32 solutions only differ from one another by minor variations, such as gene losses located either before or after a speciation or HGT event, which do not change the overall inferred evolutionary history for the Cas gene syntenies.
 
 \Cref{fig:superdtl:crispr-scenario} is a representation of one of these solutions. The evolutionary reconstruction is broadly consistent with the CRISPR-Cas evolution scenario established by \textcite{Koonin2022EvolutionaryPlasticityFunctional}. In both their scenario and ours, the CRISPR-Cas systems emerge from an initial adaptive immune system composed only of Cas genes involved in the effector complex (Cas5--8 and Cas10--11). We see from \cref{fig:superdtl:crispr-scenario} that the CRISPR-Cas emergence is inferred at the root of Terrabacteria. The scenarios diverge on the fact that, in our scenario, Type IV emerges directly from this ancestral adaptive immune system before the acquisition of Cas1 and Cas2 genes, while in \citeauthor{Koonin2022EvolutionaryPlasticityFunctional}'s scenario, Type IV emerges after the acquisition of Cas1 and Cas2 adaptation module genes and loss of several Cas genes.
 Aside from this difference, both scenarios are in agreement for Types I and III in terms of gene content in ancestral Cas syntenies. As it appears in \cref{fig:superdtl:crispr-scenario}, Types I and III Cas syntenies emerge from Cyanobacteria after the acquisition of Cas1 and Cas2 by an ancestor of Cyanobacteria. Type I emerges from the branch leading to \emph{Cyanothece sp. PCC 8802} with acquisition of Cas3 and Cas4, while Type III emerges from the branch leading to \emph{Synechocystis sp. 6803} without further gene gains.
@@ -906,11 +820,11 @@ Aside from this difference, both scenarios are in agreement for Types I and III 
 Type I was spread to the other bacteria with a HGT to the ancestor of Proteobacteria. According to \textcite{Wang2020EvolutionaryTimelineGenomic}, the Cyanobacteria ancestor is estimated between 2,230 and 3,000 Mya, while the last common ancestor (LCA) of Alpha-, Beta-, and Gammaproteobacteria is estimated between 2,360 and 2,620 Mya. These calibrations make time-plausible the lateral transfer of Type~I CRISPR-Cas from the \emph{Cyanothece sp. PCC 8802} branch, close to the Cyanobacteria ancestor, to the LCA of Proteobacteria. A second HGT from \emph{Geobacter sulfurreducens} brought Type I to the Firmicutes \emph{Bacillus halodurans C-125} and \emph{Clostridium kluyveri DSM 555}. Type III was spread across bacteria with a succession of three HGTs, which also seem time-consistent.
 
 The analysis of the synteny evolutionary history across the Proteobacteria subtree shows an unexpected scenario highlighting a limitation of our model. The {\superdtl} algorithm inferred an ancestral synteny duplication before the LCA of \emph{S. putrefaciens}, \emph{V. crassostreae}, \emph{Y. pseudotuberculosis} and \emph{E. coli} resulting in a succession of three consecutive full synteny losses along the branch to the synteny in \emph{E. coli} which is an unlikely evolutionary scenario. An alternative evolutionary scenario would consist in a speciation in place of the duplication, copying the ancestral synteny to an unsampled or extinct species which would later be transferred back to \emph{Escherichia coli}. Such a model of HGT events as combinations of a speciation event outside the species tree (to an unsampled or dead lineage) followed by a transfer back inside the species tree has been described in~\textcite{Szoelloesi2013LateralGeneTransfer}.
-This alternative scenario would replace one duplication and three losses with one speciation and one transfer, which yields the same cost under the $\costLoss=1$, $\costHGT=4$ and $\costDup\in\{1,1.5,2,2.5\}$ model but would be less costly for $\costHGT<4$. Consideration of unsampled and dead lineages in the DTL Super-reconciliation will therefore be necessary to infer better synteny evolutionary scenarios.
+This alternative scenario would replace one duplication and three losses with one speciation and one transfer, which yields the same cost under the \(\costLoss = 1\), \(\costHGT = 4\) and \(\costDup \in \{1, 1.5, 2, 2.5\}\) model but would be less costly for \(\costHGT < 4\). Consideration of unsampled and dead lineages in the DTL Super-reconciliation will therefore be necessary to infer better synteny evolutionary scenarios.
 
 \section{Conclusion}
 
-We have developed {\superdtl}, the first exact algorithm for inferring most parsimonious evolutionary histories for a set of syntenies, given a phylogenetic tree of the syntenies and a phylogenetic tree of the corresponding species, for an evolutionary model accounting for segmental duplications, gains, losses and HGT events. We only presented the unordered version of the problem in this paper, but the algorithm developed by~\textcite{Delabre2020EvolutionSegmentalDuplications} for the ordered version of the DL Super-reconciliation model can also be extended to the DTL Super-reconciliation model. However, as rearrangements are not considered in the model, a DT or DTL Super-reconciliation only exists if extant gene orders are pairwise consistent, which is a strong constraint, not verified, for example, in the case of the Cas gene syntenies of \cref{fig:superdtl:crispr-trees}. Considering a unifying model accounting for both DTL and rearrangement events remains a challenge. The analysis of the synteny evolutionary scenario in Proteobacteria emphasized the need in DTL Super-reconciliation model to infer HGT to and from unsampled or extinct species to produce more realistic evolutionary scenarios.
+We have developed {\superdtl}, the first exact algorithm for inferring most parsimonious evolutionary histories for a set of syntenies, given a phylogenetic tree of the syntenies and a phylogenetic tree of the corresponding species, for an evolutionary model accounting for segmental duplications, gains, losses and HGT events. We only presented the unordered version of the problem in this chapter, but the algorithm developed by~\textcite{Delabre2020EvolutionSegmentalDuplications} for the ordered version of the DL Super-reconciliation model can also be extended to the DTL Super-reconciliation model. However, as rearrangements are not considered in the model, a DT or DTL Super-reconciliation only exists if extant gene orders are pairwise consistent, which is a strong constraint, not verified, for example, in the case of the Cas gene syntenies of \cref{fig:superdtl:crispr-trees}. Considering a unifying model accounting for both DTL and rearrangement events remains a challenge. The analysis of the synteny evolutionary scenario in Proteobacteria emphasized the need in DTL Super-reconciliation model to infer HGT to and from unsampled or extinct species to produce more realistic evolutionary scenarios.
 In addition, in order to avoid the unjustified constraint of having all genes at the root of the tree, we allowed for gene gains, which has been essential for the analysis of Cas gene syntenies. Although we defined the general evolutionary model in a way allowing for segmental gains (i.e. gains of a group of genes), we only considered single gene gains in our algorithm. An extension is however possible and may be considered for future work.
 
 The reconstruction of an evolutionary history for Cas gene syntenies  using {\superdtl} provides a first attempt to reconcile the evolutionary scenario of Cas syntenies in the context of the evolution of bacterial species. However, several improvements could be brought to the considered Cas synteny dataset to better reconstruct its evolutionary history. First, we excluded archaea from our dataset while several studies show evidence for an emergence of CRISPR-Cas systems from archaeal species followed by horizontal transfers to bacteria. This is supported by the fact that most considered archaea have a complete CRISPR-Cas system while only part of bacteria have one. In fact, as of the latest update from January 21, 2021 of the CRISPRCasdb database\footnote{Available at \url{https://crisprcas.i2bc.paris-saclay.fr/MainDb/StrainList}}~\parencite{Pourcel2020CRISPRCasdbSuccessorCRISPRdb}, 70.64\% of analyzed archaeal species versus 36.27\% of analyzed bacteria had a complete CRISPR-Cas system.

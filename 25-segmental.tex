@@ -43,7 +43,7 @@ Une réconciliation d’adjacences de \(\gtrees\) avec \(S\) (voir \cref{fig:rec
 \begin{definition}[Réconciliations d’adjacences]\label{definition:adjrec}
     Soient \(\gtrees\) une forêt phylogénétique et \(S\) un arbre phylogénétique.
     Soient \(\llmap : \tleavs(\gtrees) \onto \tleavs(S)\) une application et \(\lladjset \subseteq \alladjs(\llmap)\) un ensemble d’adjacences.
-    Une \emph{réconciliation d’adjacences} de \(\gtrees\) avec \(S\) est un couple \(\tuple{\rec, \adjset}\),
+    Une \emph{réconciliation d’adjacences} de \(\gtrees\) avec \(S\) est un couple \(\tup{\rec, \adjset}\),
     où \(\rec\) est une application étendant~\(\llmap\) qui est l’union de réconciliations individuelles de chaque arbre de \(\gtrees\) avec \(S\),
     et \(\adjset\) est un ensemble d’adjacences ancestrales tel que \(\lladjset \subseteq \adjset \subseteq \alladjs(\rec)\).
 \end{definition}
@@ -82,7 +82,7 @@ Ainsi, un sommet ne peut être adjacent à l’un de ses descendants ou ancêtre
 Par ailleurs, pour qu’elles puissent correspondre à une structure biologique connue, ces adjacences doivent pouvoir être assemblées en segments ou en cycles sans former d’embranchements.
 
 \begin{definition}[Linéarité]\label{definition:adjrec-lin}
-    Soient \(\gtrees\) une forêt phylogénétique, \(S\) un arbre phylogénétique, et \(\tuple{\rec, \adjset}\) une réconciliation d’adjacences de \(\gtrees\) avec \(S\).
+    Soient \(\gtrees\) une forêt phylogénétique, \(S\) un arbre phylogénétique, et \(\tup{\rec, \adjset}\) une réconciliation d’adjacences de \(\gtrees\) avec \(S\).
     Les adjacences de \(\adjset\) sont \emph{linéaires} si chaque \(v \in \tnodes(\gtrees)\) apparaît dans au plus deux adjacences.
 \end{definition}
 
@@ -91,7 +91,7 @@ Un tel modèle spécifie non seulement les événements qui affectent individuel
 Une interprétation est représentée par une forêt d’adjacences.
 
 \begin{definition}[Forêts d’adjacences]\label{definition:adjrectree}
-    Soient \(\gtrees\) une forêt phylogénétique, \(S\) un arbre phylogénétique, \(\tuple{\rec, \adjset}\) une réconciliation d’adjacences de \(\gtrees\) avec \(S\), et \(\tuple{\recmodel\rmunit, \recmodel\rmadj}\) deux ensembles de types d’événements.
+    Soient \(\gtrees\) une forêt phylogénétique, \(S\) un arbre phylogénétique, \(\tup{\rec, \adjset}\) une réconciliation d’adjacences de \(\gtrees\) avec \(S\), et \(\tup{\recmodel\rmunit, \recmodel\rmadj}\) deux ensembles de types d’événements.
     Soit \(\rectree(\rec)\) une forêt réconciliée sous le modèle \(\recmodel\rmunit\) contenant les applications \(\exrec\) et \(\evt\).
     Une \emph{forêt d’adjacences} \(\adjtree\) est composée de sommets
         étiquetés par des adjacences
@@ -113,7 +113,7 @@ Cet événement de gain d’adjacence est noté~\(\evtG\).
 Par conséquent, une forêt sans aucune branche correspond à un scénario dans lequel toutes les adjacences sont apparues spontanément, tandis qu’une forêt composée d’un seul arbre correspond à l’émergence de toutes les adjacences depuis un ancêtre unique.
 Le coût associé à une forêt d’adjacences est la somme des coûts de ses événements, incluant autant d’événements de gain qu’elle ne compte de racines.
 
-\begin{problem}{\(\tuple{\recmodel\rmunit, \recmodel\rmadj}\)-parcimonie}
+\begin{problem}{\(\tup{\recmodel\rmunit, \recmodel\rmadj}\)-parcimonie}
     \probinput{Phylogénies \(\gtrees\) et \(S\);
                association des feuilles \(\llmap : \tleavs(\gtrees) \onto \tleavs(S)\);
                adjacences entre feuilles \(\lladjset \subseteq \alladjs(\llmap)\);
@@ -139,7 +139,7 @@ Dans ce modèle, \(\recmodelDL\rmunit = \{\evtD, \evtL, \evtS\}\), \(\recmodelDL
         où \(x' \in \children(x)\).
 \end{compactitemize}
 
-La \cref{fig:reconciliation:adj-forest} donne un exemple de forêt réconciliée et de forêt d’adjacences interprétant la réconciliation d’adjacences de la \cref{fig:reconciliation:adj-rec} sous le modèle \(\tuple{\recmodelDL\rmunit, \recmodelDL\rmadj}\).
+La \cref{fig:reconciliation:adj-forest} donne un exemple de forêt réconciliée et de forêt d’adjacences interprétant la réconciliation d’adjacences de la \cref{fig:reconciliation:adj-rec} sous le modèle \(\tup{\recmodelDL\rmunit, \recmodelDL\rmadj}\).
 
 \begin{figure}[htb]
     \capstart
@@ -152,13 +152,13 @@ La \cref{fig:reconciliation:adj-forest} donne un exemple de forêt réconciliée
         et selon la réconciliation représentée en \cref{fig:reconciliation:adj-rec}.
         Les étiquettes grises permettent d’identifier les embranchements dans la partie inférieure de la figure.
         \emph{(Bas.)}
-        Forêt d’adjacences représentant un scénario d’évolution \(\tuple{\recmodelDL\rmunit, \recmodelDL\rmadj}\) à partir de trois adjacences ancestrales.
+        Forêt d’adjacences représentant un scénario d’évolution \(\tup{\recmodelDL\rmunit, \recmodelDL\rmadj}\) à partir de trois adjacences ancestrales.
         L’étoile \(\star\) correspond à une rupture de l’adjacence par perte d’une de ses extrémités.
     }
     \label{fig:reconciliation:adj-forest}
 \end{figure}
 
-À condition de donner un coût nul à tous les événements sauf \(\evtG\) et \(\evtB\), \textcite{Berard2012EvolutionGeneNeighborhoods} ont démontré que le problème de \(\tuple{\recmodelDL\rmunit, \recmodelDL\rmadj}\)-parcimonie peut être résolu en temps polynomial en précalculant des réconciliations individuelles \(\recmodelDL\) puis en exécutant un algorithme de programmation dynamique.
+À condition de donner un coût nul à tous les événements sauf \(\evtG\) et \(\evtB\), \textcite{Berard2012EvolutionGeneNeighborhoods} ont démontré que le problème de \(\tup{\recmodelDL\rmunit, \recmodelDL\rmadj}\)-parcimonie peut être résolu en temps polynomial en précalculant des réconciliations individuelles \(\recmodelDL\) puis en exécutant un algorithme de programmation dynamique.
 Aucun algorithme polynomial n’est connu à ce jour pour le problème général et \textcite{Boussau2020ReconcilingGeneTrees} ont conjecturé que le problème est NP-complet.
 
 Suite à la publication initiale de \textcite{Berard2012EvolutionGeneNeighborhoods}, le modèle a été étendu par \textcite{Patterson2013LateralGeneTransfer} puis \textcite{Duchemin2017DecostarReconstructingAncestral} sous les noms de DeCoLT et DeCoSTAR pour prendre en compte les événements \(\evtT\) et \(\evtTX\).
@@ -226,7 +226,7 @@ Formellement, pour un sommet \(v \in \tnodes(\segtree)\) de la forêt de syntén
         \(\evt(x_i) = \evtL\).
 \end{compactitemize}
 
-Le problème d’optimisation combinatoire associé à la super-réconciliation s’apparente au problème de \(\tuple{\recmodel\rmunit, \recmodel\rmadj}\)-parcimonie défini précédemment, à ceci près que la sortie attendue est une forêt de synténies au lieu d’adjacences.
+Le problème d’optimisation combinatoire associé à la super-réconciliation s’apparente au problème de \(\tup{\recmodel\rmunit, \recmodel\rmadj}\)-parcimonie défini précédemment, à ceci près que la sortie attendue est une forêt de synténies au lieu d’adjacences.
 Ce problème se décline en une \enquote{grande} version, dans laquelle la topologie de la forêt et le contenu de ses synténies doivent être inférés simultanément, et une \enquote{petite} version dans laquelle la topologie est fixée.
 
 Dans l’article, une restriction du problème d’optimisation est étudiée dans laquelle la forêt de synténies est composée d’un seul arbre et tous les segments dérivent d’un unique segment ancestral.

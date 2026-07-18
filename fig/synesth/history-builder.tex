@@ -9,21 +9,21 @@
 
         \coordinate [
             below left=of root,
-            label={[node label]left:\(v\leftChild\)},
+            label={[node label]left:\(v\lchild\)},
         ] (node-left) {};
 
         \node [node label, below=.7cm of node-left]
             (node-left-subtree)
-            {\(\subtree{\syntenyTree}{v\leftChild}\)};
+            {\(\subtree{\syntenyTree}{v\lchild}\)};
 
         \coordinate [
             below right=of root,
-            label={[node label]right:\(v\rightChild\)},
+            label={[node label]right:\(v\rchild\)},
         ] (node-right) {};
 
         \node [node label, below=.7cm of node-right]
             (node-right-subtree)
-            {\(\subtree{\syntenyTree}{v\rightChild}\)};
+            {\(\subtree{\syntenyTree}{v\rchild}\)};
 
         \draw (root) edge (node-left);
         \draw (root) edge (node-right);
@@ -56,36 +56,36 @@
         \node [
             generic,
             below left=of root,
-            label={[species label]right:\(\sigma\leftChild\)},
+            label={[species label]right:\(\sigma\lchild\)},
         ] (path-left) {\(X\)};
 
         \node [
             generic,
             below left=of path-left,
-            label={[node label]left:\(v\leftChild\)},
-            label={[species label]right:\(\gamma\leftChild\)},
+            label={[node label]left:\(v\lchild\)},
+            label={[species label]right:\(\gamma\lchild\)},
         ] (node-left) {\(Y\)};
 
         \node [node label, below=.7cm of node-left]
             (node-left-subtree)
-            {\(h(v\leftChild, Y, \gamma\leftChild)\)};
+            {\(h(v\lchild, Y, \gamma\lchild)\)};
 
         \node [
             generic,
             below right=of root,
-            label={[species label]right:\(\sigma\rightChild\)},
+            label={[species label]right:\(\sigma\rchild\)},
         ] (path-right) {\(X\)};
 
         \node [
             generic,
             below right=of path-right,
-            label={[node label]left:\(v\rightChild\)},
-            label={[species label]right:\(\gamma\rightChild\)},
+            label={[node label]left:\(v\rchild\)},
+            label={[species label]right:\(\gamma\rchild\)},
         ] (node-right) {\(Z\)};
 
         \node [node label, below=.7cm of node-right]
             (node-right-subtree)
-            {\(h(v\rightChild, Z, \gamma\rightChild)\)};
+            {\(h(v\rchild, Z, \gamma\rchild)\)};
 
         \draw (root) edge (path-left);
         \draw (root) edge (path-right);
