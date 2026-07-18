@@ -649,18 +649,18 @@ We therefore only need to consider two possibilities for $\syntenyOf(v)$. We def
             \Else
                 \State $c \gets \infty$
                 \For{$\sigma',\sigma'' \in \treeNodes(\speciesTree)^2$}
-                    \State $\mathit{star_l} \gets \infty$ \textbf{if} $\syntenyLCAOf(v) \subseteq \syntenyLCAOf(v_l)$ \textbf{else} $0$
-                    \State $\mathit{star_r} \gets \infty$ \textbf{if} $\syntenyLCAOf(v) \subseteq \syntenyLCAOf(v_r)$ \textbf{else} $0$
-                    \State $\mathit{partial_l} \gets \subseqDist(\syntenyLCAOf(v), \syntenyLCAOf(v_l))$
-                    \State $\mathit{partial_r} \gets \subseqDist(\syntenyLCAOf(v), \syntenyLCAOf(v_r))$
+                    \State $star\lchild \gets \infty$ \textbf{if} $\syntenyLCAOf(v) \subseteq \syntenyLCAOf(v_l)$ \textbf{else} $0$
+                    \State $star\rchild \gets \infty$ \textbf{if} $\syntenyLCAOf(v) \subseteq \syntenyLCAOf(v_r)$ \textbf{else} $0$
+                    \State $partial\lchild \gets \subseqDist(\syntenyLCAOf(v), \syntenyLCAOf(v_l))$
+                    \State $partial\rchild \gets \subseqDist(\syntenyLCAOf(v), \syntenyLCAOf(v_r))$
                     \If{$\eventLCA(\sigma,\sigma',\sigma'') = \eventSpe$}
                         \State $c \gets \min\{c, \begin{aligned}[t]
-                            &\min\{\mathcal{C^\star}(v_l, \sigma') + \mathit{star_l},
+                            &\min\{\mathcal{C^\star}(v_l, \sigma') + star\lchild,
                                  \mathcal{C}(v_l, \sigma') +
-                                 \costLoss\times\mathit{partial_l}\}\ +\\
-                            &\min\{\mathcal{C^\star}(v_r, \sigma'') + \mathit{star_r},
+                                 \costLoss \times partial\lchild\}\ +\\
+                            &\min\{\mathcal{C^\star}(v_r, \sigma'') + star\rchild,
                                  \mathcal{C}(v_r, \sigma'') +
-                                 \costLoss\times\mathit{partial_r}\}\ +\\[-.25em]
+                                 \costLoss \times partial\rchild\}\ +\\[-.25em]
                             &\costLoss\times
                             (\treeDist{\speciesTree}(\sigma, \sigma') +
                             \treeDist{\speciesTree}(\sigma, \sigma'') - 2)\}
@@ -669,11 +669,11 @@ We therefore only need to consider two possibilities for $\syntenyOf(v)$. We def
                         \State $c \gets \min\{c, \begin{aligned}[t]
                             &\min\{
                             \begin{aligned}[t]
-                                &\mathcal{C^\star}(v_l, \sigma') + \mathcal{C^\star}(v_r, \sigma'') + \mathit{star_l} + \mathit{star_r},\\
-                                &\mathcal{C}(v_l, \sigma') + \mathcal{C^\star}(v_r, \sigma'') + \mathit{star_r},\\
-                                &\mathcal{C^\star}(v_l, \sigma') + \mathcal{C}(v_r, \sigma'') + \mathit{star_l},\\
+                                &\mathcal{C^\star}(v_l, \sigma') + \mathcal{C^\star}(v_r, \sigma'') + star\lchild + star\rchild,\\
+                                &\mathcal{C}(v_l, \sigma') + \mathcal{C^\star}(v_r, \sigma'') + star\rchild,\\
+                                &\mathcal{C^\star}(v_l, \sigma') + \mathcal{C}(v_r, \sigma'') + star\lchild,\\
                                 &\mathcal{C}(v_l, \sigma') + \mathcal{C}(v_r, \sigma'')\ + \\
-                                &\qquad\costLoss\times\min\{\mathit{partial_l}, \mathit{partial_r}\}
+                                &\qquad\costLoss\times\min\{partial\lchild, partial\rchild\}
                                 \}\ +
                             \end{aligned}\\[-.25em]
                             &\costDup + \costLoss\times
@@ -681,19 +681,23 @@ We therefore only need to consider two possibilities for $\syntenyOf(v)$. We def
                             \treeDist{\speciesTree}(\sigma, \sigma''))\}
                         \end{aligned}$
                     \ElsIf{$\eventLCA(\sigma,\sigma',\sigma'') = \eventHGT$}
-                        \State $\mathit{full} \gets \treeDist{\speciesTree}(\sigma, \sigma'')$ \textbf{if} $\sigma'$ is separated from $\sigma$ \textbf{else} $\treeDist{\speciesTree}(\sigma, \sigma')$
-                        \State \textbf{if} $\sigma'$ is separated from $\sigma$ \textbf{then} $\mathit{partial_l} \gets 0$
-                        \State \textbf{if} $\sigma''$ is separated from $\sigma$ \textbf{then} $\mathit{partial_r} \gets 0$
+                        \State $f\!ull \gets \treeDist{\speciesTree}(\sigma, \sigma'')$ \textbf{if} $\sigma'$ is separated from $\sigma$ \textbf{else} $\treeDist{\speciesTree}(\sigma, \sigma')$
+                        \State \textbf{if} $\sigma'$ is separated from $\sigma$ \textbf{then} $partial\lchild \gets 0$
+                        \State \textbf{if} $\sigma''$ is separated from $\sigma$ \textbf{then} $partial\rchild \gets 0$
                         \State $c \gets \min\{c, \begin{aligned}[t]
                             &\min\{
                             \begin{aligned}[t]
                                 &\mathcal{C^\star}(v_l, \sigma') + \mathcal{C^\star}(v_r, \sigma''),\\
-                                &\mathcal{C}(v_l, \sigma') + \mathcal{C^\star}(v_r, \sigma'') + \mathit{star_r} + \costLoss\times\mathit{partial_l},\\
-                                &\mathcal{C^\star}(v_l, \sigma') + \mathcal{C}(v_r, \sigma'') + \mathit{star_l} + \costLoss\times\mathit{partial_r},\\
+                                &\mathcal{C}(v_l, \sigma') + \mathcal{C^\star}(v_r, \sigma'') +
+                                    star\rchild +
+                                    \costLoss \times partial\lchild,\\
+                                &\mathcal{C^\star}(v_l, \sigma') + \mathcal{C}(v_r, \sigma'') +
+                                    star\lchild +
+                                    \costLoss \times partial\rchild,\\
                                 &\mathcal{C}(v_l, \sigma') + \mathcal{C}(v_r, \sigma'') + \costLoss
                                 \}\ +
                             \end{aligned}\\[-.25em]
-                            &\costHGT + \costLoss\times\mathit{full}\}
+                            &\costHGT + \costLoss \times f\!ull\}
                         \end{aligned}$
                     \EndIf
                 \EndFor
@@ -738,19 +742,21 @@ We therefore only need to consider two possibilities for $\syntenyOf(v)$. We def
                             \treeDist{\speciesTree}(\sigma, \sigma''))\}
                         \end{aligned}$
                     \ElsIf{$\eventLCA(\sigma,\sigma',\sigma'') = \eventHGT$}
-                        \State $\mathit{full} \gets \treeDist{\speciesTree}(\sigma, \sigma'')$ \textbf{if} $\sigma'$ is separated from $\sigma$ \textbf{else} $\treeDist{\speciesTree}(\sigma, \sigma')$
-                        \State $\mathit{partial_l} \gets 0$ \textbf{if} $\sigma'$ is separated from $\sigma$ \textbf{else} $1$
-                        \State $\mathit{partial_r} \gets 0$ \textbf{if} $\sigma''$ is separated from $\sigma$ \textbf{else} $1$
+                        \State $f\!ull \gets \treeDist{\speciesTree}(\sigma, \sigma'')$ \textbf{if} $\sigma'$ is separated from $\sigma$ \textbf{else} $\treeDist{\speciesTree}(\sigma, \sigma')$
+                        \State $partial\lchild \gets 0$ \textbf{if} $\sigma'$ is separated from $\sigma$ \textbf{else} $1$
+                        \State $partial\rchild \gets 0$ \textbf{if} $\sigma''$ is separated from $\sigma$ \textbf{else} $1$
                         \State $c \gets \min\{c, \begin{aligned}[t]
                             &\min\{
                             \begin{aligned}[t]
                                 &\mathcal{C^\star}(v_l, \sigma') + \mathcal{C^\star}(v_r, \sigma''),\\
-                                &\mathcal{C}(v_l, \sigma') + \mathcal{C^\star}(v_r, \sigma'') + \costLoss\times\mathit{partial_l},\\
-                                &\mathcal{C^\star}(v_l, \sigma') + \mathcal{C}(v_r, \sigma'') + \costLoss\times\mathit{partial_r},\\
+                                &\mathcal{C}(v_l, \sigma') + \mathcal{C^\star}(v_r, \sigma'') +
+                                    \costLoss \times partial\lchild,\\
+                                &\mathcal{C^\star}(v_l, \sigma') + \mathcal{C}(v_r, \sigma'') +
+                                    \costLoss \times partial\rchild,\\
                                 &\mathcal{C}(v_l, \sigma') + \mathcal{C}(v_r, \sigma'') + \costLoss
                                 \}\ +
                             \end{aligned}\\[-.25em]
-                            &\costHGT + \costLoss\times\mathit{full}\}
+                            &\costHGT + \costLoss \times f\!ull\}
                         \end{aligned}$
                     \EndIf
                 \EndFor
