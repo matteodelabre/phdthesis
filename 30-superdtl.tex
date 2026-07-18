@@ -506,7 +506,7 @@ We next introduce a way to assign a cost to a Super-reconciliation which, as we 
       \item\label{lem:superdtl:history-min-loss-dup}
       If $\eventOf(v) = \eventDup$, there are at least $\min\{\subseqDist(\syntenyOf(v), \syntenyOf(w_l)), \subseqDist(\syntenyOf(v), \syntenyOf(w_r))\}$ loss events on the path from $w_l$ to $w_r$.
       \item\label{lem:superdtl:history-min-loss-hgt}
-      If $\eventOf(v) = \eventHGT$, if $\speciesOf(w_l)$ (resp. $w_r$) is not separated from $\speciesOf(w)$ there is at least $\subseqDist(\syntenyOf(v), \syntenyOf(w_l))$ (resp. $w_r$) loss event on the path from $w$ to $w_l$ (resp. $w_r$).
+      If $\eventOf(v) = \eventHGT$, if $\speciesOf(w_l)$ (resp. $w_r$) is not separated from $\speciesOf(v)$ there is at least $\subseqDist(\syntenyOf(v), \syntenyOf(w_l))$ (resp. $w_r$) loss event on the path from $v$ to $w_l$ (resp. $w_r$).
   \end{enumerate}
 \end{lemma}
 \begin{proof}
@@ -778,7 +778,7 @@ We therefore only need to consider two possibilities for $\syntenyOf(v)$. We def
     Consider the computation of $\mathcal{C}^\star(v, \sigma)$ by Algorithm~\ref{alg:superdtl:cstarmin-rec}.
     Since in that case $\syntenyOf(v) \supsetneq \syntenyLCAOf(v)$, then $\syntenyOf(v) \not\subseteq \syntenyLCAOf(v_l)$.
     Therefore, setting $\syntenyOf(v_l) = \syntenyLCAOf(v_l)$ (which costs $\mathcal{C}(v_l, \sigma') = \dt{C}{v_l, \sigma'}$) would imply that $\subseqDist(\syntenyOf(v), \syntenyOf(v_l)) = 1$.
-    On the contrary, setting $\syntenyOf(v_l) \supsetneq \syntenyLCAOf(v_l)$ (which costs $\mathcal{C^\star}(v_r, \sigma') = \dt{C^\star}{v_r, \sigma''}$) would give us the freedom to choose $\syntenyOf(v_l)$ such that $\syntenyOf(v) \subseteq \syntenyOf(v_l)$, implying that $\subseqDist(\syntenyOf(v), \syntenyOf(v_l)) = 0$.
+    On the contrary, setting $\syntenyOf(v_l) \supsetneq \syntenyLCAOf(v_l)$ (which costs $\mathcal{C^\star}(v_l, \sigma') = \dt{C^\star}{v_l, \sigma''}$) would give us the freedom to choose $\syntenyOf(v_l)$ such that $\syntenyOf(v) \subseteq \syntenyOf(v_l)$, implying that $\subseqDist(\syntenyOf(v), \syntenyOf(v_l)) = 0$.
     The same logic holds for $v$, $v_r$, and $\sigma''$.
     Note that each of the three cases in the innermost loop uses the same cost computation formula as Definition~\ref{def:superdtl:cost}, albeit adapted to test all four options of setting $\syntenyOf(v_l)$ and $\syntenyOf(v_r)$ to either $\syntenyLCAOf$ or a superset of it.
     By \cref{lem:superdtl:subset-2cases}, those are the only four options to consider, so $\mathcal{C}^\star(v, \sigma) = \dt{C^\star}{v, \sigma}$.
