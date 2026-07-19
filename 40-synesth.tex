@@ -21,45 +21,31 @@ Une approche préférable consiste à caractériser l’espace des solutions Par
 En nous appuyant sur les travaux de \textcite{LibeskindHadas2014ParetoOptimalPhylogenetic}, nous montrons qu’il est possible de brosser efficacement le \emph{paysage} des scénarios de réconciliation segmentale pour une certaine instance, indépendamment de tout choix de coûts spécifiques.
 Pour ce faire, nous procédons à une étude combinatoire de l’espace des réconciliations segmentales sous ce modèle étendu.
 
+\emph{La suite de ce chapitre, présentée en anglais, est une adaptation d’un article dont les informations sont présentées ci-dessous. Des modifications mineures ont été apportées par rapport à la version publiée afin notamment de faire correspondre les notations avec celles utilisées dans le reste de ce manuscrit.}
+
+\articlemeta%
+    {Synesth: Comprehensive syntenic reconciliation with unsampled lineages}%
+    {Entre octobre~2022 et décembre~2023}%
+    {Publié en avril~2024 dans le journal \emph{Algorithms} chez MDPI}%
+    {& Mattéo \textsc{Delabre} & Extension du modèle, développement de l’algorithme associé, preuves de correction et d’efficacité, implémentation de l’algorithme, réalisation des figures, analyse des résultats \\
+    \cmidrule(l){2-3}
+    & Nadia \textsc{El-Mabrouk} & Supervision, idéation, aide à la structuration et à l’ébauche du texte, relecture}
+\selectlanguage{english}
+
 % TODO: Migrate notations to notations.tex
 
 \newcommand{\ancest}{\leq}
 \newcommand{\separ}{\mathrel{\|}}
-% \newcommand{\rootOf}{\mathrm{r}}
-% \newcommand{\parentOf}{\mathrm{p}}
-% \newcommand{\treeNodes}{\mathrm{V}}
-% \newcommand{\treeLeaves}{\mathrm{L}}
-% \newcommand{\treeInner}{\mathrm{I}}
-% \newcommand{\treeEdges}{\mathrm{E}}
-% \newcommand{\treeEdge}[2]{(#1,#2)}
 \newcommand{\treePath}[3][]{\mathrm{P}_{#1}(#2, #3)}
-% \newcommand{\treeDist}[3][]{\mathrm{D}_{#1}(#2, #3)}
-% \newcommand{\LCA}{\mathrm{lca}}
-% \newcommand{\leftChild}{_\mathrm{\ell}}
-% \newcommand{\rightChild}{_\mathrm{r}}
 \newcommand{\Child}{_\mathrm{c}}
-% \newcommand{\geneFamily}{\Gamma}
-% \newcommand{\geneFamilySet}{\mathcal{F}}
 \newcommand{\augS}{\speciesTree^*}
-% \newcommand{\F}{{\mathcal F}}
-% \newcommand{\taxa}{{\Sigma}}
-% \newcommand{\speciesOf}{s}
-% \newcommand{\syntenyFamily}{\mathcal{X}}
-% \newcommand{\syntenyTree}{\mathcal{T}}
-% \newcommand{\syntenyOf}{x}
 \newcommand{\restr}[2]{#1|_{#2}}
 \newcommand{\allEvents}{\mathcal{E}}
-% \newcommand{\eventSpe}{\mathrm{Spe}}
-% \newcommand{\eventDup}{\mathrm{Dup}}
 \newcommand{\eventCut}{\mathrm{Cut}}
 \newcommand{\eventTrDup}{\mathrm{TrDup}}
 \newcommand{\eventTrCut}{\mathrm{TrCut}}
 \newcommand{\eventTrAll}{\mathrm{Tr}}
-% \newcommand{\eventLoss}{\mathrm{Loss}}
-% \newcommand{\eventGain}{\mathrm{Gain}}
 \newcommand{\Hist}{\mathcal{H}}
-% \newcommand{\speciesTree}{S}
-% \newcommand{\eventOf}{e}
 \newcommand{\eventCost}{\delta}
 \newcommand{\histCost}{\mathrm{c}}
 \newcommand{\targetChild}{_\mathrm{t}}
@@ -67,7 +53,6 @@ Pour ce faire, nous procédons à une étude combinatoire de l’espace des réc
 \newcommand{\solSpace}{\mathbb{H}}
 \newcommand{\minSolSpace}{\solSpace^{\mathrm{min}}}
 \newcommand{\setNat}{\mathbb{N}}
-% \newcommand{\setReal}{\mathbb{R}}
 \newcommand{\eventVec}{\mathrm{ev}}
 \newcommand{\paretoMin}[1]{\min{}_{#1}\,}
 \newcommand{\minVecSet}{\eventVec^{\mathrm{min}}}
@@ -80,27 +65,6 @@ Pour ce faire, nous procédons à une étude combinatoire de l’espace des réc
 \newcommand{\visLeaves}{\tleavs_V}
 
 %%%%%%%%%%%%%%%%%%%%%%%
-
-\selectlanguage{english}
-\articlehat{
-    \textfrench{La suite de ce chapitre est une reproduction partielle de l’article intitulé \enquote{Synesth: Comprehensive syntenic reconciliation with unsampled lineages}.
-    Cet article a été écrit entre octobre~2022 et décembre~2023 et a été publié en avril~2024 dans le journal Algorithms chez MDPI.}
-}
-\title{Synesth: Comprehensive syntenic\\reconciliation with unsampled lineages}
-\author{Mattéo Delabre \and Nadia El-Mabrouk}
-\institute{Département d'informatique et de recherche opérationnelle, Université de Montréal}
-\makearticlehead
-
-\begin{abstract}
-    We present Synesth, the most comprehensive and flexible tool for tree reconciliation allowing for segmental events --- involving multiple genes --- including duplications, transfers, fissions, and transient events going through unsampled species.
-    We examine the combinatorial properties of this extended tree reconciliation model and study various associated optimization problems related to various granularities of the solution space.
-    First, the infinite set of histories is reduced to a finite but exponential set of Pareto-optimal event histories (in terms of counts of each event type), then to a polynomial set of Pareto-optimal event vectors, eventually ending with minimum event cost histories given an event cost function. An inductive algebraic characterization of the output using a different algebra for each space granularity leads to efficient dynamic programming algorithms, ultimately ending with an \(O(mn)\) time-complexity algorithm for computing a minimum event-cost history (\(m\) and \(n\): number of nodes of the two trees).
-    This time complexity matches that of the fastest algorithms for classical (i.e., without syntenies and associated events) reconciliation with transfers.
-    We show how Synesth can be applied for inferring Pareto-optimal evolutionary scenarios of CRISPR-Cas systems in a set of bacterial genomes.
-    An implementation of the algorithm is available at: \url{https://github.com/UdeM-LBIT/superrec2/tree/algo2024}.
-
-    \keywords{Tree reconciliation \and Algebraic dynamic programming \and Multi-objective optimization \and Horizontal gene transfer \and Synteny \and Fission \and Unsampled lineages.}
-\end{abstract}
 
 \section{Introduction}
 

@@ -142,6 +142,7 @@
 %% Tables
 \RequirePackage{booktabs}
 \RequirePackage{multirow}
+\RequirePackage{makecell}
 
 %% Code
 \RequirePackage[section]{minted}
@@ -421,32 +422,22 @@
     \clearpage
 }}
 
-%% Pages d’articles
-\newenvironment{abstract}{\small\list{}{\rightmargin.5in\leftmargin.5in}\item[]\textbf{Abstract:}}{\endlist}
-
-\newcommand{\keywords}[1]{\textbf{Keywords:}\renewcommand{\and}{~·~} #1}
-
-\newcommand{\@articlehat}{}
-\newcommand{\articlehat}[1]{\renewcommand{\@articlehat}{\ignorespaces#1}}
-
-\newcommand{\inst}[1]{\textsuperscript{#1}}
-\newcommand{\@institute}{}
-\newcommand{\institute}[1]{\renewcommand{\@institute}{#1}}
-
-\newcommand{\makearticlehead}{{%
-    \emph{\@articlehat}
-
-    \vspace{1ex}
-    \rule{\linewidth}{.25pt}
-
-    \vspace{1ex}
-    \centering
-    {\Large\@title\par}
-
-    \renewcommand{\and}{\quad}
-    \@author
-
-    \renewcommand{\and}{\\}
-    {\small\@institute\par}
-
-}}
+%% Métadonnées d’articles
+\newcommand{\@articlemeta}[5]{%
+    \begin{tabular}{@{}rp{3.5cm}p{8cm}@{}}
+        \toprule
+        \textsc{titre original} &
+        \multicolumn{2}{l}{\emph{\textenglish{#2}}} \\
+        \midrule
+        \textsc{date d’écriture} &
+        \multicolumn{2}{l}{#3} \\
+        \midrule
+        \textsc{dissémination} &
+        \multicolumn{2}{p{11.5cm}}{#4} \\
+        \midrule
+        #1 #5 \\
+        \bottomrule
+    \end{tabular}%
+}
+\newcommand{\articlemetasingle}{\@articlemeta{\textsc{auteur}}}
+\newcommand{\articlemeta}{\@articlemeta{\makecell[tr]{\textsc{auteur.e.s et}\\[-.5ex]\textsc{contributions}}}}

@@ -3,8 +3,6 @@
 \selectlanguage{french}
 \chapter{Réconciliation avec duplications, transferts, pertes et gains segmentaux}\label{chap:superdtl}
 
-% TODO: Clarifier que l’on se concentre sur le problème sans ordres
-
 Les travaux initiaux menés sur la réconciliation segmentale se limitaient à un modèle évolutif à base de spéciations et de duplications~\parencite{Delabre2020EvolutionSegmentalDuplications}.
 Au cours de l’année 2019--2020, Maher~\textsc{Mallem} a travaillé, sous la supervision de Nadia~\textsc{El-Mabrouk}, à étendre le modèle et l’algorithme associé afin de permettre l’inférence de transferts horizontaux.
 L’approche proposée souffrait d’une complexité algorithmique élevée, puisqu’elle demandait une exploration exhaustive pour déterminer quels sommets seraient des sommets de transfert horizontal.
@@ -14,10 +12,8 @@ L’approche initiale de \textcite{Delabre2020EvolutionSegmentalDuplications} re
 Nous verrons à la \cref{sec:superdtl:2steps} qu’il existe un contre-exemple empêchant l’extension de cette approche au cas impliquant des transferts horizontaux.
 Nous parvenons néanmoins au résultat annoncé en développant un algorithme de programmation dynamique combinant les deux étapes sur la base des résultats de \textcite{Tofigh2011SimultaneousIdentificationDuplications}.
 
-Pour démontrer l’intérêt de cet algorithme, Yoann \textsc{Anselmetti} a réalisé une analyse de l’évolution des synténies d’un échantillon de systèmes CRISPR-Cas.
+Pour démontrer l’intérêt de cet algorithme, nous avons réalisé une analyse de l’évolution des synténies d’un échantillon de systèmes CRISPR-Cas.
 Celle-ci s’est révélée être alignée avec les hypothèses actuelles sur l’évolution de ces systèmes et a permis de proposer de nouvelles pistes.
-J’ai été en charge de la programmation de l’algorithme ayant permis ces analyses.
-
 Les résultats obtenus doivent toutefois être lus dans le contexte de plusieurs limites dont souffre la méthode présentée.
 Premièrement, son application demande l’estimation de probabilités d’occurrence de chacun des événements modélisés et ces probabilités ont une grande influence sur les solutions produites.
 Par ailleurs, la fonction de coût est rigide et considère avec le même poids toutes les pertes, quelles que soient leurs tailles.
@@ -27,71 +23,43 @@ Troisièmement, les événements de gain sont toujours positionnés au niveau de
 Finalement, il existe une abondance de solutions optimales parmi lesquelles seule une arbitraire est tirée, ce qui est illustré par le \cref{tab:superdtl:sol-count}.
 Ces limites ont guidé la recherche qui est présentée aux chapitres suivants.
 
+\emph{La suite de ce chapitre, présentée en anglais, est une adaptation d’un article dont les informations sont présentées ci-dessous. Des modifications mineures ont été apportées par rapport à la version publiée afin notamment de faire correspondre les notations avec celles utilisées dans le reste de ce manuscrit.}
+
+\articlemeta%
+    {Reconciliation with segmental duplication, transfer, loss and gain}%
+    {Entre novembre~2020 et octobre~2021}%
+    {Présenté lors de l’édition~2022 de la conférence RECOMB-CG à La Jolla en Californie et publié en mai~2022 dans les actes de ladite conférence}%
+    {& Yoann \textsc{Anselmetti} & Sélection des données expérimentales, analyse des résultats, analyse des hypothèses évolutives \\
+    \cmidrule(l){2-3}
+    & Mattéo \textsc{Delabre} & Mise au point du modèle, identification du contre-exemple, développement de l’algorithme, preuves de correction et d’efficacité, implémentation de l’algorithme, présentation de l’article en conférence \\
+    \cmidrule(l){2-3}
+    & Nadia \textsc{El-Mabrouk} & Supervision, idéation, aide à la structuration et à l’ébauche du texte, relecture}
+\selectlanguage{english}
+
 % TODO: Migrate notations to notations.tex
 
 \newcommand{\superdtl}{SuperDTL}
-
-% Notations
 \newcommand{\taxa}{{\Sigma}}
 \newcommand{\genes}{{\Gamma}}
-%\newcommand{\graph}{{\mathcal T}}
 \newcommand{\genetrees}{{\mathcal T}}
 \newcommand{\partition}{{\mathcal P}}
 \newcommand{\components}{{\mathcal C}}
 \newcommand{\define}[1]{\emph{#1}}
-
-%% Strings
-% \newcommand{\cat}{\mathbin{.}}
-% \newcommand{\substr}[3]{#1[#2,#3]}
-% \newcommand{\delsub}[3]{#1_{\setminus[#2,#3]}}
-% \newcommand{\isSubseq}{\mathrel{\subseteq}}
 \newcommand{\subseqDist}{\mathrm{D}^\mathrm{sub}}
-% \newcommand{\smallSubseqDist}{\mathrm{d}^\mathrm{sub}}
-
-%% Trees
-% \newcommand{\leftChild}{_\mathrm{\ell}}
-% \newcommand{\rightChild}{_\mathrm{r}}
-% \newcommand{\rootOf}{\mathrm{r}}
-% \newcommand{\parentOf}{\mathrm{p}}
-% \newcommand{\treeDist}[1]{\mathrm{D}^\mathrm{node}_{#1}}
-% \newcommand{\treeNodes}{\mathrm{V}}
-% \newcommand{\treeLeaves}{\mathrm{L}}
-% \newcommand{\treeEdges}{\mathrm{E}}
-% \newcommand{\treeEdge}[2]{(#1,#2)}
-% \newcommand{\lca}[1]{\mathrm{lca}_{#1}}
-% \newcommand{\subtree}[2]{#1[#2]}
-% \newcommand{\treeRestrict}[2]{#1|_{#2}}
-% \newcommand{\V}{{\mathrm V}}
-% \newcommand{\LF}{{\mathrm L}}
-% \newcommand{\E}{{\mathrm E}}
 \newcommand{\treeH}{H^\mathrm{tree}}
-
-%% Data structures
-% \newcommand{\tuple}[1]{\langle#1\rangle}
-
-%% Number sets
-% \newcommand{\setReal}{\mathbb{R}}
-
-%% Species
 \newcommand{\species}{s}
 \newcommand{\speciesSet}{\Sigma}
 \newcommand{\speciesTree}{S}
 \newcommand{\specdisp}[1]{\mathbf{#1}}
-
-%% Genes
 \newcommand{\gene}{g}
 \newcommand{\geneFamily}{\Gamma}
 \newcommand{\geneTree}{G}
 \newcommand{\geneTreeSet}{\mathcal{G}}
-
-%% Syntenies
 \newcommand{\synteny}{x}
 \newcommand{\syntenyFamily}{\mathcal{X}}
 \newcommand{\syntenyTree}{T}
 \newcommand{\syntenyTreeOf}[1]{\tilde{#1}}
 \newcommand{\syntdisp}[1]{\mathrm{#1}}
-
-%% Mappings
 \newcommand{\speciesOf}{s}
 \newcommand{\geneFamilyOf}{f}
 \newcommand{\syntenyLCAOf}{\syntenyOf^{\mathrm{lca}}}
@@ -99,9 +67,6 @@ Ces limites ont guidé la recherche qui est présentée aux chapitres suivants.
 \newcommand{\setOf}{\syntenyOf^{\mathrm{set}}}
 \newcommand{\eventOf}{e}
 \newcommand{\eventLCA}{e^{\mathrm{min}}}
-% \newcommand{\LCA}{\mathrm{lca}}
-
-%% (Super-)Reconciliations
 \newcommand{\supRec}{\mathcal{R}}
 \newcommand{\supRecLCA}{\mathcal{R}^{\mathrm{min}}}
 \newcommand{\HLCA}{H^{\mathrm{min}}}
@@ -109,14 +74,6 @@ Ces limites ont guidé la recherche qui est présentée aux chapitres suivants.
 \newcommand{\eventDL}{\mathrm{DL}}
 \newcommand{\eventDTL}{\mathrm{DTL}}
 \newcommand{\eventDTLG}{\mathrm{DTLG}}
-
-% \newcommand{\eventSpe}{\mathrm{Spe}}
-% \newcommand{\eventDup}{\mathrm{Dup}}
-% \newcommand{\eventHGT}{\mathrm{HGT}}
-% \newcommand{\eventLoss}{\mathrm{Loss}}
-% \newcommand{\eventGain}{\mathrm{Gain}}
-
-% \newcommand{\Set}{\mathrm{Set}}
 \newcommand{\costDup}{c_{\evtD}}
 \newcommand{\costHGT}{c_{\evtT}}
 \newcommand{\costLoss}{c_{\evtL}}
@@ -125,12 +82,7 @@ Ces limites ont guidé la recherche qui est présentée aux chapitres suivants.
 \newcommand{\costDL}{\mathrm{DL}}
 \newcommand{\costDT}{\mathrm{DT}}
 \newcommand{\costDTL}{\mathrm{DTL}}
-% \newcommand{\rangeset}{\mathrm{Set}}
-
-%% Dynamic programming
 \newcommand{\dt}[2]{\mathrm{#1}(#2)}
-
-%% Alternate notations
 \newcommand{\C}{{\mathcal C}}
 \newcommand{\Q}{{\mathcal Q}}
 \newcommand{\G}{{\mathcal G}}
@@ -138,44 +90,11 @@ Ces limites ont guidé la recherche qui est présentée aux chapitres suivants.
 \newcommand{\T}{{\mathcal T}}
 \newcommand{\F}{{\mathcal F}}
 \newcommand{\X}{{\mathcal X}}
-% \renewcommand{\P}{{\mathcal P}}
-% \renewcommand{\l}{{\ell}}
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\Z}{\mathbb{Z}}
-% \newcommand{\comment}[1]{{\color{red} #1}}
-% \newcommand{\ie}{\emph{i.e.}\xspace}
-%\newcommand{\treeRestrict}[2]{#1|_{#2}}
-
-% \renewcommand{\l}{{\lambda_s}}
-% \renewcommand{\d}{{\delta_s}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\selectlanguage{english}
-\articlehat{
-    \textfrench{La suite de ce chapitre est une adaptation de l’article intitulé \enquote{Reconciliation with segmental duplication, transfer, loss and gain}.
-    Cet article a été écrit entre novembre 2020 et octobre 2021, présenté lors de l’édition 2022 de la conférence RECOMB-CG à La Jolla en Californie, et publié en mai 2022 dans les actes de ladite conférence parus chez Springer.}
-}
-\title{Reconciliation with segmental duplication, transfer, loss and gain}
-\author{
-    Yoann Anselmetti\inst{1,2}
-    \and Mattéo Delabre\inst{1}
-    \and Nadia El-Mabrouk\inst{1}
-}
-\institute{
-    \textfrench{\inst{1}Département d'informatique et de recherche opérationnelle, Université de Montréal}
-    \and \textfrench{\inst{2}Laboratoire CoBIUS, Département d'informatique, Université de Sherbrooke}
-}
-\makearticlehead
-
-\begin{abstract}
-    We generalize the reconciliation approach, used for inferring the evolution of a single gene family given a species tree, to groups of co-localized genes, also called syntenies. More precisely, given a set \(\X\) of syntenies in a set \(\Sigma\) of genomes, a tree \(T\) for \(\X\) and a tree \(S\) for \(\Sigma\), the problem is to find a most parsimonious history for \(\X\) with respect to a given evolutionary model. We extend a previous model involving segmental duplications and losses, to also include segmental horizontal gene transfers (HGTs) and gene gains.
-    We present a polynomial-time dynamic programming algorithm to solve the problem. We apply it to CRISPR-associated (Cas) gene syntenies. These genes are part of CRISPR-Cas systems, one of its members (CRISPR-Cas9) well-known as currently the most reliable and accurate molecular scissor technology for genome editing. The inferred evolutionary scenario is a plausible explanation of the diversification of this system into its different types.
-    An implementation of the algorithm presented in this chapter is available at: \url{https://github.com/UdeM-LBIT/superrec2/releases/tag/rcg2022}.
-
-    \keywords{Reconciliation \and Synteny \and CRISPR-Cas \and Horizontal gene transfer.}
-\end{abstract}
 
 \section{Introduction}
 

@@ -19,37 +19,16 @@ Les développements, relativement récents, reliés à la programmation dynamiqu
 Plusieurs résultats importants ont ainsi été redécouverts par plusieurs groupes d’auteurs distincts et isolés.
 L’objet de ce chapitre est de contribuer à bâtir une telle ressource.
 
+\emph{La suite de ce chapitre, présentée en anglais, est une adaptation d’un article dont les informations sont présentées ci-dessous.}
+
+\articlemetasingle%
+    {A unifying theory of algebraic dynamic programming}%
+    {Entre juillet~2025 et avril~2026}%
+    {Non publié, prêt à être soumis. Une version préliminaire a été présentée lors de l’atelier \enquote{Novel Mathematical Paradigm for Phylogenomics} à la \emph{Banff International Research Station} en août~2025}%
+    {& Mattéo \textsc{Delabre}}
 \selectlanguage{english}
-\articlehat{
-    \textfrench{La suite de ce chapitre est une reproduction de l’article intitulé \enquote{A unifying approach to algebraic dynamic programming}.
-    Une version préliminaire de cet article a été présentée lors de l’atelier \enquote{Novel Mathematical Paradigm for Phylogenomics} à la \emph{Banff International Research Station} en août~2025 et a bénéficié des commentaires avisés de Peter~F.~\textsc{Stadler}, Cédric~\textsc{Chauve}, Bertrand~\textsc{Marchand} et Manuel~\textsc{Lafond}.
-    L’article a été écrit entre juillet 2025 et avril 2026 et est prêt à être soumis pour publication dans un journal ou en tant que chapitre de livre.}
-}
-\title{A unifying approach to algebraic dynamic programming}
-\author{Mattéo Delabre}
-\institute{Département d'informatique et de recherche opérationnelle, Université de Montréal}
-\makearticlehead
 
-\begin{abstract}
-    Dynamic programming is an algorithm design technique for solving combinatorial optimization problems.
-    This technique is based on recursively decomposing the initial problem into subproblems so that any optimal solution can be constructed from optimal solutions to these subproblems.
-    All dynamic programming algorithms exhibit two aspects:
-    (1)~a decomposition of the problem space into a recursive \emph{structure}, and
-    (2)~a scoring and selection scheme for \emph{evaluating} the elements of this space.
-    Such algorithms are usually formulated using recurrences between table entries, interleaving structure with evaluation, which complicates analysis, adaptation, and generalization.
-    The algebraic dynamic programming approach promotes a complete separation between the two aspects, enabling a declarative construction of algorithms.
-    Because the recursive problem decomposition becomes independent of any particular scoring scheme, new questions can be addressed by simply swapping the scoring scheme.
-    These schemes, which correspond to algebraic structures known as semirings, can be constructed by combining building blocks reusable across various problems.
-    %%%% TODO: grammars
-    Many principles and results of algebraic dynamic programming have been independently discovered by multiple researchers over the last few decades.
-    The main goal of this work is to present these results in a unified and approachable way.
-    It is accompanied by a Python library named \emph{padapto}\footnote{Available at \url{https://github.com/matteodelabre/padapto}.} that implements the concepts described herein.
-    We also highlight some open problems of interest in the field.
-
-    % TODO: New result: algebra of combinators which generalize known combinators
-
-    \keywords{Dynamic programming \and Semirings \and Universal algebra \and Rewrite systems.}
-\end{abstract}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Introduction}
 
@@ -1024,7 +1003,7 @@ The trace algebra can also be used jointly with the combinators from \cref{sec:a
 
 This connection between algebraic circuits and dynamic programming was explicitly noted by \textcite{Jukna2015LowerBoundsTropical} in the context of tropical semirings.
 \textcite{Mankowski2021DynamicProgrammingMultiObjective} also independently studied the link between circuits and dynamic programming.
-Algebraic circuits correspond to the \emph{AND/OR graphs} studied by \textcite{Gnesi1981DynamicProgrammingGraph} and~\textcite{Wang2021GeneralFrameworkEnumerating}, in which OR vertices are to choice vertices and AND vertices are combination vertices.
+Algebraic circuits correspond to the \emph{AND/OR graphs} studied by \textcite{Gnesi1981DynamicProgrammingGraph} and~\textcite{Wang2021GeneralFrameworkEnumerating}, in which OR vertices are choice vertices and AND vertices are combination vertices.
 An equivalent formulation using \emph{forward-hypergraphs (F-graphs)} was also proposed by~\textcite{Ponty2011CombinatorialFrameworkDesigning} in which combination vertices correspond to directed hyperedges and solutions correspond to paths in the hypergraph.
 All of these formulations generalize the original concept of \emph{combinatorial families} introduced by~\textcite{Wilf1977UnifiedSettingSequencing} that was restricted to linear objects, since it did not allow for combination vertices.
 
@@ -2059,7 +2038,7 @@ Indeed, some unexpected space optimization tricks have been found for some dynam
 Algebraic dynamic programming has been implemented in multiple systems, most notably 
 ADPfusion~\parencite{Siederdissen2012SneakingConcatmap}
 and GAP-L~\parencite{Sauthoff2013BellmansGapLanguage}.
-Along with this paper, we provide a reference implementation in Python called \emph{padapto} that is aimed primarily at experimentation.
+% Along with this paper, we provide a reference implementation in Python called \emph{padapto} that is aimed primarily at experimentation.
 
 % TODO: connect to
 % - Dyna?
