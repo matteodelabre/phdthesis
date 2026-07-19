@@ -71,7 +71,7 @@ L’objectif est d’identifier les réconciliations qui possèdent les interpr�
 Fixons pour signature du problème les opérateurs \(\algsignrec = \{\algnull, \algplus, \evLeaf, \evSkip, \evSpe, \evDup, \evTr\}\) définis comme suit:
 \begin{itemize}
     \item \(\evLeaf_{t,v}\) représente une unité actuelle \(t \in \tleavs(T)\) dont l’hôte est \(v \in \tleavs(S)\);
-    \item \(\evSkip_n(h)\) représente un saut d’une distance \(n\) vers un descendant de l’hôte actuel, pouvant être interprété comme une succession de \(n\) cospéciations et de pertes, ou comme un seul événement \(\evtTX\);
+    \item \(\evSkip_n(h)\) représente un saut d’une distance \(n\) vers un descendant de l’hôte actuel, pouvant être interprété comme une succession de \(n\) événements \(\evtS\) et \(\evtL\), ou comme un seul événement \(\evtTX\);
     \item \(\evSpe_{t,v}(h, h')\), \(\evDup_{t,v}(h, h')\) et \(\evTr_{t,v}(h, h')\) représentent respectivement des événements de cospéciation, de duplication et de transfert concernant l’unité \(t \in \tnodes(T)\) associée à l’hôte \(v \in \tnodes(S)\).
 \end{itemize}
 
