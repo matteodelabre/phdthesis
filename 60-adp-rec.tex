@@ -3,6 +3,30 @@
 \selectlanguage{french}
 \chapter{Approches algébriques pour la réconciliation segmentale}\label{chap:adp-rec}
 
+\newcommand{\algsignrec}{\algsign_{\mathrm{rec}}}
+\newcommand{\gramrec}{\gram_{\mathrm{rec}}}
+\newcommand{\gRec}{\mathrm{Rec}}
+\newcommand{\gRecPath}{\mathrm{Rec}^{\downarrow}}
+\newcommand{\gRecIn}{\mathrm{Rec}^{\ast}}
+\newcommand{\gRecOut}{\mathrm{Rec}^{\curvearrowright}}
+\newcommand{\xmin}{x_{\mathrm{min}}}
+\newcommand{\xin}{x_{\mathrm{in}}}
+\newcommand{\xout}{x_{\mathrm{out}}}
+\newcommand{\xlca}{x_{\mathrm{lca}}}
+\newcommand{\algsignset}{\algsign_{\mathrm{set}}}
+\newcommand{\evSplit}{\mathrm{split}}
+\newcommand{\gramset}{\gram_{\mathrm{set}}}
+\newcommand{\gCont}{\mathrm{C}}
+\newcommand{\gContSub}{\mathrm{\Delta}}
+\newcommand{\gSplit}{\mathrm{Split}}
+\newcommand{\gBranch}{\mathrm{Branch}}
+\newcommand{\gramseq}{\gram_{\mathrm{seq}}}
+\newcommand{\gRecSplit}{\mathrm{RecSplit}}
+\newcommand{\gRecPathBranch}{\mathrm{RecBranch}^{\downarrow}}
+\newcommand{\gRecInBranch}{\mathrm{RecBranch}^{\ast}}
+\newcommand{\gRecOutBranch}{\mathrm{RecBranch}^{\curvearrowright}}
+\newcommand{\gRecBranchEnd}{\mathrm{RecBranch}'}
+
 % for adp-rec TODO: merge
 \tikzset{
     unary/.code n args={3}{
@@ -38,8 +62,6 @@ Dans ce chapitre, nous montrons que l’approche algébrique présentée précé
 Nous faisons indépendamment un traitement algébrique de chacun des deux problèmes dans les \cref{sec:adp-rec:bilateral,sec:adp-rec:set} puis montrons comment combiner leurs solutions pour résoudre la réconciliation segmentale dans la \cref{sec:adp-rec:both}.
 
 \section{Réconciliation bilatérale}\label{sec:adp-rec:bilateral}
-
-\newcommand{\algsignrec}{\algsign_{\mathrm{rec}}}
 
 Dans le problème de \(\recmodelDTLx\)-parcimonie pour la réconciliation bilatérale présenté à la \cref{sec:reconciliation:bilateral}, l’entrée est composée d’un arbre d’unités \(T\) et d’un arbre d’hôtes \(S\) ainsi qu’une application \(\llmap : \tleavs(T) \onto \tleavs(S)\) associant chaque unité actuelle de \(T\) à son hôte de \(S\).
 L’objectif est d’identifier les réconciliations qui possèdent les interprétations les plus parcimonieuses, c’est-à-dire les extensions de \(T\) étiquetées par des événements du modèle qui utilisent le moins d’événements possible pour expliquer l’entrée.
@@ -82,14 +104,8 @@ Pour chaque type d’événement \(e \in \recmodelDTLx\), une algèbre \(\alminp
 
 \subsection{Grammaire de structure}
 
-\newcommand{\gramrec}{\gram_{\mathrm{rec}}}
-\newcommand{\gRec}{\mathrm{Rec}}
-\newcommand{\gRecPath}{\mathrm{Rec}^{\downarrow}}
-\newcommand{\gRecIn}{\mathrm{Rec}^{\ast}}
-\newcommand{\gRecOut}{\mathrm{Rec}^{\curvearrowright}}
-
 La structure de l’espace des solutions peut être décrite par la grammaire \(\gramrec\) suivante (voir \cref{sec:adp:yield-gram}).
-Cette grammaire utilise trois prédicats, représentant tous une réconciliation de l’entièreté du sous-arbre \(T\) donné dans leur première dimension, définis ainsi:
+Cette grammaire utilise quatre prédicats, représentant tous une réconciliation de l’entièreté du sous-arbre \(T\) donné dans leur première dimension, définis ainsi:
 \begin{compactitemize}
     \item \(\gRec[T, S]\), telle que \(\troot(T)\) est appariée à \(\troot(S)\);
     \item \(\gRecOut[T, S]\), telle que \(\troot(T)\) est appariée à n’importe quel sommet \(s \nottcomp \troot(S)\);
@@ -97,21 +113,21 @@ Cette grammaire utilise trois prédicats, représentant tous une réconciliation
     \item \(\gRecPath[T, S, 0]\), telle que \(\troot(T)\) est appariée à n’importe quel sommet \(s \tdesc \troot(S)\) et précédée d’un événement \(\evSkip_N\) avec \(N = \tdist(s, \troot(S))\).
 \end{compactitemize}
 L'espace des solutions pour les deux phylogénies \(T\) et \(S\) est constitué des termes dérivés de \(\gRecIn[T, S]\).
-Les clauses de la grammaire sont
+Les clauses de la grammaire sont:
 {\allowdisplaybreaks
 \begin{subequations}
 \begin{align}
     \gRec[t(), v()] &\rightarrow \evLeaf_{t,v}
     \qquad\text{\itshape\small (seulement lorsque \(\llmap(t) = v\))} \label{eq:adp-rec:bilateral-grammar-leaf}\\[2ex]
-    \gRec[(T') \mid (T''), (S_L)(S_R)] &\rightarrow
+    \gRec[t((T') \mid (T'')), v((S_L)(S_R))] &\rightarrow
         \evSpe_{t,v}(\gRecPath[(T'), (S_L), 0], \gRecPath[(T''), (S_R), 0]) \label{eq:adp-rec:bilateral-grammar-spe} \\
-    \gRec[(T_L)(T_R), S] &\rightarrow
-        \evDup_{t,v}(\gRecPath[(T_L), S, 0], \gRecPath[(T_R), S, 0]) \label{eq:adp-rec:bilateral-grammar-dup} \\
-    \gRec[(T') \mid (T''), S] &\rightarrow
-        \evTr_{t,v}(\gRecOut[(T'), S], \gRecPath[(T''), S, 0]) \label{eq:adp-rec:bilateral-grammar-tr} \\[2ex]
-    \gRecPath[T, (S') \mid S'', N] &\rightarrow \gRecPath[T, S', N+1] \label{eq:adp-rec:bilateral-grammar-path-down}\\
+    \gRec[t((T_L)(T_R)), v(S)] &\rightarrow
+        \evDup_{t,v}(\gRecPath[(T_L), v(S), 0], \gRecPath[(T_R), v(S), 0]) \label{eq:adp-rec:bilateral-grammar-dup} \\
+    \gRec[t((T') \mid (T'')), v(S)] &\rightarrow
+        \evTr_{t,v}(\gRecOut[(T'), v(S)], \gRecPath[(T''), v(S), 0]) \label{eq:adp-rec:bilateral-grammar-tr} \\[2ex]
+    \gRecPath[T, v((S') \mid S''), N] &\rightarrow \gRecPath[T, S', N+1] \label{eq:adp-rec:bilateral-grammar-path-down}\\
     \gRecPath[T, S, N] &\rightarrow \evSkip_N(\gRec[T, S]) \label{eq:adp-rec:bilateral-grammar-path-end}\\
-    \gRecIn[T, (S') \mid S''] &\rightarrow \gRecIn[T, S'] \label{eq:adp-rec:bilateral-grammar-in-down}\\
+    \gRecIn[T, v((S') \mid S'')] &\rightarrow \gRecIn[T, S'] \label{eq:adp-rec:bilateral-grammar-in-down}\\
     \gRecIn[T, S] &\rightarrow \gRec[T, S] \label{eq:adp-rec:bilateral-grammar-in-end}\\[2ex]
     \gRecOut[T, S \text{ frère de } S'] &\rightarrow
         \gRecIn[T, S'] \label{eq:adp-rec:bilateral-grammar-out-side}\\
@@ -119,7 +135,7 @@ Les clauses de la grammaire sont
         \gRecOut[T, P] \label{eq:adp-rec:bilateral-grammar-out-up}
 \end{align}
 \end{subequations}}%
-Les clauses \labelcref{eq:adp-rec:bilateral-grammar-spe,eq:adp-rec:bilateral-grammar-dup,eq:adp-rec:bilateral-grammar-tr} agissent au niveau des embranchements de l’arbre \(T\) pour y insérer des événements de cospéciation, duplication ou transfert.
+Les clauses \labelcref{eq:adp-rec:bilateral-grammar-spe,eq:adp-rec:bilateral-grammar-dup,eq:adp-rec:bilateral-grammar-tr} agissent au niveau des embranchements de l’arbre \(T\) pour y insérer des événements de cospéciation, de duplication ou de transfert.
 Pour rappel, la notation \((T')\mid(T'')\) indique que \(T'\) et \(T''\) sont les deux enfants du sommet actuel dans n’importe quel ordre, alors que la notation \((T_L)(T_R)\) indique que l’ordre des enfants est conservé.
 
 Les clauses \labelcref{eq:adp-rec:bilateral-grammar-path-down,eq:adp-rec:bilateral-grammar-path-end,eq:adp-rec:bilateral-grammar-in-down,eq:adp-rec:bilateral-grammar-in-end} traversent les hôtes descendants d’un certain sommet, soit en gardant trace du nombre de sommets traversé pour ajouter un événement \(\evSkip\) à la suite à un événement de cospéciation ou de duplication, soit en poursuivant directement avec une réconciliation au niveau du descendant comme au début d’une réconciliation ou à la suite d’un événement de transfert.
@@ -159,9 +175,9 @@ L’\cref{alg:adp:circ-sample} pour l’échantillonage de solutions appliqué �
     }
 \end{figure}
 
-En utilisant l’algèbre~\(\alminplus_e\) avec un coût de \(\cost(\evtD) = 2\), \(\cost(\evtT) = 3\), \(\cost(\evtL) = 1\) et \(\cost(\evtTX) = \infty\), nous obtenons un coût minimal de~10.
+En utilisant l’algèbre~\(\alminplus_\cost\) avec un coût de \(\cost(\evtD) = 2\), \(\cost(\evtT) = 3\), \(\cost(\evtL) = 1\) et \(\cost(\evtTX) = \infty\), nous obtenons un coût minimal de~10.
 En combinant cette algèbre avec l’algèbre de traçage \(\altrace(\algsignrec)\) grâce au combinateur lexicographique décrit à la \cref{sec:adp:alg-combin:lex}, il est possible de construire la solution atteignant ce coût présentée à droite de la \cref{fig:adp-rec:rec-input}.
-En construisant une algèbre de Pareto, nous pouvons obtenir le diagramme de la \cref{fig:adp-rec:set-pareto}, qui montre qu’il existe plusieurs autres solutions optimales potentielles en faisant varier les différents paramètres de coûts.
+En construisant une algèbre de Pareto, nous pouvons obtenir le diagramme de la \cref{fig:adp-rec:rec-pareto}, qui montre qu’il existe plusieurs autres solutions optimales potentielles en faisant varier les différents paramètres de coûts.
 
 \begin{figure}[H]
     \capstart
@@ -203,7 +219,7 @@ Plus précisément, les embranchements doivent être étiquetés par des groupes
                ensemble d’unités \(\geneFamilySet\);
                étiquetage \(\syntenyOf : \tleavs(T) \onto 2^{\geneFamilySet}\);\newline
                coûts \(\cost_\evtG, \cost_\evtL : \nat \onto \realpos\).}
-    \proboutput{Affectation \(\syntenyOfExt : \tleavs(T) \onto 2^{\geneFamilySet}\) étendant \(\syntenyOf\) de coût minimum.}
+    \proboutput{Affectation \(\syntenyOfExt : \tnodes(T) \onto 2^{\geneFamilySet}\) étendant \(\syntenyOf\) de coût minimum.}
 \end{problem}
 
 \begin{figure}[h]
@@ -229,10 +245,6 @@ La solution présentée dans la suite de cette section est basée sur ce travail
 
 \subsection{Réduction du problème}
 
-\newcommand{\xmin}{x_{\mathrm{min}}}
-\newcommand{\xin}{x_{\mathrm{in}}}
-\newcommand{\xout}{x_{\mathrm{out}}}
-\newcommand{\xlca}{x_{\mathrm{lca}}}
 
 Observons que ce problème peut être vu comme portant sur les tailles des groupes ancestraux et non sur leur contenu.
 En effet, puisque les fonctions de coûts considérées dépendent uniquement du nombre d’événements de gain et de pertes et du nombre d’unités gagnées et perdues, deux solutions qui infèrent les mêmes tailles de groupes ancestraux sont indistinguables du point de vue du coût et seront considérées comme équivalentes dans la suite.
@@ -251,8 +263,6 @@ de sorte que \(\xmin(v)\) est nécessairement un sous-ensemble de \(\syntenyOfEx
 
 \subsection{Algèbres d’évaluation}
 
-\newcommand{\algsignset}{\algsign_{\mathrm{set}}}
-\newcommand{\evSplit}{\mathrm{split}}
 
 Fixons pour signature du problème l’ensemble d’opérateurs \(\algsignset = \{\algnull, \algplus, \evLeaf, \evGain, \evLoss, \evSplit\}\) définis comme suit:
 \begin{itemize}
@@ -283,20 +293,12 @@ Cette signature permet, pour deux fonctions de coûts \(\cost_\evtG\) et \(\cost
 Comme précédemment, cette algèbre peut être adaptée en algèbre de Boltzmann ou de Pareto.
 
 Notons que les fonctions \(\cost_\evtG\) et \(\cost_\evtL\) peuvent être arbitraires.
-Un coût linéaire, c’est-à-dire \(\cost_e(n) = a_e \cdot n\), rend ce problème équivalent à la parcimonie de Dollo individuelle, puisque les unités sont alors considérées comme évoluant indépendamment.
+Un coût linéaire, c’est-à-dire \(\cost_e(n) = a_en\) pour une constante \(a_e \in \realpos\), rend ce problème équivalent à la parcimonie de Dollo individuelle, puisque les unités sont alors considérées comme évoluant indépendamment.
 Inversement, un coût unitaire, c’est-à-dire \(\cost_e(n) = 1\) si \(n \ge 1\) et \(0\) sinon, rend ce problème équivalent à celui utilisé pour les pertes par \textcite{Delabre2020EvolutionSegmentalDuplications} et dans les \cref{chap:superdtl,chap:synesth}.
-Les fonctions de coût concaves, par exemple un coût affine de \(\cost_e(n) = a_e \cdot n + b_e\) si \(n \ge 1\) et \(0\) sinon, sont plus intéressantes car elles prennent en compte la dépendance entre les unités étudiées sans toutefois accorder un poids égal à tous les événements quel que soit le nombre d’unités gagnées ou perdues, ce qui a tendance à regrouper beaucoup d’événements ensemble.
-Dans la suite, \(b\) est appelé le coût d’ouverture et \(a\) le coût d’extension des gains ou des pertes.
+Les fonctions de coût concaves, par exemple un coût affine de \(\cost_e(n) = a_en + b_e\) si \(n \ge 1\) et \(0\) sinon, pour deux constantes \(a_e, b_e \in \realpos\), sont plus intéressantes car elles prennent en compte la dépendance entre les unités étudiées sans toutefois accorder un poids égal à tous les événements quel que soit le nombre d’unités gagnées ou perdues, ce qui a tendance à regrouper beaucoup d’événements ensemble.
+Dans la suite, la constante \(b\) est appelée le coût d’ouverture et la constante \(a\) le coût d’extension des gains ou des pertes.
 
 \subsection{Grammaire de structure}
-
-\newcommand{\gramset}{\gram_{\mathrm{set}}}
-
-\newcommand{\gCont}{\mathrm{C}}
-\newcommand{\gContSub}{\mathrm{\Delta}}
-
-\newcommand{\gSplit}{\mathrm{Split}}
-\newcommand{\gBranch}{\mathrm{Branch}}
 
 L’espace des solutions peut être décrit par une grammaire \(\gramset\) de dimension trois.
 La première dimension \(T\) représente le sous-arbre traité.
@@ -372,9 +374,10 @@ Cet ensemble peut être caractérisé en calculant l’espérance de la taille d
     \centering
     \input{fig/adp-rec/set-pareto}
     \caption[Mosaïque des régions de coûts pour une instance de parcimonie de groupes]{
-        Mosaïque des régions d’optimalité des coûts selon trois dimensions: nombre d’événements de perte, nombre d’événements de gain et nombre d’unités perdues.
-        Ceci correspond à des coûts affines de la forme \(\cost_\evtG(n) = n + b_\evtG\) et \(\cost_\evtL(n) = a \cdot n + b_\evtL\).
-        Le diagramme montre la tranche de l’espace des coûts pour \(a = 1\).
+        Mosaïque des régions d’optimalité des coûts selon trois dimensions: nombre d’événements de perte, nombre d’événements de gain, et taille totale des pertes.
+        La taille totale des gains n’est pas comptabilisée afin de se réduire à trois dimensions au lieu de quatre.
+        Ceci correspond à des coûts affines de la forme \(\cost_\evtG(n) = b_\evtG\) et \(\cost_\evtL(n) = a_\evtL n + b_\evtL\).
+        Le diagramme montre la tranche de l’espace des coûts pour \(a_\evtL = 1\).
         La région \((5,3,11)\) inclut le coût unitaire et l’unique solution optimale pour ce coût est celle illustrée dans la \cref{fig:adp-rec:set-example}.
         La solution de la \cref{fig:adp-rec:set-solutions} est l’unique optimale dans la région \((4, 5, 6)\).
         Les régions \((7,1,19)\), \((8,1,16)\) et \((9,1,14)\) contiennent les trois solutions qui placent tous les gains à la racine avec \(7\), \(8\) ou \(9\) événements de perte.
@@ -383,13 +386,6 @@ Cet ensemble peut être caractérisé en calculant l’espérance de la taille d
 \end{figure}
 
 \section{Réconciliation segmentale}\label{sec:adp-rec:both}
-
-\newcommand{\gramseq}{\gram_{\mathrm{seq}}}
-\newcommand{\gRecSplit}{\mathrm{RecSplit}}
-\newcommand{\gRecPathBranch}{\mathrm{RecBranch}^{\downarrow}}
-\newcommand{\gRecInBranch}{\mathrm{RecBranch}^{\ast}}
-\newcommand{\gRecOutBranch}{\mathrm{RecBranch}^{\curvearrowright}}
-\newcommand{\gRecBranchEnd}{\mathrm{RecBranch}'}
 
 Le problème de réconciliation segmentale tel qu’introduit à la \cref{sec:reconciliation:multiple:segmental} peut être vu comme demandant de résoudre simultanément le problème de réconciliation bilatérale et de parcimonie d’ensembles en respectant certaines contraintes supplémentaires.
 Nous proposons pour ce faire de combiner les grammaires \(\gramrec\) et \(\gramset\) en une grammaire \(\gramseq\).
@@ -407,38 +403,38 @@ Les clauses résultantes sont présentées ci-dessous et dans le \cref{tab:adp-r
     \gRecSplit[t(), v(), 0, 0] &\rightarrow \evLeaf_{t,v}
     \qquad\text{\itshape\small (seulement lorsque \(\llmap(t) = v\))} \label{eq:adp-rec:comb-grammar-leaf}\\[2ex]
     \begin{aligned}
-        &\gRecSplit[(T') \mid (T''), (S_L)(S_R), G_L + G_R, L] \\
+        &\gRecSplit[t((T') \mid (T'')), v((S_L)(S_R)), G_L + G_R, L] \\
         \rightarrow\ & \evSpe_{t,v,G_L,G_R,L}(
             \begin{aligned}[t]
-                &\gRecPathBranch[(T'), (S_L), 0, G_L, L + |\xlca(T_R)| - G_R + |\xmin(T) - \xmin(T_L)|], \\
-                &\gRecPathBranch[(T''), (S_R), 0, G_R, L + |\xlca(T_L)| - G_L + |\xmin(T) - \xmin(T_R)|])
+                &\gRecPathBranch[(T'), (S_L), 0, G_L, L + |\xlca(T'')| - G_R + |\xmin(T) - \xmin(T')|], \\
+                &\gRecPathBranch[(T''), (S_R), 0, G_R, L + |\xlca(T')| - G_L + |\xmin(T) - \xmin(T'')|])
             \end{aligned} \\[-2ex]
-        \intertext{\hspace*{3em}\itshape\small (seulement lorsque \(|\xlca(T_L)| \ge G_L\) and \(|\xlca(T_R)| \ge G_R\))}
+        \intertext{\hspace*{3em}\itshape\small (seulement lorsque \(|\xlca(T')| \ge G_L\) and \(|\xlca(T'')| \ge G_R\))}
     \end{aligned} \span \label{eq:adp-rec:comb-grammar-spe} \\[1ex]
     \begin{aligned}
-        &\gRecSplit[(T') \mid (T''), S, G_L + G_R, L] \\
+        &\gRecSplit[t((T') \mid (T'')), v(S), G_L + G_R, L] \\
         \rightarrow\ & \evDup_{t,v,G_L,G_R,L}(
             \begin{aligned}[t]
-                &\gRecPathBranch[(T'), S, 0, G_L, 0], \\
-                &\gRecPathBranch[(T''), S, 0, G_R, L + |\xlca(T_L)| - G_L + |\xmin(T) - \xmin(T_R)|])
+                &\gRecPathBranch[(T'), v(S), 0, G_L, 0], \\
+                &\gRecPathBranch[(T''), v(S), 0, G_R, L + |\xlca(T')| - G_L + |\xmin(T) - \xmin(T'')|])
             \end{aligned} \\[-2ex]
-        \intertext{\hspace*{3em}\itshape\small (seulement lorsque \(|\xlca(T_L)| \ge G_L\) and \(|\xlca(T_R)| \ge G_R\))}
+        \intertext{\hspace*{3em}\itshape\small (seulement lorsque \(|\xlca(T')| \ge G_L\) and \(|\xlca(T'')| \ge G_R\))}
     \end{aligned} \span \label{eq:adp-rec:comb-grammar-dup} \\[1ex]
     \begin{aligned}
-        &\gRecSplit[(T') \mid (T''), S, G_L + G_R, L] \\
+        &\gRecSplit[t((T') \mid (T'')), v(S), G_L + G_R, L] \\
         \rightarrow\ & \evTr_{t,v,G_L,G_R,L}(
             \begin{aligned}[t]
-                &\gRecOutBranch[(T'), S, G_L, 0], \\
-                &\gRecPathBranch[(T''), S, 0, G_R, L + |\xlca(T_L)| - G_L + |\xmin(T) - \xmin(T_R)|])
+                &\gRecOutBranch[(T'), v(S), G_L, 0], \\
+                &\gRecPathBranch[(T''), v(S), 0, G_R, L + |\xlca(T')| - G_L + |\xmin(T) - \xmin(T'')|])
             \end{aligned} \\[-2ex]
-        \intertext{\hspace*{3em}\itshape\small (seulement lorsque \(|\xlca(T_L)| \ge G_L\) and \(|\xlca(T_R)| \ge G_R\))}
+        \intertext{\hspace*{3em}\itshape\small (seulement lorsque \(|\xlca(T')| \ge G_L\) and \(|\xlca(T'')| \ge G_R\))}
     \end{aligned} \span \label{eq:adp-rec:comb-grammar-tr} \\[1ex]
-    \gRecPathBranch[T, (S') \mid S'', N, G, L]
+    \gRecPathBranch[T, s((S') \mid S''), N, G, L]
         &\rightarrow \gRecPathBranch[T, S', N+1, G, L] \label{eq:adp-rec:comb-grammar-path-down} \\
     \gRecPathBranch[T, S, N, G, L_H + L_D]
         &\rightarrow \evSkip_N(\evLoss_{L_H}(\gRecBranchEnd[T, S, G, L_D])) \label{eq:adp-rec:comb-grammar-path-end} \\[2ex]
-    \gRecInBranch[T, (S') \mid S'', G, L] &\rightarrow \gRecInBranch[T, S', G, L] \label{eq:adp-rec:comb-grammar-in-down} \\
-    \gRecInBranch[T, S, G, L] &\rightarrow \evLoss_{L_H}(\gRecBranchEnd[T, S, G, L_D]) \label{eq:adp-rec:comb-grammar-in-end} \\[2ex]
+    \gRecInBranch[T, s((S') \mid S''), G, L] &\rightarrow \gRecInBranch[T, S', G, L] \label{eq:adp-rec:comb-grammar-in-down} \\
+    \gRecInBranch[T, S, G, L_H + L_D] &\rightarrow \evLoss_{L_H}(\gRecBranchEnd[T, S, G, L_D]) \label{eq:adp-rec:comb-grammar-in-end} \\[2ex]
     \gRecOutBranch[T, S \text{ frère de } S', G, L] &\rightarrow \gRecInBranch[T, S', G, L] \label{eq:adp-rec:comb-grammar-out-side} \\
     \gRecOutBranch[T, S \text{ parent de } P, G, L] &\rightarrow \gRecOutBranch[T, P, G, L] \label{eq:adp-rec:comb-grammar-out-up} \\
     \gRecBranchEnd[T, S, G_H + G_D, L] &\rightarrow \evGain_{G_H}(\gRecSplit[T, S, G_D, L]) \label{eq:adp-rec:comb-grammar-gain}
