@@ -57,27 +57,27 @@
     },
 }
 
-Le problème de réconciliation segmentale peut être vu comme une combinaison de deux problèmes indépendants: d’une part la réconciliation bilatérale de l’arbre des synténies avec l’arbre des hôtes, et d’autre part l’inférence des groupes de contenus ancestraux des synténies.
-Dans ce chapitre, nous montrons que l’approche algébrique présentée précédemment permet de rendre cette intuition précise et concrète.
-Nous faisons indépendamment un traitement algébrique de chacun des deux problèmes dans les \cref{sec:adp-rec:bilateral,sec:adp-rec:set} puis montrons comment combiner leurs solutions pour résoudre la réconciliation segmentale dans la \cref{sec:adp-rec:both}.
+Le problème de réconciliation segmentale peut être vu comme une combinaison de deux problèmes indépendants: d’une part celui de la réconciliation bilatérale de l’arbre des synténies avec l’arbre des hôtes et d’autre part celui de l’inférence des groupes de contenus ancestraux des synténies.
+Dans ce chapitre, nous montrons que l’approche algébrique présentée au \cref{chap:adp} permet de rendre cette intuition précise et concrète.
+Nous faisons indépendamment un traitement algébrique de chacun des deux problèmes dans les \cref{sec:adp-rec:bilateral,sec:adp-rec:set} puis nous montrons comment combiner leurs solutions pour résoudre la réconciliation segmentale dans la \cref{sec:adp-rec:both}.
 
 \section{Réconciliation bilatérale}\label{sec:adp-rec:bilateral}
 
-Dans le problème de \(\recmodelDTLx\)-parcimonie pour la réconciliation bilatérale présenté à la \cref{sec:reconciliation:bilateral}, l’entrée est composée d’un arbre d’unités \(T\) et d’un arbre d’hôtes \(S\) ainsi qu’une application \(\llmap : \tleavs(T) \onto \tleavs(S)\) associant chaque unité actuelle de \(T\) à son hôte de \(S\).
-L’objectif est d’identifier les réconciliations qui possèdent les interprétations les plus parcimonieuses, c’est-à-dire les extensions de \(T\) étiquetées par des événements du modèle qui utilisent le moins d’événements possible pour expliquer l’entrée.
+Afin de résoudre le \cref{prob:reconciliation:parsimony} de \(\recmodelDTLx\)-parcimonie pour la réconciliation bilatérale par l’approche algébrique, nous développons dans cette section une grammaire décrivant l’espace des solutions ainsi qu’une collection d’algèbres permettant d’évaluer ces solutions.
+Pour rappel, l’entrée de ce problème est composée d’un arbre d’unités \(T\), d’un arbre d’hôtes \(S\), ainsi que d’une application \(\llmap : \tleavs(T) \onto \tleavs(S)\) associant chaque unité actuelle de \(T\) à son hôte de \(S\).
+L’objectif est d’identifier les réconciliations qui possèdent les interprétations les plus parcimonieuses, c’est-à-dire les arbres réconciliés qui expliquent l’entrée en utilisant le moins d’événements possible.
+
+Nous fixons pour signature du problème, au sens de la \cref{def:adp:alg}, l’ensemble d’opérateurs \(\algsignrec = \{\algnull, \algplus, \evLeaf, \evSkip, \evSpe, \evDup, \evTr\}\) définis comme suit:
+\begin{itemize}
+    \item \(\evLeaf_{t,v}\) représente une unité actuelle \(t \in \tleavs(T)\) dont l’hôte est \(v \in \tleavs(S)\);
+    \item \(\evSkip_n(h)\) représente un saut vers un descendant à distance \(n\) de l’hôte actuel, interprétable comme une succession de \(n\) événements \(\evtS\) et \(\evtL\), ou comme un seul événement \(\evtTX\);
+    \item \(\evSpe_{t,v}(h_L, h_R)\), \(\evDup_{t,v}(h_L, h_R)\) et \(\evTr_{t,v}(h_L, h_R)\) représentent respectivement des événements de type \(\evtS\), \(\evtD\) et \(\evtT\) concernant l’unité \(t \in \tnodes(T)\) associée à l’hôte \(v \in \tnodes(S)\).
+\end{itemize}
+
+Cette signature permet de représenter n’importe quel ensemble d’arbres réconciliés parcimonieux sous le modèle~\(\recmodelDTLx\) et ainsi de représenter l’espace des solutions du problème considéré.
 
 \subsection{Algèbres d’évaluation}
 
-Fixons pour signature du problème les opérateurs \(\algsignrec = \{\algnull, \algplus, \evLeaf, \evSkip, \evSpe, \evDup, \evTr\}\) définis comme suit:
-\begin{itemize}
-    \item \(\evLeaf_{t,v}\) représente une unité actuelle \(t \in \tleavs(T)\) dont l’hôte est \(v \in \tleavs(S)\);
-    \item \(\evSkip_n(h)\) représente un saut d’une distance \(n\) vers un descendant de l’hôte actuel, pouvant être interprété comme une succession de \(n\) événements \(\evtS\) et \(\evtL\), ou comme un seul événement \(\evtTX\);
-    \item \(\evSpe_{t,v}(h, h')\), \(\evDup_{t,v}(h, h')\) et \(\evTr_{t,v}(h, h')\) représentent respectivement des événements de cospéciation, de duplication et de transfert concernant l’unité \(t \in \tnodes(T)\) associée à l’hôte \(v \in \tnodes(S)\).
-\end{itemize}
-
-Comme pour toute signature, une algèbre de traçage \(\altrace(\algsignrec)\) peut être construite afin de construire les circuits algébriques représentant l’espace de solutions associé à une certaine entrée (voir \cref{sec:adp:solution-spaces:trace}).
-
-Cette signature permet, en outre, pour une fonction de coûts \(\cost : \recmodelDTLx \onto \realpos\) donnée de définir l’algèbre d’optimisation \(\alminplus_\cost\) suivante\\
 Pour toute fonction de coûts \(\cost : \recmodelDTLx \onto \realpos \cup \{\infty\}\), nous pouvons définir l’algèbre d’optimisation~\(\alminplus_\cost\) suivante respectant la signature~\(\algsignrec\):\\
 \sidecols{.5\textwidth}{.5\textwidth}{
 \begin{align*}
