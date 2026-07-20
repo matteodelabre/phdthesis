@@ -123,9 +123,9 @@ If all internal nodes are unary or binary, then the tree is \emph{partially bina
 If \(\geneFamilySet\) is a set of gene families, then a \emph{synteny} on \(\geneFamilySet\) is a subset~\(X \subseteq \geneFamilySet\) representing a group of genes assumed to have jointly evolved.
 Notice that we ignore the relative order of genes in the genomic region, as well as the physical distance between genes and regions.
 The genes of a synteny are considered to all belong to different gene families (i.e., repeated gene families inside a synteny are forbidden),
-therefore a gene is simply identified by the family \(\Gamma \in \F\) it belongs to.
+therefore a gene is simply identified by the family \(\Gamma \in \geneFamilySet\) it belongs to.
 
-A \emph{species tree} on a set \(\taxa\) of species is a tree \(S\) with a bijection \(\speciesOf : \tleavs(S) \rightarrow \Sigma\).
+A \emph{species tree} on a set \(\Sigma\) of species is a tree \(S\) with a bijection \(\speciesOf : \tleavs(S) \rightarrow \Sigma\).
 For a set of syntenies \(\syntenyFamily\), a \emph{synteny tree} \(\tup{T, \syntenyOf, \speciesOf}\) is a tuple where \(T\) is a tree, \(\syntenyOf : \tleavs(T) \rightarrow \syntenyFamily\) and \(\speciesOf : \tleavs(T) \rightarrow \Sigma\), are two functions, the second indicating the species to which each synteny belongs.
 
 Finally, the restriction of a function \(f\) to a subset \(A\) of its domain is denoted \(\restr{f}{A}\).
