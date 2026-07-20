@@ -206,7 +206,7 @@ Evaluation algebras, introduced by \textcite{Giegerich2004DisciplineDynamicProgr
 We state a slight generalization of these definitions here, using the vocabulary of universal algebra \parencite[ch. II]{Burris2012CourseUniversalAlgebra}.
 
 \begin{definition}[Signatures, algebras and operators]
-    \label{def:alg}%
+    \label{def:adp:alg}%
     The \emph{signature} (or type, or language) of a problem is a set \(\algsign\) of operator symbols, each paired with an \emph{arity} \(k \in \nat\) and a non-empty set \(T\) called its \emph{outdomain}.
 
     An \emph{algebra} \(\alg = \tup{A, F}\) of signature~\(\algsign\) is a non-empty set \(A\) paired with a set \(F\) of operators on \(A\) matching the symbols, arities and outdomains of~\(\algsign\).
@@ -841,7 +841,7 @@ A dynamic programming algorithm can be seen as a method to evaluate this term un
 This process can be modelled through algebraic circuits that provide short representations of potentially large solution spaces.
 
 \begin{definition}[Algebraic circuits]
-    \label{def:alg-circuits}%
+    \label{def:adp:alg-circuits}%
     An \emph{algebraic circuit} over a signature \(\algsign\) is a directed acyclic graph \(C = \tup{V, E, s}\) with a single source vertex \(s \in V\).
     Each vertex \(v \in V\) is labelled with a symbol \(f \in \algsign\).
     Those labelled with \(f = \algplus\) are the \emph{choice vertices},
@@ -1206,7 +1206,7 @@ The structure of such problems can be described using \emph{sequential yield gra
 
 Intuitively, each \emph{predicate} of the grammar matches an interval of the input sequence and can be thought of as holding the set of partial solutions for the subproblem defined by that interval.
 Such an interval may be decomposed into further subproblems by partitioning it into subintervals using any \emph{clause} of the grammar that matches the predicate.
-Each clause is annotated with a symbol of the problem signature (see \cref{def:alg}); this symbol is applied to the partial solutions from the predicates on the right-hand side of the clause to construct solutions to the subproblem of the left-hand side.
+Each clause is annotated with a symbol of the problem signature (see \cref{def:adp:alg}); this symbol is applied to the partial solutions from the predicates on the right-hand side of the clause to construct solutions to the subproblem of the left-hand side.
 
 \begin{example}[Matrix chain multiplication grammar]\label{ex:matrix-chain-gram}
     Recall that the matrix chain multiplication problem has the signature \(\{\algnull, \algplus, \algterm, \algtimes\}\).
