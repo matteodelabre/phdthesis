@@ -14,7 +14,7 @@ Une telle association de \(T\) avec \(S\) est appelée \emph{réconciliation}.
 Formellement, une réconciliation est un plongement de \(T\) dans \(S\), au sens défini ci-après.
 Pour faciliter la définition, lorsque \(v\) correspond à une branche de \(S\), il est associé à sa terminaison.
 
-\begin{definition}[Réconciliation]\label{definition:rec}
+\begin{definition}[Réconciliations]\label{definition:rec}
     Soient \(T\) et \(S\) deux arbres phylogénétiques et \(\llmap : \tleavs(T) \onto \tleavs(S)\) une application qui associe chaque feuille de \(T\) à son hôte dans \(S\).
     Une \emph{réconciliation} de \(T\) avec~\(S\) est une application \(\rec : \tnodes(T) \onto \tnodes(S)\) qui étend \(\llmap\) de sorte qu’aucune paire de sommets \((v, w) \in \tnodes(T)^2\) n’est telle que \(v \tancsneq w\) et \(\rec(v) \tdescneq \rec(w)\).
 \end{definition}
@@ -72,7 +72,7 @@ Un modèle de réconciliation spécifie les types d’événements qui peuvent a
 Une interprétation d’une réconciliation sous un modèle donné est une combinaison d’événements du modèle qui explique ses associations dépendant-hôte.
 Ces interprétations sont représentées par des arbres réconciliés étiquetés par les événements choisis (voir exemples dans la \cref{fig:reconciliation:rec-trees}).
 
-\begin{definition}[Arbre réconcilié]\label{definition:rectree}
+\begin{definition}[Arbres réconciliés]\label{def:reconciliation:rectree}
     Soient \(T\) et \(S\) deux arbres, \(\rec\) une réconciliation de \(T\) avec \(S\), et \(\recmodel\) un ensemble de types d’événements.
     Un \emph{arbre réconcilié} \(\rectree_{\!\recmodel}(\rec)\) (ou simplement \(\rectree(\rec)\) quand le modèle utilisé est clair à partir du contexte) est une extension partiellement binaire de~\(T\) munie d’une application \(\exrec : \tnodes(\rectree) \onto \tnodes(S)\) qui étend \(\rec\) et d’une application \(\evt : \tnodes(\rectree) \onto \recmodel \cup \{\evtE\}\)
     telle que \(\tleavs(T) = \{ v \in \tleavs(\rectree) \suchthat \evt(v) = \evtE \}\).
