@@ -82,15 +82,15 @@ Pour toute fonction de coûts \(\cost : \recmodelDTLx \onto \realpos \cup \{\inf
 \sidecols{.5\textwidth}{.5\textwidth}{
 \begin{align*}
     \algnull &= \infty \\
+    \algplus &= \min \\
     \evLeaf_{t,v} &= 0 \\
-    \evSkip_{n}(h) &= h + \min\{n\cost(\evtL), \cost(\evtTX)\} \\
+    \evSpe_{t,v}(h_L, h_R) &= h_L + h_R
 \end{align*}
 }{
 \begin{align*}
-    \algplus &= \min \\
-    \evSpe_{t,v}(h_L, h_R) &= h_L + h_R \\
     \evDup_{t,v}(h_L, h_R) &= h_L + h_R + \cost(\evtD) \\
-    \evTr_{t,v}(h_L, h_R) &= h_L + h_R + \cost(\evtT).
+    \evTr_{t,v}(h_L, h_R) &= h_L + h_R + \cost(\evtT) \\
+    \evSkip_{n}(h) &= h + \min\{n\cost(\evtL), \cost(\evtTX)\}. \\
 \end{align*}
 }
 
@@ -100,21 +100,24 @@ Comme avec toute signature, une algèbre de traçage \(\altrace(\algsignrec)\) p
 Cela permet, par exemple, de construire automatiquement l’ensemble des solutions de coût minimum, en utilisant l’algèbre combinée \(\alminplus_\cost \times \altrace(\algsignrec) \mid \allex{1}\).
 
 En l’absence d’une fonction de coûts fixée, il peut être souhaitable de réaliser une optimisation multi-objectifs, en construisant des ensembles de vecteurs Pareto-optimaux de la forme \(\tup{n_\evtD, n_\evtT, n_\evtL, n_\evtTX}\) dénombrant le nombre d’événements de chaque type.
-Cette tâche est compliquée par le fait que l’opérateur \(\evSkip_n(h)\) peut être interprété soit comme une série d’événements \(\evtL\), soit comme un seul événement \(\evtTX\), dépendamment du coût relatif de ces deux événements.
+Cette tâche est compliquée par le fait que l’opérateur \(\evSkip_n(h)\) peut être interprété soit comme une série d’événements~\(\evtL\), soit comme un seul événement~\(\evtTX\), dépendamment du coût relatif de ces deux événements.
 Chaque appel à \(\evSkip_n(h)\) doit ainsi engendrer deux vecteurs représentant ces deux interprétations possibles, ce qui nous empêche d’employer la construction générique de la \cref{sec:adp:alg-combin:pareto}.
 Nous construisons donc manuellement l’algèbre comme suit: \\
-\sidecols{.5\textwidth}{.5\textwidth}{
+\sidecols{.35\textwidth}{.65\textwidth}{
 \begin{align*}
     \algnull &= \emptyset \\
+    h \algplus h' &= \parfront(h \cup h') \\
     \evLeaf_{t,v} &= \{\tup{0, 0, 0, 0}\} \\
-    \evSkip_n(h) &= (h + \{\tup{0, 0, n, 0}\}) \algplus (h + \{\tup{0, 0, 0, 1}\}) \\
+    \evSpe_{t,v}(h_L, h_R) &= \parfront(h_L + h_R) \\[-3.2ex]
 \end{align*}
 }{
 \begin{align*}
-    h \algplus h' &= \parfront(h \cup h') \\
-    \evSpe_{t,v}(h_L, h_R) &= h_L + h_R \\
-    \evDup_{t,v}(h_L, h_R) &= h_L + h_R + \{\tup{1, 0, 0, 0}\} \\
-    \evTr_{t,v}(h_L, h_R) &= h_L + h_R + \{\tup{0, 1, 0, 0}\},
+    \evDup_{t,v}(h_L, h_R) &= \parfront(h_L + h_R + \{\tup{1, 0, 0, 0}\}) \\
+    \evTr_{t,v}(h_L, h_R) &= \parfront(h_L + h_R + \{\tup{0, 1, 0, 0}\}) \\
+    \evSkip_n(h) &= \begin{cases}
+        h & \text{si } n = 0 \\
+        \parfront(h + \{\tup{0, 0, n, 0}, \tup{0, 0, 0, 1}\}) & \text{sinon,}
+    \end{cases}
 \end{align*}
 }\\
 où \enquote{\(+\)} correspond à une somme de Minkowski, construisant l’ensemble des sommes des paires de vecteurs obtenues en prenant le produit Cartésien des deux opérandes.
