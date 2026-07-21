@@ -124,15 +124,19 @@ où \enquote{\(+\)} correspond à une somme de Minkowski, construisant l’ensem
 
 \subsection{Grammaire de structure}
 
-La structure de l’espace des solutions peut être décrite par la grammaire \(\gramrec\) suivante (voir \cref{sec:adp:yield-gram}).
-Cette grammaire utilise quatre prédicats, représentant tous une réconciliation de l’entièreté du sous-arbre \(T\) donné dans leur première dimension, définis ainsi:
+L’espace des réconciliations a été formellement étudié par plusieurs auteurs, notamment \textcite{Doyon2009SpaceGeneSpeciesTrees} pour le modèle \(\recmodelDL\).
+Plus récemment, \textcite{Chauve2020CountingSamplingGene} ont proposé une grammaire décrivant l’espace des arbres réconciliés sous le modèle \(\recmodelDTL\), sans contrainte sur l’arbre des unités.
+Dans cette section, nous proposons une grammaire canonique pour l’espace des réconciliations sous le modèle \(\recmodelDTLx\).
+
+La grammaire \(\gramrec\), présentée selon les conventions de la \cref{sec:adp:yield-gram}, utilise quatre prédicats représentant chacun un ensemble de réconciliations possibles du sous-arbre \(T\) donné dans leur première dimension.
+Ces prédicats sont définis ainsi:
 \begin{compactitemize}
-    \item \(\gRec[T, S]\), telle que \(\troot(T)\) est appariée à \(\troot(S)\);
-    \item \(\gRecOut[T, S]\), telle que \(\troot(T)\) est appariée à n’importe quel sommet \(s \nottcomp \troot(S)\);
-    \item \(\gRecIn[T, S]\), telle que \(\troot(T)\) est appariée à n’importe quel sommet \(s \tdesc \troot(S)\);
-    \item \(\gRecPath[T, S, 0]\), telle que \(\troot(T)\) est appariée à n’importe quel sommet \(s \tdesc \troot(S)\) et précédée d’un événement \(\evSkip_N\) avec \(N = \tdist(s, \troot(S))\).
+    \item \(\gRec[T, S]\): réconciliations telles que \(\troot(T)\) est appariée à \(\troot(S)\);
+    \item \(\gRecOut[T, S]\): telles que \(\troot(T)\) est appariée à n’importe quel hôte \(s \nottcomp \troot(S)\);
+    \item \(\gRecIn[T, S]\): telles que \(\troot(T)\) est appariée à n’importe quel hôte \(s \tdesc \troot(S)\);
+    \item \(\gRecPath[T, S, 0]\): telles que \(\troot(T)\) est appariée à n’importe quel hôte \(s \tdesc \troot(S)\) et précédée d’un événement \(\evSkip_N\) avec \(N = \tdist(s, \troot(S))\).
 \end{compactitemize}
-L'espace des solutions pour les deux phylogénies \(T\) et \(S\) est constitué des termes dérivés de \(\gRecIn[T, S]\).
+L'espace des solutions pour deux phylogénies \(T\) et \(S\) est engendré par \(\gRecIn[T, S]\).\\
 Les clauses de la grammaire sont:
 {\allowdisplaybreaks
 \begin{subequations}
@@ -151,37 +155,43 @@ Les clauses de la grammaire sont:
     \gRecIn[T, S] &\rightarrow \gRec[T, S] \label{eq:adp-rec:bilateral-grammar-in-end}\\[2ex]
     \gRecOut[T, S \text{ frère de } S'] &\rightarrow
         \gRecIn[T, S'] \label{eq:adp-rec:bilateral-grammar-out-side}\\
-    \gRecOut[T, S \text{ parent de } P] &\rightarrow
+    \gRecOut[T, P \text{ parent de } S] &\rightarrow
         \gRecOut[T, P] \label{eq:adp-rec:bilateral-grammar-out-up}
 \end{align}
 \end{subequations}}%
+Suivant les conventions de la \cref{sec:adp:yield-gram}, la notation \((T')\mid(T'')\) indique que \(T'\) et \(T''\) sont les deux sous-arbres enfants de la racine, pris dans n’importe quel ordre, alors que la notation \((T_L)(T_R)\) indique que l’ordre de l’entrée est conservé.
+
 Les clauses \labelcref{eq:adp-rec:bilateral-grammar-spe,eq:adp-rec:bilateral-grammar-dup,eq:adp-rec:bilateral-grammar-tr} agissent au niveau des embranchements de l’arbre \(T\) pour y insérer des événements de cospéciation, de duplication ou de transfert.
-Pour rappel, la notation \((T')\mid(T'')\) indique que \(T'\) et \(T''\) sont les deux enfants du sommet actuel dans n’importe quel ordre, alors que la notation \((T_L)(T_R)\) indique que l’ordre des enfants est conservé.
 
-Les clauses \labelcref{eq:adp-rec:bilateral-grammar-path-down,eq:adp-rec:bilateral-grammar-path-end,eq:adp-rec:bilateral-grammar-in-down,eq:adp-rec:bilateral-grammar-in-end} traversent les hôtes descendants d’un certain sommet, soit en gardant trace du nombre de sommets traversé pour ajouter un événement \(\evSkip\) à la suite à un événement de cospéciation ou de duplication, soit en poursuivant directement avec une réconciliation au niveau du descendant comme au début d’une réconciliation ou à la suite d’un événement de transfert.
+Les clauses \labelcref{eq:adp-rec:bilateral-grammar-path-down,eq:adp-rec:bilateral-grammar-path-end,eq:adp-rec:bilateral-grammar-in-down,eq:adp-rec:bilateral-grammar-in-end} traversent les hôtes descendants d’un certain sommet,
+soit en tenant compte du nombre de sommets traversé pour insérer un appel à \(\evSkip_N\)~(\(\gRecPath\)),
+soit en poursuivant directement avec une réconciliation au niveau du descendant, comme au début d’une réconciliation ou à la suite d’un événement de transfert~(\(\gRecIn\)).
 
-Finalement, les clauses \labelcref{eq:adp-rec:bilateral-grammar-out-side,eq:adp-rec:bilateral-grammar-out-up} permettent de traverser les hôtes séparés d’un certain sommet à partir du principe récursif selon lequel un sommet séparé de \(v\) est soit un descendant d’un frère de~\(v\) soit un sommet séparé du parent de \(v\).
-Ce principe a été employé par \textcite{Bansal2012EfficientAlgorithmsReconciliation} dans le contexte de la réconciliation afin de réduire la complexité de l’algorithme de réconciliation par un facteur \(|\tnodes(S)|\).
+Finalement, les clauses \labelcref{eq:adp-rec:bilateral-grammar-out-side,eq:adp-rec:bilateral-grammar-out-up} permettent de traverser les hôtes séparés d’un certain sommet.
+Elles s’appuient sur le principe récursif selon lequel un sommet séparé de \(v\) est soit un descendant d’un frère de~\(v\), soit un sommet séparé du parent de \(v\).
+Ce principe a été employé par \textcite{Bansal2012EfficientAlgorithmsReconciliation} pour réduire la complexité de l’algorithme de \(\recmodelDTL\)-parcimonie d’un facteur \(|\tnodes(S)|\).
 
-Nous conjecturons que cette grammaire est non ambigüe et qu’elle est canonique pour le problème de \(\recmodelDTLx\)-parcimonie dans le sens où chaque interprétation possible d’une réconciliation pour une entrée donnée est énumérée exactement une fois.
+Nous conjecturons que cette grammaire est non ambigüe et qu’elle est canonique pour le problème de \(\recmodelDTLx\)-parcimonie dans le sens où chaque réconciliation parcimonieuse possible pour une entrée donnée est énumérée exactement une fois.
 
 Grâce à l’\cref{alg:seq-yield-parser}, cette grammaire correspond automatiquement à un algorithme de programmation dynamique.
-Sa complexité en temps est \(\bigo(nmd)\)\footnote{Cette complexité ne prend en compte que le temps de construction du circuit algébrique associé à une certaine entrée. Selon l’algèbre utilisée pour évaluer ce circuit, la complexité pourrait être plus élevée. Dans le cas où seul le coût minimum d’une solution ou la construction d’une solution arbitraire atteignant ce coût est recherché, la complexité reste inchangée.}, où \(n\) et \(m\) sont les tailles de \(T\) et \(S\) et \(d\) est la profondeur de \(S\), en vertu du \cref{thm:adp:gram-hedge-complex}.
+Sa complexité en temps est \(\bigo(nmd)\)\footnote{Cette complexité ne prend en compte que le temps de construction du circuit algébrique associé à une certaine entrée. En fonction de l’algèbre utilisée pour évaluer ce circuit, la complexité totale pourrait être plus élevée. Dans le cas où seul le coût minimum d’une solution, ou seule la construction d’une solution arbitraire atteignant ce coût, sont recherchés, la complexité est exactement telle qu’indiqué.}, où \(n\) et \(m\) sont les tailles de \(T\) et \(S\) et \(d\) est la profondeur de \(S\), en vertu du \cref{thm:adp:gram-hedge-complex}.
 Cette complexité est proche de la meilleure complexité connue pour le problème de réconciliation bilatérale \parencite{Weiner2021ImprovedDuplicationTransfer}, à un facteur \(d\) près.
-
-Ce facteur peut toutefois être éliminé en supprimant le paramètre \(N\) du prédicat \(\gRecPath\), en insérant à la place un événement \(\evSkip_1\) à chaque application de la clause \labelcref{eq:adp-rec:bilateral-grammar-path-down}, et en insérant une clause séparée pour inférer les événements \(\evtTX\).
-Cependant, cette transformation rend la grammaire non canonique, puisqu’il existe alors toujours deux solutions partielles connectant deux sommets de~\(T\), l’une empruntant une série d’événements \(\evSkip\) et l’autre empruntant la nouvelle clause pour les événements \(\evtTX\).
+Ce facteur peut toutefois être éliminé en supprimant le paramètre \(N\) du prédicat \(\gRecPath\), en insérant à la place un appel à \(\evSkip_1\) à chaque application de la clause \labelcref{eq:adp-rec:bilateral-grammar-path-down}, et en ajoutant une clause séparée pour inférer les événements \(\evtTX\).
+Cependant, cette transformation rend la grammaire non canonique puisqu’il existe alors toujours deux solutions partielles connectant deux sommets de~\(T\), l’une empruntant une série d’appels à \(\evSkip\), l’autre la nouvelle clause pour les événements \(\evtTX\).
 
 Il est possible d’étendre cette grammaire pour résoudre le problème de binarisation d’un arbre \(T\) contenant des polytomies de sorte à minimiser le coût de réconciliation \(\recmodelDTLx\) associé.
 La complexité de l’algorithme résultant, en vertu du \cref{thm:adp:gram-forest-complex}, est \(\bigo(n^22^{\deg I})\), c’est-à-dire qu’il s’agit d’un algorithme \emph{fixed parameter tractable} (FPT) dans le degré maximum de l’arbre des unités.
-% FIXME missing log factor in the exponent
-Cette complexité correspond à celle de l’algorithme développé par \textcite{Kordi2016ExactAlgorithmsDuplicationTransferLoss}.
+Cette complexité est comparable à celle de l’algorithme développé par \textcite{Kordi2016ExactAlgorithmsDuplicationTransferLoss}.
 
 \subsection{Résultats}
 
-L’application de la grammaire \(\gramrec\) sur l’entrée à gauche de la \cref{fig:adp-rec:rec-input} engendre un certain espace de solutions représenté sous la forme d’un circuit algébrique sur lequel différentes algèbres peuvent être appliquées.
+L’application de la grammaire \(\gramrec\) sur l’entrée à gauche de la \cref{fig:adp-rec:rec-input} engendre un certain espace de solutions, sous la forme d’un circuit algébrique sur lequel différentes algèbres peuvent être appliquées.
 Ce circuit algébrique correspond au \emph{graphe de réconciliation} étudié notamment par \textcite{Scornavacca2013RepresentingSetReconciliations,Wang2022EfficientlySparseListing}.
 L’\cref{alg:adp:circ-sample} pour l’échantillonage de solutions appliqué à ce graphe correspond exactement à celui développé par \textcite{Bansal2013ReconciliationRevisitedHandling} spécifiquement pour le problème de réconciliation.
+
+En utilisant l’algèbre~\(\alminplus_\cost\) avec un coût de \(\cost(\evtD) = 2\), \(\cost(\evtT) = 3\), \(\cost(\evtL) = 1\) et \(\cost(\evtTX) = \infty\), nous obtenons un coût minimal de~10.
+En combinant cette algèbre avec l’algèbre de traçage \(\altrace(\algsignrec)\) grâce au combinateur lexicographique décrit à la \cref{sec:adp:alg-combin:lex}, il est possible de construire la solution atteignant ce coût présentée à droite de la \cref{fig:adp-rec:rec-input}.
+En construisant une algèbre de Pareto, nous pouvons obtenir le diagramme de la \cref{fig:adp-rec:rec-pareto}, qui montre qu’il existe plusieurs classes de solutions parcimonieuses obtenues en faisant varier les différents paramètres de coûts.
 
 \begin{figure}[p]
     \capstart
@@ -195,44 +205,42 @@ L’\cref{alg:adp:circ-sample} pour l’échantillonage de solutions appliqué �
     }
 \end{figure}
 
-En utilisant l’algèbre~\(\alminplus_\cost\) avec un coût de \(\cost(\evtD) = 2\), \(\cost(\evtT) = 3\), \(\cost(\evtL) = 1\) et \(\cost(\evtTX) = \infty\), nous obtenons un coût minimal de~10.
-En combinant cette algèbre avec l’algèbre de traçage \(\altrace(\algsignrec)\) grâce au combinateur lexicographique décrit à la \cref{sec:adp:alg-combin:lex}, il est possible de construire la solution atteignant ce coût présentée à droite de la \cref{fig:adp-rec:rec-input}.
-En construisant une algèbre de Pareto, nous pouvons obtenir le diagramme de la \cref{fig:adp-rec:rec-pareto}, qui montre qu’il existe plusieurs autres solutions optimales potentielles en faisant varier les différents paramètres de coûts.
-
-\begin{figure}[H]
-    \capstart
-    \centering
-    \input{fig/adp-rec/rec-pareto}
-    \caption[Mosaïque des régions de coûts pour une instance de \(\recmodelDTLx\)-parcimonie]{
-        Mosaïque des régions d’optimalité des coûts selon trois dimensions: nombre d’événements de duplication, de transfert et de perte.
-        Le diagramme montre la tranche de l’espace des coûts pour \(\cost(\evtL) = 1\).
-        La région \((2,1,3)\) contient la solution de la \cref{fig:adp-rec:rec-input}.
-        \label{fig:adp-rec:rec-pareto}
-    }
-\end{figure}
-
 \begin{table}[p]
     \capstart
     \centering
     \scalebox{.95}{\input{fig/adp-rec/rec-supports}}
     \caption[Probabilités d’occurrence des événements dans un scénario moyen]{
         Probabilités d’occurrence des événements dans un scénario moyen de la distribution de Boltzmann avec température \(T=1\) pour l’entrée et les coûts de la \cref{fig:adp-rec:rec-input}.
-        Le tableau indique la probabilité que chaque sommet de \(T\) soit assigné à un type d’événement \(\evtS\), \(\evtD\) ou \(\evtT\) et associé à un hôte de l’arbre~\(S\).
+        Le tableau indique la probabilité que chaque sommet de \(T\) soit assigné à un certain type d’événement parmi \(\evtS\), \(\evtD\) ou \(\evtT\) et soit associé à un certain hôte de l’arbre~\(S\).
         \label{fig:adp-rec:rec-supports}
     }
 \end{table}
 
+\begin{figure}[htbp]
+    \capstart
+    \centering
+    \input{fig/adp-rec/rec-pareto}
+    \caption[Mosaïque des régions de coûts pour une instance de \(\recmodelDTLx\)-parcimonie]{
+        Mosaïque des régions d’optimalité des coûts selon trois dimensions: nombre d’événements de duplication, de transfert et de perte.
+        Les scénarios parcimonieux contenant des événements \(\evtTX\) sont écartés de ce diagramme.
+        Celui-ci montre la tranche de l’espace des coûts pour \(\cost(\evtL) = 1\).
+        La région \((2,1,3)\) contient la solution de la \cref{fig:adp-rec:rec-input}.
+        \label{fig:adp-rec:rec-pareto}
+    }
+\end{figure}
+
 Finalement, il est possible d’échantillonner des solutions quasioptimales en construisant une algèbre de Boltzmann comme décrit à la \cref{ex:adp:space-enum-sample:boltz}.
-De cet ensemble peuvent être calculées efficacement les probabilités que chaque embranchement soit assigné à un événement donné ou à un hôte donné dans une solution moyenne (voir \cref{fig:adp-rec:rec-supports}) au travers du calcul des contributions externes introduit à la \cref{sec:adp:space-enum-sample:outside}, généralisant ainsi l’approche développée par~\textcite{Nguyen2013SupportMeasuresEstimate}.
+De cet ensemble peuvent être calculées efficacement les probabilités que chaque embranchement de \(T\) soit assigné à un événement donné ou à un hôte donné dans une solution moyenne (voir \cref{fig:adp-rec:rec-supports}) au travers du calcul des contributions externes introduit à la \cref{sec:adp:space-enum-sample:outside}, généralisant ainsi l’approche développée par~\textcite{Nguyen2013SupportMeasuresEstimate}.
 
 \section{Parcimonie de groupes}\label{sec:adp-rec:set}
 
-Le problème de parcimonie de groupes traite de la question de l’inférence des groupes de contenus ancestraux des synténies dans un arbre dont le contenu des feuilles est connu.
-Cette inférence s’appuie sur un modèle de gains et de pertes, de sorte que chaque arête de l’arbre peut être étiquetée par un gain qui fait apparaître une ou plusieurs nouvelles unités ou par une perte qui en fait disparaître.
-L’hypothèse de Dollo, selon laquelle chaque unité ne peut être gagnée qu’une seule fois dans un tel scénario, sera prise dans la suite.
+Le problème de la parcimonie de groupes, sous-jacent à la réconciliation segmentale, concerne l’inférence du contenu ancestral de synténies dans un arbre dont le contenu aux feuilles est connu.
+Cette inférence s’appuie sur un modèle de gains et de pertes groupées, de sorte que chaque arête de l’arbre peut être étiquetée par un événement de gain qui fait apparaître simultanément une ou plusieurs nouvelles unités ou par une perte qui en fait disparaître.
+Nous prendrons l’hypothèse de~Dollo, selon laquelle chaque unité est gagnée exactement une fois.
 
-L’objectif est alors de trouver un scénario qui minimise une certaine fonction de coûts sur les événements inférés dépendant du nombre d’événements et de leurs tailles respectives.
-Plus précisément, les embranchements doivent être étiquetés par des groupes de sorte à minimiser le coût formé par la somme, sur chaque branche \((v, v\child)\), de \(\cost_\evtG(|\syntenyOfExt(v\child) - \syntenyOfExt(v)|)\) et \(\cost_\evtL(|\syntenyOfExt(v) - \syntenyOfExt(v\child)|)\).
+L’objectif du problème est de trouver un étiquetage de contenus ancestraux le plus parcimonieux en termes de gains et de pertes, en fonction du nombre d’événements et de leurs tailles respectives.
+Plus précisément, chaque embranchement doit être étiqueté par un groupe de sorte à minimiser le coût formé par la somme, sur chaque branche \((v, v\child)\), de \(\cost_\evtG(|\syntenyOfExt(v\child) - \syntenyOfExt(v)|)\) et \(\cost_\evtL(|\syntenyOfExt(v) - \syntenyOfExt(v\child)|)\).
+Un exemple d’instance pour le problème est présenté à la \cref{fig:adp-rec:set-example}.
 
 \begin{problem}{Parcimonie de groupes}
     \probinput{Phylogénie \(T\);
@@ -252,28 +260,25 @@ Plus précisément, les embranchements doivent être étiquetés par des groupes
         L’ordre dans lequel celles-ci sont inscrites est sans importance.
         Cet exemple est tiré de \textcite{Gascon2026GeneRepertoireEvolution}.
         \emph{(Droite.)} Une solution possible pour l’entrée donnée.
-        Les événements de gains sont représentés par des demi-cercles ouverts vers le bas et ceux de perte par des demi-cercles ouverts vers le haut, à côté desquels le groupe d’unités gagnées ou perdues est indiqué.
+        Les événements de gain sont représentés par des demi-cercles ouverts vers le bas et ceux de perte par des demi-cercles ouverts vers le haut, à côté desquels le groupe d’unités gagnées ou perdues est indiqué.
         \label{fig:adp-rec:set-example}
     }
 \end{figure}
 
-Ce problème est sous-jacent à la réconciliation segmentale.
-Une première version a ainsi été étudiée par \textcite{Delabre2020EvolutionSegmentalDuplications} sous un coût unitaire et en supposant que toutes les unités soient gagnées dès la racine de l’arbre, n’inférant donc que la position des pertes.
+Une première version du problème a été étudiée par \textcite{Delabre2020EvolutionSegmentalDuplications} en ignorant la taille des pertes et en supposant que toutes les unités soient gagnées dès la racine de l’arbre.
 Au cours du printemps~2025, Corélie~\textsc{Godefroid} a étudié la version de ce problème étendue pour également placer les événements de gains de manière optimale.
-Ces idées ont été développées par Mathieu~\textsc{Gascon} et ont mené à un article présenté à la conférence RECOMB-CG~2026 \parencite{Gascon2026GeneRepertoireEvolution}.
+Ces idées ont été développées par Mathieu~\textsc{Gascon}, menant à un article présenté à la conférence RECOMB-CG~2026 \parencite{Gascon2026GeneRepertoireEvolution}.
 La solution présentée dans la suite de cette section est basée sur ce travail.
 
 \subsection{Réduction du problème}
 
+Observons que ce problème peut être vu comme portant sur la taille des groupes ancestraux et non sur leur contenu.
+En effet, puisque les fonctions de coûts considérées dépendent uniquement du nombre d’événements de gain et de perte et du nombre d’unités gagnées et perdues, deux solutions qui infèrent les mêmes tailles de groupes ancestraux sont indistinguables du point de vue de leur coût et seront considérées comme équivalentes dans la suite.
+Le problème se rapproche ainsi de celui résolu par le programme Count de \textcite{Csuros2010CountEvolutionaryAnalysis} qui infère des profils de nombre de copies ancestrales d’une famille de gènes sur la base d’un modèle probabiliste.
+%et sans se contraindre à l’hypothèse de Dollo.
 
-Observons que ce problème peut être vu comme portant sur les tailles des groupes ancestraux et non sur leur contenu.
-En effet, puisque les fonctions de coûts considérées dépendent uniquement du nombre d’événements de gain et de pertes et du nombre d’unités gagnées et perdues, deux solutions qui infèrent les mêmes tailles de groupes ancestraux sont indistinguables du point de vue du coût et seront considérées comme équivalentes dans la suite.
-
-Le problème se rapproche ainsi de celui résolu par le programme Count de \textcite{Csuros2010CountEvolutionaryAnalysis} qui infère des profils de nombre de copies ancestrales d’une famille de gènes, mais sur la base d’un modèle probabiliste et sans prendre en compte l’hypothèse de Dollo.
-
-Puisque chaque unité \(g\) doit apparaître dans exactement un gain, ce gain doit nécessairement être un ancêtre de l’embranchement \(v\) qui est le \(\lca\) de toutes les feuilles dans lesquelles \(g\) apparaît.
-Nous serons donc intéressé dans la suite par l’ensemble \(\xlca(v)\) qui rassemble toutes les unités dont le \(\lca\) est un descendant de \(v\).
-À chaque sommet \(v\), l’ensemble des unités \(\geneFamilySet\) peut être partitionné en trois sous-ensembles \(\geneFamilySet = \xmin(v) \cup \xin(v) \cup \xout(v)\), où:
+En raison de l’hypothèse de Dollo, le contenu des feuilles engendre toutefois des contraintes sur quelles tailles de groupes ancestraux sont admissibles.
+À chaque embranchement \(v\), l’ensemble des unités~\(\geneFamilySet\) peut ainsi être partitionné en trois sous-ensembles \(\geneFamilySet = \xmin(v) \cup \xin(v) \cup \xout(v)\), où:
 \begin{compactitemize}
     \item \(\xmin(v)\) est l’ensemble des unités dont le \emph{lca} est un ancêtre de \(v\) et qui apparaissent dans au moins une feuille du sous-arbre de \(v\);
     \item \(\xout(v)\) est l’ensemble des unités qui n’apparaissent dans aucune feuille du sous-arbre de \(v\);
@@ -281,15 +286,17 @@ Nous serons donc intéressé dans la suite par l’ensemble \(\xlca(v)\) qui ras
 \end{compactitemize}
 de sorte que \(\xmin(v)\) est nécessairement un sous-ensemble de \(\syntenyOfExt(v)\), \(\xout(v)\) contient les unités qui peuvent être librement perdues dans la branche menant à \(v\) et \(\xin(v)\) celles qui peuvent y être librement gagnées.
 
-\subsection{Algèbres d’évaluation}
-
-
-Fixons pour signature du problème l’ensemble d’opérateurs \(\algsignset = \{\algnull, \algplus, \evLeaf, \evGain, \evLoss, \evSplit\}\) définis comme suit:
+Nous fixons donc pour signature du problème l’ensemble d’opérateurs \(\algsignset = \{\algnull, \algplus, \evLeaf, \evGain, \evLoss, \evSplit\}\) définis comme suit:
 \begin{itemize}
     \item \(\evLeaf\) représente une feuille de l’arbre;
     \item \(\evGain_N(h)\) et \(\evLoss_N(h)\) représentent respectivement un gain ou une perte de \(N\) unités;
     \item \(\evSplit_{G,G',L}(h, h')\) représente un embranchement de l’arbre au niveau duquel \(G+G'\) unités restent à gagner, dont \(G\) dans le sous-arbre à gauche et \(G'\) dans le sous-arbre à droite, et \(L\) unités restent à perdre.
 \end{itemize}
+
+% Puisque chaque unité \(g\) doit apparaître dans exactement un gain, ce gain doit nécessairement être un ancêtre de l’embranchement \(v\) qui est le \(\lca\) de toutes les feuilles dans lesquelles \(g\) apparaît.
+% Nous serons donc intéressé dans la suite par l’ensemble \(\xlca(v)\) qui rassemble toutes les unités dont le \(\lca\) est un descendant de \(v\).
+
+\subsection{Algèbres d’évaluation}
 
 Cette signature permet, pour deux fonctions de coûts \(\cost_\evtG\) et \(\cost_\evtL\) données, de définir l’algèbre d’optimisation additive \(\alminplus_{\cost_\evtG,\cost_\evtL}\) suivante\\
 \threecols{.33\textwidth}{.33\textwidth}{.33\textwidth}{
@@ -456,7 +463,7 @@ Les clauses résultantes sont présentées ci-dessous et dans le \cref{tab:adp-r
     \gRecInBranch[T, s((S') \mid S''), G, L] &\rightarrow \gRecInBranch[T, S', G, L] \label{eq:adp-rec:comb-grammar-in-down} \\
     \gRecInBranch[T, S, G, L_H + L_D] &\rightarrow \evLoss_{L_H}(\gRecBranchEnd[T, S, G, L_D]) \label{eq:adp-rec:comb-grammar-in-end} \\[2ex]
     \gRecOutBranch[T, S \text{ frère de } S', G, L] &\rightarrow \gRecInBranch[T, S', G, L] \label{eq:adp-rec:comb-grammar-out-side} \\
-    \gRecOutBranch[T, S \text{ parent de } P, G, L] &\rightarrow \gRecOutBranch[T, P, G, L] \label{eq:adp-rec:comb-grammar-out-up} \\
+    \gRecOutBranch[T, P \text{ parent de } S, G, L] &\rightarrow \gRecOutBranch[T, P, G, L] \label{eq:adp-rec:comb-grammar-out-up} \\
     \gRecBranchEnd[T, S, G_H + G_D, L] &\rightarrow \evGain_{G_H}(\gRecSplit[T, S, G_D, L]) \label{eq:adp-rec:comb-grammar-gain}
 \end{align}
 \end{subequations}}
