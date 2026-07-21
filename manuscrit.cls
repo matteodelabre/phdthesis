@@ -154,6 +154,7 @@
 %% Algorithmes
 \RequirePackage[plain]{algorithm}
 \RequirePackage[commentColor=black!60,endLComment={}]{algpseudocodex}
+\counterwithin{algorithm}{chapter}
 \renewcommand{\mathellipsis}{.\kern.4pt.\kern.4pt.\kern.6pt}
 \renewcommand{\algorithmicindent}{.8em}
 \algrenewcommand{\alglinenumber}[1]{\color{gray}\scriptsize#1}
