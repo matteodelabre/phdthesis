@@ -29,11 +29,7 @@
         grid=both,
         grid style={black, opacity=.15, dashed},
         tick style={transparent},
-        xtick distance=1,
-        ytick distance=2,
         enlargelimits=false,
-        xlabel={\(b_{\kern1pt\evtL}\)},
-        ylabel={\(b_\evtG\)},
         area legend/.style={
             legend image code/.code={
                 \draw [#1] (0cm,-0.15cm) rectangle (0.3cm,0.15cm);
@@ -49,32 +45,36 @@
                     };
             },
         }, 
+        xtick distance=1,
+        ytick distance=2,
+        xlabel={\(b_{\kern1pt\evtL}\)},
+        ylabel={\(b_\evtG\)},
     ]
     \addplot[area legend, black, fill=c0!70!white, mark=none] coordinates { (1.0, 2.0) (3.0, 4.0) (5.0, 5.0) (5.0, 2.0) (1.0, 2.0) };
-    \addlegendentry{\((4, 5, 6)\)\\\(n=1\)}
+    \addlegendentry{\(\tup{4, 5, 6}\)\\\(n=1\)}
     \addplot[area legend, black, fill=c1!70!white, mark=none] coordinates { (0.0, 0.0) (0.0, 1.0) (1.0, 2.0) (5.0, 2.0) (5.0, 0.0) (0.0, 0.0) };
-    \addlegendentry{\((4, 6, 4)\)\\\(n=1\)}
+    \addlegendentry{\(\tup{4, 6, 4}\)\\\(n=1\)}
     \addplot[area legend, black, fill=c2!70!white, mark=none] coordinates { (3.0, 4.0) (3.0, 6.0) (4.0, 8.0) (5.0, 9.0) (5.0, 5.0) (3.0, 4.0) };
-    \addlegendentry{\((5, 3, 11)\)\\\(n=1\)}
+    \addlegendentry{\(\tup{5, 3, 11}\)\\\(n=1\)}
     \addplot[short line legend, black, line width=2pt, line cap=round, postaction={draw, c0!70!white, line width=1.3pt}, on layer=lines] coordinates { (1.0, 2.0) (3.0, 4.0) };
-    \addlegendentry{\((5, 4, 7)\)\\\(n=3\)}
+    \addlegendentry{\(\tup{5, 4, 7}\)\\\(n=3\)}
     \addplot[short line legend, black, line width=2pt, line cap=round, postaction={draw, c1!70!white, line width=1.3pt}, on layer=lines] coordinates { (4.0, 8.0) (5.0, 9.0) };
-    \addlegendentry{\((6, 2, 15)\)\\\(n=2\)}
+    \addlegendentry{\(\tup{6, 2, 15}\)\\\(n=2\)}
     \addplot[area legend, black, fill=c3!70!white, mark=none] coordinates { (1.0, 2.0) (1.0, 4.0) (3.0, 6.0) (3.0, 4.0) (1.0, 2.0) };
-    \addlegendentry{\((6, 3, 8)\)\\\(n=1\)}
+    \addlegendentry{\(\tup{6, 3, 8}\)\\\(n=1\)}
     \addplot[short line legend, black, line width=2pt, line cap=round, postaction={draw, c2!70!white, line width=1.3pt}, on layer=lines] coordinates { (0.0, 1.0) (1.0, 2.0) };
-    \addlegendentry{\((6, 4, 6)\)\\et \((5, 5, 5)\)\\\(n=4\)}
+    \addlegendentry{\(\tup{6, 4, 6}\)\\et \(\tup{5, 5, 5}\)\\\(n=4\)}
     \addplot[area legend, black, fill=c4!70!white, mark=none] coordinates { (3.0, 8.0) (3.0, 9.0) (5.0, 9.0) (4.0, 8.0) (3.0, 8.0) };
-    \addlegendentry{\((7, 1, 19)\)\\\(n=1\)}
+    \addlegendentry{\(\tup{7, 1, 19}\)\\\(n=1\)}
     \addplot[area legend, black, fill=c5!70!white, mark=none] coordinates { (1.0, 4.0) (1.0, 5.00000000000001) (2.0, 7.0) (3.0, 8.0) (4.0, 8.0) (3.0, 6.0) (1.0, 4.0) };
-    \addlegendentry{\((7, 2, 11)\)\\\(n=1\)}
+    \addlegendentry{\(\tup{7, 2, 11}\)\\\(n=1\)}
     \addplot[area legend, black, fill=c6!70!white, mark=none] coordinates { (0.0, 1.0) (0.0, 3.0) (1.0, 4.0) (1.0, 2.0) (0.0, 1.0) };
-    \addlegendentry{\((7, 3, 7)\)\\\(n=1\)}
+    \addlegendentry{\(\tup{7, 3, 7}\)\\\(n=1\)}
     \addplot[area legend, black, fill=c7!70!white, mark=none] coordinates { (2.0, 7.0) (2.0, 9.0) (3.0, 9.0) (3.0, 8.0) (2.0, 7.0) };
-    \addlegendentry{\((8, 1, 16)\)\\\(n=1\)}
+    \addlegendentry{\(\tup{8, 1, 16}\)\\\(n=1\)}
     \addplot[area legend, black, fill=c8!70!white, mark=none] coordinates { (0.0, 3.0) (0.0, 4.0) (1.0, 5.0) (1.0, 4.0) (0.0, 3.0) };
-    \addlegendentry{\((8, 2, 10)\)\\\(n=1\)}
+    \addlegendentry{\(\tup{8, 2, 10}\)\\\(n=1\)}
     \addplot[area legend, black, fill=c9!70!white, mark=none] coordinates { (0.0, 4.0) (0.0, 9.0) (2.0, 9.0) (2.0, 7.0) (1.0, 5.0) (0.0, 4.0) };
-    \addlegendentry{\((9, 1, 14)\)\\\(n=1\)}
+    \addlegendentry{\(\tup{9, 1, 14}\)\\\(n=1\)}
     \end{axis}
 \end{tikzpicture}
