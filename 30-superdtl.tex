@@ -146,14 +146,19 @@ Note that for an internal node \(v\) of \(\treeH\), \(\syntenyOf(v)\) is not nec
     \capstart
     \input{fig/superdtl/evol-history-example}
     \caption[Input and possible evolutionary scenario for the SuperDTL model]{
-        \emph{(Left.)} A synteny tree \(T\) for the family \(\syntenyFamily = \{\syntdisp{\{b\}}, \syntdisp{\{b,c\}}, \syntdisp{\{c\}}, \syntdisp{\{a\}}, \syntdisp{\{a,b\}}\}\) on the set of species \(\speciesSet = \{\specdisp{X}, \specdisp{Y}, \specdisp{Z}\}\).
+        \emph{(Left.)}~A synteny tree \(T\) for the family \(\syntenyFamily = \{\syntdisp{\{b\}}, \syntdisp{\{b,c\}}, \syntdisp{\{c\}}, \syntdisp{\{a\}}, \syntdisp{\{a,b\}}\}\) on the set of species \(\speciesSet = \{\specdisp{1}, \specdisp{2}, \specdisp{3}\}\).
         Under each leaf \(l\) are shown its associated synteny \(x(l)\) and species \(s(l)\).
-        \emph{(Center.)} An evolutionary history \(\treeH\) for \(T\), embedded in the species tree \(\speciesTree\).
-        For binary nodes, rounded rectangles correspond to \(\evtS\), plain rectangles to \(\evtD\), and chamfered rectangles to \(\evtT\).
-        For unary nodes, circles correspond to \(\evtG\), and crosses to \(\evtL\).
-        For a binary node \(v\), the value of \(\syntenyOf(v)\) is shown inside the shape (omitted when unchanged from its parent).
-        For unary nodes, the synteny difference is shown beside the node.
-        \emph{(Right.)} The Super-reconciliation \(\tup{\syntenyTree, \syntenyOf, \speciesOf}\) obtained from \(\treeH\). For each internal node \(v\), we exhibit \(\eventOf(v)\) (shape of the node), \(\speciesOf(v)\) (letter beside the node) and \(\syntenyOf(v)\) (content of the node).
+        \emph{(Center.)}~An evolutionary history \(\treeH\) for \(T\), embedded in the species tree~\(\speciesTree\).
+        Extending the conventions of \cref{fig:reconciliation:rec-trees},
+        we use rounded rectangles for~\(\evtS\),
+        plain rectangles for~\(\evtD\),
+        and chamfered rectangles for~\(\evtT\).
+        The value of \(\syntenyOf(v)\) is shown inside each shape.
+        Circles half-opened towards the leaves represent \(\evtG\)
+        and those half-opened towards the root represent \(\evtL\),
+        with the synteny difference shown beside each.
+        \emph{(Right.)}~The Super-reconciliation \(\tup{\syntenyTree, \syntenyOf, \speciesOf}\) obtained from \(\treeH\).
+        For each internal node \(v\), we exhibit \(\eventOf(v)\) (shape of the node), \(\speciesOf(v)\) (letter beside the node) and \(\syntenyOf(v)\) (content of the node).
         \label{fig:evol-history-example}
     }
 \end{figure}
@@ -395,10 +400,13 @@ In particular, changing a speciation node (inferred from \(s^{\mathrm{DT}}\)) to
 
 \begin{figure}[htb]
     \capstart
-    \input{fig/superdtl/2-steps-ct-ex}
+    \centering%
+    \input{fig/superdtl/2-steps-ct-ex-dup}%
+    \hspace{6em}%
+    \input{fig/superdtl/2-steps-ct-ex-tr}%
     \caption[Counter-example to the two-step approach for solving SuperDTL]{
         Two solutions for the same DTL Super-reconciliation problem input.
-        \emph{(Left.)}~Solution obtained by first computing \(s\) to minimize duplications and HGTs (yielding one such event) and then labelling internal nodes to minimize losses (yielding 4~losses).
+        \emph{(Left.)}~Solution obtained by first computing \(s\) to minimize duplications and HGTs (yielding one such event) and then minimizing losses (yielding four~losses).
         \emph{(Right.)}~A more parsimonious solution with two HGTs and only two losses.
         \label{fig:superdtl:2-steps-ct-ex}
     }
