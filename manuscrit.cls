@@ -348,7 +348,6 @@
 \newcommand{\personref}[1]{\large\textbf{#1}}
 
 \renewcommand{\maketitle}{{
-    % \newgeometry{textwidth=8in}
     \clearpage
     \thispagestyle{empty}
     \centering
@@ -381,12 +380,10 @@
     © \@author, \the\year
 
     \clearpage
-    % \restoregeometry
 }}
 
 %% Page de jury
 \newcommand{\makejury}{{
-    % \newgeometry{textwidth=8in}
     \clearpage
     \thispagestyle{empty}
     \centering
@@ -427,7 +424,7 @@
 
 %% Métadonnées d’articles
 \newcommand{\@articlemeta}[5]{%
-    \begin{tabular}{@{}rp{3.5cm}p{8cm}@{}}
+    \begin{tabular*}{\textwidth}{rp{3.5cm}p{7.5cm}@{\extracolsep{\fill}}}
         \toprule
         \textsc{titre original} &
         \multicolumn{2}{l}{\emph{\textenglish{#2}}} \\
@@ -440,7 +437,20 @@
         \midrule
         #1 #5 \\
         \bottomrule
-    \end{tabular}%
+    \end{tabular*}%
 }
 \newcommand{\articlemetasingle}{\@articlemeta{\textsc{auteur}}}
 \newcommand{\articlemeta}{\@articlemeta{\makecell[tr]{\textsc{auteur.e.s et}\\[-.5ex]\textsc{contributions}}}}
+
+%% Métadonnées de programmes
+\newcommand{\programdetails}[3]{%
+    \begin{tabular*}{\textwidth}{rl@{\extracolsep{\fill}}}
+        \toprule
+        \textsc{code disponible} & \url{#1}\\
+        \midrule
+        \textsc{développement} & #3 \\
+        \midrule
+        \textsc{sous licence} & #2 \\
+        \bottomrule
+    \end{tabular*}%
+}
