@@ -36,8 +36,6 @@ Finalement, il existe une abondance de solutions optimales parmi lesquelles seul
     & Nadia \textsc{El-Mabrouk} & Supervision, idéation, aide à la structuration et à l’ébauche du texte, relecture}
 \selectlanguage{english}
 
-% TODO: Migrate notations to notations.tex
-
 \newcommand{\superdtl}{SuperDTL}
 \newcommand{\subseqDist}{\mathrm{D}^\mathrm{sub}}
 \newcommand{\treeH}{H^\mathrm{tree}}
@@ -77,9 +75,19 @@ The problem of finding a most parsimonious acyclic DTL scenario has been shown N
 Although used successfully for many years, one of the major drawbacks of the reconciliation model is that gene families are considered to evolve independently from one another.
 While some work has been done on inferring the evolution of co-localized genes (such as operons in bacteria or paralogons), also called \emph{syntenic groups of genes} (or simply \emph{syntenies})~\parencite{Berard2012EvolutionGeneNeighborhoods,Duchemin2017DecostarReconstructingAncestral}, adjusting the computation of the evolutionary cost to favour co-evolution events---hence grouping individual events into single segmental ones~\parencite{Duchemin2017PhylogenyDependenciesDependencies}---or inferring the minimum number of \enquote{duplication episodes} defined as sets of single duplications mapped to the same node in the species tree~\parencite{Dondi2019ReconcilingMultipleGenes,Paszek2018EfficientAlgorithmsGenomic}, none of these methods explicitly seek an evolutionary scenario minimizing segmental duplication, loss and HGT events (see a recent review by~\textcite{ElMabrouk2021PredictingEvolutionSynteniesan}).
 
-The first attempt to generalize the reconciliation approach to a set of gene trees was described by~\textcite{Delabre2020EvolutionSegmentalDuplications}. Given a set of gene families grouped into ordered syntenies (i.e., ordered groups of genes), a gene tree for each gene family and a species tree, the \emph{DL~Super-reconciliation} problem was defined as finding an evolutionary scenario for the syntenies agreeing with the individual gene trees, whilst minimizing the number of segmental duplications and losses. The problem admits a solution only in the case of \enquote{consistent} gene trees and gene orders. It was shown that the associated decision problem is NP-hard, and that a two-step method on the synteny tree (obtained as a supertree of the gene trees), first assigning an event labelling from the LCA-mapping and then inferring ancestral syntenies and losses, leads to an optimal solution. Moreover, ignoring gene orders, a polynomial-time algorithm exists for the second step.
+The first attempt to generalize the reconciliation approach to a set of gene trees was described by~\textcite{Delabre2020EvolutionSegmentalDuplications}.
+Given a set of gene families grouped into ordered syntenies (i.e., ordered groups of genes), a gene tree for each gene family and a species tree, the \emph{DL~Super-reconciliation} problem was defined as finding an evolutionary scenario for the syntenies agreeing with the individual gene trees, whilst minimizing the number of segmental duplications and losses.
+The problem admits a solution only in the case of \enquote{consistent} gene trees and gene orders.
+It was shown that the associated decision problem is NP-hard, and that a two-step method on the synteny tree (obtained as a supertree of the gene trees), first assigning an event labelling from the LCA-mapping and then inferring ancestral syntenies and losses, leads to an optimal solution.
+Moreover, ignoring gene orders, a polynomial-time algorithm exists for the second step.
 
-In this chapter, we describe DTL Super-reconciliation, generalizing the model to handle HGT and gene gain events. We restrict the problem to the unordered case, where syntenies are defined as unordered groups of genes. We introduce the evolutionary model in \cref{sec:superdtl:evol-his} and the formal optimization problem in \cref{sec:superdtl:opt-problem}. We show in \cref{sec:superdtl:2steps} that the two-step method for solving the DL Super-reconciliation problem does not apply in this case, then present a polynomial-time dynamic programming algorithm for DTL Super-reconciliation in \cref{sec:superdtl:algo}. Finally, in \cref{sec:superdtl:crispr,sec:superdtl:results}, we apply our algorithm to CRISPR-associated (Cas) gene syntenies. These genes are part of CRISPR-Cas systems, one of its members (CRISPR-Cas9) well-known as currently the most reliable and accurate molecular scissor technology for genome editing. The inferred evolutionary scenario leads to an interesting explanation of the diversification of this system into its different types, which opens the door to further investigations.
+In this chapter, we describe DTL Super-reconciliation, generalizing the model to handle HGT and gene gain events.
+We restrict the problem to the unordered case, where syntenies are defined as unordered groups of genes.
+We introduce the evolutionary model in \cref{sec:superdtl:evol-his} and the formal optimization problem in \cref{sec:superdtl:opt-problem}.
+We show in \cref{sec:superdtl:2steps} that the two-step method for solving the DL Super-reconciliation problem does not apply in this case, then present a polynomial-time dynamic programming algorithm for DTL Super-reconciliation in \cref{sec:superdtl:algo}.
+Finally, in \cref{sec:superdtl:crispr,sec:superdtl:results}, we apply our algorithm to CRISPR-associated (Cas) gene syntenies.
+These genes are part of CRISPR-Cas systems, one of its members (CRISPR-Cas9) well-known as currently the most reliable and accurate molecular scissor technology for genome editing.
+The inferred evolutionary scenario leads to an interesting explanation of the diversification of this system into its different types, which opens the door to further investigations.
 
 \section{Preliminary definitions}
 

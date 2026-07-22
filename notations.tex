@@ -24,14 +24,11 @@
 \newcommand{\nottancs}{\mathrel{\makebox[0pt]{\(\:\:\succeq\)}/}}
 \newcommand{\tancsneq}{\succ}
 \newcommand{\nottancsneq}{\mathrel{\makebox[0pt]{\(\:\:\succ\)}/}}
-\newcommand{\tcomp@base}{\makebox[0pt]{\raisebox{-2pt}{\(\mspace{12mu}\prec\)}}\raisebox{2pt}{\(\succ\)}}
-\newcommand{\tcomp}{\mathrel{\tcomp@base}}
-% \newcommand{\nottcomp}{\mathrel{\makebox[0pt]{\(\:\:\:/\)}\tcomp@base}}
 \newcommand{\nottcomp}{\mathrel{||}}
 
 \newcommand{\subtree}[2]{#1[#2]}
 \newcommand{\lca}{\mathrm{lca}}
-\newcommand{\tpath}{\mathbin{\leadsto}}
+\newcommand{\tpath}[3][]{\mathrm{path}_{#1}(#2, #3)}
 \newcommand{\tdist}{\mathrm{dist}}
 
 %%% Réconciliations
@@ -51,17 +48,19 @@
 \newcommand{\treecost}{\Delta}
 \newcommand{\evt}{\mathcal{E}}
 
-\newcommand{\evtE}{\varepsilon}
-\newcommand{\evtP}{\lambda}
-\newcommand{\evtS}{\mathrm{S}}
-\newcommand{\evtD}{\mathrm{D}}
-\newcommand{\evtL}{\mathrm{L}}
-\newcommand{\evtR}{\mathrm{R}}
-\newcommand{\evtT}{\mathrm{T}}
-\newcommand{\evtTL}{\mathrm{TL}}
-\newcommand{\evtTX}{\mathrm{TX}}
-\newcommand{\evtG}{\mathrm{G}}
-\newcommand{\evtB}{\mathrm{B}}
+\newcommand{\evtE}{\varepsilon} % leaves
+\newcommand{\evtP}{\lambda} % non-event
+\newcommand{\evtS}{\mathrm{S}} % speciation
+\newcommand{\evtD}{\mathrm{D}} % duplication
+\newcommand{\evtL}{\mathrm{L}} % loss
+\newcommand{\evtT}{\mathrm{T}} % transfer
+\newcommand{\evtTD}{\mathrm{TD}} % transfer-duplication
+\newcommand{\evtTC}{\mathrm{TC}} % transfer-cut
+\newcommand{\evtTL}{\mathrm{TL}} % transfer with loss
+\newcommand{\evtTX}{\mathrm{TX}} % transfer to extinct species
+\newcommand{\evtG}{\mathrm{G}} % gain
+\newcommand{\evtB}{\mathrm{B}} % breakage
+\newcommand{\evtC}{\mathrm{C}} % cut
 \newcommand{\evtDD}{\mathbb{D}}
 \newcommand{\evtLL}{\mathbb{L}}
 \newcommand{\evtSS}{\mathbb{S}}
@@ -166,12 +165,9 @@
 \newcommand{\mset}[1]{\left[\mkern-2.5mu\left[#1\right]\mkern-2.5mu\right]}
 \newcommand{\bigmset}[1]{\left[\mkern-4mu\left[#1\right]\mkern-5mu\right]}
 \newcommand{\verybigmset}[1]{\left[\mkern-7mu\left[#1\right]\mkern-7mu\right]}
-% \newcommand{\nat}{\mathbb{N}}
 \newcommand{\natex}{\nat \cup \{\infty\}}
-% \newcommand{\natex}{\nat^\infty}
 \newcommand{\rel}{\mathbb{Z}}
 \newcommand{\relex}{\rel \cup \{\pm\infty\}}
-% \newcommand{\relex}{\rel^\infty}
 \newcommand{\realpos}{\mathbb{R}_{\ge 0}}
 
 \newcommand{\alminplus}{\mathbf{M}}
