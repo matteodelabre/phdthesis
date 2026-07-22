@@ -91,8 +91,6 @@ The inferred evolutionary scenario leads to an interesting explanation of the di
 
 \section{Preliminary definitions}
 
-% TODO: Merge with introductory notation chapter
-
 If \(A\) is a set of labels (on a given finite alphabet), then any tree \(T\) such that there exists a
 one-to-one relation between \(A\) and \(\tleavs(T)\) is said to \emph{be a tree for
 \(A\)}. In particular, a \emph{species tree} \(S\) for a set \(\Sigma\) of
@@ -183,7 +181,7 @@ The next lemma, which will be required later for a simple inference of the event
     Then \(\speciesOf\) satisfies the following conditions:
     \begin{condition}
         \item neither \(\speciesOf(v\lchild)\) nor \(\speciesOf(v\rchild)\) is a strict ancestor of \(\speciesOf(v)\) (i.e., each one can either be a descendant of \(\speciesOf(v)\) or be separated from it in the case of HGTs);
-        \item at least one of \(\speciesOf(v\lchild)\) or \(\speciesOf(v\rchild)\) is a descendant of \(\speciesOf(v)\).
+        \item at least one of \(\speciesOf(v\lchild)\) or \(\speciesOf(v\rchild)\) is a descendant of \(\speciesOf(v)\)\footnote{The model of \cref{def:superdtl:evol-model} does not actually prevent internal nodes from having both children mapped to separate species, as was discussed in \cref{sec:reconciliation:bilateral:model}. This is an implicit assumption of the approach used in this chapter and should not have been stated as a lemma. This restriction is lifted in the following chapters.}.
     \end{condition}
 \end{lemma}
 
