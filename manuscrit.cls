@@ -219,6 +219,7 @@
     \renewcommand{\listingname}{Programme}%
     \crefname{listing}{programme}{programmes}%
     \Crefname{listing}{Programme}{Programmes}%
+    \renewcommand{\listoflistingscaption}{Liste des programmes}%
     \renewcommand{\crefrangeconjunction}{ à~}%
     \renewcommand{\crefpairconjunction}{ et~}%
     \renewcommand{\crefmiddleconjunction}{, }%
@@ -271,6 +272,7 @@
 \addto\captionsenglish{%
     \renewcommand{\figurename}{Figure}%
     \renewcommand{\listingname}{Listing}%
+    \renewcommand{\listoflistingscaption}{List of Listings}%
     \renewcommand{\crefrangeconjunction}{ to~}%
     \renewcommand{\crefpairconjunction}{ and~}%
     \renewcommand{\crefmiddleconjunction}{, }%
