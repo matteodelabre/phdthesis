@@ -528,8 +528,8 @@ We next consider how to compute the set of histories \(\optPath([X, \sigma], [Y,
     }{
         \centering
         \begin{tikzpicture}[x=.3cm, y=.5cm]
-            \node[transfer, label={[species label,xshift=1.5em]above left:\(\sigma = \sigma'\)}]
-                (s1) {\(X\)};
+            \node[transfer={black}{\(X\)}, label={[species label,xshift=1.5em]above left:\(\sigma = \sigma'\)}]
+                (s1) {};
             \coordinate (l1) at (0, -1) {};
             \coordinate (s2) at (3, 0);
             \node[extant gene={\(Y\)}, label={[species label]right:\(\gamma\)}]
@@ -542,8 +542,8 @@ We next consider how to compute the set of histories \(\optPath([X, \sigma], [Y,
             \node[speciation, label={[species label]left:\(\sigma\)}]
                 (s1) {\(X\)};
             \coordinate (l1) at (1, -1);
-            \node[transfer, label={[species label]left:\(\sigma'\)}]
-                (s2) at (-1, -1) {\(X\)};
+            \node[transfer={black}{\(X\)}, label={[species label]left:\(\sigma'\)}]
+                (s2) at (-1, -1) {};
             \coordinate (l2) at (-2, -2);
             \coordinate (s3) at (1, -2.25);
             \node[extant gene={\(Y\)}, label={[species label]right:\(\gamma\)}]
@@ -562,11 +562,11 @@ We next consider how to compute the set of histories \(\optPath([X, \sigma], [Y,
         \centering
 
         \begin{tikzpicture}[x=.3cm, y=.5cm]
-            \node[transfer, label={[species label]above left:\(\sigma\)}]
-                (s1) {\(X\)};
+            \node[transfer={black}{\(X\)}, label={[species label]above left:\(\sigma\)}]
+                (s1) {};
             \node[sideways loss={black}{}] (l1) at (0, -1) {};
-            \node[transfer, label={[species label]above:\(\sigma^*\)}]
-                (s2) at (3, 0) {\(X\)};
+            \node[transfer={black}{\(X\)}, label={[species label]above:\(\sigma^*\)}]
+                (s2) at (3, 0) {};
             \node[extant gene={\(X\)}, label={[species label, label distance=-.3em]left:\(\sigma^*\)}]
                 (l2) at (3, -1) {};
             \coordinate (s3) at (5, 0);
