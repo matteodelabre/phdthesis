@@ -145,7 +145,7 @@
 \RequirePackage{makecell}
 
 %% Code
-\RequirePackage[section]{minted}
+\RequirePackage[chapter]{minted}
 \setminted{
     bgcolor=black!3,
     bgcolorpadding=2ex,
