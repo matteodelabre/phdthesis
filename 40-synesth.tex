@@ -549,10 +549,10 @@ We next consider how to compute the set of histories \(\optPath([X, \sigma], [Y,
             \node[extant gene={\(Y\)}, label={[species label]right:\(\gamma\)}]
                 (l3) at (1, -3) {};
 
-            \path (s1) edge[loss branch] node[pos=1, sloped, loss={black}{}, rotate=90] {} (l1);
+            \path (s1) edge[loss branch] node[pos=1, sloped, loss={black}{}] {} (l1);
             \path (s1) edge[draw] (s2);
             \path (s3) edge[draw] node[pos=.4, sideways loss={black}{}, label={right:\tiny\(\scriptstyle- (X - Y)\)}] {} (l3);
-            \path (s2) edge[loss branch] node[pos=1, sloped, rotate=180, loss={black}{}, rotate=90] {} (l2);
+            \path (s2) edge[loss branch] node[pos=1, sloped, loss={black}{}, rotate=180] {} (l2);
             \path (s2) edge[transfer branch, bend left=10] (s3);
         \end{tikzpicture}
 
@@ -841,21 +841,23 @@ Notice that \cref{lem:gains-lca-vec,lem:synesth:2choices-contents} still apply, 
 The CRISPR–Cas module is an adaptive system used by prokaryotes to defend against invading viruses and plasmids. 
 Its fame is due to the development of the CRISPR-Cas~9 genome editing technology, which is one of the most reliable and accurate “molecular scissors”. An important part of a CRISPR-Cas system is an operon of associated Cas genes playing various roles in the defence machinery. As the microbial function of CRISPR-Cas systems highly depends on the syntenic organization of Cas genes, elucidating the evolution of these syntenies is crucial.
 
-\begin{figure}[h]
+\begin{figure}[h!]
     \capstart
-    \centering
-    \scalebox{.27}{\input{fig/synesth/crispr-cas-scenario}}
+    \centering%
+    \scalebox{.82}{\input{fig/synesth/crispr-cas-scenario}}
     \caption[Most parsimonious scenario for the CRISPR-Cas dataset under Synesth]{
-        Output of Synesth for the CRISPR-Cas Class 1 dataset, when asked for one minimum-cost history for event costs \(\cost(\evtL) = 1\), \(\cost(\evtD) = 2\), \(\cost(\evtC) = 2.5\), \(\cost(\evtTD) = 4\) and \(\cost(\evtTC) = 4.5\).
+        Output of Synesth for the CRISPR-Cas Class 1 dataset, when asked for one minimum-cost history for event costs \(\cost(\evtD) = 2\), \(\cost(\evtC) = 2.5\), \(\cost(\evtTD) = 4\) and \(\cost(\evtTC) = 4.5\), and \(\cost(\evtL) = 1\).
+        Compare the lower half of this scenario to the scenario that was previously presented for the same input in \cref{fig:superdtl:crispr-scenario}.
         \label{fig:synesth:crispr-sol}
     }
 \end{figure}
 
-In \cref{chap:superdtl}, taking the CRISPR-Cas classification of Class~1 from \textcite{Makarova2020EvolutionaryClassificationCRISPR} as the synteny tree, and considering a dataset of 15 bacterial species as well as the species tree topology inferred in \textcite{Coleman2021RootedPhylogenyResolves}, we recovered an evolutionary scenario that is broadly consistent with that of \textcite{Koonin2022EvolutionaryPlasticityFunctional} with the CRISPR-Cas emergence inferred at the root of Terrabacteria. However, some inconsistencies were observed. For example, in the Proteobacteria subtree, the \emph{SuperDTL} algorithm inferred an unlikely scenario with an ancestral synteny duplication before the LCA of \emph{Shewanella putrefaciens}, \emph{Vibrio crassostreae}, \emph{Yersinia pseudotuberculosis}, and  \emph{Escherichia coli} resulting in a succession of three consecutive full synteny losses along the branch to \emph{E. coli}.
+In \cref{chap:superdtl}, taking the CRISPR-Cas classification of Class~1 from \textcite{Makarova2020EvolutionaryClassificationCRISPR} as the synteny tree, and considering a dataset of 15 bacterial species as well as the species tree topology inferred in \textcite{Coleman2021RootedPhylogenyResolves}, we recovered an evolutionary scenario that is broadly consistent with that of \textcite{Koonin2022EvolutionaryPlasticityFunctional} with the CRISPR-Cas emergence inferred at the root of Terrabacteria.
+However, some inconsistencies were observed.
+For example, in the proteobacteria subtree, the \emph{SuperDTL} algorithm inferred an unlikely scenario with an ancestral synteny duplication before the LCA of \emph{Shewanella putrefaciens}, \emph{Vibrio crassostreae}, \emph{Yersinia pseudotuberculosis}, and \emph{Escherichia coli} resulting in a succession of three consecutive full synteny losses along the branch to \emph{E. coli}.
 
-We used Synesth with the same event costs for Loss, Dup and TrDup, and setting costs for \(\evtC\) and \(\evtTC\)
-such that \(\cost(\evtD) = 2\), \(\cost(\evtC) = 2.5\), \(\cost(\evtTD) = 4\), \(\cost(\evtTC) = 4.5\), \(\cost(\evtL) = 1\).
-Almost the same history was obtained, but with the above unlikely scenario replaced by a speciation (on the branch separating the ancestor of \emph{Geobacter sulfurreducens} to the LCA of \emph{Thioalkalivibrio} and \emph{Shewanella putrefaciens}) copying the ancestral synteny to an unsampled species, which is later transferred back to \emph{E. coli} (see \cref{fig:synesth:crispr-sol}).
+We used Synesth with the same event costs for \(\evtD\), \(\evtTD\), and \(\evtL\), and setting costs for \(\evtC\) and \(\evtTC\) such that \(\cost(\evtD) = 2\), \(\cost(\evtC) = 2.5\), \(\cost(\evtTD) = 4\), \(\cost(\evtTC) = 4.5\), \(\cost(\evtL) = 1\).
+Almost the same history was obtained, but with the above unlikely scenario replaced by a speciation (on the branch separating the parent of \emph{Thioalkalivibrio} from the LCA of \emph{Vibrio crassostreae} and \emph{Shewanella putrefaciens}) copying the ancestral synteny to an unsampled species, which is later transferred back to \emph{E. coli} (see \cref{fig:synesth:crispr-sol}).
 
 Choosing the appropriate event cost is one of the main challenges of tree reconciliation. 
 To visualize the set of Pareto-optimal vectors computed as explained before, we use a similar approach as developed by \textcite{LibeskindHadas2014ParetoOptimalPhylogenetic}, to display a summary of the solution space with loss events normalized to cost 1, and the other cost events varying in a given range. In order to represent the solutions in a 2D plot, we set an equal cost for \(\evtD\) and \(\evtC\) and for \(\evtTD\) and \(\evtTC\), and we represent a solution by the condensed event cost vector \(\tup{c_\evtD + c_\evtC, c_\evtTD + c_\evtTC, c_\evtL}\).
