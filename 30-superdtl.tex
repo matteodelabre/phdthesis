@@ -14,14 +14,16 @@ Nous parvenons néanmoins au résultat annoncé en développant un algorithme de
 
 Pour démontrer l’intérêt de ce nouvel algorithme, nous réalisons une analyse de l’évolution des synténies d’un échantillon de systèmes CRISPR-Cas.
 Celle-ci permet de proposer des hypothèses évolutives alignées avec les connaissances actuelles sur l’évolution de ces systèmes.
+Des travaux supplémentaires restent toutefois nécessaires afin de valider ce modèle.
 
-La méthode présentée souffre toutefois de plusieurs limites qui guident la recherche qui sera présentée aux chapitres suivants.
+Plusieurs limites peuvent être identifiées concernant la méthode présentée.
 Premièrement, son application demande l’estimation de probabilités d’occurrence de chacun des événements modélisés et ces probabilités ont une grande influence sur les solutions produites.
 Par ailleurs, la fonction de coût est rigide et considère avec le même poids toutes les pertes, quelles que soient leurs tailles.
 Deuxièmement, l’inférence suppose que l’échantillonnage des espèces est complet et exclut la possibilité d’une interaction des synténies étudiées avec des espèces qui se sont par la suite éteintes ou qui n’ont pas été échantillonnées.
 Comme suggéré par l’une des personnes relectrices de l’article présenté ci-dessous, cette limite pourrait expliquer la séquence d’événements de pertes observée dans le scénario présenté à la \cref{fig:superdtl:crispr-scenario}.
 Troisièmement, les événements de gain sont toujours positionnés au niveau de l’ancêtre commun, en excluant de la fonction de minimisation le nombre de gains.
 Finalement, il existe une abondance de solutions optimales parmi lesquelles seule une arbitraire est tirée, ce qui est illustré par le \cref{tab:superdtl:sol-count}.
+Ces différentes limites ont porté la recherche qui sera présentée dans les chapitres suivants.
 
 \emph{La suite de ce chapitre, présentée en anglais, est une adaptation d’un article dont les informations sont présentées ci-dessous. Des modifications de nature éditoriale ont été apportées par rapport à la version publiée afin notamment de faire correspondre les notations avec celles utilisées dans le reste de ce manuscrit.}
 
@@ -31,7 +33,7 @@ Finalement, il existe une abondance de solutions optimales parmi lesquelles seul
     {Présenté lors de l’édition~2022 de la conférence RECOMB-CG à La Jolla en Californie et publié en mai~2022 dans les actes de ladite conférence}%
     {& Yoann \textsc{Anselmetti} & Sélection des données expérimentales, analyse des résultats, analyse des hypothèses évolutives \\
     \cmidrule(l){2-3}
-    & Mattéo \textsc{Delabre} & Mise au point du modèle, identification du contre-exemple, développement de l’algorithme, preuves de correction et d’efficacité, implémentation de l’algorithme, présentation de l’article en conférence \\
+    & Mattéo \textsc{Delabre} & Mise au point du modèle, développement de l’algorithme, preuves de correction et d’efficacité, implémentation de l’algorithme, présentation de l’article en conférence \\
     \cmidrule(l){2-3}
     & Nadia \textsc{El-Mabrouk} & Supervision, idéation, aide à la structuration et à l’ébauche du texte, relecture}
 \selectlanguage{english}
