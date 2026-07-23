@@ -5,14 +5,14 @@
 \addcontentsline{toc}{chapter}{Conclusion}
 \markboth{\textsc{conclusion}}{}
 
-La réconciliation phylogénétique permet d’étudier de manière comparée l’évolution d’unités à celle de leurs hôtes, par exemple celle de familles de gènes comparée à celle d’espèces.
+La réconciliation phylogénétique permet d’étudier de manière comparée l’évolution d’unités par rapport à celle de leurs hôtes, par exemple celle de familles de gènes comparée à celle d’espèces.
 Parmi les méthodes existantes de réconciliation, la plupart supposent une évolution indépendante des différentes unités qui peuvent coexister dans un hôte.
 Cette hypothèse est invalidée notamment pour certains gènes dont l’organisation dans le génome rend leurs fonctions, et donc leur évolution, interdépendantes.
 L’une des méthodes permettant d’intégrer l’interdépendance entre les unités à la réconciliation est la réconciliation segmentale.
 
 Dans cette thèse, nous avons démontré que le modèle de réconciliation segmentale peut être étendu avec succès pour prendre en compte la possibilité de transferts horizontaux entre les hôtes.
-Ceci nous a notamment permis d’appliquer cette méthode à l’évolution des systèmes CRISPR-Cas dans les bactéries.
-Bien que la complexité algorithmique de la méthode développée soit raisonnable, cette extension du modèle a fait apparaître l’existence de très nombreuses solutions cooptimales qui nuisent à l’interprétabilité des solutions produites.
+L’ajout de ce type d’événements au modèle de réconciliation segmentale permet notamment d’envisager des applications à l’étude de l’évolution de systèmes bactériens, comme nous l’avons illustré au travers d’applications aux systèmes CRISPR-Cas.
+Bien que la complexité algorithmique de la méthode développée demeure raisonnable, cette extension du modèle a fait apparaître l’existence de très nombreuses solutions cooptimales qui nuisent à l’interprétabilité des solutions produites.
 
 Afin de réaliser une étude systématique de cet espace étendu des solutions, nous avons adopté une approche algébrique des techniques de programmation dynamique utilisées pour la conception des algorithmes.
 Nous avons pour ce faire présenté une théorie unifiée de la programmation dynamique algébrique démontrant comment des questions transversales concernant des problèmes d’optimisation combinatoire peuvent être traitées de manière générique.
@@ -23,13 +23,13 @@ Des travaux futurs devront ainsi être réalisés pour mesurer quelle proportion
 Ces travaux pourront notamment s’appuyer sur les simulateurs existants permettant de générer des données synthétiques.
 Cette validation permettra de tirer des conclusions biologiques plus certaines sur l’évolution des systèmes dépendants.
 
-Plusieurs extensions supplémentaires des méthodes développées ici pourraient être bénéfiques.
-L’évolution des groupes ou des synténies n’est pas nécessairement arborescente car les groupes peuvent se scinder et se fusionner au long de leur histoire.
-Ainsi, la réconciliation segmentale pourrait être étendue sur des réseaux phylogénétiques, c’est-à-dire des structures phylogénétiques contenant des cycles non dirigés.
-Des travaux ont déjà été menés pour étendre la réconciliation bilatérale aux réseaux et pourront être étendus en ce sens \parencite{Chan2024EfficientAlgorithmReconciliation}.
-Les méthodes développées ici concernent spécifiquement l’évolution de groupes d’unités sans prendre en compte leur potentiel ordonnancement linéaire, par exemple le long d’un génome.
+Plusieurs extensions peuvent être proposées pour les méthodes développées dans ce manuscrit.
+L’évolution des groupes ou des synténies n’est pas nécessairement arborescente car ceux-ci peuvent se scinder et se fusionner au fil du temps.
+Ainsi, la réconciliation segmentale pourrait être étendue à des réseaux phylogénétiques, c’est-à-dire à des structures phylogénétiques contenant des cycles non dirigés.
+Des travaux ont déjà été menés pour étendre la réconciliation bilatérale aux réseaux et pourraient ainsi servir de point de départ \parencite{Chan2024EfficientAlgorithmReconciliation}.
+Par ailleurs, les méthodes développées ignorent la potentielle évolution de l’agencement linéaire des groupes d’unités, par exemple lorsque celles-ci sont disposées le long d’un génome.
 La complexité algorithmique du problème associé à la réconciliation segmentale ordonnée reste ouverte autant que nous le sachions.
-Une autre piste potentielle pourrait être d’ordonner les groupes d’une réconciliation segmentale \emph{a posteriori}, après avoir optimisé les événements non ordonnés.
+Une autre piste potentielle pourrait être de rechercher \emph{a posteriori} des ordres sur les groupes qui soient compatibles avec une réconciliation segmentale fixée.
 
 Finalement, plusieurs directions de recherche peuvent être envisagées en lien avec la programmation dynamique algébrique.
 La notion de produit de grammaires envisagée au \cref{chap:adp-rec} reste encore à développer et les premiers résultats obtenus par \textcite{Siederdissen2015ProductGrammarsAlignment} en la matière restent limités à certaines formes de grammaires.
