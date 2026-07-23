@@ -144,7 +144,7 @@ Note that for an internal node \(v\) of \(\treeH\), \(\syntenyOf(v)\) is not nec
 
 \begin{figure}[htb]
     \capstart
-    \input{fig/superdtl/evol-history-example}
+    \input{fig/superdtl/example}
     \caption[Input and possible evolutionary scenario for the SuperDTL model]{
         \emph{(Left.)}~A synteny tree \(T\) for the family \(\syntenyFamily = \{\syntdisp{\{b\}}, \syntdisp{\{b,c\}}, \syntdisp{\{c\}}, \syntdisp{\{a\}}, \syntdisp{\{a,b\}}\}\) on the set of species \(\speciesSet = \{\specdisp{1}, \specdisp{2}, \specdisp{3}\}\).
         Under each leaf \(l\) are shown its associated synteny \(x(l)\) and species \(s(l)\).
@@ -611,26 +611,31 @@ Using this implementation trick allows finding a minimal Super-reconciliation in
 
 \subsection{Cas gene syntenies}
 
-Cas genes are part of CRISPR-Cas systems, one of its members, CRISPR-Cas9, being well-known as currently one of the most reliable and accurate \enquote{molecular scissor} biotechnology for genome editing. This technology, for which the Nobel Prize in Chemistry was awarded in 2020~\parencite{Jinek2012ProgrammableDualRNA}, was derived from an adaptive bacterial immunity system targeting bacteriophages.
-The study and analysis of CRISPR-Cas systems over the past two decades has revealed their wide diversity and led to their categorization into two classes: Class~1, composed of multisubunit effector proteins, and Class~2, composed of a single large effector protein. Each class is further divided into several types themselves composed of several subtypes (for more details see Supplementary Table~2 in \textcite{Makarova2020EvolutionaryClassificationCRISPR}).
+Cas genes are part of CRISPR-Cas systems, one of its members, CRISPR-Cas9, being well-known as currently one of the most reliable and accurate \enquote{molecular scissor} biotechnology for genome editing.
+This technology, for which the Nobel Prize in Chemistry was awarded in 2020~\parencite{Jinek2012ProgrammableDualRNA}, was derived from an adaptive bacterial immunity system targeting bacteriophages.
+The study and analysis of CRISPR-Cas systems over the past two decades has revealed their wide diversity and led to their categorization into two classes: Class~1, composed of multisubunit effector proteins, and Class~2, composed of a single large effector protein.
+Each class is further divided into several types themselves composed of several subtypes (for more details see Supplementary Table~2 in \textcite{Makarova2020EvolutionaryClassificationCRISPR}).
 Although the discovery of new CRISPR-Cas systems is an ongoing process~\parencite{Koonin2022EvolutionaryPlasticityFunctional}, the classification is generally stable.
 
 As the function of CRISPR-Cas systems highly depends on the syntenic organization of Cas genes, elucidating the evolution of these systems is crucial.
 Many studies have been dedicated to reconstructing the evolutionary histories of individual Cas gene families such as Cas1~\parencite{Horvath2009ComparativeAnalysisCRISPR}, or to inferring the evolution of Cas gene syntenies to elucidate the syntenic events leading to the diversity inside the different subtypes~\parencite{Koonin2019OriginsEvolutionCRISPR,Makarova2020EvolutionaryClassificationCRISPR,MoyaBeltran2021EvolutionTypeIV}.
-From these multiple phylogenetic analyses, a global scenario has been predicted for the evolutionary formation of CRISPR-Cas systems, with the latest scenario described by \textcite{Koonin2022EvolutionaryPlasticityFunctional}. However, to the best of our knowledge, none of these studies take into account the species tree topology.
+From these multiple phylogenetic analyses, a global scenario has been predicted for the evolutionary formation of CRISPR-Cas systems, with the latest scenario described by \textcite{Koonin2022EvolutionaryPlasticityFunctional}.
+However, to the best of our knowledge, none of these studies take into account the species tree topology.
 Moreover, several studies point to evidence of HGTs involving Cas genes between prokaryote species~\parencite{Godde2006RepetitiveDNAElements,Tyson2008RapidlyEvolvingCRISPRs,Horvath2009ComparativeAnalysisCRISPR,Chakraborty2010ComparativeNetworkClustering}, showing the need to take such events into consideration while inferring scenarios.
 
 From this brief presentation, it appears that the DTL Super-reconciliation model is suitable for elucidating the evolution and radiation of CRISPR-Cas systems across prokaryotes.
 
 \subsection{Dataset}
 
-We used the Cas gene synteny subtypes from Class 1 of CRISPR-Cas systems described by~\textcite{Makarova2020EvolutionaryClassificationCRISPR}. We limited the dataset to the 15 bacteria species and omitted archaea to avoid bias due to their underrepresentation in the dataset.
-Each of those species contains a Cas synteny. Taxonomical information of the 15 bacterial species has been recovered from the NCBI Taxonomy database~\parencite{Schoch2020NCBITaxonomyComprehensive} and the species tree topology is based on the phylogeny inferred by \textcite{Coleman2021RootedPhylogenyResolves}.
+We used the Cas gene synteny subtypes from Class 1 of CRISPR-Cas systems described by~\textcite{Makarova2020EvolutionaryClassificationCRISPR}.
+We limited the dataset to the 15 bacteria species and omitted archaea to avoid bias due to their underrepresentation in the dataset.
+Each of those species contains a Cas synteny.
+Taxonomical information of the 15 bacterial species has been recovered from the NCBI Taxonomy database~\parencite{Schoch2020NCBITaxonomyComprehensive} and the species tree topology is based on the phylogeny inferred by \textcite{Coleman2021RootedPhylogenyResolves}.
 
 \begin{figure}[htbp]
     \capstart
     \centering
-    \includegraphics[width=\linewidth]{fig/superdtl/crispr-trees}
+    \includegraphics[width=\linewidth]{fig/superdtl/crispr-input}
     \caption[Dataset of CRISPR-Cas syntenies and their host species]{
         Cas gene syntenies for the 15 considered bacterial species.
         \emph{(Left.)} Phylogeny of Class 1 CRISPR-Cas systems with subtypes names, as presented by~\textcite{Makarova2020EvolutionaryClassificationCRISPR} with our preprocessing of syntenies as described in the text.
@@ -641,16 +646,25 @@ Each of those species contains a Cas synteny. Taxonomical information of the 15 
 \end{figure}
 
 We repurposed the phylogenetic tree given in figure~1 of \textcite{Makarova2020EvolutionaryClassificationCRISPR} as our synteny tree.
-Some alterations of the syntenies were required to fit the constraints of the model. We considered Cas families Cas1--8 and Cas10--11. Since a part of Cas3, Cas3", can work as a standalone HD nuclease, we split Cas3 into Cas3' and Cas3".
-In the paper by~\textcite{Makarova2020EvolutionaryClassificationCRISPR}, Cas10 and Cas8 share the same colour code as they provide similar functions in CRISPR-Cas complexes. Indeed, it was initially believed that Cas8 evolved from Cas10~\parencite{Makarova2011UnificationCasProtein}. Nevertheless, their sequence being extremely divergent, we decided to consider them as not homologous and to conserve separate Cas8 and Cas10 families. Finally, for syntenies with several copies of the same family, we conserved only one copy per synteny. The obtained  Cas gene syntenies are illustrated in the left part of \cref{fig:superdtl:crispr-trees}.
+Some alterations of the syntenies were required to fit the constraints of the model.
+We considered Cas families Cas1--8 and Cas10--11.
+Since a part of Cas3, Cas3", can work as a standalone HD nuclease, we split Cas3 into Cas3' and Cas3".
+In the paper by~\textcite{Makarova2020EvolutionaryClassificationCRISPR}, Cas10 and Cas8 share the same colour code as they provide similar functions in CRISPR-Cas complexes.
+Indeed, it was initially believed that Cas8 evolved from Cas10~\parencite{Makarova2011UnificationCasProtein}.
+Nevertheless, their sequence being extremely divergent, we decided to consider them as not homologous and to conserve separate Cas8 and Cas10 families.
+Finally, for syntenies with several copies of the same family, we conserved only one copy per synteny.
+The obtained  Cas gene syntenies are illustrated in the left part of \cref{fig:superdtl:crispr-trees}.
 
 \section{Results}\label{sec:superdtl:results}
 
 \subsection{DTL super-reconciliation settings}
 
-We used {\superdtl} to predict optimal DTL Super-reconciliations for the syntenies and trees depicted in \cref{fig:superdtl:crispr-trees}. Notice that the synteny tree is non-binary and contains three multifurcations, one at the root and two in the subtree of Type I CRISPR-Cas systems. As our algorithm can only be applied to binary trees, we test all possible \enquote{binarizations} of the synteny tree and retain the overall minimal solutions.
+We used {\superdtl} to predict optimal DTL Super-reconciliations for the syntenies and trees depicted in \cref{fig:superdtl:crispr-trees}.
+Notice that the synteny tree is non-binary and contains three multifurcations, one at the root and two in the subtree of Type I CRISPR-Cas systems.
+As our algorithm can only be applied to binary trees, we test all possible \enquote{binarizations} of the synteny tree and retain the overall minimal solutions.
 
-We tested different values for the \(\cost\) cost function, in agreement with a classical assumption that HGTs are less frequent than duplications, which are less frequent than losses. The number of solutions obtained for each setting is given in \cref{tab:superdtl:sol-count}. We observe that the number of solutions decreases as the HGT cost increases, reaching a minimum for \(\cost(\evtT) = 4\), and then increases again. For a given \(\cost(\evtT)\), the results are largely stable for different \(\cost(\evtD)\) values.
+We tested different values for the \(\cost\) cost function, in agreement with a classical assumption that HGTs are less frequent than duplications, which are less frequent than losses.
+The number of solutions obtained for each setting is given in \cref{tab:superdtl:sol-count}. We observe that the number of solutions decreases as the HGT cost increases, reaching a minimum for \(\cost(\evtT) = 4\), and then increases again. For a given \(\cost(\evtT)\), the results are largely stable for different \(\cost(\evtD)\) values.
 
 \begin{table}[h]
     \capstart
@@ -678,27 +692,42 @@ We tested different values for the \(\cost\) cost function, in agreement with a 
 \begin{figure}[htbp]
     \capstart
     \centering%
-    \scalebox{.66}{\input{fig/superdtl/result-4-h4d2-v2}}%
+    \scalebox{.9}{\input{fig/superdtl/crispr-scenario}}%
     \caption[Most parsimonious scenario for the CRISPR-Cas dataset under SuperDTL]{
-        Representation of one of the 32 solutions inferred by Algorithm {\superdtl} reconstructing a DTL evolutionary history of the Class~1 Cas gene synteny dataset illustrated in \cref{fig:superdtl:crispr-trees}.
-        Event costs set to \(\cost(\evtL) = 1\), \(\cost(\evtT) = 4\) and \(\cost(\evtD) \in \{1, 1.5, 2, 2.5\}\) yield equal solutions.
-        The red, blue, and green parts of the tree reflect the evolution of Cas synteny types IV, I, and III respectively.
-        Gains of Cas1+Cas2 and Cas3(Cas3'+Cas3")+Cas4 are illustrated.
+        One of the 32 DTL evolutionary histories inferred by {\superdtl} for the class~1 Cas gene synteny dataset of \cref{fig:superdtl:crispr-trees}, with event costs set to \(\cost(\evtL) = 1\), \(\cost(\evtT) = 4\) and \(\cost(\evtD) \in \{1, 1.5, 2, 2.5\}\).
+        The blue, green, and red parts of the tree reflect the evolution of Cas synteny types I, III, and IV respectively.
+        To save space, the content of internal binary nodes is not shown but can be inferred from the surrounding events.
         \label{fig:superdtl:crispr-scenario}
     }
 \end{figure}
 
 \subsection{An evolutionary scenario}
 
-We analyzed the 32 solutions generated for \(\cost(\evtT) = 4\) and \(\cost(\evtD) \in \{1, 1.5, 2, 2.5\}\). All solutions lead to the same resolution of the three multifurcations in the synteny tree, and the incongruence observed between the species and synteny tree topologies is mainly resolved by inferring six HGTs and one duplication. The 32 solutions only differ from one another by minor variations, such as gene losses located either before or after a speciation or HGT event, which do not change the overall inferred evolutionary history for the Cas gene syntenies.
+We analyzed the 32 solutions generated for \(\cost(\evtT) = 4\) and \(\cost(\evtD) \in \{1, 1.5, 2, 2.5\}\).
+All solutions lead to the same resolution of the three multifurcations in the synteny tree, and the incongruence observed between the species and synteny tree topologies is mainly resolved by inferring six HGTs and one duplication.
+The 32 solutions only differ from one another by minor variations, such as gene losses located either before or after a speciation or HGT event, which do not change the overall inferred evolutionary history for the Cas gene syntenies.
 
-\Cref{fig:superdtl:crispr-scenario} is a representation of one of these solutions. The evolutionary reconstruction is broadly consistent with the CRISPR-Cas evolution scenario established by \textcite{Koonin2022EvolutionaryPlasticityFunctional}. In both their scenario and ours, the CRISPR-Cas systems emerge from an initial adaptive immune system composed only of Cas genes involved in the effector complex (Cas5--8 and Cas10--11). We see from \cref{fig:superdtl:crispr-scenario} that the CRISPR-Cas emergence is inferred at the root of Terrabacteria. The scenarios diverge on the fact that, in our scenario, Type IV emerges directly from this ancestral adaptive immune system before the acquisition of Cas1 and Cas2 genes, while in \citeauthor{Koonin2022EvolutionaryPlasticityFunctional}'s scenario, Type IV emerges after the acquisition of Cas1 and Cas2 adaptation module genes and loss of several Cas genes.
-Aside from this difference, both scenarios are in agreement for Types I and III in terms of gene content in ancestral Cas syntenies. As it appears in \cref{fig:superdtl:crispr-scenario}, Types I and III Cas syntenies emerge from Cyanobacteria after the acquisition of Cas1 and Cas2 by an ancestor of Cyanobacteria. Type I emerges from the branch leading to \emph{Cyanothece sp. PCC 8802} with acquisition of Cas3 and Cas4, while Type III emerges from the branch leading to \emph{Synechocystis sp. 6803} without further gene gains.
+\Cref{fig:superdtl:crispr-scenario} is a representation of one of these solutions.
+The evolutionary reconstruction is broadly consistent with the CRISPR-Cas evolution scenario established by \textcite{Koonin2022EvolutionaryPlasticityFunctional}.
+In both their scenario and ours, the CRISPR-Cas systems emerge from an initial adaptive immune system composed only of Cas genes involved in the effector complex (Cas5--8 and Cas10--11).
+We see from \cref{fig:superdtl:crispr-scenario} that the CRISPR-Cas emergence is inferred at the root of Terrabacteria.
+The scenarios diverge on the fact that, in our scenario, Type IV emerges directly from this ancestral adaptive immune system before the acquisition of Cas1 and Cas2 genes, while in \citeauthor{Koonin2022EvolutionaryPlasticityFunctional}'s scenario, Type IV emerges after the acquisition of Cas1 and Cas2 adaptation module genes and loss of several Cas genes.
+Aside from this difference, both scenarios are in agreement for Types I and III in terms of gene content in ancestral Cas syntenies.
+As it appears in \cref{fig:superdtl:crispr-scenario}, Types I and III Cas syntenies emerge from Cyanobacteria after the acquisition of Cas1 and Cas2 by an ancestor of Cyanobacteria.
+Type I emerges from the branch leading to \emph{Cyanothece sp. PCC 8802} with acquisition of Cas3 and Cas4, while Type III emerges from the branch leading to \emph{Synechocystis sp. 6803} without further gene gains.
 
-Type I was spread to the other bacteria with a HGT to the ancestor of Proteobacteria. According to \textcite{Wang2020EvolutionaryTimelineGenomic}, the Cyanobacteria ancestor is estimated between 2,230 and 3,000 Mya, while the last common ancestor (LCA) of Alpha-, Beta-, and Gammaproteobacteria is estimated between 2,360 and 2,620 Mya. These calibrations make time-plausible the lateral transfer of Type~I CRISPR-Cas from the \emph{Cyanothece sp. PCC 8802} branch, close to the Cyanobacteria ancestor, to the LCA of Proteobacteria. A second HGT from \emph{Geobacter sulfurreducens} brought Type I to the Firmicutes \emph{Bacillus halodurans C-125} and \emph{Clostridium kluyveri DSM 555}. Type III was spread across bacteria with a succession of three HGTs, which also seem time-consistent.
+Type I was spread to the other bacteria with a HGT to the ancestor of Proteobacteria.
+According to \textcite{Wang2020EvolutionaryTimelineGenomic}, the Cyanobacteria ancestor is estimated between 2,230 and 3,000 Mya, while the last common ancestor (LCA) of Alpha-, Beta-, and Gammaproteobacteria is estimated between 2,360 and 2,620 Mya.
+These calibrations make time-plausible the lateral transfer of Type~I CRISPR-Cas from the \emph{Cyanothece sp. PCC 8802} branch, close to the Cyanobacteria ancestor, to the LCA of Proteobacteria.
+A second HGT from \emph{Geobacter sulfurreducens} brought Type I to the Firmicutes \emph{Bacillus halodurans C-125} and \emph{Clostridium kluyveri DSM 555}.
+Type III was spread across bacteria with a succession of three HGTs, which also seem time-consistent.
 
-The analysis of the synteny evolutionary history across the Proteobacteria subtree shows an unexpected scenario highlighting a limitation of our model. The {\superdtl} algorithm inferred an ancestral synteny duplication before the LCA of \emph{S. putrefaciens}, \emph{V. crassostreae}, \emph{Y. pseudotuberculosis} and \emph{E. coli} resulting in a succession of three consecutive full synteny losses along the branch to the synteny in \emph{E. coli} which is an unlikely evolutionary scenario. An alternative evolutionary scenario would consist in a speciation in place of the duplication, copying the ancestral synteny to an unsampled or extinct species which would later be transferred back to \emph{Escherichia coli}. Such a model of HGT events as combinations of a speciation event outside the species tree (to an unsampled or dead lineage) followed by a transfer back inside the species tree has been described in~\textcite{Szoelloesi2013LateralGeneTransfer}.
-This alternative scenario would replace one duplication and three losses with one speciation and one transfer, which yields the same cost under the \(\cost(\evtL) = 1\), \(\cost(\evtT) = 4\) and \(\cost(\evtD) \in \{1, 1.5, 2, 2.5\}\) model but would be less costly for \(\cost(\evtT) < 4\). Consideration of unsampled and dead lineages in the DTL Super-reconciliation will therefore be necessary to infer better synteny evolutionary scenarios.
+The analysis of the synteny evolutionary history across the Proteobacteria subtree shows an unexpected scenario highlighting a limitation of our model.
+The {\superdtl} algorithm inferred an ancestral synteny duplication before the LCA of \emph{S. putrefaciens}, \emph{V. crassostreae}, \emph{Y. pseudotuberculosis} and \emph{E. coli} resulting in a succession of three consecutive full synteny losses along the branch to the synteny in \emph{E. coli} which is an unlikely evolutionary scenario.
+An alternative evolutionary scenario would consist in a speciation in place of the duplication, copying the ancestral synteny to an unsampled or extinct species which would later be transferred back to \emph{Escherichia coli}.
+Such a model of HGT events as combinations of a speciation event outside the species tree (to an unsampled or dead lineage) followed by a transfer back inside the species tree has been described in~\textcite{Szoelloesi2013LateralGeneTransfer}.
+This alternative scenario would replace one duplication and three losses with one speciation and one transfer, which yields the same cost under the \(\cost(\evtL) = 1\), \(\cost(\evtT) = 4\) and \(\cost(\evtD) \in \{1, 1.5, 2, 2.5\}\) model but would be less costly for \(\cost(\evtT) < 4\).
+Consideration of unsampled and dead lineages in the DTL Super-reconciliation will therefore be necessary to infer better synteny evolutionary scenarios.
 
 \section{Conclusion}
 

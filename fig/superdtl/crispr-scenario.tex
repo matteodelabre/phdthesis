@@ -1,0 +1,322 @@
+\tikzset{
+    y={(1pt,0)},
+    x={(0,-1pt)},
+    limit width/.style 2 args={
+        execute at begin node={\begin{varwidth}{#1}#2},
+        execute at end node={\end{varwidth}},
+    },
+    host background/.style={
+        fill=host background color,
+        draw=host background color,
+        line width={.01pt},
+    },
+    unsampled host background/.style={
+        preaction={fill=host background color},
+        draw=host background color,
+        pattern={Lines[angle=45, distance=3pt, line width=1.5pt]},
+        pattern color=white,
+    },
+    host label/.style={
+        font=\scriptsize,
+        midway,
+        anchor=west,
+        limit width={9em}{\narrowragged},
+    },
+    branch/.style={
+        draw={#1},
+        line width={0.5pt},
+    },
+    loss branch/.style={
+        branch,
+        draw={black!40},
+    },
+    transfer branch/.style={
+        branch={#1},
+        densely dashed,
+        -{Latex[length=0pt 8]},
+    },
+    invalid transfer branch/.style={
+        transfer branch={red!80!black},
+        out distance=20,
+        in distance=20,
+    },
+    event/.style={
+        draw={#1}, fill={host background color!50!white},
+        font={\color{#1}},
+        outer sep=0pt, inner xsep=0pt, inner ysep=2pt,
+        limit width={6em}{\narrowragged},
+        line width={0.5pt},
+    },
+    event/.default={black},
+    extant/.code 2 args={
+        \pgfkeysalso{
+            circle, fill={#1},
+            outer sep=0pt, inner sep=0pt,
+            minimum size={3},
+        }
+        \def\cmp{#2}\ifx\cmp\empty\else
+            \pgfkeysalso{
+                label={[%
+                    font={\color{#1}\vphantom{gb}},
+                    % fill=host background color!35!white,
+                    rounded corners=2,
+                    label distance=2pt,
+                    inner xsep=2pt, inner ysep=1pt,
+                    outer xsep=0pt, outer ysep=0pt,
+                    limit width={6em}{\narrowragged},
+                ]right:#2},
+            }
+        \fi
+    },
+    extant/.default={black}{},
+    unsampled/.style={
+        circle, fill={#1},
+        outer sep=0pt, inner sep=0pt,
+        minimum size={3},
+    },
+    unsampled/.default={black!40},
+    speciation/.style 2 args={
+        event={#1}, rectangle, rounded corners,
+        inner xsep=4pt,
+        minimum width={8},
+        minimum height={8},
+        execute at begin node={#2},
+    },
+    duplication/.style 2 args={
+        event={#1}, rectangle,
+        inner xsep=4pt,
+        minimum width={8},
+        minimum height={8},
+        execute at begin node={#2},
+    },
+    transfer/.code 2 args={
+        \pgfkeysalso{
+            event={#1},
+        }
+        \def\cmp{#2}\ifx\cmp\empty
+            \pgfkeysalso{
+                diamond,
+                inner sep=1.5pt,
+            }
+        \else
+            \pgfkeysalso{
+                chamfered rectangle,
+                chamfered rectangle sep={8 / 2.4},
+                inner xsep=2pt,
+                inner ysep=-1pt,
+                minimum width={8},
+                minimum height={8},
+                execute at begin node={#2},
+            }
+        \fi
+    },
+    gain/.code 2 args={
+        \pgfkeysalso{
+            draw={#1}, fill={#1},
+            semicircle, inner sep=1pt,
+            shape border rotate={90},
+        }
+        \def\cmp{#2}\ifx\cmp\empty\else
+            \pgfkeysalso{
+                label={[%
+                    font={\scriptsize\color{#1}\vphantom{gb}},
+                    fill=host background color,
+                    label distance=2pt,
+                    inner xsep=0pt, inner ysep=0pt,
+                    outer xsep=0pt, outer ysep=0pt,
+                    limit width={6em}{\centering},
+                ]above:#2},
+            }
+        \fi
+    },
+    loss/.code 2 args={
+        \pgfkeysalso{
+            draw={#1}, fill={#1},
+            semicircle, inner sep=1pt,
+            shape border rotate={180+90},
+        }
+        \def\cmp{#2}\ifx\cmp\empty
+            \pgfkeysalso{draw={black!40}, fill={black!40}}
+        \else
+            \pgfkeysalso{
+                label={[%
+                    font={\scriptsize\color{#1}\vphantom{gb}},
+                    fill=host background color,
+                    label distance=2pt,
+                    inner xsep=0pt, inner ysep=0pt,
+                    outer xsep=0pt, outer ysep=0pt,
+                    limit width={6em}{\centering},
+                ]above:#2},
+            }
+        \fi
+    },
+    group brace/.style={
+        decorate,
+        decoration={brace},
+    },
+    group label/.style={
+        right=12pt,
+        rotate=-90,
+        anchor=center,
+    },
+    clade brace/.style={
+        group brace,
+        very thick,
+    },
+    clade label/.style={
+        group label,
+        font=\bfseries,
+    },
+}
+\begin{tikzpicture}
+% hosts
+\path[host background] (0.0,-68.44) [rounded corners={4pt}] to (0.0,1.0) to node[host label] (terra-start) {Clostridium kluyveri DSM 555} (28.87,1.0) [sharp corners] to (28.87,-68.44) -- cycle;
+\path[host background] (32.87,-67.61) [rounded corners={4pt}] to (32.87,1.0) to node[host label] {Bacillus halodurans C-125} (61.7399,1.0) [sharp corners] to (61.7399,-67.61) -- cycle;
+\path[host background] (65.7399,-113.63) [rounded corners={4pt}] to (65.7399,1.0) to node[host label] (firmi-end) {Staphylococcus epidermidis} (94.3299,1.0) [sharp corners] to (94.3299,-113.63) -- cycle;
+\path[host background] (32.87,-33.805) [rounded corners={4pt}] to (32.87,-147.94) to (56.4199,-147.94) [sharp corners] to (56.4199,-151.94) to (70.9199,-151.94) [rounded corners={4pt}] to (70.9199,-147.94) to (94.3299,-147.94) [sharp corners] to (94.3299,-56.815) to (65.7399,-56.815) [rounded corners={4pt}] to (65.7399,-133.44) to (61.7399,-133.44) [sharp corners] to (61.7399,-33.805) -- cycle;
+\path[host background] (0.0,-34.22) [rounded corners={4pt}] to (0.0,-182.44) to (31.8025,-182.44) [sharp corners] to (31.8025,-186.44) to (46.3025,-186.44) [rounded corners={4pt}] to (46.3025,-182.44) to (70.9199,-182.44) [sharp corners] to (70.9199,-142.69) to (56.4199,-142.69) [rounded corners={4pt}] to (56.4199,-167.94) to (28.87,-167.94) [sharp corners] to (28.87,-34.22) -- cycle;
+\path[host background] (98.3299,-87.235) [rounded corners={4pt}] to (98.3299,1.0) to node[host label] {Rhodococcus jostii RHA1} (120.344,1.0) [sharp corners] to (120.344,-87.235) -- cycle;
+\path[host background] (31.8025,-177.19) [rounded corners={4pt}] to (31.8025,-201.44) to (68.1983,-201.44) [sharp corners] to (68.1983,-205.44) to (82.6983,-205.44) [rounded corners={4pt}] to (82.6983,-201.44) to (120.344,-201.44) [sharp corners] to (120.344,-43.6175) to (98.3299,-43.6175) [rounded corners={4pt}] to (98.3299,-186.94) to (46.3025,-186.94) [sharp corners] to (46.3025,-177.19) -- cycle;
+\path[host background] (124.3441,-76.252) [rounded corners={4pt}] to (124.3441,1.0) to node[host label] {Thermoflexia bacterium} (146.3582,1.0) [sharp corners] to (146.3582,-76.252) -- cycle;
+\path[host background] (68.1983,-196.19) [rounded corners={4pt}] to (68.1983,-251.328) to (99.4032,-251.328) [sharp corners] to (99.4032,-255.328) to (113.9032,-255.328) [rounded corners={4pt}] to (113.9032,-251.328) to (146.3582,-251.328) [sharp corners] to (146.3582,-38.126) to (124.3441,-38.126) [rounded corners={4pt}] to (124.3441,-236.828) to (82.6983,-236.828) [sharp corners] to (82.6983,-196.19) -- cycle;
+\path[host background] (150.3582,-236.828) [rounded corners={4pt}] to (150.3582,1.0) to node[host label] (cyano-start) {Cyanothece sp.\ PCC 8802} (179.2282,1.0) [sharp corners] to (179.2282,-236.828) -- cycle;
+\path[host background] (183.2282,-130.13) [rounded corners={4pt}] to (183.2282,1.0) to node[host label] (terra-end) {Synechocystis sp.\ 6803} (205.2423,1.0) [sharp corners] to (205.2423,-130.13) -- cycle;
+\path[host background] (150.3582,-118.414) [rounded corners={4pt}] to (150.3582,-251.328) to (170.3857,-251.328) [sharp corners] to (170.3857,-264.25) to (191.1499,-264.25) [rounded corners={4pt}] to (191.1499,-251.328) to (205.2423,-251.328) [sharp corners] to (205.2423,-65.065) to (183.2282,-65.065) [rounded corners={4pt}] to (183.2282,-236.828) to (179.2282,-236.828) [sharp corners] to (179.2282,-118.414) -- cycle;
+\path[host background] (99.4032,-246.078) [rounded corners={4pt}] to (99.4032,-278.75) to (130.996,-278.75) [sharp corners] to (130.996,-311.811) to (159.5572,-311.811) [rounded corners={4pt}] to (159.5572,-278.75) to (191.1499,-278.75) [sharp corners] to (191.1499,-250.539) to (170.3857,-250.539) [rounded corners={4pt}] to (170.3857,-264.25) to (113.9032,-264.25) [sharp corners] to (113.9032,-246.078) -- cycle;
+\path[host background] (209.2423,-125.63) [rounded corners={4pt}] to (209.2423,1.0) to node[host label] {Thermotoga lettingae TMO} (226.2423,1.0) [sharp corners] to (226.2423,-125.63) -- cycle;
+\path[host background] (130.996,-288.0305) [rounded corners={4pt}] to (130.996,-317.811) to (182.0247,-317.811) [sharp corners] to (182.0247,-321.811) to (188.0247,-321.811) [rounded corners={4pt}] to (188.0247,-317.811) to (226.2423,-317.811) [sharp corners] to (226.2423,-62.815) to (209.2423,-62.815) [rounded corners={4pt}] to (209.2423,-311.811) to (159.5572,-311.811) [sharp corners] to (159.5572,-288.0305) -- cycle;
+\path[host background] (230.2423,-101.63) [rounded corners={4pt}] to (230.2423,1.0) to node[host label] (gracil-start) {Candidatus Scalindua brodae} (247.2423,1.0) [sharp corners] to (247.2423,-101.63) -- cycle;
+\path[host background] (251.2423,-186.94) [rounded corners={4pt}] to (251.2423,1.0) to node[host label] (proteo-start) {Geobacter sulfurreducens} (280.1122,1.0) [sharp corners] to (280.1122,-186.94) -- cycle;
+\path[host background] (284.1122,-82.735) [rounded corners={4pt}] to (284.1122,1.0) to node[host label] {Thioalkalivibrio sp.\ K90mix} (301.1122,1.0) [sharp corners] to (301.1122,-82.735) -- cycle;
+\path[host background] (305.1122,-67.61) [rounded corners={4pt}] to (305.1122,1.0) to node[host label] {Shewanella putrefaciens CN-32} (333.9821,1.0) [sharp corners] to (333.9821,-67.61) -- cycle;
+\path[host background] (337.9821,-90.157) [rounded corners={4pt}] to (337.9821,1.0) to node[host label] {Vibrio crassostreae J5 20} (359.9963,1.0) [sharp corners] to (359.9963,-90.157) -- cycle;
+\path[host background] (363.9963,-67.61) [rounded corners={4pt}] to (363.9963,1.0) to node[host label] {Yersinia pseudotuberculosis} (392.8663,1.0) [sharp corners] to (392.8663,-67.61) -- cycle;
+\path[host background] (396.8663,-73.44) [rounded corners={4pt}] to (396.8663,1.0) to node[host label] (gracil-end) {Escherichia coli K12} (425.7362,1.0) [sharp corners] to (425.7362,-73.44) -- cycle;
+\path[host background] (363.9963,-33.805) [rounded corners={4pt}] to (363.9963,-99.44) to (383.9913,-99.44) [sharp corners] to (383.9913,-103.44) to (405.7413,-103.44) [rounded corners={4pt}] to (405.7413,-99.44) to (425.7362,-99.44) [sharp corners] to (425.7362,-36.72) to (396.8663,-36.72) [rounded corners={4pt}] to (396.8663,-73.44) to (392.8663,-73.44) [sharp corners] to (392.8663,-33.805) -- cycle;
+\path[host background] (337.9821,-45.0785) [rounded corners={4pt}] to (337.9821,-129.44) to (360.4938,-129.44) [sharp corners] to (360.4938,-133.44) to (382.2438,-133.44) [rounded corners={4pt}] to (382.2438,-129.44) to (405.7413,-129.44) [sharp corners] to (405.7413,-88.44) to (383.9913,-88.44) [rounded corners={4pt}] to (383.9913,-103.44) to (359.9963,-103.44) [sharp corners] to (359.9963,-45.0785) -- cycle;
+\path[host background] (305.1122,-33.805) [rounded corners={4pt}] to (305.1122,-159.44) to (332.7705,-159.44) [sharp corners] to (332.7705,-167.94) to (354.5205,-167.94) [rounded corners={4pt}] to (354.5205,-159.44) to (382.2438,-159.44) [sharp corners] to (382.2438,-118.44) to (360.4938,-118.44) [rounded corners={4pt}] to (360.4938,-133.44) to (333.9821,-133.44) [sharp corners] to (333.9821,-33.805) -- cycle;
+\path[host background] (284.1122,-41.3675) [rounded corners={4pt}] to (284.1122,-182.44) to (309.0663,-182.44) [sharp corners] to (309.0663,-186.44) to (323.5663,-186.44) [rounded corners={4pt}] to (323.5663,-182.44) to (354.5205,-182.44) [sharp corners] to (354.5205,-150.69) to (332.7705,-150.69) [rounded corners={4pt}] to (332.7705,-167.94) to (301.1122,-167.94) [sharp corners] to (301.1122,-41.3675) -- cycle;
+\path[host background] (251.2423,-93.47) [rounded corners={4pt}] to (251.2423,-201.44) to (283.7468,-201.44) [sharp corners] to (283.7468,-205.44) to (298.2468,-205.44) [rounded corners={4pt}] to (298.2468,-201.44) to (323.5663,-201.44) [sharp corners] to (323.5663,-177.19) to (309.0663,-177.19) [rounded corners={4pt}] to (309.0663,-186.94) to (280.1122,-186.94) [sharp corners] to (280.1122,-93.47) -- cycle;
+\path[host background] (230.2423,-50.815) [rounded corners={4pt}] to (230.2423,-317.811) to (261.8695,-317.811) [sharp corners] to (261.8695,-321.811) to (267.8695,-321.811) [rounded corners={4pt}] to (267.8695,-317.811) to (298.2468,-317.811) [sharp corners] to (298.2468,-196.19) to (283.7468,-196.19) [rounded corners={4pt}] to (283.7468,-311.811) to (247.2423,-311.811) [sharp corners] to (247.2423,-50.815) -- cycle;
+\path[host background] (182.0247,-316.811) [rounded corners={4pt}] to (182.0247,-327.811) to (221.9471,-327.811) [sharp corners] to (221.9471,-331.811) to (227.9471,-331.811) [rounded corners={4pt}] to (227.9471,-327.811) to (267.8695,-327.811) [sharp corners] to (267.8695,-316.811) to (261.8695,-316.811) [rounded corners={4pt}] to (261.8695,-321.811) to (188.0247,-321.811) [sharp corners] to (188.0247,-316.811) -- cycle;
+% unsampled hosts
+% branches
+\path[branch=color1] (47.3049,-65.6014) to (47.3049,-59.11);
+\path[branch=color3] (80.0349,-113.63) to (80.0349,-51.61);
+\path[branch=color1] (63.6699,-140.69) [rounded corners={1.5pt}] to (47.3049,-140.69) [sharp corners] to (47.3049,-65.6014);
+\path[loss branch] (63.6699,-140.69) to (77.3049,-140.69) node[sideways loss] {};
+\path[branch=color1] (39.0525,-175.19) [rounded corners={1.5pt}] to (14.435,-175.19) [sharp corners] to (14.435,-59.94);
+\path[branch=color1] (39.0525,-175.19) [rounded corners={1.5pt}] to (63.6699,-175.19) [sharp corners] to (63.6699,-140.69);
+\path[branch=color1] (39.0525,-182.44) to (39.0525,-175.19);
+\path[branch=color2] (111.8441,-66.7824) to (111.8441,-53.83);
+\path[branch=color2] (111.8441,-82.735) to (111.8441,-66.7824);
+\path[transfer branch=color2] (111.8441,-82.735) to (292.6122,-82.735);
+\path[branch=color2] (75.4483,-194.19) [rounded corners={1.5pt}] to (111.8441,-194.19) [sharp corners] to (111.8441,-82.735);
+\path[loss branch] (75.4483,-194.19) to (61.8441,-194.19) node[base loss={black!40}{}{0}{right}] {};
+\path[branch=color2] (137.8582,-69.7909) to (137.8582,-58.83);
+\path[branch=color2] (106.6532,-244.078) [rounded corners={1.5pt}] to (75.4483,-244.078) [sharp corners] to (75.4483,-194.19);
+\path[branch=color2] (106.6532,-244.078) [rounded corners={1.5pt}] to (137.8582,-244.078) [sharp corners] to (137.8582,-69.7909);
+\path[branch=color1] (164.7932,-73.6949) to (164.7932,-54.39);
+\path[branch=color1] (164.7932,-201.44) to (164.7932,-73.6949);
+\path[transfer branch=color1] (164.7932,-201.44) to (290.9968,-201.44);
+\path[branch=color1] (164.7932,-222.8841) to (164.7932,-201.44);
+\path[branch=color3] (196.7424,-78.7299) to (196.7424,-58.83);
+\path[branch=color3] (196.7424,-101.63) to (196.7424,-78.7299);
+\path[transfer branch=color3] (196.7424,-101.63) to (238.7423,-101.63);
+\path[branch=color3] (196.7424,-113.63) to (196.7424,-101.63);
+\path[transfer branch=color3] (196.7424,-113.63) to (80.0349,-113.63);
+\path[branch=color3] (196.7424,-125.63) to (196.7424,-113.63);
+\path[transfer branch=color3] (196.7424,-125.63) to (217.7423,-125.63);
+\path[branch] (183.8999,-244.078) [rounded corners={1.5pt}] to (196.7424,-244.078) [sharp corners] to (196.7424,-125.63);
+\path[branch] (183.8999,-244.078) [rounded corners={1.5pt}] to (164.7932,-244.078) [sharp corners] to (164.7932,-222.8841);
+\path[branch] (183.8999,-257.7891) to (183.8999,-244.078);
+\path[branch] (152.3072,-271.5) [rounded corners={1.5pt}] to (106.6532,-271.5) [sharp corners] to (106.6532,-244.078);
+\path[branch] (152.3072,-271.5) [rounded corners={1.5pt}] to (183.8999,-271.5) [sharp corners] to (183.8999,-257.7891);
+\path[branch] (152.3072,-295.2806) to (152.3072,-271.5);
+\path[branch=color3] (217.7423,-125.63) to (217.7423,-58.83);
+\path[branch=color3] (238.7423,-101.63) to (238.7423,-53.83);
+\path[branch=color1] (265.6772,-68.4229) to (265.6772,-59.94);
+\path[branch=color1] (265.6772,-182.44) to (265.6772,-68.4229);
+\path[transfer branch=color1] (265.6772,-182.44) to (39.0525,-182.44);
+\path[branch=color2] (292.6122,-82.735) to (292.6122,-48.83);
+\path[branch=color1] (319.5472,-65.6014) to (319.5472,-59.11);
+\path[branch=color1] (351.4963,-71.7434) to (351.4963,-48.83);
+\path[branch=color1] (411.3013,-71.4314) to (411.3013,-64.94);
+\path[branch=color1] (391.2413,-80.69) [rounded corners={1.5pt}] to (378.4313,-80.69) [sharp corners] to (378.4313,-59.11);
+\path[loss branch] (391.2413,-80.69) to (406.4313,-80.69) node[sideways loss] {};
+\path[branch=color1] (398.4913,-92.19) [rounded corners={1.5pt}] to (411.3013,-92.19) [sharp corners] to (411.3013,-71.4314);
+\path[loss branch] (398.4913,-92.19) to (383.3013,-92.19) node[base loss={black!40}{}{0}{right}] {};
+\path[branch=color1] (367.7438,-110.69) [rounded corners={1.5pt}] to (351.4963,-110.69) [sharp corners] to (351.4963,-71.7434);
+\path[branch=color1] (367.7438,-110.69) [rounded corners={1.5pt}] to (391.2413,-110.69) [sharp corners] to (391.2413,-80.69);
+\path[branch=color1] (374.9938,-122.19) [rounded corners={1.5pt}] to (398.4913,-122.19) [sharp corners] to (398.4913,-92.19);
+\path[loss branch] (374.9938,-122.19) to (359.4913,-122.19) node[base loss={black!40}{}{0}{right}] {};
+\path[branch=color1] (340.0205,-140.69) [rounded corners={1.5pt}] to (319.5472,-140.69) [sharp corners] to (319.5472,-65.6014);
+\path[branch=color1] (340.0205,-140.69) [rounded corners={1.5pt}] to (367.7438,-140.69) [sharp corners] to (367.7438,-110.69);
+\path[branch=color1] (347.2705,-152.19) [rounded corners={1.5pt}] to (374.9938,-152.19) [sharp corners] to (374.9938,-122.19);
+\path[loss branch] (347.2705,-152.19) to (332.9938,-152.19) node[base loss={black!40}{}{0}{right}] {};
+\path[branch=color1] (343.6455,-163.69) [rounded corners={1.5pt}] to (340.0205,-163.69) [sharp corners] to (340.0205,-140.69);
+\path[branch=color1] (343.6455,-163.69) [rounded corners={1.5pt}] to (347.2705,-163.69) [sharp corners] to (347.2705,-152.19);
+\path[branch=color1] (316.3163,-175.19) [rounded corners={1.5pt}] to (343.6455,-175.19) [sharp corners] to (343.6455,-163.69);
+\path[loss branch] (316.3163,-175.19) to (301.6455,-175.19) node[base loss={black!40}{}{0}{right}] {};
+\path[branch=color1] (290.9968,-194.19) [rounded corners={1.5pt}] to (265.6772,-194.19) [sharp corners] to (265.6772,-182.44);
+\path[branch=color1] (290.9968,-194.19) [rounded corners={1.5pt}] to (316.3163,-194.19) [sharp corners] to (316.3163,-175.19);
+\path[branch=color1] (290.9968,-201.44) to (290.9968,-194.19);
+% gene transfers
+% events
+\node[extant={color1}{1, 2, 3", 3',\\4, 5, 6, 7, 8}] at (14.435,-59.94) {};
+\node[extant={color1}{1, 2, 3", 3', 4, 5, 7, 8}] at (47.3049,-59.11) {};
+\node[loss={color1}{6}] at (47.3049,-65.6014) {};
+\node[extant={color3}{1, 2, 5, 6, 7, 10, 11}] at (80.0349,-51.61) {};
+\node[speciation={color1}{}] at (63.6699,-140.69) {};
+\node[speciation={color1}{}] at (39.0525,-175.19) {};
+\node[extant={color2}{5, 7, 8, 11}] at (111.8441,-53.83) {};
+\node[loss={color2}{6, 10}] at (111.8441,-66.7824) {};
+\node[transfer={color2}{}] at (111.8441,-82.735) {};
+\node[speciation={color2}{}] at (75.4483,-194.19) {};
+\node[extant={color2}{5, 7, 10, 11}] at (137.8582,-58.83) {};
+\node[loss={color2}{6, 8}] at (137.8582,-69.7909) {};
+\node[speciation={color2}{}] at (106.6532,-244.078) {};
+\node[extant={color1}{1, 2, 3', 4,\\5, 6, 7, 10}] at (164.7932,-54.39) {};
+\node[loss={color1}{3", 8, 11}] at (164.7932,-73.6949) {};
+\node[transfer={color1}{}] at (164.7932,-201.44) {};
+\node[gain={color1}{3", 3', 4}] at (164.7932,-222.8841) {};
+\node[extant={color3}{5, 7, 10, 11}] at (196.7424,-58.83) {};
+\node[loss={color3}{1, 2, 6, 8}] at (196.7424,-78.7299) {};
+\node[transfer={color3}{}] at (196.7424,-101.63) {};
+\node[transfer={color3}{}] at (196.7424,-113.63) {};
+\node[transfer={color3}{}] at (196.7424,-125.63) {};
+\node[speciation={black}{}] at (183.8999,-244.078) {};
+\node[gain={black}{1, 2}] at (183.8999,-257.7891) {};
+\node[speciation={black}{}] at (152.3072,-271.5) {};
+\node[gain={black}{5, 6, 7,\\8, 10, 11}] at (152.3072,-295.2806) {};
+\node[extant={color3}{5, 7, 10, 11}] at (217.7423,-58.83) {};
+\node[extant={color3}{1, 2, 7, 11}] at (238.7423,-53.83) {};
+\node[extant={color1}{1, 2, 3", 3',\\4, 5, 6, 7, 8}] at (265.6772,-59.94) {};
+\node[loss={color1}{11}] at (265.6772,-68.4229) {};
+\node[transfer={color1}{}] at (265.6772,-182.44) {};
+\node[extant={color2}{5, 6, 7, 8}] at (292.6122,-48.83) {};
+\node[extant={color1}{1, 2, 3", 3', 5, 6, 7}] at (319.5472,-59.11) {};
+\node[loss={color1}{8}] at (319.5472,-65.6014) {};
+\node[extant={color1}{5, 6, 7, 8}] at (351.4963,-48.83) {};
+\node[loss={color1}{1, 2, 3", 3'}] at (351.4963,-71.7434) {};
+\node[extant={color1}{1, 2, 3", 3', 5, 6, 7, 8}] at (378.4313,-59.11) {};
+\node[extant={color1}{1, 2, 3", 3', 5, 6, 7, 8, 11}] at (411.3013,-64.94) {};
+\node[loss={color1}{4}] at (411.3013,-71.4314) {};
+\node[speciation={color1}{}] at (391.2413,-80.69) {};
+\node[speciation={color1}{}] at (398.4913,-92.19) {};
+\node[speciation={color1}{}] at (367.7438,-110.69) {};
+\node[speciation={color1}{}] at (374.9938,-122.19) {};
+\node[speciation={color1}{}] at (340.0205,-140.69) {};
+\node[speciation={color1}{}] at (347.2705,-152.19) {};
+\node[duplication={color1}{}] at (343.6455,-163.69) {};
+\node[speciation={color1}{}] at (316.3163,-175.19) {};
+\node[speciation={color1}{}] at (290.9968,-194.19) {};
+% clade names
+\coordinate (group-labels) at (0,75);
+\draw[group brace] (group-labels|-terra-start.north) -- node[group label] {Firmicutes} (group-labels|-firmi-end.south);
+\draw[group brace] (group-labels|-cyano-start.north) -- node[group label] {Cyanobacteria} (group-labels|-terra-end.south);
+\draw[group brace] (group-labels|-proteo-start.north) -- node[group label] {Proteobacteria} (group-labels|-gracil-end.south);
+\coordinate (clade-labels) at (0,100);
+\draw[clade brace] (clade-labels|-terra-start.north) -- node[clade label] {Terrabacteria} (clade-labels|-terra-end.south);
+\draw[clade brace] (clade-labels|-gracil-start.north) -- node[clade label] {Gracilicutes} (clade-labels|-gracil-end.south);
+\end{tikzpicture}
