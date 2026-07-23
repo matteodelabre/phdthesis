@@ -47,14 +47,14 @@ La fonction \texttt{trace} du module \texttt{padapto.evaluation} permet de déri
 Cette algèbre construit automatiquement les circuits algébriques représentant les espaces de solutions associés à chaque instance d’un problème.
 
 Une fois un circuit algébrique obtenu, il devient possible d’y effectuer diverses opérations sans devoir exécuter l’algorithme à nouveau.
-Par exemple, il est possible d’en extraire des solutions, par énumération ou par échantillonage uniforme ou de Boltzmann, d’y évaluer d’autres algèbres, ou de calculer les fréquences d’apparition de certains sommets (voir la \cref{sec:adp:solution-spaces}).
+Par exemple, il est possible d’en extraire des solutions, par énumération ou par échantillonnage uniforme ou de Boltzmann, d’y évaluer d’autres algèbres, ou de calculer les fréquences d’apparition de certains sommets (voir la \cref{sec:adp:solution-spaces}).
 Ces fonctions sont fournies par le module suivant.
 
 \begin{itemize}
     \item \textbf{\texttt{padapto.circuit}} offre des fonctions pour manipuler des circuits algébriques. \texttt{serialize} et \texttt{unserialize} permettent de les convertir dans un format textuel, \texttt{render} permet de les afficher, \texttt{enumerate\_solutions} et \texttt{get\_solution} d’en énumérer les solutions, \texttt{eval}, \texttt{eval\_inside} et \texttt{eval\_outside} d’évaluer une algèbre, et \texttt{sample} d’en échantillonner des solutions selon une distribution définie par une algèbre.
 \end{itemize}
 
-La représentation et la manipulation de circuits algébriques, qui sont des graphes orientés acycliques, est faite au travers de la bibliothèque \emph{sowing} présentée précédemment.
+La représentation et la manipulation de circuits algébriques, qui sont des graphes orientés acycliques, sont faites au travers de la bibliothèque \emph{sowing} présentée précédemment.
 
 Les modules précédents peuvent être utilisés dans des algorithmes définis de manière \enquote{traditionnelle}, par des fonctions itératives ou récursives spécialisées pour un certain problème.
 Une manière alternative de résoudre ces problèmes est au travers des grammaires de structure présentées à la \cref{sec:adp:yield-gram}.

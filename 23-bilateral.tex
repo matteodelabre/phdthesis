@@ -19,7 +19,7 @@ Pour faciliter la définition, lorsque \(v\) correspond à une branche de \(S\),
     Une \emph{réconciliation} de \(T\) avec~\(S\) est une application \(\rec : \tnodes(T) \onto \tnodes(S)\) qui étend \(\llmap\) de sorte qu’aucune paire de sommets \((v, w) \in \tnodes(T)^2\) n’est telle que \(v \tancsneq w\) et \(\rec(v) \tdescneq \rec(w)\).
 \end{definition}
 
-Deux exemples d’applications sont illustrées en \cref{fig:reconciliation:strict-rec}.
+Deux exemples d’applications sont illustrés en \cref{fig:reconciliation:strict-rec}.
 L’application \(\rec_1\) est une réconciliation acceptable, alors que l’application \(\rec_2\) ne respecte pas la condition de la définition interdisant aux réconciliations de \enquote{remonter dans le temps} par rapport à la topologie de \(S\).
 
 \begin{figure}[htb]
@@ -61,7 +61,7 @@ La \cref{fig:reconciliation:free-rec} donne deux exemples de réconciliations li
     \label{fig:reconciliation:free-rec}
 \end{figure}
 
-Certains auteurs restreignent la \cref{definition:rec} pour interdire qu’un embranchement donné voit ses deux enfants associés à deux hôtes séparés~\parencite{Nojgaard2018TimeConsistentReconciliation}.
+Certains auteurs restreignent la \cref{definition:rec} pour interdire qu’un embranchement donné voie ses deux enfants associés à deux hôtes séparés~\parencite{Nojgaard2018TimeConsistentReconciliation}.
 L’ajout de cette condition permet de garantir qu’il existe un chemin sans changement d’hôte depuis tout embranchement jusqu’à une feuille.
 Ainsi, tout embranchement correspond à une divergence dont il existe une trace actuelle.
 Les modèles que nous considérons par la suite demandent toutefois de conserver la généralité de la définition.
@@ -69,7 +69,7 @@ Les modèles que nous considérons par la suite demandent toutefois de conserver
 \subsection{Arbres réconciliés et modèles de réconciliation}\label{sec:reconciliation:bilateral:model}
 
 Un modèle de réconciliation spécifie les types d’événements qui peuvent affecter, conjointement ou séparément, l’évolution des unités et de leurs hôtes.
-Une interprétation d’une réconciliation sous un modèle donné est une combinaison d’événements du modèle qui explique ses associations dépendant-hôte.
+Une interprétation d’une réconciliation sous un modèle donné est une combinaison d’événements du modèle qui explique ses associations unité-hôte.
 Ces interprétations sont représentées par des arbres réconciliés étiquetés par les événements choisis (voir exemples dans la \cref{fig:reconciliation:rec-trees}).
 
 \begin{definition}[Arbres réconciliés]\label{def:reconciliation:rectree}
@@ -138,7 +138,7 @@ Un exemple d’interprétation d’une réconciliation sous le modèle \(\recmod
 Dans ce modèle, un changement d’hôte peut être suivi immédiatement d’une perte en ne laissant ainsi aucune trace dans l’hôte original.
 Cette observation, initialement ignorée dans le travail de \textcite{Tofigh2011SimultaneousIdentificationDuplications}, peut mener à la construction d’interprétations significativement différentes \parencite{Ranwez2016InferringGeneDuplications}.
 Elle permet également d’interpréter les réconciliations contenant des sommets dont les deux enfants sont associés à des hôtes séparés de leur parent.
-Cependant, sa prise en compte engendre une augmentation du nombre de solutions co-optimales dans le problème d’optimisation associé~\parencite{Weiner2021ImprovedDuplicationTransfer}.
+Cependant, sa prise en compte engendre une augmentation du nombre de solutions cooptimales dans le problème d’optimisation associé~\parencite{Weiner2021ImprovedDuplicationTransfer}.
 
 \paragraph{Hôtes non échantillonnés~\textup{\parencite{Szoelloesi2013LateralGeneTransfer,Weiner2021ImprovedDuplicationTransfer}}}
 La phylogénie \(S\) est nécessairement incomplète puisqu’elle ne renseigne que sur les hôtes des unités de~\(T\).
@@ -263,7 +263,7 @@ Par exemple, pour la réconciliation \(\rec_4\) de la \cref{fig:reconciliation:f
 Ainsi, la réconciliation \(\rec_4\) est également cyclique par le lemme précédent.
 
 Une version plus faible de la \cref{lem:reconciliation:rec-cons:host-switch} qui ne considérait pas les paires de transferts suivis l’un de l’autre a été initialement énoncée par \textcite{Charleston1998JunglesNewSolution}.
-Comme démontré par \textcite{Tofigh2009InferringDuplicationsLateral}, cette condition est incomplète en particulier parce qu’elle n’identifie pas la réconciliation \(\rec_5\) comme étant cyclique.
+Comme démontré par \textcite{Tofigh2009InferringDuplicationsLateral}, cette condition est incomplète, en particulier parce qu’elle n’identifie pas la réconciliation \(\rec_5\) comme étant cyclique.
 
 \subsection{Complexité des problèmes de \(\recmodel\)-parcimonie}
 

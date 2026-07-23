@@ -56,7 +56,7 @@
     },
 }
 
-Le problème de réconciliation segmentale peut être vu comme une combinaison de deux problèmes indépendants: d’une part celui de la réconciliation bilatérale de l’arbre des synténies avec l’arbre des hôtes et d’autre part celui de l’inférence des groupes de contenus ancestraux des synténies.
+Le problème de réconciliation segmentale peut être vu comme une combinaison de deux problèmes indépendants: d’une part celui de la réconciliation bilatérale de l’arbre des synténies avec l’arbre des hôtes, et d’autre part celui de l’inférence des groupes de contenus ancestraux des synténies.
 Dans ce chapitre, nous montrons que l’approche algébrique présentée au \cref{chap:adp} permet de rendre cette intuition précise et concrète.
 Nous faisons indépendamment un traitement algébrique de chacun des deux problèmes dans les \cref{sec:adp-rec:bilateral,sec:adp-rec:set} puis nous montrons comment combiner leurs solutions pour résoudre la réconciliation segmentale dans la \cref{sec:adp-rec:both}.
 
@@ -98,8 +98,8 @@ Cette algèbre est additive et peut donc être convertie en algèbre de Boltzman
 Comme avec toute signature, une algèbre de traçage \(\altrace(\algsignrec)\) peut être construite afin de construire les circuits algébriques représentant l’espace de solutions associé à une certaine entrée (voir \cref{sec:adp:solution-spaces:trace}).
 Cela permet, par exemple, de construire automatiquement l’ensemble des solutions de coût minimum, en utilisant l’algèbre combinée \(\alminplus_\cost \times \altrace(\algsignrec) \mid \allex{1}\).
 
-En l’absence d’une fonction de coûts fixée, il peut être souhaitable de réaliser une optimisation multi-objectifs, en construisant des ensembles de vecteurs Pareto-optimaux de la forme \(\tup{n_\evtD, n_\evtT, n_\evtL, n_\evtTX}\) dénombrant le nombre d’événements de chaque type.
-Cette tâche est compliquée par le fait que l’opérateur \(\evSkip_n(h)\) peut être interprété soit comme une série d’événements~\(\evtL\), soit comme un seul événement~\(\evtTX\), dépendamment du coût relatif de ces deux événements.
+En l’absence d’une fonction de coûts fixée, il peut être souhaitable de réaliser une optimisation multiobjectifs, en construisant des ensembles de vecteurs Pareto-optimaux de la forme \(\tup{n_\evtD, n_\evtT, n_\evtL, n_\evtTX}\) dénombrant le nombre d’événements de chaque type.
+Cette tâche est compliquée par le fait que l’opérateur \(\evSkip_n(h)\) peut être interprété soit comme une série d’événements~\(\evtL\), soit comme un seul événement~\(\evtTX\), selon le coût relatif de ces deux événements.
 Chaque appel à \(\evSkip_n(h)\) doit ainsi engendrer deux vecteurs représentant ces deux interprétations possibles, ce qui nous empêche d’employer la construction générique de la \cref{sec:adp:alg-combin:pareto}.
 Nous construisons donc manuellement l’algèbre comme suit: \\
 \sidecols{.35\textwidth}{.65\textwidth}{
@@ -119,7 +119,7 @@ Nous construisons donc manuellement l’algèbre comme suit: \\
     \end{cases}
 \end{align*}
 }\\
-où \enquote{\(+\)} correspond à une somme de Minkowski, construisant l’ensemble des sommes des paires de vecteurs obtenues en prenant le produit Cartésien des deux opérandes.
+où \enquote{\(+\)} correspond à une somme de Minkowski, construisant l’ensemble des sommes des paires de vecteurs obtenues en prenant le produit cartésien des deux opérandes.
 
 \subsection{Grammaire de structure}
 
@@ -176,7 +176,7 @@ Grâce à l’\cref{alg:seq-yield-parser}, cette grammaire correspond automatiqu
 Sa complexité en temps est \(\bigo(nmd)\)\footnote{Cette complexité ne prend en compte que le temps de construction du circuit algébrique associé à une certaine entrée. En fonction de l’algèbre utilisée pour évaluer ce circuit, la complexité totale pourrait être plus élevée. Dans le cas où seul le coût minimum d’une solution, ou seule la construction d’une solution arbitraire atteignant ce coût, sont recherchés, la complexité est exactement telle qu’indiqué.}, où \(n\) et \(m\) sont les tailles de \(T\) et \(S\) et \(d\) est la profondeur de \(S\), en vertu du \cref{thm:adp:gram-hedge-complex}.
 Cette complexité est proche de la meilleure complexité connue pour le problème de réconciliation bilatérale \parencite{Weiner2021ImprovedDuplicationTransfer}, à un facteur \(d\) près.
 Ce facteur peut toutefois être éliminé en supprimant le paramètre \(N\) du prédicat \(\gRecPath\), en insérant à la place un appel à \(\evSkip_1\) à chaque application de la clause \labelcref{eq:adp-rec:bilateral-grammar-path-down}, et en ajoutant une clause séparée pour inférer les événements \(\evtTX\).
-Cependant, cette transformation rend la grammaire non canonique puisqu’il existe alors toujours deux solutions partielles connectant deux sommets de~\(T\), l’une empruntant une série d’appels à \(\evSkip\), l’autre la nouvelle clause pour les événements \(\evtTX\).
+Cependant, cette transformation rend la grammaire non canonique, puisqu’il existe alors toujours deux solutions partielles connectant deux sommets de~\(T\), l’une empruntant une série d’appels à \(\evSkip\), l’autre la nouvelle clause pour les événements \(\evtTX\).
 
 Il est possible d’étendre cette grammaire pour résoudre le problème de binarisation d’un arbre \(T\) contenant des polytomies de sorte à minimiser le coût de réconciliation \(\recmodelDTLx\) associé.
 La complexité de l’algorithme résultant, en vertu du \cref{thm:adp:gram-forest-complex}, est \(\bigo(n^22^{\deg I})\), c’est-à-dire qu’il s’agit d’un algorithme \emph{fixed parameter tractable} (FPT) dans le degré maximum de l’arbre des unités.
@@ -186,7 +186,7 @@ Cette complexité est comparable à celle de l’algorithme développé par \tex
 
 L’application de la grammaire \(\gramrec\) sur l’entrée à gauche de la \cref{fig:adp-rec:rec-input} engendre un certain espace de solutions, sous la forme d’un circuit algébrique sur lequel différentes algèbres peuvent être appliquées.
 Ce circuit algébrique correspond au \emph{graphe de réconciliation} étudié notamment par \textcite{Scornavacca2013RepresentingSetReconciliations,Wang2022EfficientlySparseListing}.
-L’\cref{alg:adp:circ-sample} pour l’échantillonage de solutions appliqué à ce graphe correspond exactement à celui développé par \textcite{Bansal2013ReconciliationRevisitedHandling} spécifiquement pour le problème de réconciliation.
+L’\cref{alg:adp:circ-sample} pour l’échantillonnage de solutions appliqué à ce graphe correspond exactement à celui développé par \textcite{Bansal2013ReconciliationRevisitedHandling} spécifiquement pour le problème de réconciliation.
 
 En utilisant l’algèbre~\(\alminplus_\cost\) avec un coût de \(\cost(\evtD) = 2\), \(\cost(\evtT) = 3\), \(\cost(\evtL) = 1\) et \(\cost(\evtTX) = \infty\), nous obtenons un coût minimal de~10.
 En combinant cette algèbre avec l’algèbre de traçage \(\altrace(\algsignrec)\) grâce au combinateur lexicographique décrit à la \cref{sec:adp:alg-combin:lex}, il est possible de construire la solution atteignant ce coût présentée à droite de la \cref{fig:adp-rec:rec-input}.
@@ -234,7 +234,7 @@ De cet ensemble peuvent être calculées efficacement les probabilités que chaq
 \section{Parcimonie de groupes}\label{sec:adp-rec:set}
 
 Le problème de la parcimonie de groupes, sous-jacent à la réconciliation segmentale, concerne l’inférence du contenu ancestral de synténies dans un arbre dont le contenu aux feuilles est connu.
-Cette inférence s’appuie sur un modèle de gains et de pertes groupées, de sorte que chaque arête de l’arbre peut être étiquetée par un événement de gain qui fait apparaître simultanément une ou plusieurs nouvelles unités ou par une perte qui en fait disparaître.
+Cette inférence s’appuie sur un modèle de gains et de pertes groupés, de sorte que chaque arête de l’arbre peut être étiquetée par un événement de gain qui fait apparaître simultanément une ou plusieurs nouvelles unités ou par une perte qui en fait disparaître.
 Nous prendrons l’hypothèse de~Dollo, selon laquelle chaque unité est gagnée exactement une fois.
 
 L’objectif du problème est de trouver un étiquetage de contenus ancestraux le plus parcimonieux en termes de gains et de pertes, en fonction du nombre d’événements et de leurs tailles respectives.
@@ -422,7 +422,7 @@ Le problème de réconciliation segmentale, introduit à la \cref{sec:reconcilia
 
 Nous proposons, pour résoudre ce problème, de combiner les grammaires \(\gramrec\) et \(\gramset\) en une grammaire \(\gramseq\).
 Cette approche offre une voie simplifiée pour retrouver les constructions des \cref{chap:superdtl,chap:synesth}.
-Au meilleur de nos connaissances, aucune méthode générale n’est présentement connue pour combiner de telles grammaires.
+Au meilleur de nos connaissances, aucune méthode générale n’est actuellement connue pour combiner de telles grammaires.
 Dans la suite, nous réalisons donc une construction ad hoc dont des principes plus généraux pourront être tirés dans des recherches ultérieures.
 
 Intuitivement, cette combinaison est réalisée en prenant le produit cartésien des ensembles de prédicats des deux grammaires, puis de leurs ensembles de clauses.
@@ -575,7 +575,7 @@ Dans le modèle de réconciliation segmentale, les événements de duplication e
 Cela signifie qu’une quantité arbitraire d’unités peuvent disparaître sur l’une des deux branches sortantes (dans le cas du transfert, sur la branche menant à l’hôte séparé), et ce, sans nécessiter d’événement de perte.
 Afin d’encoder cette règle dans la grammaire \(\gramseq\), la dimension \(L\) a été fixée à 0 dans le corps des clauses \labelcref{eq:adp-rec:comb-grammar-dup,eq:adp-rec:comb-grammar-tr}, contrairement à la clause \labelcref{eq:adp-rec:set-split-inner} dont elles sont issues.
 Cela implique que toutes les unités appartenant à l’ensemble \(\xout(v)\) sont perdues sans déclencher d’événement de perte.
-Notons que sans cette altération des deux clauses, la gramaire \(\gramseq\) présenterait peu d’intérêt, puisqu’elle serait équivalente à résoudre les deux problèmes de manière indépendante.
+Notons que sans cette modification des deux clauses, la grammaire \(\gramseq\) présenterait peu d’intérêt, puisqu’elle serait équivalente à résoudre les deux problèmes de manière indépendante.
 
 La grammaire \(\gramseq\) ainsi construite, combinée à des algèbres d’évaluation construites similairement aux sections précédentes, permet de résoudre le problème de réconciliation segmentale.
 Par exemple, l’une des solutions à l’instance obtenue en combinant les exemples des deux sections précédentes est présentée à la \cref{fig:adp-rec:syn-solution-best}.
@@ -597,12 +597,10 @@ Ces événements permettent en retour d’économiser certains événements de g
 
 \section{Discussion}
 
-Dans le contexte de la réconciliation phylogénétique, il s’est écoulé plusieurs années entre
-
 Le premier algorithme de programmation dynamique pour la réconciliation phylogénétique avec transferts horizontaux, développé par \textcite{Hallett2004SimultaneousIdentificationDuplications}, était limité à la production d’une solution optimale arbitraire pour un coût fixé.
-Plusieurs années de recherche ont été nécessaires par la suite pour obtenir des algorithmes capables 
+Plusieurs années de recherche ont été nécessaires pour obtenir des algorithmes capables 
 d’analyser l’ensemble des solutions optimales \parencite{Scornavacca2013RepresentingSetReconciliations},
-d’échantilloner uniformément des solutions optimales \parencite{Bansal2013ReconciliationRevisitedHandling}
+d’échantillonner uniformément des solutions optimales \parencite{Bansal2013ReconciliationRevisitedHandling}
 ou de les énumérer efficacement \parencite{Donati2015EfficientTreeReconciliation},
 d’obtenir des solutions Pareto-optimales indépendamment des coûts \parencite{LibeskindHadas2014ParetoOptimalPhylogenetic},
 ou d’énumérer efficacement des classes d’équivalences de solutions optimales \parencite{Wang2022EfficientlySparseListing}.

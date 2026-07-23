@@ -370,7 +370,7 @@ For brevity, we will say that an algebra \(\alg\) is totally ordered when its na
 In many problems, it is desirable to combine multiple optimization criteria or to simultaneously compute multiple characteristics on the set of solutions.
 For example, in a shortest path problem, such as routing on a map, one could seek paths that simultaneously minimize the travelled distance and the fuel use.
 
-Using the \emph{algebra combinators} described in this section, complex computational goals can be specified by declaratively combining simple evaluation algebras constructed and validated independently from each other.
+Using the \emph{algebra combinators} described in this section, complex computational goals can be specified by declaratively combining simple evaluation algebras constructed and validated independently of each other.
 These generic operators, acting on algebras that share the same signature, formalize and generalize the \emph{products} described in~\parencite{Sauthoff2013BellmansGapLanguage}.
 They can be seen as forming an algebra on the set all of algebras having a given signature.
 
@@ -519,7 +519,7 @@ Note that the time and space complexities of \(\bar\alg'\) are the same as \(\ba
 
 It is often needed to compute information about more than one solution at a time.
 For example, one may want to consider all of the optimal solutions to a problem, the \(m\) best solutions, or all solutions within a given percentage of the optimal value.
-The powerset combinator transforms singly-valued algebras into algebras that keep track of multiple solution values.
+The powerset combinator transforms singly valued algebras into algebras that keep track of multiple solution values.
 Let us start by introducing some notation regarding multisets.
 
 \begin{definition}[Multisets]
@@ -1116,7 +1116,7 @@ This algorithm follows the recursive method of \textcite{Wilf1977UnifiedSettingS
     An alternative is to perform Boltzmann sampling.
     Each solution \(x\) of cost \(w(x)\) is assigned a weight of \(e^{-w(x)/T}\), for a chosen \enquote{temperature} parameter \(T \in \realpos\).
     We then perform weighted sampling of solutions relative to this distribution.
-    When \(T \rightarrow \infty\), this sampling is equivalent to uniform sampling among all solutions and when \(T \rightarrow 0\), it is equivalent to uniform sampling among minimal solutions only.
+    When \(T \rightarrow \infty\), this sampling is equivalent to uniform sampling among all solutions, and when \(T \rightarrow 0\), it is equivalent to uniform sampling among minimal solutions only.
     For intermediate values of \(T\), this sampling progressively incorporates sub-optimal solutions.
 
     Let \(\alminplus\) be an additive optimization algebra. Define \(\boltz(\alminplus, T) = \tup{\realpos, F}\) such that
@@ -1145,7 +1145,7 @@ This enables computing a probability matrix indicating the probability that any 
 
 Let \(\prob_\alg(v \in x)\) denote the probability that a random solution \(x\) drawn under the distribution of a weighting algebra \(\alg\) contains the node \(v\).
 Any solution \(x\) constrained to containing a specific node \(v\) can naturally be decomposed into a solution \(x_f\) whose root is \(v\) and a partial solution \(x_b\), such that \(x = x_b \circ x_f\).
-Hence, as the next lemma states, \(\prob_\alg(v \in x)\) can be computed by taking the product of the probability that a partial solution ending in \(v\) occurs with the probability that a solution starting by \(v\) occurs.
+Hence, as the next lemma states, \(\prob_\alg(v \in x)\) can be computed by taking the product of the probability that a partial solution ending in \(v\) occurs with the probability that a solution starting with \(v\) occurs.
 
 \begin{lemma}[Probability of a constrained solution]
     For any weighting algebra \(\alg\), the probability \(\prob_\alg(v \in x)\) may be computed as \[
@@ -1183,7 +1183,7 @@ tabling intermediate results,
 manually managing indices when recursively decomposing the input,
 and choosing an appropriate traversal order for the input.
 
-Multiple formalisms have been developed to replace such ad hoc algorithms by executable declarative descriptions, notably based on grammatical descriptions: through
+Multiple formalisms have been developed to replace such ad hoc algorithms with executable declarative descriptions, notably based on grammatical descriptions: through
 multi-tape S-attributed grammars~\parencite{Lefebvre1996GrammarBasedUnificationSeveral},
 context-free grammars~\parencite{Giegerich2004DisciplineDynamicProgramming} (under the name of \enquote{yield grammars}),
 multiple context-free grammars~\parencite{Riechert2016AlgebraicDynamicProgramming},
@@ -1267,7 +1267,7 @@ The dimension of the start predicate corresponds to the number of tapes.
     \(\{\algnull, \algplus, \algunit, \algsym{sub}, \algsym{ins}, \algsym{del}\}\).
     The unary combination operators \(\algsym{sub}_{\alpha,\beta}\), of outdomain \(\Sigma^2\), and \(\algsym{ins}_\beta\) and \(\algsym{del}_\alpha\), of outdomain \(\Sigma\), represent the corresponding operations, while \(\algunit\) represents the empty series of operations.
     % Under this signature, \(\algsym{sub}_{\text{a},\text{a}}(\algsym{del}_{\text{b}}(\algsym{sub}_{\text{c},\text{d}}(\algsym{ins}_{\text{e}}(\algunit))))\) represents one of the series of operations turning \(S = \text{abc}\) into \(T = \text{ade}\).
-    The problem structure is described by the following grammar, that uses a single two-dimensional predicate \(\gramnt{S}\).
+    The problem structure is described by the following grammar, which uses a single two-dimensional predicate \(\gramnt{S}\).
     \begin{align*}
         \gramnt{S}[\varepsilon, \varepsilon] &\rightarrow
             \algunit \\
@@ -1314,7 +1314,7 @@ then generalized by~\textcite{Riechert2016AlgebraicDynamicProgramming} to \emph{
 
     A \emph{matching} of \(\tau \in T^*\) with a pattern~\(\pi\) is an assignment \(f : V \rightarrow T^*\) of the variables in \(\pi\)
     such that \(\tau = \pi / f\),
-    where~\(\pi / f\) is obtained by substituting every variable \(X\) in \(\pi\) by its image \(f(X)\).
+    where~\(\pi / f\) is obtained by substituting every variable \(X\) in \(\pi\) for its image \(f(X)\).
 
     A \emph{sequential yield grammar} \(\gram = \tup{P, T, V, C, S}\) of signature~\(\algsign\) is described
     by a set of predicate names \(P\) containing a start predicate \(S \in P\)
@@ -1505,7 +1505,7 @@ Therefore, the complexity of the algorithm derived from the grammar in \cref{ex:
 In this section, we turn to dynamic programming on more general input types: trees and forests, sets and multisets, and natural numbers.
 Each of these types is treated separately, however, it is straightforward to mix different types on multiple tapes of the same input.
 To handle other data types, the question of interest is what are the natural and efficient ways an input of that type can be decomposed.
-For sequences, decomposition as a concatenation of subsequences captures a wide array of algorithms and the number of such subsequences is bounded by \(\bigo(n^2)\).
+For sequences, decomposition as a concatenation of subsequences captures a wide array of algorithms, and the number of such subsequences is bounded by \(\bigo(n^2)\).
 
 % introduce berkemer_algebraic_2017
 % and \cite{siederdissen_algebraic_2015}
