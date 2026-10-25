@@ -207,6 +207,17 @@
 \RequirePackage{hypcap}
 \RequirePackage[nameinlink,noabbrev]{cleveref}
 
+%% Corrige les hyperliens incorrects pour les théorèmes numérotés en sous-sections
+\renewcommand{\theHproblem}{\thesubsection.\arabic{problem}}
+\renewcommand{\theHdefinition}{\thesubsection.\arabic{definition}}
+\renewcommand{\theHexample}{\thesubsection.\arabic{example}}
+\renewcommand{\theHremark}{\thesubsection.\arabic{remark}}
+\renewcommand{\theHtheorem}{\thesubsection.\arabic{theorem}}
+\renewcommand{\theHlemma}{\thesubsection.\arabic{lemma}}
+\newcounter{Halgorithmic}
+\AtBeginEnvironment{algorithmic}{\stepcounter{Halgorithmic}}
+\ExpandArgs{c}\renewcommand{theHALG@line}{\arabic{Halgorithmic}.\arabic{ALG@line}}
+
 % Traductions
 
 \crefname{problem}{problem}{problems}
@@ -373,8 +384,7 @@
     \@documentkind
 
     \vfill
-    \@date\\
-    Numéro de révision \@shortcommit
+    \@date
 
     \vfill
     © \@author, \the\year
