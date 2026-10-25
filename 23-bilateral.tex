@@ -1,316 +1,315 @@
 %! TeX root = ./main.tex
-% vim: set spelllang=fr:
-\selectlanguage{french}
-\section{Réconciliation bilatérale}\label{sec:reconciliation:bilateral}
+% vim: set spelllang=en:
+\section{Bilateral reconciliation}\label{sec:reconciliation:bilateral}
 
-\subsection{Plongement d’arbres phylogénétiques}
+\subsection{Embedding phylogenetic trees}
 
-Un embranchement~\(v\) dans un arbre phylogénétique~\(T\) d’unités évolutives peut être causé soit par une codivergence avec l’hôte associé, soit par une divergence indépendante de l’hôte.
-Lorsque~\(v\) relève d’une codivergence, celui-ci correspond à un embranchement dans la phylogénie~\(S\) des hôtes.
-Inversement, si~\(v\) est indépendant de l’évolution des hôtes, il correspond à un point le long d’une des branches de \(S\).
-Finalement, les feuilles de \(T\) représentent des unités actuelles et correspondent chacune à une feuille de~\(S\), leur hôte.
-Une telle association de \(T\) avec \(S\) est appelée \emph{réconciliation}.
+An internal node~\(v\) in a phylogenetic tree~\(T\) of evolutionary units can be caused either by a codivergence with the associated host, or by a divergence independent of the host.
+When~\(v\) results from a codivergence, it corresponds to an internal node in the phylogeny~\(S\) of the hosts.
+Conversely, if~\(v\) is independent of the evolution of the hosts, it corresponds to a point along one of the branches of \(S\).
+Finally, the leaves of \(T\) represent extant units and each correspond to a leaf of~\(S\), their host.
+Such an association of \(T\) with \(S\) is called a \emph{reconciliation}.
 
-Formellement, une réconciliation est un plongement de \(T\) dans \(S\), au sens défini ci-après.
-Pour faciliter la définition, lorsque \(v\) correspond à une branche de \(S\), il est associé à sa terminaison.
+Formally, a reconciliation is an embedding of \(T\) into \(S\), in the sense defined below.
+To simplify the definition, when \(v\) corresponds to a branch of \(S\), it is associated with its endpoint.
 
-\begin{definition}[Réconciliations]\label{definition:rec}
-    Soient \(T\) et \(S\) deux arbres phylogénétiques et \(\llmap : \tleavs(T) \onto \tleavs(S)\) une application qui associe chaque feuille de \(T\) à son hôte dans \(S\).
-    Une \emph{réconciliation} de \(T\) avec~\(S\) est une application \(\rec : \tnodes(T) \onto \tnodes(S)\) qui étend \(\llmap\) de sorte qu’aucune paire de sommets \((v, w) \in \tnodes(T)^2\) n’est telle que \(v \tancsneq w\) et \(\rec(v) \tdescneq \rec(w)\).
+\begin{definition}[Reconciliations]\label{definition:rec}
+    Let \(T\) and \(S\) be two phylogenetic trees and \(\llmap : \tleavs(T) \onto \tleavs(S)\) a map that associates each leaf of \(T\) with its host in \(S\).
+    A \emph{reconciliation} of \(T\) with~\(S\) is a map \(\rec : \tnodes(T) \onto \tnodes(S)\) that extends \(\llmap\) such that no pair of nodes \((v, w) \in \tnodes(T)^2\) is such that \(v \tancsneq w\) and \(\rec(v) \tdescneq \rec(w)\).
 \end{definition}
 
-Deux exemples d’applications sont illustrés en \cref{fig:reconciliation:strict-rec}.
-L’application \(\rec_1\) est une réconciliation acceptable, alors que l’application \(\rec_2\) ne respecte pas la condition de la définition interdisant aux réconciliations de \enquote{remonter dans le temps} par rapport à la topologie de \(S\).
+Two examples of maps are illustrated in \cref{fig:reconciliation:strict-rec}.
+The map \(\rec_1\) is an acceptable reconciliation, whereas the map \(\rec_2\) does not satisfy the condition of the definition that forbids reconciliations from \enquote{going back in time} with respect to the topology of \(S\).
 
 \begin{figure}[htb]
     \capstart
     \centering
     \input{fig/reconciliation/bilateral/strict-rec}
-    \caption[Deux exemples de réconciliations strictes]{
-        Deux associations de la phylogénie \(T\) avec \(S\).
-        Les associations entre les embranchements sont représentées par des flèches et les associations entre feuilles sont indiquées implicitement en leur attribuant la même étiquette.
+    \caption[Two examples of strict reconciliations]{
+        Two associations of the phylogeny \(T\) with \(S\).
+        The associations between internal nodes are represented by arrows and the associations between leaves are indicated implicitly by assigning them the same label.
     }
     \label{fig:reconciliation:strict-rec}
 \end{figure}
 
-Certaines unités sont capables de migrer entre deux hôtes coexistants.
-Par exemple, en particulier chez les procaryotes, des transferts horizontaux peuvent engendrer des migrations de gènes entre espèces.
-Dans une réconciliation \(\rec\), une branche \((v, w) \in \tedges(T)\) telle que \(\rec(v) \nottcomp \rec(w)\) implique qu’un changement d’hôte a eu lieu entre deux points sur le chemin entre \(\rec(v)\) et \(\rec(w)\).
-Notons cependant que des changements d’hôte \emph{inobservables} peuvent avoir lieu.
-Par exemple si, entre \(v\) et \(w\), l’unité a migré de l’hôte \(\rec(v)\) vers un hôte séparé \(\gamma\), puis à nouveau vers un hôte descendant de \(\rec(v)\) sans laisser de trace dans la descendance de \(\gamma\), la branche \((v, w)\) n’apparaîtra pas comme une branche de changement d’hôte.
+Some units are able to migrate between two coexisting hosts.
+For example, particularly in prokaryotes, horizontal transfers can cause genes to migrate between species.
+In a reconciliation \(\rec\), a branch \((v, w) \in \tedges(T)\) such that \(\rec(v) \nottcomp \rec(w)\) implies that a host switch took place between two points on the path between \(\rec(v)\) and \(\rec(w)\).
+Note, however, that \emph{unobservable} host switches can take place.
+For example if, between \(v\) and \(w\), the unit migrated from host \(\rec(v)\) to a separated host \(\gamma\), then back again to a host descending from \(\rec(v)\) without leaving any trace among the descendants of \(\gamma\), the branch \((v, w)\) will not appear as a host-switch branch.
 
-Nous appelons \emph{stricte} une réconciliation qui ne contient pas de telle branche, car l’évolution des unités suit alors strictement celle de leurs hôtes.
-Dans la \cref{fig:reconciliation:strict-rec}, la réconciliation \(\rec_1\) est une réconciliation stricte.
-La \cref{fig:reconciliation:free-rec} donne deux exemples de réconciliations libres.
+We call a reconciliation that does not contain any such branch \emph{strict}, since the evolution of the units then strictly follows that of their hosts.
+In \cref{fig:reconciliation:strict-rec}, the reconciliation \(\rec_1\) is a strict reconciliation.
+\Cref{fig:reconciliation:free-rec} gives two examples of free reconciliations.
 
 \begin{definition}\label{definition:rec-strict}
-    Une réconciliation \(\rec\) de \(T\) avec \(S\) est dite \emph{stricte} si toutes les paires de sommets
-    \((v, w) \in \tnodes(T)^2\) avec \(v \tancs w\) sont telles que \(\rec(v) \tancs \rec(w)\).
-    Sinon, \(\rec\) est dite \emph{libre}.
+    A reconciliation \(\rec\) of \(T\) with \(S\) is said to be \emph{strict} if all pairs of nodes
+    \((v, w) \in \tnodes(T)^2\) with \(v \tancs w\) are such that \(\rec(v) \tancs \rec(w)\).
+    Otherwise, \(\rec\) is said to be \emph{free}.
 \end{definition}
 
 \begin{figure}[htb]
     \capstart
     \centering
     \input{fig/reconciliation/bilateral/free-rec}
-    \caption[Deux exemples de réconciliations libres]{
-        Deux réconciliations libres des phylogénies \(T\) avec \(S\) et \(T'\) avec \(S'\).
-        Par souci de lisibilité, \(\rec_4\) est représentée par des égalités d’étiquettes plutôt que par des flèches.
-        Les branches marquées de pointillés correspondent à des changements d’hôtes.
+    \caption[Two examples of free reconciliations]{
+        Two free reconciliations of the phylogenies \(T\) with \(S\) and \(T'\) with \(S'\).
+        For the sake of readability, \(\rec_4\) is represented by label equalities rather than by arrows.
+        The branches marked with dotted lines correspond to host switches.
     }
     \label{fig:reconciliation:free-rec}
 \end{figure}
 
-Certains auteurs restreignent la \cref{definition:rec} pour interdire qu’un embranchement donné voie ses deux enfants associés à deux hôtes séparés~\parencite{Nojgaard2018TimeConsistentReconciliation}.
-L’ajout de cette condition permet de garantir qu’il existe un chemin sans changement d’hôte depuis tout embranchement jusqu’à une feuille.
-Ainsi, tout embranchement correspond à une divergence dont il existe une trace actuelle.
-Les modèles que nous considérons par la suite demandent toutefois de conserver la généralité de la définition.
+Some authors restrict \cref{definition:rec} to forbid a given internal node from having its two children associated with two separated hosts~\parencite{Nojgaard2018TimeConsistentReconciliation}.
+Adding this condition guarantees that there exists a path without host switches from any internal node to a leaf.
+Thus, every internal node corresponds to a divergence of which there is an extant trace.
+The models we consider hereafter, however, require keeping the generality of the definition.
 
-\subsection{Arbres réconciliés et modèles de réconciliation}\label{sec:reconciliation:bilateral:model}
+\subsection{Reconciled trees and reconciliation models}\label{sec:reconciliation:bilateral:model}
 
-Un modèle de réconciliation spécifie les types d’événements qui peuvent affecter, conjointement ou séparément, l’évolution des unités et de leurs hôtes.
-Une interprétation d’une réconciliation sous un modèle donné est une combinaison d’événements du modèle qui explique ses associations unité-hôte.
-Ces interprétations sont représentées par des arbres réconciliés étiquetés par les événements choisis (voir exemples dans la \cref{fig:reconciliation:rec-trees}).
+A reconciliation model specifies the types of events that can affect, jointly or separately, the evolution of the units and of their hosts.
+An interpretation of a reconciliation under a given model is a combination of events from the model that explains its unit--host associations.
+These interpretations are represented by reconciled trees labelled with the chosen events (see examples in \cref{fig:reconciliation:rec-trees}).
 
-\begin{definition}[Arbres réconciliés]\label{def:reconciliation:rectree}
-    Soient \(T\) et \(S\) deux arbres, \(\rec\) une réconciliation de \(T\) avec \(S\), et \(\recmodel\) un ensemble de types d’événements.
-    Un \emph{arbre réconcilié} \(\rectree_{\!\recmodel}(\rec)\) (ou simplement \(\rectree(\rec)\) quand le modèle utilisé est clair à partir du contexte) est une extension partiellement binaire de~\(T\) munie d’une application \(\exrec : \tnodes(\rectree) \onto \tnodes(S)\) qui étend \(\rec\) et d’une application \(\evt : \tnodes(\rectree) \onto \recmodel \cup \{\evtE\}\)
-    telle que \(\tleavs(T) = \{ v \in \tleavs(\rectree) \suchthat \evt(v) = \evtE \}\).
+\begin{definition}[Reconciled trees]\label{def:reconciliation:rectree}
+    Let \(T\) and \(S\) be two trees, \(\rec\) a reconciliation of \(T\) with \(S\), and \(\recmodel\) a set of event types.
+    A \emph{reconciled tree} \(\rectree_{\!\recmodel}(\rec)\) (or simply \(\rectree(\rec)\) when the model used is clear from the context) is a partially binary extension of~\(T\) equipped with a map \(\exrec : \tnodes(\rectree) \onto \tnodes(S)\) that extends \(\rec\) and with a map \(\evt : \tnodes(\rectree) \onto \recmodel \cup \{\evtE\}\)
+    such that \(\tleavs(T) = \{ v \in \tleavs(\rectree) \suchthat \evt(v) = \evtE \}\).
 \end{definition}
 
-Deux principales classes de méthodes existent pour évaluer la plausibilité d’une réconciliation sous un modèle donné.
-Dans les méthodes de \emph{parcimonie}, les réconciliations considérées comme les plus plausibles sont celles dont l’interprétation invoque le moins d’événements du modèle.
-Dans le cadre \emph{probabiliste}, ce sont les réconciliations dont la meilleure interprétation maximise la vraisemblance qui sont favorisées~\parencite{Doyon2011ModelsAlgorithmsPrograms}.
-Cette thèse se concentre sur les méthodes de parcimonie.
+Two main classes of methods exist to assess the plausibility of a reconciliation under a given model.
+In \emph{parsimony} methods, the reconciliations considered most plausible are those whose interpretation invokes the fewest events of the model.
+In the \emph{probabilistic} framework, it is the reconciliations whose best interpretation maximizes the likelihood that are favoured~\parencite{Doyon2011ModelsAlgorithmsPrograms}.
+This thesis focuses on parsimony methods.
 
-En parcimonie, une fonction \(\cost : \recmodel \onto \realpos\) attribuant un coût à chaque type d’événement est fixée en avance.
-Le coût d’un arbre réconcilié est la somme des coûts de ses événements.
-Le coût d’une réconciliation est alors défini comme celui de son interprétation la plus économique.
-Cette définition engendre une famille de problèmes d’optimisation combinatoire qui consistent à rechercher les réconciliations de coût minimum, c’est-à-dire les plus parcimonieuses.
+In parsimony, a function \(\cost : \recmodel \onto \realpos\) assigning a cost to each event type is fixed in advance.
+The cost of a reconciled tree is the sum of the costs of its events.
+The cost of a reconciliation is then defined as that of its most economical interpretation.
+This definition gives rise to a family of combinatorial optimization problems that consist in searching for the reconciliations of minimum cost, that is, the most parsimonious ones.
 
-\begin{problem}{\(\recmodel\)-parcimonie\label{prob:reconciliation:parsimony}}
-    \probinput{Phylogénies \(T\) et \(S\);
-               association des feuilles \(\llmap : \tleavs(T) \onto \tleavs(S)\);
-               coûts \(\cost : \recmodel \onto \realpos\).}
-    \proboutput{Coût minimum d’une réconciliation de \(T\) avec \(S\) sous le modèle \(\recmodel\) et les coûts \(\cost\).}
+\begin{problem}{\(\recmodel\)-parsimony\label{prob:reconciliation:parsimony}}
+    \probinput{Phylogenies \(T\) and \(S\);
+               leaf association \(\llmap : \tleavs(T) \onto \tleavs(S)\);
+               costs \(\cost : \recmodel \onto \realpos\).}
+    \proboutput{Minimum cost of a reconciliation of \(T\) with \(S\) under the model \(\recmodel\) and the costs \(\cost\).}
 \end{problem}
 
-Même si les phylogénies \(T\) et \(S\) étudiées sont exemptes d’erreurs, les réconciliations les plus parcimonieuses ne correspondent pas nécessairement à des histoires complètes ou exactes des unités concernées, puisque l’évolution emprunte rarement le chemin le plus court.
-En revanche, cette méthode a l’avantage de sélectionner des réconciliations qui permettent d’expliquer les données observées en demandant le moins d’hypothèses supplémentaires.
+Even if the phylogenies \(T\) and \(S\) under study are free of errors, the most parsimonious reconciliations do not necessarily correspond to complete or exact histories of the units concerned, since evolution rarely takes the shortest path.
+On the other hand, this method has the advantage of selecting reconciliations that explain the observed data while requiring the fewest additional assumptions.
 
 \begin{figure}[htb]
     \capstart
     \centering
     \input{fig/reconciliation/bilateral/rec-trees}
-    \caption[Deux exemples d’arbres réconciliés]{
-        Arbres réconciliés pour les réconciliations \(\rec_1\) et \(\rec_3\) (issues des \cref{fig:reconciliation:strict-rec,fig:reconciliation:free-rec}) sous les modèles duplication-perte~(\(\recmodelDL\)) et duplication-transfert-perte~(\(\recmodelDTL\)) respectivement.
-        Chaque arbre est superposé sur la trame de la phylogénie des hôtes de sorte à refléter l’association des sommets indiquée par la réconciliation.
-        Chaque cercle~{\showspeciation} représente un événement de codivergence~(\(\evtS\)),
-        chaque carré~{\showduplication} une duplication~(\(\evtD\)),
-        chaque losange~{\showtransfer} un transfert~(\(\evtT\)),
-        et chaque demi-cercle ouvert vers le haut~{\showloss} une perte~(\(\evtL\)).
+    \caption[Two examples of reconciled trees]{
+        Reconciled trees for the reconciliations \(\rec_1\) and \(\rec_3\) (from \cref{fig:reconciliation:strict-rec,fig:reconciliation:free-rec}) under the duplication-loss~(\(\recmodelDL\)) and duplication-transfer-loss~(\(\recmodelDTL\)) models respectively.
+        Each tree is overlaid on the outline of the host phylogeny so as to reflect the association of nodes given by the reconciliation.
+        Each circle~{\showspeciation} represents a codivergence event~(\(\evtS\)),
+        each square~{\showduplication} a duplication~(\(\evtD\)),
+        each diamond~{\showtransfer} a transfer~(\(\evtT\)),
+        and each upward-opening half-circle~{\showloss} a loss~(\(\evtL\)).
     }
     \label{fig:reconciliation:rec-trees}
 \end{figure}
 
-\paragraph{Duplication et perte~\textup{\parencite{Goodman1979FittingGeneLineage,Page1994MapsTreesCladistic}}}
-Ce modèle comporte trois types d’événements, \(\recmodelDL = \{\evtD, \evtL, \evtS\}\).
-La divergence d’une unité s’explique par sa duplication~(\(\evtD\)) ou sa cospéciation avec son hôte~(\(\evtS\)), et l’absence d’une unité dans un hôte descendant s’explique par une perte~(\(\evtL\)).
-Chaque sommet \(v \in \tnodes(\rectree)\) d’un arbre réconcilié sous ce modèle est tel que:
+\paragraph{Duplication and loss~\textup{\parencite{Goodman1979FittingGeneLineage,Page1994MapsTreesCladistic}}}
+This model comprises three event types, \(\recmodelDL = \{\evtD, \evtL, \evtS\}\).
+The divergence of a unit is explained by its duplication~(\(\evtD\)) or its cospeciation with its host~(\(\evtS\)), and the absence of a unit in a descendant host is explained by a loss~(\(\evtL\)).
+Each node \(v \in \tnodes(\rectree)\) of a reconciled tree under this model is such that:
 \begin{compactitemize}
-\item si \(\evt(v) = \evtD\), alors \(v\) est un embranchement et \(\exrec(v) = \exrec(v\lchild) = \exrec(v\rchild)\);
-    \item si \(\evt(v) = \evtL\), alors \(v\) est une feuille;
-    \item si \(\evt(v) = \evtS\), alors \(v\) et \(\exrec(v)\) sont des embranchements et \(\{\exrec(v\lchild), \exrec(v\rchild)\} = \{\exrec(v)\lchild, \exrec(v)\rchild\}\).
+\item if \(\evt(v) = \evtD\), then \(v\) is an internal node and \(\exrec(v) = \exrec(v\lchild) = \exrec(v\rchild)\);
+    \item if \(\evt(v) = \evtL\), then \(v\) is a leaf;
+    \item if \(\evt(v) = \evtS\), then \(v\) and \(\exrec(v)\) are internal nodes and \(\{\exrec(v\lchild), \exrec(v\rchild)\} = \{\exrec(v)\lchild, \exrec(v)\rchild\}\).
 \end{compactitemize}
-Les événements de perte introduisent des feuilles supplémentaires dans l’arbre réconcilié par rapport à l’arbre des unités.
-Ils permettent d’interpréter les situations où les deux extrémités d’une branche sont associées à deux hôtes non adjacents, en insérant dans cette branche une séquence de spéciations et de pertes.
-La \cref{fig:reconciliation:rec-trees} présente un exemple d’interprétation d’une réconciliation sous le modèle \(\recmodelDL\) dans lequel une telle séquence de pertes est utilisée.
+Loss events introduce additional leaves into the reconciled tree compared to the tree of units.
+They make it possible to interpret situations where the two endpoints of a branch are associated with two non-adjacent hosts, by inserting a sequence of speciations and losses into this branch.
+\Cref{fig:reconciliation:rec-trees} presents an example of an interpretation of a reconciliation under the \(\recmodelDL\) model in which such a sequence of losses is used.
 
-Les fonctions de coût considérées pour ce modèle fixent habituellement \(\cost(\evtS) = 0\).
-Par conséquent, rechercher les réconciliations de coût minimal correspond à maximiser le nombre de codivergences entre \(T\) et \(S\).
-Ce choix est motivé par le fait que chaque événement~\(\evtS\) s’appuie sur la spéciation d’un hôte, un événement déjà postulé par l’arbre \(S\) donné en entrée.
+The cost functions considered for this model usually set \(\cost(\evtS) = 0\).
+Consequently, searching for minimum-cost reconciliations amounts to maximizing the number of codivergences between \(T\) and \(S\).
+This choice is motivated by the fact that each \(\evtS\)~event relies on the speciation of a host, an event already postulated by the tree \(S\) given as input.
 
-\paragraph{Changement d’hôte~\textup{\parencite{Tofigh2011SimultaneousIdentificationDuplications,Ranwez2016InferringGeneDuplications}}}
-Le modèle \(\recmodelDTL = \{\evtD, \evtT, \evtL, \evtS\}\) étend le modèle \(\recmodelDL\) pour y intégrer la possibilité de changements d’hôte et ainsi permettre d’interpréter des réconciliations libres.
-En plus des trois types d’événements définis précédemment, pour un embranchement \(v \in \tinner(\rectree)\) sous ce modèle, si \(\evt(v) = \evtT\), alors \(\exrec(v) = \exrec(v\lchild)\) et \(\exrec(v) \nottcomp \exrec(v\rchild)\), ou bien \(\exrec(v) = \exrec(v\rchild)\) et \(\exrec(v) \nottcomp \exrec(v\lchild)\).
-Un exemple d’interprétation d’une réconciliation sous le modèle \(\recmodelDTL\) est donné dans la \cref{fig:reconciliation:rec-trees}.
+\paragraph{Host switch~\textup{\parencite{Tofigh2011SimultaneousIdentificationDuplications,Ranwez2016InferringGeneDuplications}}}
+The model \(\recmodelDTL = \{\evtD, \evtT, \evtL, \evtS\}\) extends the \(\recmodelDL\) model to integrate the possibility of host switches and thus allow free reconciliations to be interpreted.
+In addition to the three event types defined previously, for an internal node \(v \in \tinner(\rectree)\) under this model, if \(\evt(v) = \evtT\), then \(\exrec(v) = \exrec(v\lchild)\) and \(\exrec(v) \nottcomp \exrec(v\rchild)\), or else \(\exrec(v) = \exrec(v\rchild)\) and \(\exrec(v) \nottcomp \exrec(v\lchild)\).
+An example of an interpretation of a reconciliation under the \(\recmodelDTL\) model is given in \cref{fig:reconciliation:rec-trees}.
 
-Dans ce modèle, un changement d’hôte peut être suivi immédiatement d’une perte en ne laissant ainsi aucune trace dans l’hôte original.
-Cette observation, initialement ignorée dans le travail de \textcite{Tofigh2011SimultaneousIdentificationDuplications}, peut mener à la construction d’interprétations significativement différentes \parencite{Ranwez2016InferringGeneDuplications}.
-Elle permet également d’interpréter les réconciliations contenant des sommets dont les deux enfants sont associés à des hôtes séparés de leur parent.
-Cependant, sa prise en compte engendre une augmentation du nombre de solutions cooptimales dans le problème d’optimisation associé~\parencite{Weiner2021ImprovedDuplicationTransfer}.
+In this model, a host switch can be immediately followed by a loss, thus leaving no trace in the original host.
+This observation, initially ignored in the work of \textcite{Tofigh2011SimultaneousIdentificationDuplications}, can lead to the construction of significantly different interpretations \parencite{Ranwez2016InferringGeneDuplications}.
+It also makes it possible to interpret reconciliations containing nodes whose two children are associated with hosts separated from that of their parent.
+However, taking it into account leads to an increase in the number of co-optimal solutions in the associated optimization problem~\parencite{Weiner2021ImprovedDuplicationTransfer}.
 
-\paragraph{Hôtes non échantillonnés~\textup{\parencite{Szoelloesi2013LateralGeneTransfer,Weiner2021ImprovedDuplicationTransfer}}}
-La phylogénie \(S\) est nécessairement incomplète puisqu’elle ne renseigne que sur les hôtes des unités de~\(T\).
-Les embranchements ne menant qu’à des hôtes absents de cet échantillon sont donc manquants.
-Dans le contexte de réconciliations libres, il est possible qu’une unité évolue dans une partie de la phylogénie située hors de l’échantillon pour être par la suite transférée vers un hôte échantillonné.
-Afin de représenter cette possibilité, le modèle \(\recmodelDTLx\) adjoint un événement supplémentaire, noté \(\evtTX\), au modèle \(\recmodelDTL\).
-Pour un embranchement \(v \in \tinner(\rectree)\) sous ce modèle, si \(\evt(v) = \evtTX\), alors \(\exrec(v) = \exrec(v\lchild)\) et \(\exrec(v) \tancs \exrec(v\rchild)\), ou bien \(\exrec(v) = \exrec(v\rchild)\) et \(\exrec(v) \tancs \exrec(v\lchild)\).
-Cet événement offre une alternative à l’insertion de séquences de pertes pour interpréter une branche de réconciliation dont les deux extrémités sont associées à des hôtes non adjacents.
-Cela peut fournir une interprétation plus parcimonieuse à certaines réconciliations, comme illustré en~\cref{fig:reconciliation:rec-dtlx}.
+\paragraph{Unsampled hosts~\textup{\parencite{Szoelloesi2013LateralGeneTransfer,Weiner2021ImprovedDuplicationTransfer}}}
+The phylogeny \(S\) is necessarily incomplete since it only gives information about the hosts of the units of~\(T\).
+The internal nodes leading only to hosts absent from this sample are therefore missing.
+In the context of free reconciliations, it is possible for a unit to evolve in a part of the phylogeny located outside the sample before later being transferred to a sampled host.
+To represent this possibility, the \(\recmodelDTLx\) model adds an additional event, denoted \(\evtTX\), to the \(\recmodelDTL\) model.
+For an internal node \(v \in \tinner(\rectree)\) under this model, if \(\evt(v) = \evtTX\), then \(\exrec(v) = \exrec(v\lchild)\) and \(\exrec(v) \tancs \exrec(v\rchild)\), or else \(\exrec(v) = \exrec(v\rchild)\) and \(\exrec(v) \tancs \exrec(v\lchild)\).
+This event offers an alternative to inserting sequences of losses to interpret a reconciliation branch whose two endpoints are associated with non-adjacent hosts.
+This can provide a more parsimonious interpretation for some reconciliations, as illustrated in~\cref{fig:reconciliation:rec-dtlx}.
 
 \begin{figure}[htb]
     \capstart
     \centering
     \input{fig/reconciliation/bilateral/rec-dtlx}
-    \caption[Interprétations alternatives de la même réconciliation sous deux modèles]{
-        Deux interprétations alternatives de la même réconciliation sous les modèles \(\recmodelDL\) et \(\recmodelDTLx\).
-        Dans l’arbre réconcilié de droite, l’événement à la racine est un événement \(\evtTX\) qui est représenté comme une spéciation suivie d’un transfert dans une hypothétique branche non échantillonnée (hachurée) de la phylogénie des hôtes.
+    \caption[Alternative interpretations of the same reconciliation under two models]{
+        Two alternative interpretations of the same reconciliation under the \(\recmodelDL\) and \(\recmodelDTLx\) models.
+        In the reconciled tree on the right, the event at the root is a \(\evtTX\) event, which is represented as a speciation followed by a transfer inside a hypothetical unsampled (hatched) branch of the host phylogeny.
     }
     \label{fig:reconciliation:rec-dtlx}
 \end{figure}
 
-\paragraph{Autres modèles}
-Des extensions de la réconciliation pour prendre en compte le \emph{tri incomplet de lignées}~(ILS) ont été proposées par \textcite{Rasmussen2012UnifiedModelingGene,Wu2013MostParsimoniousReconciliation,Chan2017InferringIncompleteLineage}.
-Ce phénomène se produit lorsque des spéciations rapprochées dans le temps font que les espèces émergentes héritent de sous-ensembles d’unités distincts.
-Comme alternative aux modèles de type \(\recmodelDL\), \textcite{Goodman1979FittingGeneLineage} ont proposé un modèle intégrant la possibilité pour un gène d’être activé ou désactivé par un mécanisme de régulation, ce qui permet de limiter l’inférence de pertes superflues.
-Enfin, la datation de la phylogénie des hôtes, imposant une contrainte supplémentaire sur les changements d’hôtes, peut être intégrée aux modèles autorisant ce type d’événement~\parencite{Tofigh2011SimultaneousIdentificationDuplications}.
+\paragraph{Other models}
+Extensions of reconciliation to take \emph{incomplete lineage sorting}~(ILS) into account have been proposed by \textcite{Rasmussen2012UnifiedModelingGene,Wu2013MostParsimoniousReconciliation,Chan2017InferringIncompleteLineage}.
+This phenomenon occurs when speciations that are close in time cause the emerging species to inherit distinct subsets of units.
+As an alternative to \(\recmodelDL\)-type models, \textcite{Goodman1979FittingGeneLineage} proposed a model integrating the possibility for a gene to be activated or deactivated by a regulatory mechanism, which makes it possible to limit the inference of superfluous losses.
+Finally, the dating of the host phylogeny, which imposes an additional constraint on host switches, can be integrated into the models allowing this type of event~\parencite{Tofigh2011SimultaneousIdentificationDuplications}.
 
-\subsection{Cohérence temporelle}
+\subsection{Time consistency}
 
-Les changements d’hôtes impliquent des contraintes temporelles, puisque l’hôte donneur et l’hôte receveur de chaque changement doivent avoir pu coexister pour que l’événement se produise.
-Ainsi, pour qu’un arbre réconcilié représente un scénario évolutif réaliste, celui-ci doit respecter les contraintes suivantes, imposées par la topologie de l’arbre des hôtes et par les événements du modèle de réconciliation
+Host switches imply temporal constraints, since the donor host and the recipient host of each switch must have been able to coexist for the event to occur.
+Thus, for a reconciled tree to represent a realistic evolutionary scenario, it must satisfy the following constraints, imposed by the topology of the host tree and by the events of the reconciliation model
 \parencite{Stolzer2012InferringDuplicationsLosses,Ma2017DTLReconciliationRepair}.
 
-\begin{definition}[Cohérence temporelle d’un arbre réconcilié]\label{def:reconciliation:time-cons}
-    Un arbre réconcilié \(\rectree(\rec)\) est dit \emph{temporellement cohérent} s’il existe un préordre \(\succeq_\tau\) sur \(\tnodes(\rectree) \cup \tnodes(S)\) tel que:
+\begin{definition}[Time consistency of a reconciled tree]\label{def:reconciliation:time-cons}
+    A reconciled tree \(\rectree(\rec)\) is said to be \emph{time-consistent} if there exists a preorder \(\succeq_\tau\) on \(\tnodes(\rectree) \cup \tnodes(S)\) such that:
     \begin{condition}
-        \item \(s \succ_\tau s\child\) pour chaque branche \((s, s\child) \in \tedges(S)\); \label{def:reconciliation:time-cons:hosts}
-        \item \(v \succeq_\tau v\child\) pour chaque branche \((v, v\child) \in \tedges(\rectree)\); \label{def:reconciliation:time-cons:events}
-        \item \(\tparent(\exrec(v)) \succ_\tau v \succeq_\tau \exrec(v)\) pour chaque sommet \(v \in \tnodes(\rectree)\) tel que \(\exrec(v) \neq \troot(S)\), sinon \(v \succeq_\tau \exrec(v)\); \label{def:reconciliation:time-cons:events-hosts}
-        \item \(v \succeq_\tau v\child\) et \(v\child \succeq_\tau v\) pour chaque branche \((v, v\child) \in \tedges(\rectree)\) telle que \(\exrec(v) \nottcomp \exrec(v\child)\). \label{def:reconciliation:time-cons:host-switch} \qedhere
+        \item \(s \succ_\tau s\child\) for each branch \((s, s\child) \in \tedges(S)\); \label{def:reconciliation:time-cons:hosts}
+        \item \(v \succeq_\tau v\child\) for each branch \((v, v\child) \in \tedges(\rectree)\); \label{def:reconciliation:time-cons:events}
+        \item \(\tparent(\exrec(v)) \succ_\tau v \succeq_\tau \exrec(v)\) for each node \(v \in \tnodes(\rectree)\) such that \(\exrec(v) \neq \troot(S)\), otherwise \(v \succeq_\tau \exrec(v)\); \label{def:reconciliation:time-cons:events-hosts}
+        \item \(v \succeq_\tau v\child\) and \(v\child \succeq_\tau v\) for each branch \((v, v\child) \in \tedges(\rectree)\) such that \(\exrec(v) \nottcomp \exrec(v\child)\). \label{def:reconciliation:time-cons:host-switch} \qedhere
     \end{condition}
 \end{definition}
 
-Intuitivement, un arbre réconcilié est temporellement cohérent s’il est possible d’en construire un diagramme similaire à ceux des \cref{fig:reconciliation:rec-trees,fig:reconciliation:rec-dtlx}.
-Dans une telle représentation, toutes les branches sont orientées selon un même axe temporel (\cref{def:reconciliation:time-cons:hosts,def:reconciliation:time-cons:events}).
-Chaque codivergence se superpose au sommet de l’arbre de l’hôte correspondant et chaque divergence se place le long de la branche correspondante (\cref{def:reconciliation:time-cons:events-hosts}).
-Finalement, les branches de changement d’hôte sont représentées de manière orthogonale à l’axe temporel (\cref{def:reconciliation:time-cons:host-switch}).
+Intuitively, a reconciled tree is time-consistent if it is possible to draw a diagram of it similar to those of \cref{fig:reconciliation:rec-trees,fig:reconciliation:rec-dtlx}.
+In such a representation, all branches are oriented along the same time axis (\cref{def:reconciliation:time-cons:hosts,def:reconciliation:time-cons:events}).
+Each codivergence is overlaid on the node of the corresponding host tree and each divergence is placed along the corresponding branch (\cref{def:reconciliation:time-cons:events-hosts}).
+Finally, host-switch branches are drawn orthogonally to the time axis (\cref{def:reconciliation:time-cons:host-switch}).
 
 \begin{figure}[htb]
     \capstart
     \centering
     \input{fig/reconciliation/bilateral/time}
-    \caption[Exemples d’incohérences temporelles]{
-        Exemples d’incohérences temporelles.
-        \emph{(Gauche.)}
-        Deux interprétations alternatives de la même réconciliation sous le modèle~\(\recmodelDTL\).
-        L’interprétation à gauche est temporellement incohérente alors que celle à droite est cohérente.
-        Ces diagrammes sont générés par le logiciel \emph{superrec2}, présenté à la \cref{sec:logiciel:superrec2}, qui détecte automatiquement si un arbre réconcilié est temporellement cohérent.
-        \emph{(Droite.)}
-        Une réconciliation pour laquelle il n’existe aucune interprétation temporellement cohérente.
+    \caption[Examples of time inconsistencies]{
+        Examples of time inconsistencies.
+        \emph{(Left.)}
+        Two alternative interpretations of the same reconciliation under the~\(\recmodelDTL\) model.
+        The interpretation on the left is time-inconsistent whereas the one on the right is consistent.
+        These diagrams are generated by the \emph{superrec2} software, presented in \cref{sec:logiciel:superrec2}, which automatically detects whether a reconciled tree is time-consistent.
+        \emph{(Right.)}
+        A reconciliation for which there exists no time-consistent interpretation.
     }
     \label{fig:reconciliation:time-cons}
 \end{figure}
 
-L’algorithme de \textsc{Bellman--Ford} permet de vérifier si un certain arbre réconcilié satisfait les conditions de la \cref{def:reconciliation:time-cons} en temps \(\bigo((|\tnodes(\rectree)| + |\tnodes(S)|)^2)\)~\parencite[section~22.4]{Cormen2022IntroductionAlgorithms}.
-Lorsque les conditions sont satisfaites, cet algorithme permet, en outre, d’obtenir un ordre total minimal satisfaisant les contraintes et ainsi d’aider à la construction d’un diagramme de l’arbre.
+The \textsc{Bellman--Ford} algorithm makes it possible to check whether a given reconciled tree satisfies the conditions of \cref{def:reconciliation:time-cons} in \(\bigo((|\tnodes(\rectree)| + |\tnodes(S)|)^2)\) time~\parencite[section~22.4]{Cormen2022IntroductionAlgorithms}.
+When the conditions are satisfied, this algorithm furthermore makes it possible to obtain a minimal total order satisfying the constraints and thus to help draw a diagram of the tree.
 
-Une réconciliation \(\rec\) est dite \emph{acyclique} dans un modèle \(\recmodel\) s’il existe un arbre réconcilié \(\rectree_{\!\recmodel}(\rec)\) temporellement cohérent.
-Par exemple, la réconciliation \(\rec_3\) de la \cref{fig:reconciliation:free-rec} est acyclique en raison de l’interprétation donnée dans la \cref{fig:reconciliation:rec-trees}.
-Certaines réconciliations acycliques, comme celle à gauche de la \cref{fig:reconciliation:time-cons}, ont à la fois des interprétations cohérentes et d’autres incohérentes.
+A reconciliation \(\rec\) is said to be \emph{acyclic} in a model \(\recmodel\) if there exists a time-consistent reconciled tree \(\rectree_{\!\recmodel}(\rec)\).
+For example, the reconciliation \(\rec_3\) of \cref{fig:reconciliation:free-rec} is acyclic because of the interpretation given in \cref{fig:reconciliation:rec-trees}.
+Some acyclic reconciliations, such as the one on the left of \cref{fig:reconciliation:time-cons}, have both consistent and inconsistent interpretations.
 
-Le lemme suivant, adapté de \textcite[théorème 1]{Tofigh2009InferringDuplicationsLateral}, permet de vérifier si une réconciliation est acyclique dans le modèle \(\recmodelDTL\) sans énumérer toutes ses interprétations.
+The following lemma, adapted from \textcite[theorem 1]{Tofigh2009InferringDuplicationsLateral}, makes it possible to check whether a reconciliation is acyclic in the \(\recmodelDTL\) model without enumerating all of its interpretations.
 
-\begin{lemma}[Acyclicité d’une réconciliation]\label{lem:reconciliation:rec-cons}
-    Une réconciliation \(\rec\) est acyclique dans le modèle \(\recmodelDTL\) si et seulement s’il existe un préordre \(\succeq_\sigma\) sur \(\tnodes(S)\) tel que:
+\begin{lemma}[Acyclicity of a reconciliation]\label{lem:reconciliation:rec-cons}
+    A reconciliation \(\rec\) is acyclic in the \(\recmodelDTL\) model if and only if there exists a preorder \(\succeq_\sigma\) on \(\tnodes(S)\) such that:
     \begin{condition}
-        \item \(s \succ_\sigma s\child\) pour chaque branche \((s, s\child) \in \tedges(S)\); \label{lem:reconciliation:rec-cons:hosts}
-        \item \(\tparent(\rec(v)) \succ_\sigma \rec(v'\child)\) pour toutes branches \((v, v\child), (v', v'\child) \in \tedges(T)\) avec \(v_c \tancs v_c'\) et \(\rec(v) \neq \troot(S)\).
+        \item \(s \succ_\sigma s\child\) for each branch \((s, s\child) \in \tedges(S)\); \label{lem:reconciliation:rec-cons:hosts}
+        \item \(\tparent(\rec(v)) \succ_\sigma \rec(v'\child)\) for all branches \((v, v\child), (v', v'\child) \in \tedges(T)\) with \(v_c \tancs v_c'\) and \(\rec(v) \neq \troot(S)\).
             \label{lem:reconciliation:rec-cons:host-switch}
     \end{condition}
 \end{lemma}
 \begin{proof}
-    Supposons qu’il existe une interprétation de \(\rec\) avec un préordre \(\succeq_\tau\) satisfaisant les conditions de la \cref{def:reconciliation:time-cons}.
-    Remarquons que la \cref{def:reconciliation:time-cons:hosts} de la définition est identique à la \cref{lem:reconciliation:rec-cons:hosts} du lemme qui est ainsi trivialement satisfaite.
-    Par ailleurs, soient \((v, v\child), (v', v'\child) \in \tedges(T)\) deux branches telles que \(v\child \tancs v'\child\) et \(\rec(v) \neq \troot(S)\).
-    Par les \cref{def:reconciliation:time-cons:events,def:reconciliation:time-cons:events-hosts} de la définition, \(\tparent(\rec(v)) = \tparent(\exrec(v)) \succ_\tau v \succeq_\tau v\child\) et \(v'\child \succeq_\tau \exrec(v'\child) = \rec(v'\child)\) et donc \(\tparent(\rec(v)) \succ_\tau \rec(v'\child)\).
-    Ainsi, la restriction de~\(\succeq_\tau\) aux sommets de \(S\) donne un préordre satisfaisant les conditions du lemme.
+    Suppose that there exists an interpretation of \(\rec\) with a preorder \(\succeq_\tau\) satisfying the conditions of \cref{def:reconciliation:time-cons}.
+    Observe that \cref{def:reconciliation:time-cons:hosts} of the definition is identical to \cref{lem:reconciliation:rec-cons:hosts} of the lemma, which is thus trivially satisfied.
+    Moreover, let \((v, v\child), (v', v'\child) \in \tedges(T)\) be two branches such that \(v\child \tancs v'\child\) and \(\rec(v) \neq \troot(S)\).
+    By \cref{def:reconciliation:time-cons:events,def:reconciliation:time-cons:events-hosts} of the definition, \(\tparent(\rec(v)) = \tparent(\exrec(v)) \succ_\tau v \succeq_\tau v\child\) and \(v'\child \succeq_\tau \exrec(v'\child) = \rec(v'\child)\) and therefore \(\tparent(\rec(v)) \succ_\tau \rec(v'\child)\).
+    Thus, the restriction of~\(\succeq_\tau\) to the nodes of \(S\) gives a preorder satisfying the conditions of the lemma.
 
-    Inversement, supposons qu’il existe un préordre \(\succeq_\sigma\) satisfaisant les conditions du lemme et prenons-en une extension linéaire \(\succeq_\sigma'\).
-    Nous construisons une interprétation \(\exrec\) de \(\rec\), pas nécessairement parcimonieuse, associée à un ordre total \(\succeq_\tau\) complétant \(\succeq_\sigma'\) et satisfaisant la \cref{def:reconciliation:time-cons}.
+    Conversely, suppose that there exists a preorder \(\succeq_\sigma\) satisfying the conditions of the lemma and take a linear extension \(\succeq_\sigma'\) of it.
+    We construct an interpretation \(\exrec\) of \(\rec\), not necessarily parsimonious, associated with a total order \(\succeq_\tau\) that completes \(\succeq_\sigma'\) and satisfies \cref{def:reconciliation:time-cons}.
 
-    En suivant un ordre préfixe sur \(T\), pour chaque branche de changement d’hôte \((v, v\child) \in \tedges(T)\) telle que \(\rec(v) \nottcomp \rec(v\child)\), intéressons nous à l’intervalle de temps dans lequel ce changement peut se produire.
-    Cet intervalle est délimité par \(b(v\child)\) et \(a(v\child)\) définis tels que
+    Following a prefix order on \(T\), for each host-switch branch \((v, v\child) \in \tedges(T)\) such that \(\rec(v) \nottcomp \rec(v\child)\), let us consider the time interval in which this switch can occur.
+    This interval is bounded by \(b(v\child)\) and \(a(v\child)\), defined as
     \begin{align*}
-        b(v\child) &= \min_{\succeq_\tau}\left(\{v' \mid v'\child \tancsneq v\child \text{ et } \exrec(v') \nottcomp \exrec(v'\child)\} \cup \{\tparent(\exrec(v))\}\right) \\
-        a(v\child) &= \max_{\succeq_\tau}\left(\{\exrec(v'\child) \mid v\child \tancs v'\child \text{ et } \exrec(v') \nottcomp \exrec(v'\child)\} \cup \{\exrec(v)\}\right).
+        b(v\child) &= \min_{\succeq_\tau}\left(\{v' \mid v'\child \tancsneq v\child \text{ and } \exrec(v') \nottcomp \exrec(v'\child)\} \cup \{\tparent(\exrec(v))\}\right) \\
+        a(v\child) &= \max_{\succeq_\tau}\left(\{\exrec(v'\child) \mid v\child \tancs v'\child \text{ and } \exrec(v') \nottcomp \exrec(v'\child)\} \cup \{\exrec(v)\}\right).
     \end{align*}
-    Notons à présent que \(b(v\child) \succ_\tau a(v\child)\).
-    Soient \((v^b, v^b\child) \in \tedges(T)\) et \((v^a, v^a\child) \in \tedges(T)\) deux branches telles que \(v^b\child \tancsneq v\child\), \(v\child \tancs v^a\child\), \(\exrec(v^b) \nottcomp \exrec(v^b\child)\), et \(\exrec(v^a) \nottcomp \exrec(v^a\child)\).
-    Remarquons que \(a(v^b\child) \succeq_\tau a(v\child)\), d’une part car \(v^b\child \tancsneq v\child \tancs v'\child\), d’autre part car \(\exrec(v''\child) \succeq_\tau \exrec(v)\), où \((v'', v''\child)\) est la branche de changement d’hôte la plus récente avant \((v, v\child)\).
-    Or, inductivement, nous pouvons supposer que \(v^b\) a~été placé de sorte que \(v^b \succ_\tau a(v^b\child) \succeq_\tau a(v\child)\).
-    Par la \cref{lem:reconciliation:rec-cons:host-switch} du lemme, \(\tparent(\exrec(v)) \succ_\tau \exrec(v^a\child)\).
-    Enfin, \(\tparent(\exrec(v)) \succ_\tau \exrec(v)\) par la \cref{lem:reconciliation:rec-cons:hosts} du lemme.
+    Now note that \(b(v\child) \succ_\tau a(v\child)\).
+    Let \((v^b, v^b\child) \in \tedges(T)\) and \((v^a, v^a\child) \in \tedges(T)\) be two branches such that \(v^b\child \tancsneq v\child\), \(v\child \tancs v^a\child\), \(\exrec(v^b) \nottcomp \exrec(v^b\child)\), and \(\exrec(v^a) \nottcomp \exrec(v^a\child)\).
+    Observe that \(a(v^b\child) \succeq_\tau a(v\child)\), on the one hand because \(v^b\child \tancsneq v\child \tancs v'\child\), and on the other hand because \(\exrec(v''\child) \succeq_\tau \exrec(v)\), where \((v'', v''\child)\) is the most recent host-switch branch before \((v, v\child)\).
+    Now, inductively, we can assume that \(v^b\) has~been placed such that \(v^b \succ_\tau a(v^b\child) \succeq_\tau a(v\child)\).
+    By \cref{lem:reconciliation:rec-cons:host-switch} of the lemma, \(\tparent(\exrec(v)) \succ_\tau \exrec(v^a\child)\).
+    Finally, \(\tparent(\exrec(v)) \succ_\tau \exrec(v)\) by \cref{lem:reconciliation:rec-cons:hosts} of the lemma.
 
-    Pour interpréter la branche de changement d’hôte \((v, v\child)\), 
-    celle-ci est subdivisée en insérant deux sommets intermédiaires consécutifs \(v_0\) et \(v_1\).
-    Le sommet \(v_0\) est marqué comme un événement de transfert associé à l’hôte \(\exrec(v_0) = \rec(v)\), menant d’une part à une perte et d’autre part au sommet~\(v_1\) résultant du transfert.
-    L’intervalle non vide entre \(b(v\child)\) et \(a(v\child)\) permet de dater ces sommets de sorte que \(b(v\child) \succ_\tau v_0 =_\tau v_1 \succ_\tau a(v\child)\).
-    Ce choix permet de satisfaire inductivement la \cref{def:reconciliation:time-cons:events} puisque \(v^b \succeq_\tau b(v\child) \succ_\tau v_0 =_\tau v_1\).
-    La \cref{def:reconciliation:time-cons:events-hosts} de la définition est satisfaite pour~\(v_0\) car \(\tparent(\exrec(v)) \succeq_\tau b(v\child) \succ_\tau v_0 \succ_\tau a(v\child) \succeq_\tau \exrec(v)\).
-    Enfin, \(\lca\{\exrec(v), \exrec(v\child)\} \succeq_\tau \tparent(\exrec(v)) \succeq_\tau b(v\child)\), donc il existe un hôte \(t\) tel que \(\lca\{\exrec(v), \exrec(v\child)\} \tancsneq t \tancs \exrec(v\child)\) et \(\tparent(t) \succ_\tau v_1 \succeq_\tau t\).
-    Le sommet \(v_1\) est alors associé à un tel hôte \(t\), permettant de satisfaire la \cref{def:reconciliation:time-cons:events-hosts} de la définition pour~\(v_1\).
+    To interpret the host-switch branch \((v, v\child)\),
+    it is subdivided by inserting two consecutive intermediate nodes \(v_0\) and \(v_1\).
+    The node \(v_0\) is marked as a transfer event associated with the host \(\exrec(v_0) = \rec(v)\), leading on the one hand to a loss and on the other hand to the node~\(v_1\) resulting from the transfer.
+    The non-empty interval between \(b(v\child)\) and \(a(v\child)\) makes it possible to date these nodes such that \(b(v\child) \succ_\tau v_0 =_\tau v_1 \succ_\tau a(v\child)\).
+    This choice inductively satisfies \cref{def:reconciliation:time-cons:events} since \(v^b \succeq_\tau b(v\child) \succ_\tau v_0 =_\tau v_1\).
+    \Cref{def:reconciliation:time-cons:events-hosts} of the definition is satisfied for~\(v_0\) since \(\tparent(\exrec(v)) \succeq_\tau b(v\child) \succ_\tau v_0 \succ_\tau a(v\child) \succeq_\tau \exrec(v)\).
+    Finally, \(\lca\{\exrec(v), \exrec(v\child)\} \succeq_\tau \tparent(\exrec(v)) \succeq_\tau b(v\child)\), so there exists a host \(t\) such that \(\lca\{\exrec(v), \exrec(v\child)\} \tancsneq t \tancs \exrec(v\child)\) and \(\tparent(t) \succ_\tau v_1 \succeq_\tau t\).
+    The node \(v_1\) is then associated with such a host \(t\), which satisfies \cref{def:reconciliation:time-cons:events-hosts} of the definition for~\(v_1\).
 
-    Finalement, les autres sommets \(v \in \tinner(T)\) sont marqués comme des duplications et les branches \((v, v\child)\) telles que \(\exrec(v) \tancsneq \exrec(v\child)\) sont subdivisées en insérant suffisamment de spéciations et de pertes et en choisissant des dates convenables.
+    Finally, the other nodes \(v \in \tinner(T)\) are marked as duplications and the branches \((v, v\child)\) such that \(\exrec(v) \tancsneq \exrec(v\child)\) are subdivided by inserting enough speciations and losses and by choosing suitable dates.
 \end{proof}
 
-Par exemple, dans la réconciliation \(\rec_5\) de la \cref{fig:reconciliation:time-cons}, une première branche de transfert de l’hôte~2 à l’hôte~3 est suivie par un autre transfert de l’hôte~3 à l’hôte~\(\beta\).
-Ces deux transferts, pour satisfaire la \cref{lem:reconciliation:rec-cons:host-switch} du lemme précédent, demandent que \(\beta >_\sigma \beta\), ainsi il n’existe aucune interprétation de \(\rec_5\) qui soit temporellement cohérente.
+For example, in the reconciliation \(\rec_5\) of \cref{fig:reconciliation:time-cons}, a first transfer branch from host~2 to host~3 is followed by another transfer from host~3 to host~\(\beta\).
+These two transfers, in order to satisfy \cref{lem:reconciliation:rec-cons:host-switch} of the previous lemma, require that \(\beta >_\sigma \beta\), so there exists no interpretation of \(\rec_5\) that is time-consistent.
 
-Une réconciliation peut toutefois être cyclique sans pour autant contenir deux transferts suivis l’un de l’autre.
-Par exemple, pour la réconciliation \(\rec_4\) de la \cref{fig:reconciliation:free-rec}, la branche de transfert de l’hôte~4 vers l’hôte~\(\beta\) demande que \(\gamma \succ_\sigma \beta\) alors que celle de l’hôte~1 vers l’hôte~\(\gamma\) demande que \(\beta \succ_\sigma \gamma\).
-Ainsi, la réconciliation \(\rec_4\) est également cyclique par le lemme précédent.
+A reconciliation can, however, be cyclic without containing two transfers following one another.
+For example, for the reconciliation \(\rec_4\) of \cref{fig:reconciliation:free-rec}, the transfer branch from host~4 to host~\(\beta\) requires that \(\gamma \succ_\sigma \beta\) whereas the one from host~1 to host~\(\gamma\) requires that \(\beta \succ_\sigma \gamma\).
+Thus, the reconciliation \(\rec_4\) is also cyclic by the previous lemma.
 
-Une version plus faible de la \cref{lem:reconciliation:rec-cons:host-switch} qui ne considérait pas les paires de transferts suivis l’un de l’autre a été initialement énoncée par \textcite{Charleston1998JunglesNewSolution}.
-Comme démontré par \textcite{Tofigh2009InferringDuplicationsLateral}, cette condition est incomplète, en particulier parce qu’elle n’identifie pas la réconciliation \(\rec_5\) comme étant cyclique.
+A weaker version of \cref{lem:reconciliation:rec-cons:host-switch}, which did not consider pairs of transfers following one another, was initially stated by \textcite{Charleston1998JunglesNewSolution}.
+As shown by \textcite{Tofigh2009InferringDuplicationsLateral}, this condition is incomplete, in particular because it does not identify reconciliation \(\rec_5\) as cyclic.
 
-\subsection{Complexité des problèmes de \(\recmodel\)-parcimonie}
+\subsection{Complexity of \(\recmodel\)-parsimony problems}
 
-Comme le suggèrent les deux énoncés suivants, l’espace des réconciliations strictes est plus facilement explorable et plus restreint que l’espace général des réconciliations.
+As suggested by the following two statements, the space of strict reconciliations is more easily explorable and more restricted than the general space of reconciliations.
 
 \begin{remark}
-    Toutes les réconciliations strictes sont acycliques.
+    All strict reconciliations are acyclic.
 \end{remark}
 
 \begin{lemma}\label{lemma:strict-rec-space}
-    Si \(\rec\) est une réconciliation stricte de \(T\) avec \(S\) alors, pour tout embranchement \(v \in \tnodes(T)\),
+    If \(\rec\) is a strict reconciliation of \(T\) with \(S\) then, for every internal node \(v \in \tnodes(T)\),
     \(\rec(v) \tancs \lca\left\{ \llmap(l) \suchthat l \in \tleavs(\subtree{T}{v}) \right\}\).
 \end{lemma}
 \vspace{-1em}
 \begin{proof}
-    Soit \(\rec\) une réconciliation de \(T\) avec \(S\) et supposons qu’un embranchement \(v \in \tnodes(T)\) soit tel que
+    Let \(\rec\) be a reconciliation of \(T\) with \(S\) and suppose that an internal node \(v \in \tnodes(T)\) is such that
     \(\rec(v) \nottancs \lca\left\{ \llmap(l) \suchthat l \in \tleavs(\subtree{T}{v}) \right\}\).
-    Il existe donc \(w \in \tleavs(\subtree{T}{v})\) tel que \(\rec(v) \nottancs \llmap(w)\)
-    et donc tel que \(\rec(v) \not\tancs \rec(w)\).
-    Donc \(\rec\) n’est pas stricte.
+    There therefore exists \(w \in \tleavs(\subtree{T}{v})\) such that \(\rec(v) \nottancs \llmap(w)\)
+    and therefore such that \(\rec(v) \not\tancs \rec(w)\).
+    Hence \(\rec\) is not strict.
 \end{proof}
 
 \vspace{-.5em}
-La réconciliation stricte qui associe chaque embranchement de \(T\) au plus récent hôte possible dans~\(S\) est notée \(\reclca\) et définie par \(
+The strict reconciliation that associates each internal node of \(T\) with the most recent possible host in~\(S\) is denoted \(\reclca\) and defined by \(
     \reclca(v) = \lca\left\{ \llmap(l) \suchthat l \in \tleavs(\subtree{T}{v}) \right\}
 \).
 
-Le modèle \(\recmodelDL\) excluant toute possibilité de changement d’hôte, les réconciliations optimales se trouvent dans l’espace des réconciliations strictes (voir lemme~\labelcref{lemma:strict-rec-space}).
-La réconciliation~\(\reclca\) est toujours une solution sous ce modèle.
-De surcroît, à condition que \(\cost(\evtL) > 0\), il s’agit de l’unique solution~\parencite{Chauve2009NewPerspectivesGene}.
-Le calcul de~\(\reclca\) demande seulement un temps et espace linéaires en la taille de \(T\)~\parencite{Zhang1997MirkinMuchnikSmith}.
-Le problème de \(\recmodelDL\)-parcimonie est donc polynomial.
+Since the \(\recmodelDL\) model excludes any possibility of host switch, the optimal reconciliations lie within the space of strict reconciliations (see lemma~\labelcref{lemma:strict-rec-space}).
+The reconciliation~\(\reclca\) is always a solution under this model.
+Moreover, provided that \(\cost(\evtL) > 0\), it is the unique solution~\parencite{Chauve2009NewPerspectivesGene}.
+Computing~\(\reclca\) only requires linear time and space in the size of \(T\)~\parencite{Zhang1997MirkinMuchnikSmith}.
+The \(\recmodelDL\)-parsimony problem is therefore polynomial.
 
-Contrairement au modèle \(\recmodelDL\), il peut exister plusieurs réconciliations optimales sous le modèle \(\recmodelDTL\) et la réconciliation \(\reclca\) n’en fait pas nécessairement partie.
-Par ailleurs, une contrainte naturelle pour ce problème est de ne prendre en considération que les réconciliations acycliques.
-Cependant, cette contrainte rend le problème de décision associé NP-complet, comme démontré par \textcite{Tofigh2011SimultaneousIdentificationDuplications} par réduction du problème du sous-graphe acyclique maximal.
+Unlike the \(\recmodelDL\) model, there may exist several optimal reconciliations under the \(\recmodelDTL\) model and the reconciliation \(\reclca\) is not necessarily one of them.
+Moreover, a natural constraint for this problem is to only take acyclic reconciliations into consideration.
+However, this constraint makes the associated decision problem NP-complete, as shown by \textcite{Tofigh2011SimultaneousIdentificationDuplications} through a reduction from the maximum acyclic subgraph problem.
 
-Pour contourner cette difficulté, dans la suite, nous permettrons les réconciliations cycliques.
-Nous évaluerons également le coût d’une réconciliation comme celui de son interprétation la moins coûteuse, même si celle-ci est incohérente.
-Ainsi, la réconciliation \(\rec_4\) de la \cref{fig:reconciliation:free-rec} devient acceptable et la réconciliation de la \cref{fig:reconciliation:time-cons} coûte seulement deux événements de transferts, bien qu’une perte soit nécessaire pour en faire une interprétation temporellement cohérente.
+To circumvent this difficulty, in what follows, we will allow cyclic reconciliations.
+We will also evaluate the cost of a reconciliation as that of its least costly interpretation, even if the latter is inconsistent.
+Thus, the reconciliation \(\rec_4\) of \cref{fig:reconciliation:free-rec} becomes acceptable and the reconciliation of \cref{fig:reconciliation:time-cons} costs only two transfer events, even though a loss is necessary to make it a time-consistent interpretation.
 
-Ces modifications confèrent au problème une sous-structure optimale : une solution pour le sous-arbre \(\subtree{T}{v}\) est toujours un assemblage de deux solutions pour \(\subtree{T}{v\lchild}\) et \(\subtree{T}{v\rchild}\).
-L’\cref{alg:reconciliation:dtl-parcimonie} exploite cette propriété pour résoudre efficacement le problème.
+These modifications give the problem an optimal substructure: a solution for the subtree \(\subtree{T}{v}\) is always an assembly of two solutions for \(\subtree{T}{v\lchild}\) and \(\subtree{T}{v\rchild}\).
+\Cref{alg:reconciliation:dtl-parcimonie} exploits this property to solve the problem efficiently.
 
 \newcommand{\fndtl}{\mathrm{cost}}
-\newcommand{\varspe}{\mathrm{Spé_{LR}}}
-\newcommand{\varsperl}{\mathrm{Spé_{RL}}}
+\newcommand{\varspe}{\mathrm{Spe_{LR}}}
+\newcommand{\varsperl}{\mathrm{Spe_{RL}}}
 \newcommand{\vardup}{\mathrm{Dup}}
 \newcommand{\varhgt}{\mathrm{Tra_L}}
 \newcommand{\varhgtr}{\mathrm{Tra_R}}
@@ -320,11 +319,11 @@ L’\cref{alg:reconciliation:dtl-parcimonie} exploite cette propriété pour ré
     \capstart
     \begin{algorithmic}[1]\setstretch{1.25}
         \Require{%
-            \(T\) et \(S\), deux phylogénies;\\
-            \(\llmap : \tleavs(T) \onto \tleavs(S)\), une association entre leurs feuilles;\\
-            \(\cost : \recmodelDTL \onto \realpos\), un coût pour les événements \(\recmodelDTL\).
+            \(T\) and \(S\), two phylogenies;\\
+            \(\llmap : \tleavs(T) \onto \tleavs(S)\), an association between their leaves;\\
+            \(\cost : \recmodelDTL \onto \realpos\), a cost for the \(\recmodelDTL\) events.
         }
-        \Ensure{Coût minimum d’une réconciliation de \(T\) avec \(S\) sous le modèle \(\recmodelDTL\), incluant les réconciliations cycliques.}
+        \Ensure{Minimum cost of a reconciliation of \(T\) with \(S\) under the \(\recmodelDTL\) model, including cyclic reconciliations.}
         \Function{cost}{\(v\), \(\sigma\)}
             \If{\(v \in \tleavs(T)\)}
                 \Return \(0\) {\algorithmicif} \(\sigma = \llmap(v)\)\textbf{,} {\algorithmicelse} \(\infty\) \;
@@ -359,42 +358,42 @@ L’\cref{alg:reconciliation:dtl-parcimonie} exploite cette propriété pour ré
         \State \Return \(\min_{\sigma \in \tnodes(S)}\Call{cost}{\troot(T), \sigma}\)
     \end{algorithmic}
     \caption{
-        Algorithme récursif pour le problème de \(\recmodelDTL\)-parcimonie.
+        Recursive algorithm for the \(\recmodelDTL\)-parsimony problem.
         \label{alg:reconciliation:dtl-parcimonie}
     }
 \end{algorithm}
 
-La fonction \(\Call{cost}{v, \sigma}\) calcule le coût minimum d’une réconciliation de \(\subtree{T}{v}\) avec \(S\) de sorte que \(v\) soit associé à l’hôte \(\sigma\) donné.
-Pour ce faire, des appels récursifs sont utilisés pour obtenir le coût minimum de réconciliations de \(\subtree{T}{v\lchild}\) et \(\subtree{T}{v\rchild}\) avec \(S\) lorsque \(v\lchild\) et \(v\rchild\) sont associés à différents hôtes \(\sigma'\) et \(\sigma''\) de \(S\).
-L’assemblage des sous-réconciliations dans l’algorithme est basé sur les observations suivantes:
+The function \(\Call{cost}{v, \sigma}\) computes the minimum cost of a reconciliation of \(\subtree{T}{v}\) with \(S\) such that \(v\) is associated with the given host \(\sigma\).
+To do so, recursive calls are used to obtain the minimum cost of reconciliations of \(\subtree{T}{v\lchild}\) and \(\subtree{T}{v\rchild}\) with \(S\) when \(v\lchild\) and \(v\rchild\) are associated with different hosts \(\sigma'\) and \(\sigma''\) of \(S\).
+The assembly of sub-reconciliations in the algorithm is based on the following observations:
 \begin{compactitemize}
-    \item \(\evt(v) = \evtS\) seulement si \(\sigma\) est un embranchement et \(\sigma'\) et \(\sigma''\) sont chacun dans un des deux sous-arbres \(\subtree{S}{\sigma\lchild}\) et \(\subtree{S}{\sigma\rchild}\) (variables \(\varspe\) et \(\varsperl\));
-    \item \(\evt(v) = \evtD\) seulement si \(\sigma'\) et \(\sigma''\) descendent de \(\sigma\) (variable \(\vardup\));
-    \item \(\evt(v) = \evtT\) seulement si \(\sigma'\) ou \(\sigma''\) sont séparés de \(\sigma\) (variables \(\varhgt\) et \(\varhgtr\));
-    \item à l’exception des branches de transfert, des événements de perte doivent être insérés pour chaque hôte traversé entre \(\sigma\), \(\sigma'\) et \(\sigma''\) afin de respecter le modèle (termes en \(\cost(\evtL) \cdot \hdots\)).
+    \item \(\evt(v) = \evtS\) only if \(\sigma\) is an internal node and \(\sigma'\) and \(\sigma''\) are each in one of the two subtrees \(\subtree{S}{\sigma\lchild}\) and \(\subtree{S}{\sigma\rchild}\) (variables \(\varspe\) and \(\varsperl\));
+    \item \(\evt(v) = \evtD\) only if \(\sigma'\) and \(\sigma''\) descend from \(\sigma\) (variable \(\vardup\));
+    \item \(\evt(v) = \evtT\) only if \(\sigma'\) or \(\sigma''\) are separated from \(\sigma\) (variables \(\varhgt\) and \(\varhgtr\));
+    \item except for transfer branches, loss events must be inserted for each host traversed between \(\sigma\), \(\sigma'\) and \(\sigma''\) in order to comply with the model (terms in \(\cost(\evtL) \cdot \hdots\)).
 \end{compactitemize}
 
-L’\cref{alg:reconciliation:dtl-parcimonie} peut être transformé pour utiliser une table de programmation dynamique conservant les valeurs de \(\fndtl(v, \sigma)\), évitant ainsi de répéter plusieurs fois le même calcul.
-En posant \(n = \lvert\tnodes(T)\rvert\) et \(m = \lvert\tnodes(S)\rvert\), l’algorithme ainsi transformé a une complexité en temps de \(\bigo(nm^2)\) et en espace de \(\bigo(nm)\)~\parencite{Tofigh2011SimultaneousIdentificationDuplications}.
-La complexité en temps peut être réduite à \(\bigo(nm)\) sans modifier la complexité en espace~\parencite{Bansal2012EfficientAlgorithmsReconciliation}.
-Le problème de \(\recmodelDTL\)-parcimonie est donc polynomial.
+\Cref{alg:reconciliation:dtl-parcimonie} can be transformed to use a dynamic programming table that stores the values of \(\fndtl(v, \sigma)\), thereby avoiding repeating the same computation several times.
+Letting \(n = \lvert\tnodes(T)\rvert\) and \(m = \lvert\tnodes(S)\rvert\), the algorithm thus transformed has a time complexity of \(\bigo(nm^2)\) and a space complexity of \(\bigo(nm)\)~\parencite{Tofigh2011SimultaneousIdentificationDuplications}.
+The time complexity can be reduced to \(\bigo(nm)\) without modifying the space complexity~\parencite{Bansal2012EfficientAlgorithmsReconciliation}.
+The \(\recmodelDTL\)-parsimony problem is therefore polynomial.
 
-L’\cref{alg:reconciliation:dtl-parcimonie} peut être étendu pour le modèle \(\recmodelDTLx\), sans en modifier la complexité.
-Il suffit pour ce faire d’ajouter un cas pour chacune des lignes~3 à~7 dans lesquels les termes en \(\cost(\evtL) \cdot \hdots\) sont remplacés par l’invocation d’un événement \(\evtTX\).
+\Cref{alg:reconciliation:dtl-parcimonie} can be extended to the \(\recmodelDTLx\) model without changing its complexity.
+To do so, it suffices to add, for each of lines~3 to~7, a case in which the terms in \(\cost(\evtL) \cdot \hdots\) are replaced by the invocation of a \(\evtTX\) event.
 
-\subsection{Applications des méthodes de réconciliation}
+\subsection{Applications of reconciliation methods}
 
-La réconciliation bilatérale permet l’étude de l’évolution conjointe d’unités évolutives et de leurs hôtes.
-Les algorithmes décrits dans la section précédente permettent d’obtenir de l’information sur ces relations évolutives à partir des phylogénies respectives des unités et des hôtes.
-Sous certains modèles d’évolution, tels que le modèle~\(\recmodelDTL\), plusieurs solutions distinctes peuvent toutefois être optimales au sens du critère de parcimonie.
-Par ailleurs, l’exécution de ces algorithmes est dépendante des coûts fixés pour chaque type d’événement, et la variation de ces coûts modifie les solutions optimales.
-Il n’est donc pas suffisant d’analyser une seule solution retournée par un seul paramétrage d’algorithme.
-Pour une analyse pertinente, l’espace des solutions doit être exploré pour quantifier dans quelle mesure ces solutions s’accordent sur les différentes parties du scénario inféré~\parencite[voir][]{Doyon2009SpaceGeneSpeciesTrees,Weiner2021ImprovedDuplicationTransfer}.
-Nous aborderons ces questions sous l’angle de la programmation dynamique algébrique dans les \cref{chap:adp,chap:adp-rec}.
+Bilateral reconciliation allows the study of the joint evolution of evolutionary units and their hosts.
+The algorithms described in the previous section make it possible to obtain information about these evolutionary relationships from the respective phylogenies of the units and of the hosts.
+Under some evolutionary models, such as the~\(\recmodelDTL\) model, several distinct solutions may, however, be optimal in the sense of the parsimony criterion.
+Moreover, the execution of these algorithms depends on the costs set for each event type, and varying these costs modifies the optimal solutions.
+It is therefore not sufficient to analyse a single solution returned by a single parameterization of an algorithm.
+For a meaningful analysis, the solution space must be explored to quantify the extent to which these solutions agree on the different parts of the inferred scenario~\parencite[see][]{Doyon2009SpaceGeneSpeciesTrees,Weiner2021ImprovedDuplicationTransfer}.
+We will address these questions from the angle of algebraic dynamic programming in \cref{chap:adp,chap:adp-rec}.
 
-Les phylogénies attendues en entrée des algorithmes sont parfois connues avec une précision limitée, voire sont inconnues.
-La réconciliation peut fournir un critère permettant d’améliorer ces phylogénies.
-Par exemple, la réconciliation peut être utilisée pour inférer un arbre d’espèces inconnu à partir d’un ensemble d’arbres de plusieurs familles de gènes~\parencite[voir][p.~72--73]{Guigo1996ReconstructionAncientMolecular,Page1994MapsTreesCladistic}.
-Le problème sous-jacent étant NP-complet~\parencite{Ma2000GeneTreesSpecies}, cette application de la réconciliation s’appuie sur des heuristiques.
-Dans certains cas, notamment en cas d’incertitudes dans sa construction, la phylogénie des unités peut comporter des polytomies, c’est-à-dire des embranchements ayant plus de deux descendants.
-La réconciliation peut alors être utilisée comme un critère pour \emph{résoudre} ces polytomies en recherchant l’arbre binaire aboutissant à un score de réconciliation moindre~\parencite{Lafond2016EfficientNonBinary}.
+The phylogenies expected as input to the algorithms are sometimes known with limited precision, or are even unknown.
+Reconciliation can provide a criterion for improving these phylogenies.
+For example, reconciliation can be used to infer an unknown species tree from a set of trees of several gene families~\parencite[see][p.~72--73]{Guigo1996ReconstructionAncientMolecular,Page1994MapsTreesCladistic}.
+The underlying problem being NP-complete~\parencite{Ma2000GeneTreesSpecies}, this application of reconciliation relies on heuristics.
+In some cases, particularly when there are uncertainties in its construction, the phylogeny of the units may contain polytomies, that is, internal nodes having more than two descendants.
+Reconciliation can then be used as a criterion to \emph{resolve} these polytomies by searching for the binary tree that yields a lower reconciliation score~\parencite{Lafond2016EfficientNonBinary}.

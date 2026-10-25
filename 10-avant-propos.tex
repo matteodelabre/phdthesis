@@ -1,52 +1,51 @@
 %! TeX root = ./main.tex
-% vim: set spelllang=fr:
-\selectlanguage{french}
-\chapter*{Avant-propos}
-\addcontentsline{toc}{chapter}{Avant-propos}
-\markboth{\textsc{avant-propos}}{}
+% vim: set spelllang=en:
+\chapter*{Foreword}
+\addcontentsline{toc}{chapter}{Foreword}
+\markboth{\textsc{foreword}}{}
 
 % Phylogénétique, introduite par l’exemple de l’évolution des gènes
 % Exemples de motivations
-Les gènes sont les véhicules de l’hérédité chez les êtres vivants.
-Ils contribuent à définir leurs caractères et peuvent être transmis d’une génération à la suivante.
-Au fil du temps et au gré de divers événements, ils peuvent évoluer en différents allèles et être disséminés à travers plusieurs espèces.
-La phylogénétique vise à retracer l’histoire de l’évolution d’unités telles que les gènes, les cellules ou les espèces.
-Ces histoires sont des sources précieuses d’information pouvant permettre d’élucider les fonctions de gènes~\parencite{Lynch2001ProbabilityPreservationNewly}, de caractériser l’évolution de tumeurs~\parencite{Quinn2021SingleCellLineages} ou celle de pathogènes~\parencite{Morel2020PhylogeneticAnalysisSars,Guindon2022EclairerOriginesCOVID19}.
+Genes are the carriers of heredity in living organisms.
+They contribute to defining their traits and can be passed on from one generation to the next.
+Over time and through various events, they can evolve into different alleles and spread across multiple species.
+Phylogenetics aims to trace back the evolutionary history of units such as genes, cells, or species.
+These histories are valuable sources of information that can help elucidate gene functions~\parencite{Lynch2001ProbabilityPreservationNewly}, characterize the evolution of tumours~\parencite{Quinn2021SingleCellLineages} or that of pathogens~\parencite{Morel2020PhylogeneticAnalysisSars,Guindon2022EclairerOriginesCOVID19}.
 
 % Arbres phylogénétiques et événements
-Un \emph{arbre phylogénétique} (ou \emph{phylogénie}) représente une hypothèse d’histoire évolutive.
-À la manière d’un arbre généalogique, un arbre phylogénétique est composé d’une suite d’embranchements et de branches le long desquelles s’écoule le temps jusqu’à rejoindre les représentants contemporains.
-Chaque embranchement de l’arbre correspond à la divergence putative d’un ancêtre en plusieurs descendants libres d’évoluer indépendamment les uns des autres.
-Les causes possibles de telles divergences diffèrent selon les types d’unités étudiées; par exemple, les gènes se dupliquent, les cellules se divisent et les espèces subissent des spéciations.
+A \emph{phylogenetic tree} (or \emph{phylogeny}) represents a hypothesis of evolutionary history.
+Much like a family tree, a phylogenetic tree is made up of a succession of branching points and of branches along which time flows until reaching the contemporary representatives.
+Each branching point of the tree corresponds to the putative divergence of an ancestor into several descendants that are free to evolve independently of one another.
+The possible causes of such divergences differ according to the types of units under study; for example, genes duplicate, cells divide and species undergo speciations.
 
 % Problème d’évolution hiérarchique
-L’évolution d’un gène ne dépend pas seulement des événements qui l’affectent directement, mais également de l’évolution de son espèce hôte.
-La spéciation d’une espèce cause en effet l’émergence d’exemplaires indépendants de ses gènes, un dans chaque nouvelle espèce.
-Cette relation forme une hiérarchie évolutive entre un ensemble d’\emph{unités évolutives} et leurs hôtes.
-Des hiérarchies similaires se retrouvent à d’autres échelles, par exemple entre les domaines protéiques et leurs protéines, entre les parasites et leurs hôtes, ou entre les espèces et leurs habitats.
-De telles hiérarchies peuvent également se manifester en dehors de la biologie, par exemple, entre des éléments culturels et les populations qui les transmettent \parencite{Tehrani2010CophylogenyPopulationsCultures}.
+The evolution of a gene depends not only on the events directly affecting it, but also on the evolution of its host species.
+Indeed, the speciation of a species causes the emergence of independent copies of its genes, one in each new species.
+This relationship forms an evolutionary hierarchy between a set of \emph{evolutionary units} and their hosts.
+Similar hierarchies can be found at other scales, for example between protein domains and their proteins, parasites and their hosts, or species and their habitats.
+Such hierarchies also arise outside of biology, for example, between cultural elements and the populations that transmit them \parencite{Tehrani2010CophylogenyPopulationsCultures}.
 
 % Réconciliation
-Pour étudier ces hiérarchies évolutives, \textcite{Goodman1979FittingGeneLineage} ont introduit la méthode dite de \emph{réconciliation}.
-En s’appuyant sur les différences et les similarités topologiques entre la phylogénie d’une famille de gènes et celle de ses espèces hôtes, la réconciliation permet d’établir à laquelle des deux se rapporte chaque divergence.
-Le résultat est un arbre réconcilié, synthèse des deux arbres, dans lequel chaque embranchement de l’arbre de gènes est annoté par le type d’événement évolutif l’ayant engendré.
+To study these evolutionary hierarchies, \textcite{Goodman1979FittingGeneLineage} introduced the so-called \emph{reconciliation} method.
+Relying on the topological differences and similarities between the phylogeny of a gene family and that of its host species, reconciliation makes it possible to establish which of the two each divergence relates to.
+The result is a reconciled tree, a synthesis of the two trees, in which each branching point of the gene tree is annotated with the type of evolutionary event that gave rise to it.
 
 % Problème d’évolution segmentale
-Lorsqu’un hôte est porteur de plusieurs familles d’unités, leurs phylogénies peuvent être réconciliées individuellement.
-Cela suppose toutefois que les unités en question aient évolué indépendamment les unes des autres.
-Cette hypothèse est invalidée en particulier lorsque les unités sont organisées linéairement dans le même hôte, comme des gènes le long d’un génome, et sont affectées par des événements à grande échelle.
-L’un des axes de recherche du domaine au cours des deux dernières décennies a été l’intégration des méthodes de réconciliation avec celles permettant l’étude de l’évolution des structures linéaires~\parencite{Sankoff2000DuplicationRearrangementReconciliation}.
-Différentes extensions du paradigme de réconciliation permettant de prendre en compte l’évolution conjointe de plusieurs unités ont ainsi été proposées.
+When a host carries multiple families of units, their phylogenies can be reconciled individually.
+This assumes, however, that the units in question have evolved independently of one another.
+This assumption is invalidated in particular when the units are organized linearly within the same host, such as genes along a genome, and are affected by large-scale events.
+One of the research directions of the field over the past two decades has been the integration of reconciliation methods with those allowing the study of the evolution of linear structures~\parencite{Sankoff2000DuplicationRearrangementReconciliation}.
+Various extensions of the reconciliation paradigm that account for the joint evolution of several units have thus been proposed.
 
 % Projet de recherche
-Le projet de recherche mené dans cette thèse s’inscrit dans cet axe de recherche par le développement de méthodes de \emph{réconciliation multiple} permettant l’étude de l’évolution de segments du génome fortement conservés appelés \emph{synténies}.
-La contribution consiste notamment en l’identification de compromis entre puissance de modélisation et complexité algorithmique.
+The research project carried out in this thesis falls within this research direction, through the development of \emph{multiple reconciliation} methods for studying the evolution of highly conserved genome segments called \emph{syntenies}.
+The contribution notably consists in identifying trade-offs between modelling power and algorithmic complexity.
 
-Le \cref{chap:reconciliation} contient une revue de la littérature pertinente qui synthétise les méthodes existantes en matière de réconciliation.
-Nous y introduisons l’approche de réconciliation segmentale qui figure au centre de la recherche présentée par la suite.
-Dans le \cref{chap:superdtl}, nous apportons une première contribution en permettant l’inférence de transferts horizontaux dans la réconciliation segmentale.
-Cette contribution est étendue au contexte d’espèces non échantillonnées dans le \cref{chap:synesth}.
-Ces extensions nous amènent au besoin de mener une étude combinatoire approfondie des espaces de solutions associés aux problèmes étudiés.
-Afin d’y parvenir, nous développons une théorie unifiée de la programmation dynamique algébrique dans le \cref{chap:adp}.
-Cette théorie est mise en pratique sur le problème de réconciliation segmentale dans le \cref{chap:adp-rec}.
-Finalement, les différents logiciels et programmes développés en support à la recherche menée dans cette thèse sont présentés dans le \cref{chap:logiciel}.
+\Cref{chap:reconciliation} contains a review of the relevant literature that synthesizes existing reconciliation methods.
+In it, we introduce the segmental reconciliation approach that lies at the heart of the research presented thereafter.
+In \cref{chap:superdtl}, we make a first contribution by allowing the inference of horizontal transfers in segmental reconciliation.
+This contribution is extended to the context of unsampled species in \cref{chap:synesth}.
+These extensions lead us to the need for an in-depth combinatorial study of the solution spaces associated with the problems under study.
+To achieve this, we develop a unified theory of algebraic dynamic programming in \cref{chap:adp}.
+This theory is put into practice on the segmental reconciliation problem in \cref{chap:adp-rec}.
+Finally, the various software tools and programs developed in support of the research conducted in this thesis are presented in \cref{chap:logiciel}.

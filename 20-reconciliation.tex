@@ -1,20 +1,19 @@
 %! TeX root = ./main.tex
-% vim: set spelllang=fr:
-\selectlanguage{french}
-\chapter{Réconciliation phylogénétique}\label{chap:reconciliation}
+% vim: set spelllang=en:
+\chapter{Phylogenetic reconciliation}\label{chap:reconciliation}
 
-Deux gènes sont dits \emph{homologues} s’ils descendent d’un gène ancestral commun.
-Lorsque l’origine de leur divergence est une cospéciation avec l’espèce ancestrale hôte, ces gènes sont dits \emph{orthologues}~\parencite{Fitch1970DistinguishingHomologousAnalogous}.
-À l’inverse, la divergence peut être indépendante des espèces hôtes: une duplication --- auquel cas les gènes sont qualifiés de \emph{paralogues} --- ou encore un transfert horizontal --- ils sont alors appelés \emph{xénologues}.
-En particulier, l’identification de relations d’orthologie constitue une étape importante à la construction de phylogénies d’espèces, ou encore à l’étude de la fonction des gènes.
-Les gènes orthologues partagent en effet plus souvent la même fonction que les gènes dupliqués qui sont soumis à une pression sélective moindre~\parencite{Lynch2001ProbabilityPreservationNewly}.
+Two genes are said to be \emph{homologous} if they descend from a common ancestral gene.
+When their divergence originates from a cospeciation with the ancestral host species, these genes are said to be \emph{orthologous}~\parencite{Fitch1970DistinguishingHomologousAnalogous}.
+Conversely, the divergence can be independent of the host species: a duplication --- in which case the genes are referred to as \emph{paralogous} --- or a horizontal transfer --- they are then called \emph{xenologous}.
+In particular, the identification of orthology relationships is an important step in the construction of species phylogenies, or in the study of gene function.
+Indeed, orthologous genes more often share the same function than duplicated genes, which are subject to weaker selective pressure~\parencite{Lynch2001ProbabilityPreservationNewly}.
 
-Dans la phylogénie d’une famille de gènes homologues, l’ensemble des embranchements peut être partitionné selon le type d’événement évolutif auquel il correspond.
-Ce partitionnement permet de qualifier d’orthologue, de paralogue ou de xénologue toute paire de gènes dans l’arbre.
-La méthode dite de \emph{réconciliation}, introduite par \textcite{Goodman1979FittingGeneLineage}, formalisée par \textcite{Page1994MapsTreesCladistic} et ayant fait l’objet de plusieurs généralisations par la suite, permet de réaliser un tel partitionnement.
-Elle se fonde sur le fait que les gènes et leurs espèces hôtes forment une hiérarchie évolutive, puisque l’évolution des hôtes affecte celle des gènes qu’ils contiennent.
+In the phylogeny of a family of homologous genes, the set of internal nodes can be partitioned according to the type of evolutionary event to which they correspond.
+This partitioning makes it possible to qualify any pair of genes in the tree as orthologous, paralogous or xenologous.
+The so-called \emph{reconciliation} method, introduced by \textcite{Goodman1979FittingGeneLineage}, formalized by \textcite{Page1994MapsTreesCladistic} and subsequently generalized in several ways, makes it possible to carry out such a partitioning.
+It is based on the fact that genes and their host species form an evolutionary hierarchy, since the evolution of hosts affects that of the genes they contain.
 
-Dans ce chapitre, nous introduisons d’abord la réconciliation d’une seule famille d’unités, que nous qualifions de \emph{bilatérale}, puis les différentes généralisations permettant de réaliser des réconciliations \emph{multiples} de plusieurs unités interdépendantes.
+In this chapter, we first introduce the reconciliation of a single family of units, which we call \emph{bilateral}, and then the various generalizations that allow \emph{multiple} reconciliations of several interdependent units.
 
 \input{23-bilateral.tex}
 \input{25-segmental.tex}

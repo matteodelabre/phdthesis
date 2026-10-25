@@ -1,41 +1,40 @@
 %! TeX root = ./main.tex
-% vim: set spelllang=en,fr:
-\selectlanguage{french}
-\chapter{Réconciliation avec duplications, transferts, pertes et gains segmentaux}\label{chap:superdtl}
+% vim: set spelllang=en:
+\chapter{Reconciliation with segmental duplications, transfers, losses and gains}\label{chap:superdtl}
 
-Les travaux initiaux menés sur la réconciliation segmentale se limitaient à un modèle évolutif à base de spéciations et de duplications~\parencite{Delabre2020EvolutionSegmentalDuplications}.
-Au cours de l’année 2019--2020, Maher~\textsc{Mallem} a travaillé, sous la supervision de Nadia~\textsc{El-Mabrouk}, à étendre le modèle et l’algorithme associé afin de permettre l’inférence de transferts horizontaux.
-L’approche proposée souffrait d’une complexité algorithmique élevée, puisqu’elle demandait une exploration exhaustive pour déterminer quels sommets seraient des sommets de transfert horizontal.
-Dans ce chapitre, nous montrons comment obtenir un algorithme de complexité polynomiale pour ce problème.
+Initial work on segmental reconciliation was limited to an evolutionary model based on speciations and duplications~\parencite{Delabre2020EvolutionSegmentalDuplications}.
+During the 2019--2020 year, Maher~\textsc{Mallem} worked, under the supervision of Nadia~\textsc{El-Mabrouk}, on extending the model and the associated algorithm to allow the inference of horizontal transfers.
+The proposed approach suffered from a high algorithmic complexity, since it required an exhaustive exploration to determine which nodes would be horizontal transfer nodes.
+In this chapter, we show how to obtain an algorithm of polynomial complexity for this problem.
 
-L’approche initiale de \textcite{Delabre2020EvolutionSegmentalDuplications} reposait sur une méthodologie en deux étapes: premièrement, la recherche d’une réconciliation optimale en ignorant le caractère segmental du problème, et deuxièmement, la minimisation des pertes segmentales en fixant les événements binaires identifiés à l’étape précédente.
-Nous verrons à la \cref{sec:superdtl:2steps} qu’il existe un contre-exemple empêchant l’extension de cette approche au cas impliquant des transferts horizontaux.
-Nous parvenons néanmoins au résultat annoncé en développant un algorithme de programmation dynamique combinant les deux étapes sur la base des résultats de \textcite{Tofigh2011SimultaneousIdentificationDuplications}.
+The initial approach of \textcite{Delabre2020EvolutionSegmentalDuplications} relied on a two-step methodology: first, searching for an optimal reconciliation while ignoring the segmental nature of the problem, and second, minimizing segmental losses while fixing the binary events identified in the previous step.
+We will see in \cref{sec:superdtl:2steps} that there exists a counterexample preventing the extension of this approach to the case involving horizontal transfers.
+We nevertheless achieve the announced result by developing a dynamic programming algorithm that combines the two steps, based on the results of \textcite{Tofigh2011SimultaneousIdentificationDuplications}.
 
-Pour démontrer l’intérêt de ce nouvel algorithme, nous réalisons une analyse de l’évolution des synténies d’un échantillon de systèmes CRISPR-Cas.
-Celle-ci permet de proposer des hypothèses évolutives alignées avec les connaissances actuelles sur l’évolution de ces systèmes.
-Des travaux supplémentaires restent toutefois nécessaires afin de valider ce modèle.
+To demonstrate the value of this new algorithm, we carry out an analysis of the evolution of the syntenies of a sample of CRISPR-Cas systems.
+This analysis makes it possible to propose evolutionary hypotheses that are aligned with current knowledge on the evolution of these systems.
+Additional work nevertheless remains necessary to validate this model.
 
-Plusieurs limites peuvent être identifiées concernant la méthode présentée.
-Premièrement, son application demande l’estimation de probabilités d’occurrence de chacun des événements modélisés et ces probabilités ont une grande influence sur les solutions produites.
-Par ailleurs, la fonction de coût est rigide et considère avec le même poids toutes les pertes, quelles que soient leurs tailles.
-Deuxièmement, l’inférence suppose que l’échantillonnage des espèces est complet et exclut la possibilité d’une interaction des synténies étudiées avec des espèces qui se sont par la suite éteintes ou qui n’ont pas été échantillonnées.
-Comme suggéré par l’une des personnes relectrices de l’article présenté ci-dessous, cette limite pourrait expliquer la séquence d’événements de pertes observée dans le scénario présenté à la \cref{fig:superdtl:crispr-scenario}.
-Troisièmement, les événements de gain sont toujours positionnés au niveau de l’ancêtre commun, en excluant de la fonction de minimisation le nombre de gains.
-Finalement, il existe une abondance de solutions optimales parmi lesquelles seule une arbitraire est tirée, ce qui est illustré par le \cref{tab:superdtl:sol-count}.
-Ces différentes limites ont porté la recherche qui sera présentée dans les chapitres suivants.
+Several limitations of the presented method can be identified.
+First, its application requires estimating the probabilities of occurrence of each of the modelled events, and these probabilities have a great influence on the solutions produced.
+Moreover, the cost function is rigid and gives the same weight to all losses, whatever their sizes.
+Second, the inference assumes that the species sampling is complete and excludes the possibility of an interaction of the studied syntenies with species that have since gone extinct or that have not been sampled.
+As suggested by one of the reviewers of the article presented below, this limitation could explain the sequence of loss events observed in the scenario presented in \cref{fig:superdtl:crispr-scenario}.
+Third, gain events are always positioned at the common ancestor, which excludes the number of gains from the minimization function.
+Finally, there is an abundance of optimal solutions among which only an arbitrary one is drawn, as illustrated by \cref{tab:superdtl:sol-count}.
+These various limitations drove the research that will be presented in the following chapters.
 
-\emph{La suite de ce chapitre, présentée en anglais, est une adaptation d’un article dont les informations sont présentées ci-dessous. Des modifications de nature éditoriale ont été apportées par rapport à la version publiée afin notamment de faire correspondre les notations avec celles utilisées dans le reste de ce manuscrit.}
+\emph{The remainder of this chapter is an adaptation of an article whose details are given below. Editorial changes have been made with respect to the published version, notably to make the notation consistent with that used in the rest of this manuscript.}
 
 \articlemeta%
     {Reconciliation with segmental duplication, transfer, loss and gain}%
-    {Entre novembre~2020 et octobre~2021}%
-    {Présenté lors de l’édition~2022 de la conférence RECOMB-CG à La Jolla en Californie et publié en mai~2022 dans les actes de ladite conférence}%
-    {& Yoann \textsc{Anselmetti} & Sélection des données expérimentales, analyse des résultats, analyse des hypothèses évolutives \\
+    {Between November~2020 and October~2021}%
+    {Presented at the 2022~edition of the RECOMB-CG conference in La Jolla, California, and published in May~2022 in the proceedings of said conference}%
+    {& Yoann \textsc{Anselmetti} & Selection of the experimental data, analysis of the results, analysis of the evolutionary hypotheses \\
     \cmidrule(l){2-3}
-    & Mattéo \textsc{Delabre} & Mise au point du modèle, développement de l’algorithme, preuves de correction et d’efficacité, implémentation de l’algorithme, présentation de l’article en conférence \\
+    & Mattéo \textsc{Delabre} & Design of the model, development of the algorithm, proofs of correctness and efficiency, implementation of the algorithm, presentation of the article at the conference \\
     \cmidrule(l){2-3}
-    & Nadia \textsc{El-Mabrouk} & Supervision, idéation, aide à la structuration et à l’ébauche du texte, relecture}
+    & Nadia \textsc{El-Mabrouk} & Supervision, ideation, help with structuring and drafting the text, proofreading}
 \selectlanguage{english}
 
 \newcommand{\superdtl}{SuperDTL}

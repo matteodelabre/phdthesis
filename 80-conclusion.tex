@@ -1,37 +1,36 @@
 %! TeX root = ./main.tex
-% vim: set spelllang=fr:
-\selectlanguage{french}
+% vim: set spelllang=en:
 \chapter*{Conclusion}
 \addcontentsline{toc}{chapter}{Conclusion}
 \markboth{\textsc{conclusion}}{}
 
-La réconciliation phylogénétique permet d’étudier de manière comparée l’évolution d’unités par rapport à celle de leurs hôtes, par exemple celle de familles de gènes comparée à celle d’espèces.
-Parmi les méthodes existantes de réconciliation, la plupart supposent une évolution indépendante des différentes unités qui peuvent coexister dans un hôte.
-Cette hypothèse est invalidée notamment pour certains gènes dont l’organisation dans le génome rend leurs fonctions, et donc leur évolution, interdépendantes.
-L’une des méthodes permettant d’intégrer l’interdépendance entre les unités à la réconciliation est la réconciliation segmentale.
+Phylogenetic reconciliation makes it possible to study, in a comparative way, the evolution of units relative to that of their hosts, for example that of gene families compared to that of species.
+Among existing reconciliation methods, most assume an independent evolution of the different units that may coexist in a host.
+This assumption is invalidated notably for some genes whose organization in the genome makes their functions, and therefore their evolution, interdependent.
+One of the methods that make it possible to integrate the interdependence between units into reconciliation is segmental reconciliation.
 
-Dans cette thèse, nous avons démontré que le modèle de réconciliation segmentale peut être étendu avec succès pour prendre en compte la possibilité de transferts horizontaux entre les hôtes.
-L’ajout de ce type d’événement au modèle de réconciliation segmentale permet notamment d’envisager des applications à l’étude de l’évolution de systèmes bactériens, comme nous l’avons illustré au travers d’applications aux systèmes CRISPR-Cas.
-Bien que la complexité algorithmique de la méthode développée demeure raisonnable, cette extension du modèle a fait apparaître l’existence de très nombreuses solutions cooptimales qui nuisent à l’interprétabilité des solutions produites.
+In this thesis, we have shown that the segmental reconciliation model can be successfully extended to take into account the possibility of horizontal transfers between hosts.
+Adding this type of event to the segmental reconciliation model notably makes it possible to consider applications to the study of the evolution of bacterial systems, as we illustrated through applications to CRISPR-Cas systems.
+Although the algorithmic complexity of the developed method remains reasonable, this extension of the model revealed the existence of a very large number of co-optimal solutions that hinder the interpretability of the solutions produced.
 
-Afin de réaliser une étude systématique de cet espace étendu des solutions, nous avons adopté une approche algébrique des techniques de programmation dynamique utilisées pour la conception des algorithmes.
-Nous avons pour ce faire présenté une théorie unifiée de la programmation dynamique algébrique démontrant comment des questions transversales concernant des problèmes d’optimisation combinatoire peuvent être traitées de manière générique.
-Cette théorie a été mise en pratique sur le problème de réconciliation segmentale, nous laissant notamment envisager le potentiel de développement accéléré de nouveaux algorithmes dans le futur par la combinaison d’algorithmes existants.
+In order to carry out a systematic study of this extended solution space, we adopted an algebraic approach to the dynamic programming techniques used for the design of the algorithms.
+To this end, we presented a unified theory of algebraic dynamic programming showing how cross-cutting questions concerning combinatorial optimization problems can be addressed generically.
+This theory was put into practice on the segmental reconciliation problem, notably giving us a glimpse of the potential for an accelerated development of new algorithms in the future through the combination of existing algorithms.
 
-L’accès à ces outils algébriques devrait permettre de réaliser une validation plus approfondie des modèles développés dans cette thèse.
-Des travaux futurs devront ainsi être réalisés pour mesurer quelle proportion des scénarios réels peuvent être recouvrés par le modèle et valider si la réconciliation segmentale permet effectivement d’obtenir des scénarios qualitativement meilleurs que la réconciliation bilatérale ou la réconciliation d’adjacences et, si oui, dans quelles circonstances.
-Ces travaux pourront notamment s’appuyer sur les simulateurs existants permettant de générer des données synthétiques.
-Cette validation permettra de tirer des conclusions biologiques plus certaines sur l’évolution des systèmes dépendants.
+Access to these algebraic tools should make it possible to carry out a more thorough validation of the models developed in this thesis.
+Future work will thus have to be carried out to measure what proportion of real scenarios can be recovered by the model and to validate whether segmental reconciliation indeed yields qualitatively better scenarios than bilateral reconciliation or adjacency reconciliation and, if so, under what circumstances.
+This work could notably build on existing simulators that make it possible to generate synthetic data.
+This validation will make it possible to draw more reliable biological conclusions about the evolution of dependent systems.
 
-Plusieurs extensions peuvent être proposées pour les méthodes développées dans ce manuscrit.
-L’évolution des groupes ou des synténies n’est pas nécessairement arborescente car ceux-ci peuvent se scinder et se fusionner au fil du temps.
-Ainsi, la réconciliation segmentale pourrait être étendue à des réseaux phylogénétiques, c’est-à-dire à des structures phylogénétiques contenant des cycles non dirigés.
-Des travaux ont déjà été menés pour étendre la réconciliation bilatérale aux réseaux et pourraient ainsi servir de point de départ \parencite{Chan2024EfficientAlgorithmReconciliation}.
-Par ailleurs, les méthodes développées ignorent la potentielle évolution de l’agencement linéaire des groupes d’unités, par exemple lorsque celles-ci sont disposées le long d’un génome.
-La complexité algorithmique du problème associé à la réconciliation segmentale ordonnée reste ouverte autant que nous le sachions.
-Une autre piste potentielle pourrait être de rechercher \emph{a posteriori} des ordres sur les groupes qui sont compatibles avec une réconciliation segmentale fixée.
+Several extensions can be proposed for the methods developed in this manuscript.
+The evolution of groups or syntenies is not necessarily tree-like, since they can split and merge over time.
+Thus, segmental reconciliation could be extended to phylogenetic networks, that is, to phylogenetic structures containing undirected cycles.
+Work has already been carried out to extend bilateral reconciliation to networks and could thus serve as a starting point \parencite{Chan2024EfficientAlgorithmReconciliation}.
+Moreover, the developed methods ignore the potential evolution of the linear arrangement of groups of units, for example when these are arranged along a genome.
+The algorithmic complexity of the problem associated with ordered segmental reconciliation remains open as far as we know.
+Another potential avenue could be to search \emph{a posteriori} for orders on the groups that are compatible with a fixed segmental reconciliation.
 
-Finalement, plusieurs directions de recherche peuvent être envisagées en lien avec la programmation dynamique algébrique.
-La notion de produit de grammaires envisagée au \cref{chap:adp-rec} reste encore à développer et les premiers résultats obtenus par \textcite{Siederdissen2015ProductGrammarsAlignment} en la matière restent limités à certaines formes de grammaires.
-L’obtention d’un opérateur de produit général pourrait permettre de réaliser des avancées algorithmiques, par exemple en ce qui concerne la réconciliation multilatérale~\parencite{Menet2022PhylogeneticReconciliation}.
-Le développement de méthodes de spécification d’algorithmes sur les graphes généraux, par exemple au travers de leur décomposition arborescente, pourrait également permettre le développement d’algorithmes pour la réconciliation segmentale étendue aux réseaux.
+Finally, several research directions can be considered in connection with algebraic dynamic programming.
+The notion of grammar product considered in \cref{chap:adp-rec} remains to be developed, and the first results obtained by \textcite{Siederdissen2015ProductGrammarsAlignment} in this area remain limited to certain forms of grammars.
+Obtaining a general product operator could enable algorithmic advances, for example with regard to multilateral reconciliation~\parencite{Menet2022PhylogeneticReconciliation}.
+The development of methods for specifying algorithms on general graphs, for example through their tree decomposition, could also enable the development of algorithms for segmental reconciliation extended to networks.

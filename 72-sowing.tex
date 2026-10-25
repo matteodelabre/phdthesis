@@ -1,25 +1,25 @@
 %! TeX root = ./main.tex
-% vim: set spelllang=fr:
-\section{sowing --- Manipulation de graphes orientés acycliques}
-\programdetails{https://github.com/UdeM-LBIT/sowing}{GPL v3.0}{Entre mai~2023 et avril~2026, 1\,400 lignes de code}
+% vim: set spelllang=en:
+\section{sowing --- Manipulating directed acyclic graphs}
+\programdetails{https://github.com/UdeM-LBIT/sowing}{GPL v3.0}{Between May~2023 and April~2026, 1\,400 lines of code}
 
-\emph{sowing} est une bibliothèque écrite dans le langage Python offrant une structure de données persistante permettant de représenter, construire, traverser, modifier et sérialiser efficacement des arbres, des forêts et, plus généralement, tout graphe orienté acyclique.
-Les avantages liés à l’utilisation d’une telle structure de données sont multiples:
+\emph{sowing} is a library written in the Python language that offers a persistent data structure for efficiently representing, building, traversing, modifying and serializing trees, forests and, more generally, any directed acyclic graph.
+The advantages of using such a data structure are manifold:
 \begin{compactitemize}
-    \item les sous-graphes communs peuvent être réutilisés, réduisant ainsi l’empreinte mémoire, sans toutefois risquer de bogues reliés à la modification d’un fragment partagé;
-    \item les graphes peuvent être passés d’une fonction ou d’un fil d’exécution à un autre sans nécessiter de copie;
-    \item les graphes peuvent être hachés, ce qui leur permet d’être utilisés comme éléments d’autres structures de données, comme des dictionnaires ou des ensembles;
-    \item l’absence d’effets de bord permet d’adopter un style de programmation plus fonctionnelle, facilitant le raisonnement sur les programmes produits.
+    \item common subgraphs can be reused, thus reducing the memory footprint, without however risking bugs related to the modification of a shared fragment;
+    \item graphs can be passed from one function or thread of execution to another without requiring a copy;
+    \item graphs can be hashed, which allows them to be used as elements of other data structures, such as dictionaries or sets;
+    \item the absence of side effects makes it possible to adopt a more functional programming style, which makes it easier to reason about the resulting programs.
 \end{compactitemize}
 
-Les graphes sont représentés sous leur forme récursive habituelle: la classe \texttt{Node} représente un sommet, incluant les données qui lui sont attachées, et les arcs sortants vers les successeurs du sommet, à leur tour représentés par des instances de \texttt{Node}.
-Dans les graphes orientés acycliques qui ne sont pas des graphes, les sommets ayant plusieurs prédécesseurs sont représentés en faisant pointer plusieurs sommets vers le même objet en mémoire.
-Les forêts peuvent être représentées avec la classe \texttt{Hedge}, qui leur attache un sommet artificiel faisant office de racine.
+Graphs are represented in their usual recursive form: the \texttt{Node} class represents a node, including the data attached to it, and the outgoing arcs towards the successors of the node, themselves represented by instances of \texttt{Node}.
+In directed acyclic graphs that are not trees, nodes with several predecessors are represented by making several nodes point to the same object in memory.
+Forests can be represented with the \texttt{Hedge} class, which attaches to them an artificial node acting as a root.
 
-Un \emph{curseur} peut être créé à partir de n’importe quel sommet.
-Ce curseur permet de se déplacer librement dans le graphe en gardant trace du contexte autour du sommet actuel.
-Grâce à cette structure, il est possible de réaliser des modifications locales de l’arbre ou du graphe en temps constant, malgré le caractère immuable de la structure (voir le \cref{lst:logiciel:sowing-ex} pour un exemple).
-Cette structure est basée sur le principe du \emph{zipper} introduit par \textcite{Huet1997Zipper}.
+A \emph{cursor} can be created from any node.
+This cursor makes it possible to move freely in the graph while keeping track of the context around the current node.
+Thanks to this structure, it is possible to perform local modifications of the tree or graph in constant time, despite the immutable nature of the structure (see \cref{lst:logiciel:sowing-ex} for an example).
+This structure is based on the \emph{zipper} principle introduced by \textcite{Huet1997Zipper}.
 
 \begin{listing}[h]
 \begin{minted}{python}
@@ -27,10 +27,10 @@ def display(root: Node, leaves: set[str]) -> Node:
   def filter_tree(cursor: Zipper) -> Zipper:
     node = cursor.node
     if cursor.is_leaf() and node.data["name"] not in leaves:
-      # suppression des feuilles visées
+      # removal of the targeted leaves
       return cursor.replace(node=None)
     if len(node.edges) == 1:
-      # contraction des sommets unaires
+      # contraction of unary nodes
       return cursor.replace(node=node.edges[0].node)
     return cursor
   return traversal.fold(filter_tree, traversal.depth(root))
@@ -38,27 +38,27 @@ def display(root: Node, leaves: set[str]) -> Node:
 tree = newick.parse("((a,b,c),(d,e));")
 disp = display(tree, {"a", "b", "d"})
 newick.write(disp)
-# résultat: ((a,b),d);
+# result: ((a,b),d);
 \end{minted}
-    \caption[Utilisation de la bibliothèque \emph{sowing} pour modifier un arbre]{
-        Fonction réalisant la contraction d’un arbre pour garder un ensemble de feuilles donné.
-        Malgré le caractère immuable de la structure de données, cette fonction utilise un temps et un espace en \(\bigo(n)\), où \(n\) est le nombre de sommets dans l’arbre initial.
+    \caption[Using the \emph{sowing} library to modify a tree]{
+        Function that contracts a tree to keep a given set of leaves.
+        Despite the immutable nature of the data structure, this function uses \(\bigo(n)\) time and space, where \(n\) is the number of nodes in the initial tree.
         \label{lst:logiciel:sowing-ex}
     }
 \end{listing}
 
-Les fonctionnalités de \emph{sowing} sont réparties entre plusieurs modules.
+The features of \emph{sowing} are divided among several modules.
 
 \begin{itemize}
-    \item \textbf{\texttt{sowing.node}}, \textbf{\texttt{sowing.zipper}}, \textbf{\texttt{sowing.hedge}} contiennent la structure de données principale au travers des classes \texttt{Node}, \texttt{Zipper} et \texttt{Hedge}.
-    \item \textbf{\texttt{sowing.indexed}} définit \texttt{IndexedTree}, une structure qui enveloppe un arbre étiqueté pour permettre d’accéder en temps constant à n’importe lequel de ses sommets par son étiquette. 
-        Cette structure permet également de réaliser les opérations suivantes en temps constant: vérifier si deux sommets sont ancêtres l’un de l’autre, calculer la distance entre deux sommets et identifier le plus récent ancêtre commun ou \emph{lca} de deux sommets.
-        Cette structure est basée sur un prétraitement en temps linéarithmique décrit par \textcite{Bender2000LcaProblemRevisited}.
-    \item \textbf{\texttt{sowing.traversal}} fournit des itérateurs permettant de traverser une structure d’arbre ou de graphe orienté acyclique selon différents ordres: en profondeur préfixe ou postfixe, en ordre topologique ou en ordre de Euler.
-        Les fonctions \texttt{fold} et \texttt{map} permettent de modifier un arbre en temps linéaire suivant n’importe lequel de ces ordres de parcours.
-    \item \textbf{\texttt{sowing.repr}} permet de charger ou de sérialiser des arbres et
-        des graphes orientés acycliques dans plusieurs formats: Newick \parencite{Felsenstein1986NewickTreeFormat}, JSON ou DOT (Graphviz).
-    \item \textbf{\texttt{sowing.comb.binary}} permet d’énumérer les résolutions d’un arbre non binaire sans considérer l’ordre des successeurs des différents sommets.
-    \item \textbf{\texttt{sowing.comb.supertree}} implémente l’algorithme de \textcite{Ng1996ReconstructionRootedTrees} pour construire des superarbres étendant plusieurs arbres phylogénétiques.
+    \item \textbf{\texttt{sowing.node}}, \textbf{\texttt{sowing.zipper}}, \textbf{\texttt{sowing.hedge}} contain the main data structure through the classes \texttt{Node}, \texttt{Zipper} and \texttt{Hedge}.
+    \item \textbf{\texttt{sowing.indexed}} defines \texttt{IndexedTree}, a structure that wraps a labelled tree to allow constant-time access to any of its nodes by its label.
+        This structure also makes it possible to perform the following operations in constant time: check whether two nodes are ancestors of one another, compute the distance between two nodes and identify the lowest common ancestor or \emph{lca} of two nodes.
+        This structure is based on a linearithmic-time preprocessing described by \textcite{Bender2000LcaProblemRevisited}.
+    \item \textbf{\texttt{sowing.traversal}} provides iterators for traversing a tree or directed acyclic graph structure in different orders: depth-first preorder or postorder, topological order or Euler order.
+        The \texttt{fold} and \texttt{map} functions make it possible to modify a tree in linear time following any of these traversal orders.
+    \item \textbf{\texttt{sowing.repr}} makes it possible to load or serialize trees and
+        directed acyclic graphs in several formats: Newick \parencite{Felsenstein1986NewickTreeFormat}, JSON or DOT (Graphviz).
+    \item \textbf{\texttt{sowing.comb.binary}} makes it possible to enumerate the resolutions of a non-binary tree without considering the order of the successors of the different nodes.
+    \item \textbf{\texttt{sowing.comb.supertree}} implements the algorithm of \textcite{Ng1996ReconstructionRootedTrees} for building supertrees that extend several phylogenetic trees.
 \end{itemize}
 

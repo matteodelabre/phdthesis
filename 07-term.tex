@@ -1,38 +1,39 @@
 %! TeX root = ./main.tex
-% vim: set spelllang=fr:
-\selectlanguage{french}
+% vim: set spelllang=en:
+\selectlanguage{english}
 \twocolumn
-\chapter*{Objets et notations}
-\addcontentsline{toc}{chapter}{Objets et notations}
-\markboth{\textsc{objets et notations}}{}
+\chapter*{Objects and notation}
+\addcontentsline{toc}{chapter}{Objects and notation}
+\markboth{\textsc{objects and notation}}{}
 
-\paragraph{Graphes}
-Un graphe~\(G\) est formé sur un ensemble de \emph{sommets}~\(\tnodes(G)\) reliés par un ensemble d’\emph{arêtes} ou d’\emph{arcs}~\(\tedges(G)\).
-Une arête reliant deux sommets~\(a\) et~\(b\) est notée~\(\{a, b\}\).
-Un arc ayant pour origine~\(a\) et pour terminaison~\(b\) est noté~\((a, b)\).
+\paragraph{Graphs}
+A graph~\(G\) is formed on a set of \emph{vertices}~\(\tnodes(G)\) connected by a set of
+\emph{edges} or \emph{arcs} denoted~\(\tedges(G)\).
+An edge connecting two vertices~\(a\) and~\(b\) is denoted~\(\{a, b\}\).
+An arc starting at~\(a\) and ending at~\(b\) is denoted~\((a, b)\).
 
-\paragraph{Arbres}
-L’ensemble des sommets d’un arbre~\(T\) est partitionné entre les \emph{feuilles} \(\tleavs(T)\) et les \emph{embranchements} \(\tinner(T)\).
-Un arbre \emph{enraciné} est muni d’une racine \(\troot(T) \in \tnodes(T)\) et formé d’arcs orientés dans la direction opposée à la racine.
-Un arbre \(T'\) \emph{affiche} \(T\) si \(T\) est un mineur de \(T'\).
-Une \emph{forêt} est une union disjointe d’arbres.
+\paragraph{Trees}
+The set of vertices of a tree~\(T\) is partitioned into the \emph{leaves} \(\tleavs(T)\) and the \emph{internal nodes} \(\tinner(T)\).
+A \emph{rooted} tree has a root \(\troot(T) \in \tnodes(T)\) and is formed of arcs directed away from the root.
+A tree \(T'\) \emph{displays} \(T\) if \(T\) is a minor of~\(T'\).
+A \emph{forest} is a disjoint union of trees.
 
-\paragraph{Chemins}
-L’ensemble des arêtes ou arcs composant le plus court \emph{chemin} entre deux sommets \(v\) et \(w\) est noté \(\tpath{v}{w}\).
-Le cardinal de cet ensemble définit la \emph{distance} entre \(v\) et \(w\), notée \(\tdist(v, w)\).
+\paragraph{Paths}
+The set of edges or arcs making up the shortest \emph{path} between two vertices \(v\) and \(w\) is denoted \(\tpath{v}{w}\).
+The cardinality of this set defines the \emph{distance} between \(v\) and \(w\), denoted \(\tdist(v, w)\).
 
 \vfill\break
-\paragraph{Parenté}
-Dans un arbre enraciné \(T\), le parent d’un sommet \(v\) différent de \(\troot(T)\) est son unique prédécesseur, noté \(\tparent(v)\).
-L’ensemble des successeurs d’un embranchement \(v\), appelés ses \emph{enfants}, est noté \(\children(v)\).
-Ces enfants sont notés \(v\lchild\) et \(v\rchild\) s’ils sont deux ou \(v\child\) s’il est unique ou s’il est arbitraire.
-L’arbre est \emph{binaire} si le degré sortant de tous les embranchements vaut deux et \emph{partiellement binaire} s’il vaut un ou deux.
+\paragraph{Parenthood}
+In a rooted tree \(T\), the parent of a vertex \(v\) other than \(\troot(T)\) is its unique predecessor, denoted \(\tparent(v)\).
+The set of successors of an internal node \(v\), called its \emph{children}, is denoted \(\children(v)\).
+These children are denoted \(v\lchild\) and \(v\rchild\) if there are two of them, or \(v\child\) if there is only one or if it is arbitrary.
+The tree is \emph{binary} if the out-degree of all internal nodes is two, and \emph{partially binary} if it is one or two.
 
-\paragraph{Descendance}
-Si un sommet \(v\) est sur le chemin menant d’une racine à un sommet \(w\), incluant~\(w\) lui-même, alors \(v\) est un \emph{ancêtre} de~\(w\), noté \(v \tancs w\), et \(w\)~est un \emph{descendant} de \(v\), noté \(w \tdesc v\).
-Lorsque \(v\) et \(w\) ne sont pas comparables par \(\tdesc\), ils sont dits \emph{séparés}, noté \(v \nottcomp w\).
-Le plus récent ancêtre commun~(ou \emph{lca}) d’un ensemble de sommets \(\{v_1, …, v_n\}\) est leur ancêtre le plus éloigné de la racine, noté \(\lca\{v_1, …, v_n\}\).
-Le sous-arbre de \(T\) en \(v\), noté \(\subtree{T}{v}\), est le sous-graphe de \(T\) formé des descendants de \(v\).
+\paragraph{Descent}
+If a vertex \(v\) is on the path leading from a root to a vertex \(w\), including~\(w\) itself, then \(v\) is an \emph{ancestor} of~\(w\), denoted \(v \tancs w\), and \(w\)~is a \emph{descendant} of \(v\), denoted \(w \tdesc v\).
+When \(v\) and \(w\) are not comparable by \(\tdesc\), they are said to be \emph{separated}, denoted \(v \nottcomp w\).
+The lowest common ancestor~(or \emph{lca}) of a set of vertices \(\{v_1, …, v_n\}\) is their ancestor furthest from the root, denoted \(\lca\{v_1, …, v_n\}\).
+The subtree of \(T\) at \(v\), denoted \(\subtree{T}{v}\), is the subgraph of \(T\) formed by the descendants of \(v\).
 
 % power set
 

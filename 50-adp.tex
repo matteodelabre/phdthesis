@@ -1,30 +1,29 @@
 %! TeX root = ./main.tex
-% vim: set spelllang=en,fr:
-\selectlanguage{french}
-\chapter{Théorie unifiée de la programmation dynamique algébrique}\label{chap:adp}
+% vim: set spelllang=en:
+\chapter{Unified theory of algebraic dynamic programming}\label{chap:adp}
 
-La bio-informatique repose sur de nombreux algorithmes de programmation dynamique permettant de résoudre efficacement des problèmes d’optimisation combinatoire.
-La réconciliation phylogénétique, comme il a été démontré dans les chapitres précédents, ne fait pas exception à cette règle.
-Plusieurs défis sont reliés à la conception de tels algorithmes.
-D’une part, il existe souvent une quantité exponentielle de solutions optimales à un problème donné, parfois accompagnées d’un certain nombre d’hyperparamètres qui doivent être déterminés pour pouvoir exécuter l’algorithme.
-Cette réalité amène des besoins algorithmiques supplémentaires : énumération et échantillonnage de solutions représentatives, caractérisation des solutions proches de l’optimalité, calcul de statistiques sur ces solutions et exploration efficace des hyperparamètres.
-D’autre part, les algorithmes conçus sont de plus en plus techniques, requérant parfois plusieurs pages d’équations pour être décrits et encore davantage pour être démontrés corrects.
+Bioinformatics relies on numerous dynamic programming algorithms that make it possible to efficiently solve combinatorial optimization problems.
+Phylogenetic reconciliation, as has been shown in the previous chapters, is no exception to this rule.
+Several challenges are related to the design of such algorithms.
+On the one hand, there is often an exponential number of optimal solutions to a given problem, sometimes accompanied by a number of hyperparameters that must be determined in order to run the algorithm.
+This reality brings additional algorithmic needs: enumeration and sampling of representative solutions, characterization of near-optimal solutions, computation of statistics on these solutions and efficient exploration of hyperparameters.
+On the other hand, the algorithms designed are increasingly technical, sometimes requiring several pages of equations to be described and even more to be proven correct.
 
-L’approche \emph{algébrique} de la programmation dynamique, popularisée par
-\textcite{Giegerich2004DisciplineDynamicProgramming} dans le domaine de la bio-informatique, vise à offrir un niveau d’abstraction plus élevé afin de faciliter le développement de nouveaux algorithmes.
-Cette abstraction permet de résoudre les questions d’analyse de l’espace des solutions d’une manière générique qui peut par la suite être appliquée à une large variété de problèmes.
-Elle permet aussi, à terme, de concevoir des algorithmes de programmation dynamique complexes en les séparant en sous-tâches plus élémentaires, permettant ainsi de leur appliquer l’un des principes fondamentaux de l’informatique.
+The \emph{algebraic} approach to dynamic programming, popularized by
+\textcite{Giegerich2004DisciplineDynamicProgramming} in the field of bioinformatics, aims to offer a higher level of abstraction in order to facilitate the development of new algorithms.
+This abstraction makes it possible to answer questions about the analysis of the solution space in a generic way that can subsequently be applied to a wide variety of problems.
+It also makes it possible, in the long run, to design complex dynamic programming algorithms by separating them into more elementary subtasks, thus making it possible to apply one of the fundamental principles of computer science to them.
 
-Les développements, relativement récents, reliés à la programmation dynamique algébrique sont toutefois rendus peu accessibles par l’absence d’une ressource présentant une théorie cohérente du domaine.
-Plusieurs résultats importants ont ainsi été redécouverts par plusieurs groupes d’auteurs distincts et isolés.
-L’objet de ce chapitre est de contribuer à bâtir une telle ressource.
+The relatively recent developments related to algebraic dynamic programming are, however, made hardly accessible by the absence of a resource presenting a coherent theory of the field.
+Several important results have thus been rediscovered by several distinct and isolated groups of authors.
+The purpose of this chapter is to contribute to building such a resource.
 
-\emph{La suite de ce chapitre, présentée en anglais, est une adaptation d’un article dont les informations sont présentées ci-dessous.}
+\emph{The remainder of this chapter is an adaptation of an article whose details are given below.}
 
 \articlemetasingle%
     {A unifying theory of algebraic dynamic programming}%
-    {Entre juillet~2025 et avril~2026}%
-    {Non publié, prêt à être soumis. Une version préliminaire a été présentée lors de l’atelier \enquote{Novel Mathematical Paradigm for Phylogenomics} à la \emph{Banff International Research Station} en août~2025}%
+    {Between July~2025 and April~2026}%
+    {Unpublished, ready to be submitted. A preliminary version was presented at the \enquote{Novel Mathematical Paradigm for Phylogenomics} workshop at the \emph{Banff International Research Station} in August~2025}%
     {& Mattéo \textsc{Delabre}}
 \selectlanguage{english}
 

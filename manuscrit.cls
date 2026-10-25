@@ -16,8 +16,7 @@
 
 \RequirePackage[autostyle=true]{csquotes}
 \RequirePackage{polyglossia}
-\setmainlanguage{french}
-\setotherlanguage{english}
+\setmainlanguage{english}
 
 % Bibliographie
 
@@ -370,7 +369,7 @@
     \large\emph{\@subtitle}\par}
 
     \vfill
-    par
+    by
 
     {\personref{\@author}\par}
 
@@ -402,32 +401,33 @@
     \@school
 
     \vfill
-    Cette thèse intitulée
+    This thesis entitled
 
     \vfill
     {\Large\textbf{\@title}\\[.1em]
     \large\emph{\@subtitle}\par}
 
     \vfill
-    présentée par
+    presented by
 
     \personref{\@author}
 
     \vfill
-    a été évaluée par un jury composé des personnes suivantes
+    was evaluated, in its original French version,\\
+    by a jury composed of the following people
 
     \vspace{1ex}
     \personref{\@jurypres}\\
-    Présidente rapporteuse
+    Chair and rapporteur
 
     \personref{\@jurydirec}\\
-    Directrice de recherche
+    Supervisor
 
     \personref{\@jurymember}\\
-    Membre du jury
+    Member of the jury
 
     \personref{\@juryext}\\
-    Examinatrice externe
+    External examiner
 
     \clearpage
 }}
@@ -436,31 +436,31 @@
 \newcommand{\@articlemeta}[5]{%
     \begin{tabular*}{\textwidth}{rp{3.5cm}p{7.5cm}@{\extracolsep{\fill}}}
         \toprule
-        \textsc{titre original} &
+        \textsc{original title} &
         \multicolumn{2}{l}{\emph{\textenglish{#2}}} \\
         \midrule
-        \textsc{date d’écriture} &
+        \textsc{date of writing} &
         \multicolumn{2}{l}{#3} \\
         \midrule
-        \textsc{dissémination} &
+        \textsc{dissemination} &
         \multicolumn{2}{p{11.5cm}}{#4} \\
         \midrule
         #1 #5 \\
         \bottomrule
     \end{tabular*}%
 }
-\newcommand{\articlemetasingle}{\@articlemeta{\textsc{auteur}}}
-\newcommand{\articlemeta}{\@articlemeta{\makecell[tr]{\textsc{auteur.e.s et}\\[-.5ex]\textsc{contributions}}}}
+\newcommand{\articlemetasingle}{\@articlemeta{\textsc{author}}}
+\newcommand{\articlemeta}{\@articlemeta{\makecell[tr]{\textsc{authors and}\\[-.5ex]\textsc{contributions}}}}
 
 %% Métadonnées de programmes
 \newcommand{\programdetails}[3]{%
     \begin{tabular*}{\textwidth}{rl@{\extracolsep{\fill}}}
         \toprule
-        \textsc{code disponible} & \url{#1}\\
+        \textsc{source code} & \url{#1}\\
         \midrule
-        \textsc{développement} & #3 \\
+        \textsc{development} & #3 \\
         \midrule
-        \textsc{sous licence} & #2 \\
+        \textsc{licensed under} & #2 \\
         \bottomrule
     \end{tabular*}%
 }

@@ -1,35 +1,34 @@
 %! TeX root = ./main.tex
-% vim: set spelllang=en,fr:
-\selectlanguage{french}
-\chapter{Synesth: réconciliation segmentale avec hôtes non échantillonnés}\label{chap:synesth}
+% vim: set spelllang=en:
+\chapter{Synesth: segmental reconciliation with unsampled hosts}\label{chap:synesth}
 
-L’une des limites de la méthode proposée au chapitre précédent est qu’elle ignore les interactions possibles entre les unités étudiées et des hôtes qui ne font pas partie de l’échantillon choisi, par exemple parce qu’ils appartiennent à une lignée qui s’est éteinte depuis lors.
-Dans le contexte de la réconciliation avec transferts horizontaux, de telles interactions sont possibles: une unité pourrait être transférée d’un hôte \(A\), ancêtre d’un hôte échantillonné, vers un hôte \(B\) inconnu, puis à nouveau transféré vers un descendant \(C \tdesc A\).
-Sous le modèle précédent, ce scénario serait interprété comme une série d’autant de spéciations et de pertes que d’hôtes ancestraux qui séparent \(A\) de \(C\), ce qui peut avoir tendance à écarter artificiellement ce type de possibilité.
-Cette problématique a été étudiée par plusieurs auteurs dans le contexte de la réconciliation bilatérale, par exemple récemment par \textcite{Weiner2021ImprovedDuplicationTransfer}.
-Nous verrons dans ce chapitre comment étendre le modèle pour prendre en compte cette possibilité.
+One of the limitations of the method proposed in the previous chapter is that it ignores the possible interactions between the studied units and hosts that are not part of the chosen sample, for example because they belong to a lineage that has since gone extinct.
+In the context of reconciliation with horizontal transfers, such interactions are possible: a unit could be transferred from a host \(A\), an ancestor of a sampled host, to an unknown host \(B\), then transferred again to a descendant \(C \tdesc A\).
+Under the previous model, this scenario would be interpreted as a series of as many speciations and losses as there are ancestral hosts separating \(A\) from \(C\), which may tend to artificially rule out this type of possibility.
+This issue has been studied by several authors in the context of bilateral reconciliation, for example recently by \textcite{Weiner2021ImprovedDuplicationTransfer}.
+We will see in this chapter how to extend the model to take this possibility into account.
 
-Nous montrons également comment intégrer un nouveau type d’événement de \emph{scission} dans le modèle, suivant lequel une synténie se partitionne en deux synténies disjointes.
-Cet événement additionnel, suggéré par Russell~\textsc{Schwartz} lors de discussions à la conférence RECOMB~2022, permet de mieux prendre en compte la réalité évolutive des synténies.
+We also show how to integrate a new type of \emph{fission} event into the model, whereby a synteny is partitioned into two disjoint syntenies.
+This additional event, suggested by Russell~\textsc{Schwartz} during discussions at the RECOMB~2022 conference, makes it possible to better account for the evolutionary reality of syntenies.
 
-Finalement, un autre enjeu important est le besoin d’estimer des coûts pour les différents types d’événements du modèle.
-En pratique, la valeur exacte des coûts a une influence importante sur la teneur des scénarios inférés, alors même que les procédures d’estimation de ces coûts peuvent avoir une certaine incertitude.
-Il devient alors pertinent de qualifier précisément l’impact des variations des coûts sur les résultats.
-Une possibilité coûteuse et imprécise, utilisée pour le \cref{tab:superdtl:sol-count}, consiste à échantillonner l’espace des coûts et à exécuter l’algorithme pour chacun des choix, une méthode qui s’apparente au \emph{grid search} en apprentissage automatique.
-Une approche préférable consiste à caractériser l’espace des solutions Pareto-optimales, c’est-à-dire des solutions dont le nombre d’événements de chaque type fait qu’il existe un certain ensemble de coûts qui les rendent meilleures que les autres.
+Finally, another important issue is the need to estimate costs for the different event types of the model.
+In practice, the exact value of the costs has a significant influence on the content of the inferred scenarios, even though the procedures for estimating these costs may carry some uncertainty.
+It then becomes relevant to precisely characterize the impact of cost variations on the results.
+A costly and imprecise possibility, used for \cref{tab:superdtl:sol-count}, consists in sampling the cost space and running the algorithm for each of the choices, a method akin to \emph{grid search} in machine learning.
+A preferable approach consists in characterizing the space of Pareto-optimal solutions, that is, of solutions whose number of events of each type is such that there exists some set of costs that makes them better than the others.
 
-En nous appuyant sur les travaux de \textcite{LibeskindHadas2014ParetoOptimalPhylogenetic}, nous montrons qu’il est possible de brosser efficacement le \emph{paysage} des scénarios de réconciliation segmentale pour une certaine instance, indépendamment de tout choix de coûts spécifiques.
-Pour ce faire, nous procédons à une étude combinatoire de l’espace des réconciliations segmentales sous ce modèle étendu.
+Building on the work of \textcite{LibeskindHadas2014ParetoOptimalPhylogenetic}, we show that it is possible to efficiently sketch the \emph{landscape} of segmental reconciliation scenarios for a given instance, independently of any choice of specific costs.
+To do so, we carry out a combinatorial study of the space of segmental reconciliations under this extended model.
 
-\emph{La suite de ce chapitre, présentée en anglais, est une adaptation d’un article dont les informations sont présentées ci-dessous. Des modifications de nature éditoriale ont été apportées par rapport à la version publiée afin notamment de faire correspondre les notations avec celles utilisées dans le reste de ce manuscrit.}
+\emph{The remainder of this chapter is an adaptation of an article whose details are given below. Editorial changes have been made with respect to the published version, notably to make the notation consistent with that used in the rest of this manuscript.}
 
 \articlemeta%
     {Synesth: Comprehensive syntenic reconciliation with unsampled lineages}%
-    {Entre octobre~2022 et décembre~2023}%
-    {Publié en avril~2024 dans le journal \emph{Algorithms} chez MDPI}%
-    {& Mattéo \textsc{Delabre} & Extension du modèle, développement de l’algorithme associé, preuves de correction et d’efficacité, implémentation de l’algorithme, réalisation des figures, analyse des résultats \\
+    {Between October~2022 and December~2023}%
+    {Published in April~2024 in the journal \emph{Algorithms} by MDPI}%
+    {& Mattéo \textsc{Delabre} & Extension of the model, development of the associated algorithm, proofs of correctness and efficiency, implementation of the algorithm, production of the figures, analysis of the results \\
     \cmidrule(l){2-3}
-    & Nadia \textsc{El-Mabrouk} & Supervision, idéation, aide à la structuration et à l’ébauche du texte, relecture}
+    & Nadia \textsc{El-Mabrouk} & Supervision, ideation, help with structuring and drafting the text, proofreading}
 \selectlanguage{english}
 
 \newcommand{\augS}{\speciesTree^*}

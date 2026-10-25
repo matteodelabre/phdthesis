@@ -1,27 +1,26 @@
 %! TeX root = ./main.tex
-% vim: set spelllang=fr:
-\selectlanguage{french}
-\section{Comparaison et perspectives}
+% vim: set spelllang=en:
+\section{Comparison and perspectives}
 
-Dans ce chapitre ont été présentées deux approches généralisant la réconciliation bilatérale à des contextes où plusieurs unités dépendantes évoluent conjointement.
-Ce cas de figure se présente lorsque de multiples gènes évoluent ensemble le long d’un génome.
-Le principe général consiste à intégrer un niveau intermédiaire dans la hiérarchie évolutive, décrivant l’évolution d’adjacences (DeCo) ou de segments porteurs d’ensembles d’unités (super-réconciliation).
+This chapter presented two approaches generalizing bilateral reconciliation to contexts where several dependent units evolve jointly.
+This situation arises when multiple genes evolve together along a genome.
+The general principle consists in integrating an intermediate level into the evolutionary hierarchy, describing the evolution of adjacencies (DeCo) or of segments carrying sets of units (super-reconciliation).
 
-L’approche DeCo permet de modéliser des événements qui affectent des paires d’unités voisines, incluant notamment des réarrangements.
-D’un point de vue algorithmique, elle consiste à réconcilier individuellement les arbres phylogénétiques de chaque unité, puis à rassembler des paires de sommets pour former une forêt d’adjacences.
-Chaque racine de cette forêt correspond au gain d’une adjacence qui se propage ensuite dans sa descendance.
-L’objectif est de minimiser le nombre de racines, c’est-à-dire le nombre de gains d’adjacences.
-Le statut de complexité du problème est encore inconnu, quoiqu’il ait été conjecturé NP-complet, mais un algorithme polynomial existe lorsque les réconciliations individuelles sont fixées en avance.
-La modélisation à l’échelle des adjacences impose des limites sur les événements pouvant être pris en compte, puisqu’elle exclut les événements qui affectent simultanément plus de deux unités.
-Par ailleurs, un résultat optimal peut comporter des structures non linéaires, dans lesquelles une unité est voisine d’au moins trois autres, incompatibles avec les structures linéaires ou circulaires des génomes.
+The DeCo approach makes it possible to model events that affect pairs of neighbouring units, notably including rearrangements.
+From an algorithmic point of view, it consists in individually reconciling the phylogenetic trees of each unit, then gathering pairs of nodes to form an adjacency forest.
+Each root of this forest corresponds to the gain of an adjacency that then propagates to its descendants.
+The objective is to minimize the number of roots, that is, the number of adjacency gains.
+The complexity status of the problem is still unknown, although it has been conjectured to be NP-complete, but a polynomial algorithm exists when the individual reconciliations are fixed in advance.
+Modelling at the scale of adjacencies imposes limits on the events that can be taken into account, since it excludes events that simultaneously affect more than two units.
+Moreover, an optimal result may contain non-linear structures, in which a unit is a neighbour of at least three others, that are incompatible with the linear or circular structures of genomes.
 
-La super-réconciliation propose un paradigme similaire, basé sur l’évolution de segments joignant un nombre quelconque d’unités.
-Cette extension permet de modéliser des événements segmentaux affectant plusieurs unités.
-De la même façon que pour DeCo, l’objectif algorithmique est de construire un arbre dans lequel chaque sommet rassemble des segments de sommets issus de réconciliations individuelles.
-La structure reconstruite ici est un arbre et non une forêt, car il est supposé que tous les segments dérivent d’un segment ancestral unique.
-Le problème d’optimisation combinatoire associé est NP-complet dans sa version générale, lorsque la topologie de l’arbre de synténies est inconnue.
-Si la topologie est fixée, la complexité est inconnue dans la déclinaison du problème avec des segments, et polynomiale dans sa déclinaison avec des groupes.
+Super-reconciliation offers a similar paradigm, based on the evolution of segments joining an arbitrary number of units.
+This extension makes it possible to model segmental events affecting several units.
+In the same way as for DeCo, the algorithmic objective is to build a tree in which each node gathers segments of nodes coming from individual reconciliations.
+The structure reconstructed here is a tree and not a forest, since it is assumed that all segments derive from a unique ancestral segment.
+The associated combinatorial optimization problem is NP-complete in its general version, when the topology of the synteny tree is unknown.
+If the topology is fixed, the complexity is unknown for the variant of the problem with segments, and polynomial for its variant with groups.
 
-Précédemment, la super-réconciliation était limitée au modèle d’événements \(\recmodelDL\).
-Dans la suite de ce manuscrit, nous montrerons comment cette approche peut être étendue jusqu’au modèle \(\recmodelDTLx\), en intégrant des événements de transfert horizontal et en prenant en compte les interactions avec des hôtes non échantillonnés.
-Nous étudierons également le potentiel de ce modèle étendu pour l’analyse de l’évolution de systèmes biologiques au travers de plusieurs applications.
+Previously, super-reconciliation was limited to the \(\recmodelDL\) event model.
+In the remainder of this manuscript, we will show how this approach can be extended up to the \(\recmodelDTLx\) model, by integrating horizontal transfer events and by taking into account interactions with unsampled hosts.
+We will also study the potential of this extended model for analysing the evolution of biological systems through several applications.

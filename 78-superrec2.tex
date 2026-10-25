@@ -1,29 +1,29 @@
 %! TeX root = ./main.tex
-% vim: set spelllang=fr:
-\section{superrec2 --- Algorithmes de réconciliation segmentale}\label{sec:logiciel:superrec2}
-\programdetails{https://github.com/UdeM-LBIT/superrec2}{GPL v3.0}{Entre février~2021 et avril~2026, 4\,000 lignes de code}
+% vim: set spelllang=en:
+\section{superrec2 --- Segmental reconciliation algorithms}\label{sec:logiciel:superrec2}
+\programdetails{https://github.com/UdeM-LBIT/superrec2}{GPL v3.0}{Between February~2021 and April~2026, 4\,000 lines of code}
 
-Le logiciel \emph{superrec2}, implémenté en Python, a servi de banc d’essai pour la mise au point et l’application des différents algorithmes de réconciliation segmentale présentés dans ce manuscrit.
-À ce titre, plusieurs problèmes adjacents y sont résolus en plus de l’implémentation des algorithmes en tant que tels:
+The \emph{superrec2} software, implemented in Python, served as a testbed for the development and application of the various segmental reconciliation algorithms presented in this manuscript.
+As such, several adjacent problems are solved in it in addition to the implementation of the algorithms themselves:
 
 \begin{compactitemize}
-    \item la modélisation des scénarios de réconciliation segmentale et leur représentation sous forme textuelle pour permettre la sauvegarde des résultats des algorithmes;
-    \item la validation de ces scénarios afin de vérifier expérimentalement que les résultats produits par les algorithmes sont cohérents avec les modèles définis;
-    \item la représentation visuelle des scénarios afin de permettre leur inspection.
+    \item modelling segmental reconciliation scenarios and representing them in textual form to allow the results of the algorithms to be saved;
+    \item validating these scenarios in order to experimentally check that the results produced by the algorithms are consistent with the defined models;
+    \item visually representing the scenarios to allow their inspection.
 \end{compactitemize}
 
-Le module \textbf{\texttt{superrec2.render}} et le programme de ligne de commande \textbf{\texttt{superrec2 draw}} permettent de charger un scénario de réconciliation bilatérale ou segmentale et d’en générer une représentation visuelle suivant les conventions adoptées dans les figures \cref{fig:reconciliation:rec-trees,fig:reconciliation:rec-dtlx,fig:reconciliation:time-cons,fig:evol-history-example,fig:superdtl:2-steps-ct-ex,fig:superdtl:crispr-scenario,fig:synesth:example,fig:synesth:crispr-sol,fig:adp-rec:rec-input,fig:adp-rec:syn-solution-best}.
-Pour ce faire, les événements de l’arbre réconcilié doivent être disposés le long de l’arbre des hôtes en s’assurant qu’un espace suffisant soit réservé pour chacun.
-Le programme produit un fragment de document {\LaTeX} qui génère le diagramme en s’intégrant dans un document.
-D’autres programmes existent pour la visualisation de scénarios de réconciliation (voir \cite{Menet2022PhylogeneticReconciliation} pour une revue récente des différentes options) mais, autant que nous le sachions, aucun ne permet la visualisation de réconciliations segmentales.
+The \textbf{\texttt{superrec2.render}} module and the \textbf{\texttt{superrec2 draw}} command-line program make it possible to load a bilateral or segmental reconciliation scenario and to generate a visual representation of it following the conventions adopted in \cref{fig:reconciliation:rec-trees,fig:reconciliation:rec-dtlx,fig:reconciliation:time-cons,fig:evol-history-example,fig:superdtl:2-steps-ct-ex,fig:superdtl:crispr-scenario,fig:synesth:example,fig:synesth:crispr-sol,fig:adp-rec:rec-input,fig:adp-rec:syn-solution-best}.
+To do so, the events of the reconciled tree must be laid out along the host tree while ensuring that sufficient space is reserved for each of them.
+The program produces a {\LaTeX} document fragment that generates the diagram when integrated into a document.
+Other programs exist for visualizing reconciliation scenarios (see \cite{Menet2022PhylogeneticReconciliation} for a recent review of the different options) but, as far as we know, none allows the visualization of segmental reconciliations.
 
-Lorsque le scénario est temporellement cohérent (voir \cref{def:reconciliation:time-cons}), le programme s’assure de positionner les événements de sorte que tous les transferts horizontaux soient représentés par des arcs réellement horizontaux.
-Sinon, le programme tente par une approche vorace de représenter ainsi le plus de transferts possible et marque en rouge ceux pour lesquels il n’y est pas parvenu.
-Cette partie du programme a été écrite en collaboration avec Arnaud~\textsc{Grandisson}.
+When the scenario is time-consistent (see \cref{def:reconciliation:time-cons}), the program makes sure to position the events such that all horizontal transfers are represented by truly horizontal arcs.
+Otherwise, the program attempts, through a greedy approach, to represent as many transfers as possible in this way and marks in red those for which it did not succeed.
+This part of the program was written in collaboration with Arnaud~\textsc{Grandisson}.
 
-Le module \textbf{\texttt{superrec2.compute}} et le programme de ligne de commande \texttt{\textbf{superrec2 reconcile}} permettent d’exécuter l’algorithme décrit au \cref{chap:adp-rec}.
-Ce programme permet d’appliquer différentes algèbres pour le calcul des solutions de coût minimal ou de l’ensemble des vecteurs Pareto-optimaux.
-Il peut également énumérer les solutions ou les échantillonner de manière aléatoire et uniforme ou selon une distribution de Boltzmann dont la température peut être paramétrée.
-Des statistiques sur l’espace des solutions peuvent également être produites.
+The \textbf{\texttt{superrec2.compute}} module and the \texttt{\textbf{superrec2 reconcile}} command-line program make it possible to run the algorithm described in \cref{chap:adp-rec}.
+This program makes it possible to apply different algebras for computing minimum-cost solutions or the set of Pareto-optimal vectors.
+It can also enumerate the solutions or sample them randomly, either uniformly or according to a Boltzmann distribution whose temperature can be parameterized.
+Statistics on the solution space can also be produced.
 
-Le logiciel se base sur la bibliothèque \emph{sowing} pour la représentation des arbres manipulés et sur la bibliothèque \emph{padapto} pour l’implémentation des algorithmes sous l’approche algébrique.
+The software relies on the \emph{sowing} library for representing the manipulated trees and on the \emph{padapto} library for implementing the algorithms under the algebraic approach.
